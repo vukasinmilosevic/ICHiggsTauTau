@@ -1,5 +1,5 @@
 from WMCore.Configuration import Configuration
-prod ='161031'     #!!TO BE UPDATED ON EACH PROCESSING
+prod ='170201'     #!!TO BE UPDATED ON EACH PROCESSING
 config = Configuration()
 
 config.section_('General')
@@ -66,8 +66,9 @@ if __name__ == '__main__':
 
     #!!To be checked on each processing
     rerecoparams=['isData=1','doHT=0','release=80XMINIAOD', 'globalTag=80X_dataRun2_2016SeptRepro_v6'] #to be frequently updated from https://twiki.cern.ch/twiki/bin/view/CMSPublic/
-
     # Use globalTag=80X_dataRun2_Prompt_v14 (at least, using then 80X_dataRun2_Prompt_v15) for 2016H-PromptReco
+    #rerecoparams=['isData=1','doHT=0','release=80XMINIAOD', 'globalTag=80X_dataRun2_Prompt_v15']
+
     #           (('SinglePhoton-2015D-16Dec-v1'  ,'/SinglePhoton/Run2015D-16Dec2015-v1/MINIAOD',json,rerecoparams,firstrun+'-'+maxrun))
     tasks.append(('MET-2016B-ReReco-v3'                ,'/MET/Run2016B-23Sep2016-v3/MINIAOD'             ,rerecoparams,  ))
     tasks.append(('MET-2016C-ReReco-v1'                ,'/MET/Run2016C-23Sep2016-v1/MINIAOD'             ,rerecoparams,  ))
@@ -75,8 +76,8 @@ if __name__ == '__main__':
     tasks.append(('MET-2016E-ReReco-v1'                ,'/MET/Run2016E-23Sep2016-v1/MINIAOD'             ,rerecoparams,  ))
     tasks.append(('MET-2016F-ReReco-v1'                ,'/MET/Run2016F-23Sep2016-v1/MINIAOD'             ,rerecoparams,  ))
     tasks.append(('MET-2016G-ReReco-v1'                ,'/MET/Run2016G-23Sep2016-v1/MINIAOD'             ,rerecoparams,  ))
-    tasks.append(('MET-2016H-PromptReco-v2'            ,'/MET/Run2016H-PromptReco-v2/MINIAOD'            ,rerecoparams,  ))
-    tasks.append(('MET-2016H-PromptReco-v3'            ,'/MET/Run2016H-PromptReco-v3/MINIAOD'            ,rerecoparams,  ))
+    #tasks.append(('MET-2016H-PromptReco-v2'            ,'/MET/Run2016H-PromptReco-v2/MINIAOD'            ,rerecoparams,  ))
+    #tasks.append(('MET-2016H-PromptReco-v3'            ,'/MET/Run2016H-PromptReco-v3/MINIAOD'            ,rerecoparams,  ))
 
     tasks.append(('SingleMuon-2016B-ReReco-v3'         ,'/SingleMuon/Run2016B-23Sep2016-v3/MINIAOD'      ,rerecoparams,  ))
     tasks.append(('SingleMuon-2016C-ReReco-v1'         ,'/SingleMuon/Run2016C-23Sep2016-v1/MINIAOD'      ,rerecoparams,  ))
@@ -84,8 +85,8 @@ if __name__ == '__main__':
     tasks.append(('SingleMuon-2016E-ReReco-v1'         ,'/SingleMuon/Run2016E-23Sep2016-v1/MINIAOD'      ,rerecoparams,  ))
     tasks.append(('SingleMuon-2016F-ReReco-v1'         ,'/SingleMuon/Run2016F-23Sep2016-v1/MINIAOD'      ,rerecoparams,  ))
     tasks.append(('SingleMuon-2016G-ReReco-v1'         ,'/SingleMuon/Run2016G-23Sep2016-v1/MINIAOD'      ,rerecoparams,  ))
-    tasks.append(('SingleMuon-2016H-PromptReco-v2'     ,'/SingleMuon/Run2016H-PromptReco-v2/MINIAOD'     ,rerecoparams,  ))
-    tasks.append(('SingleMuon-2016H-PromptReco-v3'     ,'/SingleMuon/Run2016H-PromptReco-v3/MINIAOD'     ,rerecoparams,  ))
+    #tasks.append(('SingleMuon-2016H-PromptReco-v2'     ,'/SingleMuon/Run2016H-PromptReco-v2/MINIAOD'     ,rerecoparams,  ))
+    #tasks.append(('SingleMuon-2016H-PromptReco-v3'     ,'/SingleMuon/Run2016H-PromptReco-v3/MINIAOD'     ,rerecoparams,  ))
 
     tasks.append(('SingleElectron-2016B-ReReco-v3'     ,'/SingleElectron/Run2016B-23Sep2016-v3/MINIAOD'  ,rerecoparams,  ))
     tasks.append(('SingleElectron-2016C-ReReco-v1'     ,'/SingleElectron/Run2016C-23Sep2016-v1/MINIAOD'  ,rerecoparams,  ))
@@ -93,8 +94,8 @@ if __name__ == '__main__':
     tasks.append(('SingleElectron-2016E-ReReco-v1'     ,'/SingleElectron/Run2016E-23Sep2016-v1/MINIAOD'  ,rerecoparams,  ))
     tasks.append(('SingleElectron-2016F-ReReco-v1'     ,'/SingleElectron/Run2016F-23Sep2016-v1/MINIAOD'  ,rerecoparams,  ))
     tasks.append(('SingleElectron-2016G-ReReco-v1'     ,'/SingleElectron/Run2016G-23Sep2016-v1/MINIAOD'  ,rerecoparams,  ))
-    tasks.append(('SingleElectron-2016H-PromptReco-v2' ,'/SingleElectron/Run2016H-PromptReco-v2/MINIAOD' ,rerecoparams,  ))
-    tasks.append(('SingleElectron-2016H-PromptReco-v3' ,'/SingleElectron/Run2016H-PromptReco-v3/MINIAOD' ,rerecoparams,  ))
+    #tasks.append(('SingleElectron-2016H-PromptReco-v2' ,'/SingleElectron/Run2016H-PromptReco-v2/MINIAOD' ,rerecoparams,  ))
+    #tasks.append(('SingleElectron-2016H-PromptReco-v3' ,'/SingleElectron/Run2016H-PromptReco-v3/MINIAOD' ,rerecoparams,  ))
 
     for task in tasks:
         print task[0]
