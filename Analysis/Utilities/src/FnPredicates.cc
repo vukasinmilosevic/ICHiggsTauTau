@@ -833,11 +833,13 @@ namespace ic {
 
     double relisoWithEA = (elec->dr03_pfiso_charged() + std::max(0., elec->dr03_pfiso_neutral()+elec->dr03_pfiso_gamma() - rho*lEA))/elec->pt();
 
+    double detaInSeed = fabs(elec->deta_sc_tk_at_vtx()-elec->sc_eta()+elec->sc_seed_eta());
+
     return(
 	   !elec->has_matched_conversion()
 	   && ( (in_barrel       
 		 && elec->full5x5_sigma_IetaIeta()   <0.00998
-		 && fabs(elec->deta_sc_tk_at_vtx())  <0.00306
+		 && detaInSeed  <0.00306
 		 && fabs(elec->dphi_sc_tk_at_vtx())  <0.0816
 		 && elec->hadronic_over_em()         <0.0414
 		 && ooemoop                          <0.0129
@@ -848,7 +850,7 @@ namespace ic {
 		 ) ||
 		(!in_barrel       
 		 && elec->full5x5_sigma_IetaIeta()   <0.0292
-		 && fabs(elec->deta_sc_tk_at_vtx())  <0.00605
+		 && detaInSeed  <0.00605
 		 && fabs(elec->dphi_sc_tk_at_vtx())  <0.0394
 		 && elec->hadronic_over_em()         <0.0641
 		 && ooemoop                          <0.0129
@@ -872,11 +874,13 @@ namespace ic {
 
     double relisoWithEA = (elec->dr03_pfiso_charged() + std::max(0., elec->dr03_pfiso_neutral()+elec->dr03_pfiso_gamma() - rho*lEA))/elec->pt();
 
+    double detaInSeed = fabs(elec->deta_sc_tk_at_vtx()-elec->sc_eta()+elec->sc_seed_eta());
+
     return(
 	   !elec->has_matched_conversion()
 	   && ( (in_barrel       
 		 && elec->full5x5_sigma_IetaIeta()   <0.0115
-		 && fabs(elec->deta_sc_tk_at_vtx())  <0.00749
+		 && detaInSeed  <0.00749
 		 && fabs(elec->dphi_sc_tk_at_vtx())  <0.228
 		 && elec->hadronic_over_em()         <0.356
 		 && ooemoop                          <0.299
@@ -887,7 +891,7 @@ namespace ic {
 		 ) ||
 		(!in_barrel       
 		 && elec->full5x5_sigma_IetaIeta()   <0.037
-		 && fabs(elec->deta_sc_tk_at_vtx())  <0.00895
+		 && detaInSeed  <0.00895
 		 && fabs(elec->dphi_sc_tk_at_vtx())  <0.213
 		 && elec->hadronic_over_em()         <0.211
 		 && ooemoop                          <0.15
