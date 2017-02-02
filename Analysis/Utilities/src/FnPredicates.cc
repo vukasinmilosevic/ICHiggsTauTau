@@ -802,7 +802,7 @@ namespace ic {
     double ooemoop = fabs((1.0/elec->ecal_energy() - elec->sc_e_over_p()/elec->ecal_energy()));
     //double dbiso = elec->dr03_pfiso_charged() + std::max(0., elec->dr03_pfiso_neutral()+elec->dr03_pfiso_gamma() - 0.5*elec->dr03_pfiso_pu());
     //double lEA = ElectronEffectiveArea::GetElectronEffectiveArea( ElectronEffectiveArea::kEleGammaAndNeutralHadronIso03 , elec->sc_eta() , ElectronEffectiveArea::kEleEAData2012);
-    double lEA = getTotalEA(elec->sc_eta());
+    double lEA = getTotalEA2016(elec->sc_eta());
 
     double relisoWithEA = (elec->dr03_pfiso_charged() + std::max(0., elec->dr03_pfiso_neutral()+elec->dr03_pfiso_gamma() - rho*lEA))/elec->pt();
 
@@ -843,7 +843,7 @@ namespace ic {
     double ooemoop = fabs((1.0/elec->ecal_energy() - elec->sc_e_over_p()/elec->ecal_energy()));
     //double dbiso = elec->dr03_pfiso_charged() + std::max(0., elec->dr03_pfiso_neutral()+elec->dr03_pfiso_gamma() - 0.5*elec->dr03_pfiso_pu());
     //double lEA = ElectronEffectiveArea::GetElectronEffectiveArea( ElectronEffectiveArea::kEleGammaAndNeutralHadronIso03 , elec->sc_eta() , ElectronEffectiveArea::kEleEAData2012);
-    double lEA = getTotalEA(elec->sc_eta());
+    double lEA = getTotalEA2016(elec->sc_eta());
 
     double relisoWithEA = (elec->dr03_pfiso_charged() + std::max(0., elec->dr03_pfiso_neutral()+elec->dr03_pfiso_gamma() - rho*lEA))/elec->pt();
 
@@ -1293,7 +1293,18 @@ namespace ic {
     return pass_mva;
   }
 
+
   double getTotalEA(const double & eta){
+    if (eta < 1.0) return 0.1752;
+    if (eta >= 1.0 && eta < 1.479) return 0.1862;
+    if (eta >= 1.479 && eta < 2.0) return 0.1411;
+    if (eta >= 2.0 && eta < 2.2) return 0.1534;
+    if (eta >= 2.2 && eta < 2.3) return 0.1903;
+    if (eta >= 2.3 && eta < 2.4) return 0.2243;
+    if (eta >= 2.4) return 0.2687;
+    return 0;
+  }
+  double getTotalEA2016(const double & eta){
     if (eta < 1.0) return 0.1703;
     if (eta >= 1.0 && eta < 1.479) return 0.1715;
     if (eta >= 1.479 && eta < 2.0) return 0.1213;
@@ -1316,6 +1327,18 @@ namespace ic {
     if (eta >= 2.3 && eta < 2.4)    { neutral_area=0.0462; photon_area=0.1857; }
     if (eta >= 2.4)                 { neutral_area=0.0656; photon_area=0.2183; }
     return std::pair<double,double>(neutral_area,photon_area);
+  }
+
+  double getEA2016(const double & eta, unsigned type){
+    double photon_area, neutral_area, charged_area;
+    if (eta < 1.0)                  { charged_area=0.0360 ; neutral_area=0.0597; photon_area=0.1210; }
+    if (eta >= 1.0 && eta < 1.479)  { charged_area=0.0377 ; neutral_area=0.0807; photon_area=0.1107; }
+    if (eta >= 1.479 && eta < 2.0)  { charged_area=0.0306 ; neutral_area=0.0629; photon_area=0.0699; }
+    if (eta >= 2.0 && eta < 2.2)    { charged_area=0.0283 ; neutral_area=0.0197; photon_area=0.1056; }
+    if (eta >= 2.2 && eta < 2.3)    { charged_area=0.0254 ; neutral_area=0.0184; photon_area=0.1457; }
+    if (eta >= 2.3 && eta < 2.4)    { charged_area=0.0217 ; neutral_area=0.0284; photon_area=0.1719; }
+    if (eta >= 2.4)                 { charged_area=0.0167 ; neutral_area=0.0591; photon_area=0.1998; }
+    return type==0? charged_area : (type==1? neutral_area : photon_area);
   }
 
 
@@ -1404,6 +1427,95 @@ namespace ic {
 	 && photon->dr03_pfiso_charged()<1.97
 	 && std::max(photon->dr03_pfiso_neutral()-rho*neutral_area,0.)<(11.86+0.0139*photon->pt()+0.000025*pow(photon->pt(),2))
 	 && std::max(photon->dr03_pfiso_gamma()-rho*photon_area,0.)<(0.83+0.0034*photon->pt())
+        ) )
+        );
+
+  }
+
+  bool LoosePhotonID2016(Photon const* photon,double const& rho) {//function for spring15 ID
+    double eta = fabs(photon->eta());
+    bool in_barrel = true;
+    if (eta > 1.479) in_barrel = false;
+    bool in_endcap = true;
+    if (eta < 1.479) in_endcap = false;
+    
+    double charged_area = getEA2016(eta,0);
+    double neutral_area = getEA2016(eta,1);
+    double photon_area = getEA2016(eta,2);
+
+    return( photon->pass_electron_veto() &&
+	( (in_barrel       
+	   && photon->had_tower_over_em()<0.0597
+	   && photon->sigma_IetaIeta()<0.01031
+	   && std::max(photon->dr03_pfiso_charged()-rho*charged_area,0.)<1.295
+	   && std::max(photon->dr03_pfiso_neutral()-rho*neutral_area,0.)<(10.910+0.0148*photon->pt()+0.000017*pow(photon->pt(),2))
+           && std::max(photon->dr03_pfiso_gamma()-rho*photon_area,0.)<(3.630+0.0047*photon->pt())
+	      ) ||
+        (in_endcap       
+	 && photon->had_tower_over_em()<0.0481
+	 && photon->sigma_IetaIeta()<0.03013
+	 && std::max(photon->dr03_pfiso_charged()-rho*charged_area,0.)<1.011
+	 && std::max(photon->dr03_pfiso_neutral()-rho*neutral_area,0.)<(5.931+0.0163*photon->pt()+0.000014*pow(photon->pt(),2))
+	 && std::max(photon->dr03_pfiso_gamma()-rho*photon_area,0.)<(6.641+0.0034*photon->pt())
+        ) )
+        );
+
+  }
+
+  bool MediumPhotonID2016(Photon const* photon,double const& rho) {//function for spring15 ID
+    double eta = fabs(photon->eta());
+    bool in_barrel = true;
+    if (eta > 1.479) in_barrel = false;
+    bool in_endcap = true;
+    if (eta < 1.479) in_endcap = false;
+    
+    double charged_area = getEA2016(eta,0);
+    double neutral_area = getEA2016(eta,1);
+    double photon_area = getEA2016(eta,2);
+
+    return( photon->pass_electron_veto() &&
+	( (in_barrel       
+	   && photon->had_tower_over_em()<0.0396
+	   && photon->sigma_IetaIeta()<0.01022
+	   && std::max(photon->dr03_pfiso_charged()-rho*charged_area,0.)<0.441
+	   && std::max(photon->dr03_pfiso_neutral()-rho*neutral_area,0.)<(2.725+0.0148*photon->pt()+0.000017*pow(photon->pt(),2))
+           && std::max(photon->dr03_pfiso_gamma()-rho*photon_area,0.)<(2.571+0.0047*photon->pt())
+	      ) ||
+        (in_endcap       
+	 && photon->had_tower_over_em()<0.0219
+	 && photon->sigma_IetaIeta()<0.03001
+	 && std::max(photon->dr03_pfiso_charged()-rho*charged_area,0.)<0.442
+	 && std::max(photon->dr03_pfiso_neutral()-rho*neutral_area,0.)<(1.715+0.0163*photon->pt()+0.000014*pow(photon->pt(),2))
+	 && std::max(photon->dr03_pfiso_gamma()-rho*photon_area,0.)<(3.863+0.0034*photon->pt())
+        ) )
+        );
+  }
+
+  bool TightPhotonID2016(Photon const* photon,double const& rho) {//function for spring15 ID
+    double eta = fabs(photon->eta());
+    bool in_barrel = true;
+    if (eta > 1.479) in_barrel = false;
+    bool in_endcap = true;
+    if (eta < 1.479) in_endcap = false;
+    
+    double charged_area = getEA2016(eta,0);
+    double neutral_area = getEA2016(eta,1);
+    double photon_area = getEA2016(eta,2);
+
+    return( photon->pass_electron_veto() &&
+	( (in_barrel       
+	   && photon->had_tower_over_em()<0.0269
+	   && photon->sigma_IetaIeta()<0.00994
+	   && std::max(photon->dr03_pfiso_charged()-rho*charged_area,0.)<0.202
+	   && std::max(photon->dr03_pfiso_neutral()-rho*neutral_area,0.)<(0.264+0.0148*photon->pt()+0.000017*pow(photon->pt(),2))
+           && std::max(photon->dr03_pfiso_gamma()-rho*photon_area,0.)<(2.362+0.0047*photon->pt())
+	      ) ||
+        (in_endcap       
+	 && photon->had_tower_over_em()<0.0213
+	 && photon->sigma_IetaIeta()<0.03000
+	 && std::max(photon->dr03_pfiso_charged()-rho*charged_area,0.)<0.034
+	 && std::max(photon->dr03_pfiso_neutral()-rho*neutral_area,0.)<(0.586+0.0163*photon->pt()+0.000014*pow(photon->pt(),2))
+	 && std::max(photon->dr03_pfiso_gamma()-rho*photon_area,0.)<(2.617+0.0034*photon->pt())
         ) )
         );
 

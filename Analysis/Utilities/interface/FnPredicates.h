@@ -107,10 +107,16 @@ namespace ic {
   bool VetoElectronFullID16(Electron const* elec, double const& rho);
 
   double getTotalEA(const double & eta);
+  double getTotalEA2016(const double & eta);
   std::pair<double,double> getEA(const double & eta);
+  double getEA2016(const double & eta, const unsigned type);
   bool TightPhotonIDSpring15(Photon const* photon,double const& rho);
   bool MediumPhotonIDSpring15(Photon const* photon,double const& rho);
   bool LoosePhotonIDSpring15(Photon const* photon,double const& rho);
+
+  bool LoosePhotonID2016(Photon const* photon,double const& rho);
+  bool MediumPhotonID2016(Photon const* photon,double const& rho);
+  bool TightPhotonID2016(Photon const* photon,double const& rho);
 
   bool HttEMuFakeElectron(Electron const* elec);
   bool HttEMuFakeMuon(Muon const* muon);

@@ -531,7 +531,7 @@ int main(int argc, char* argv[]){
   ComplexFilter<Photon,EventInfo,double> loosePhotonFilter = ComplexFilter<Photon,EventInfo,double>
     ("LoosePhotonFilter")
     .set_primary_input_label("loosePhotons").set_predicate(bind(MinPtMaxEta, _1, loose_photon_pt, loose_photon_eta)&&
-							   bind(LoosePhotonIDSpring15, _1,_2))
+							   bind(LoosePhotonID2016, _1,_2))
     .set_secondary_input_label("eventInfo").set_secondary_predicate(bind(&EventInfo::jet_rho,_1))
     .set_min(0)
     .set_max(999);
@@ -542,7 +542,7 @@ int main(int argc, char* argv[]){
   ComplexFilter<Photon,EventInfo,double> mediumPhotonFilter = ComplexFilter<Photon,EventInfo,double>
     ("MediumPhotonPtEtaFilter")
     .set_primary_input_label("mediumPhotons").set_predicate(bind(MinPtMaxEta, _1, medium_photon_pt, medium_photon_eta)&&
-							    bind(MediumPhotonIDSpring15, _1,_2))
+							    bind(MediumPhotonID2016, _1,_2))
     .set_secondary_input_label("eventInfo").set_secondary_predicate(bind(&EventInfo::jet_rho,_1))
     .set_min(0)
     .set_max(999);
@@ -553,7 +553,7 @@ int main(int argc, char* argv[]){
   ComplexFilter<Photon,EventInfo,double> tightPhotonFilter = ComplexFilter<Photon,EventInfo,double>
     ("TightPhotonPtEtaFilter")
     .set_primary_input_label("tightPhotons").set_predicate(bind(MinPtMaxEta, _1, tight_photon_pt, tight_photon_eta)&&
-							   bind(TightPhotonIDSpring15, _1,_2))
+							   bind(TightPhotonID2016, _1,_2))
     .set_secondary_input_label("eventInfo").set_secondary_predicate(bind(&EventInfo::jet_rho,_1))						   
     .set_min(0)
     .set_max(999);
