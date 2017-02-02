@@ -1243,7 +1243,7 @@ namespace ic {
         ele1_genphi_=genElecs[genid]->phi();
       }
       if (ele1_pt_ > 0) {
-        ele1_relISOwithEA_ = (vetoelectrons[0]->dr03_pfiso_charged() + std::max(0., vetoelectrons[0]->dr03_pfiso_neutral()+vetoelectrons[0]->dr03_pfiso_gamma() - ((eventInfo->lepton_rho())*getTotalEA2016(vetoelectrons[0]->sc_eta()))))/ele1_pt_;
+        ele1_relISOwithEA_ = (vetoelectrons[0]->dr03_pfiso_charged() + std::max(0., vetoelectrons[0]->dr03_pfiso_neutral()+vetoelectrons[0]->dr03_pfiso_gamma() - ((eventInfo->jet_rho())*getTotalEA2016(vetoelectrons[0]->sc_eta()))))/ele1_pt_;
       }
       if(nvetoelectrons_>=2){
         ele2_pt_=vetoelectrons[1]->pt();
@@ -1261,7 +1261,7 @@ namespace ic {
         pt_ee_=((vetoelectrons.at(0)->vector())+(vetoelectrons.at(1)->vector())).Pt();
         oppsign_ee_ = vetoelectrons.at(0)->charge() != vetoelectrons.at(1)->charge();
         if (ele2_pt_ > 0) {
-          ele2_relISOwithEA_ = (vetoelectrons[1]->dr03_pfiso_charged() + std::max(0., vetoelectrons[1]->dr03_pfiso_neutral()+vetoelectrons[1]->dr03_pfiso_gamma() - ((eventInfo->lepton_rho())*getTotalEA2016(vetoelectrons[1]->sc_eta()))))/ele2_pt_;
+          ele2_relISOwithEA_ = (vetoelectrons[1]->dr03_pfiso_charged() + std::max(0., vetoelectrons[1]->dr03_pfiso_neutral()+vetoelectrons[1]->dr03_pfiso_gamma() - ((eventInfo->jet_rho())*getTotalEA2016(vetoelectrons[1]->sc_eta()))))/ele2_pt_;
         }
       }
     }
