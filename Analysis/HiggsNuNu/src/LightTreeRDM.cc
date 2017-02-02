@@ -271,6 +271,7 @@ namespace ic {
     ele1_genpt_=-1;
     ele1_geneta_=-5;
     ele1_genphi_=-5;
+    ele1_relISOwithEA_=-1;
 
     ele2_pt_=-1;
     ele2_eta_=-5;
@@ -280,6 +281,7 @@ namespace ic {
     ele2_genpt_=-1;
     ele2_geneta_=-5;
     ele2_genphi_=-5;
+    ele2_relISOwithEA_=-1;
 
     tau1_pt_=-1;
     tau1_eta_=-5;
@@ -506,6 +508,7 @@ namespace ic {
     outputTree_->Branch("ele1_genpt",&ele1_genpt_);
     outputTree_->Branch("ele1_geneta",&ele1_geneta_);
     outputTree_->Branch("ele1_genphi",&ele1_genphi_);
+    outputTree_->Branch("ele1_relISOwithEA",&ele1_relISOwithEA_);
 
     outputTree_->Branch("ele2_pt",&ele2_pt_);
     outputTree_->Branch("ele2_eta",&ele2_eta_);
@@ -515,6 +518,7 @@ namespace ic {
     outputTree_->Branch("ele2_genpt",&ele2_genpt_);
     outputTree_->Branch("ele2_geneta",&ele2_geneta_);
     outputTree_->Branch("ele2_genphi",&ele2_genphi_);
+    outputTree_->Branch("ele2_relISOwithEA",&ele2_relISOwithEA_);
 
     outputTree_->Branch("tau1_pt",&tau1_pt_);
     outputTree_->Branch("tau1_eta",&tau1_eta_);
@@ -1238,21 +1242,27 @@ namespace ic {
         ele1_geneta_=genElecs[genid]->eta();
         ele1_genphi_=genElecs[genid]->phi();
       }
+      if (ele1_pt_ > 0) {
+        ele1_relISOwithEA_ = (vetoelectrons[0]->dr03_pfiso_charged() + std::max(0., vetoelectrons[0]->dr03_pfiso_neutral()+vetoelectrons[0]->dr03_pfiso_gamma() - ((eventInfo->lepton_rho())*getTotalEA2016(vetoelectrons[0]->sc_eta()))))/ele1_pt_;
+      }
       if(nvetoelectrons_>=2){
-	ele2_pt_=vetoelectrons[1]->pt();
-	ele2_eta_=vetoelectrons[1]->eta();
-	ele2_phi_=vetoelectrons[1]->phi();
-	ele2_isTight_ = isTightElectron(vetoelectrons[1],selelectrons);
-	if (!is_data_ && recotogen_elecs[1].second){
-	  unsigned genid = recotogen_elecs[1].first;
-	  ele2_genmindR_ = ROOT::Math::VectorUtil::DeltaR(genElecs[genid]->vector(),vetoelectrons[1]->vector());
-	  ele2_genpt_=genElecs[genid]->pt();
-	  ele2_geneta_=genElecs[genid]->eta();
-	  ele2_genphi_=genElecs[genid]->phi();
-	}
+        ele2_pt_=vetoelectrons[1]->pt();
+        ele2_eta_=vetoelectrons[1]->eta();
+        ele2_phi_=vetoelectrons[1]->phi();
+        ele2_isTight_ = isTightElectron(vetoelectrons[1],selelectrons);
+        if (!is_data_ && recotogen_elecs[1].second){
+          unsigned genid = recotogen_elecs[1].first;
+          ele2_genmindR_ = ROOT::Math::VectorUtil::DeltaR(genElecs[genid]->vector(),vetoelectrons[1]->vector());
+          ele2_genpt_=genElecs[genid]->pt();
+          ele2_geneta_=genElecs[genid]->eta();
+          ele2_genphi_=genElecs[genid]->phi();
+        }
         m_ee_=((vetoelectrons.at(0)->vector())+(vetoelectrons.at(1)->vector())).M();
         pt_ee_=((vetoelectrons.at(0)->vector())+(vetoelectrons.at(1)->vector())).Pt();
-	oppsign_ee_ = vetoelectrons.at(0)->charge() != vetoelectrons.at(1)->charge();
+        oppsign_ee_ = vetoelectrons.at(0)->charge() != vetoelectrons.at(1)->charge();
+        if (ele2_pt_ > 0) {
+          ele2_relISOwithEA_ = (vetoelectrons[1]->dr03_pfiso_charged() + std::max(0., vetoelectrons[1]->dr03_pfiso_neutral()+vetoelectrons[1]->dr03_pfiso_gamma() - ((eventInfo->lepton_rho())*getTotalEA2016(vetoelectrons[1]->sc_eta()))))/ele2_pt_;
+        }
       }
     }
     if(ntaus_>=1){

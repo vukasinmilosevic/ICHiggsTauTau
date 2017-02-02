@@ -247,6 +247,7 @@ namespace ic {
     double ele1_genpt_;
     double ele1_geneta_;
     double ele1_genphi_;
+    double ele1_relISOwithEA_;
 
     double ele2_pt_;
     double ele2_eta_;
@@ -256,6 +257,7 @@ namespace ic {
     double ele2_genpt_;
     double ele2_geneta_;
     double ele2_genphi_;
+    double ele2_relISOwithEA_;
 
     double tau1_pt_;
     double tau1_eta_;
