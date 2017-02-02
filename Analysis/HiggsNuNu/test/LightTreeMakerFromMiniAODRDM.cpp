@@ -568,8 +568,8 @@ int main(int argc, char* argv[]){
   ComplexFilter<Electron,EventInfo,double> vetoElectronFilter = ComplexFilter<Electron,EventInfo,double>
     ("VetoElectronPtEtaFilter")
     .set_primary_input_label("vetoElectrons").set_predicate(bind(MinPtMaxSCEta, _1, veto_elec_pt, veto_elec_eta) &&
-							    //bind(VetoElectronFullID16, _1, _2)// && 
-							    bind(VetoElectronFullIDSpring15, _1, _2)// && 
+							    bind(VetoElectronFullID16, _1, _2)// && 
+							    //bind(VetoElectronFullIDSpring15, _1, _2)// && 
 							    //bind(fabs, bind(&Electron::dxy_vertex, _1)) < veto_elec_dxy && 
 							    //bind(fabs, bind(&Electron::dz_vertex, _1)) < veto_elec_dz
 							    )
@@ -584,8 +584,8 @@ int main(int argc, char* argv[]){
   ComplexFilter<Electron,EventInfo,double> selElectronFilter = ComplexFilter<Electron,EventInfo,double>
     ("SelElectronPtEtaFilter")
     .set_primary_input_label("selElectrons").set_predicate(bind(MinPtMaxSCEta, _1, elec_pt, elec_eta) &&
-							   //bind(TightElectronFullID16, _1, _2) //&&
-							   bind(TightElectronFullIDSpring15, _1, _2) //&&
+							   bind(TightElectronFullID16, _1, _2) //&&
+							   //bind(TightElectronFullIDSpring15, _1, _2) //&&
 							   //bind(fabs, bind(&Electron::dxy_vertex, _1)) < elec_dxy && 
 							   //bind(fabs, bind(&Electron::dz_vertex, _1)) < elec_dz
 							   )

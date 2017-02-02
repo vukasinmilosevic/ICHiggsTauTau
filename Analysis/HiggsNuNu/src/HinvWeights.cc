@@ -359,15 +359,15 @@ namespace ic {//namespace
     if (save_weights_){
       std::vector<double> dummypt;
       std::vector<double> dummyeta;
-      fillVector("input/scale_factors/Spring16_80X_ele_tight_id_SF.txt",5,10,eTight_idisoSF_,e_ptbin_,e_etabin_);
-      fillVector("input/scale_factors/Spring16_80X_gsf_id_SF.txt",1,28,e_gsfidSF_,gsf_ptbin_,gsf_etabin_);
+      fillVector("input/scale_factors/Summer16_80X_ele_tight_id_SF.txt",5,10,eTight_idisoSF_,e_ptbin_,e_etabin_);
+      fillVector("input/scale_factors/Summer16_80X_gsf_id_SF.txt",1,28,e_gsfidSF_,gsf_ptbin_,gsf_etabin_);
       fillVector("input/scale_factors/Spring16_80X_mu_tight_id_SF.txt",7,8,muTight_idSF_,mu_ptbin_,mu_etabin_);
       fillVector("input/scale_factors/Spring16_80X_mu_trackingSF.txt",1,10,mu_tkSF_,tk_ptbin_,tk_etabin_);
       if(!do_idiso_err_ || (do_idiso_err_ && do_idiso_errmuore_) ){//Central value electrons
-        fillVector("input/scale_factors/Spring16_80X_ele_veto_id_data_eff.txt",5,10,eVeto_idisoDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Spring16_80X_ele_veto_id_mc_eff.txt",5,10,eVeto_idisoMCEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Spring16_80X_gsf_id_data_eff.txt",1,28,e_gsfidDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Spring16_80X_gsf_id_mc_eff.txt",1,28,e_gsfidMCEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_ele_veto_id_data_eff.txt",5,10,eVeto_idisoDataEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",5,10,eVeto_idisoMCEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_gsf_id_data_eff.txt",1,28,e_gsfidDataEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_gsf_id_mc_eff.txt",1,28,e_gsfidMCEff_,dummypt,dummyeta);
         //fillVector("input/scale_factors/Fall15_76X_ele_tight_id_SF.txt",eTight_idisoSF_);
         //fillVector("input/scale_factors/Fall15_76X_ele_veto_id_data_eff.txt",eVeto_idisoDataEff_);
         //fillVector("input/scale_factors/Fall15_76X_ele_veto_id_mc_eff.txt",eVeto_idisoMCEff_);
@@ -392,12 +392,12 @@ namespace ic {//namespace
         fillVectorError("input/scale_factors/Spring16_80X_mu_trackingSF.txt",mu_tkDataEff_,do_idiso_errupordown_);
       }
       else if (do_idiso_err_ && !do_idiso_errmuore_) {//Electron eff varied
-        fillVectorError("input/scale_factors/Spring16_80X_ele_tight_id_SF.txt",eTight_idisoSF_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_gsf_id_SF.txt",e_gsfidSF_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_ele_veto_id_data_eff.txt",eVeto_idisoDataEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_ele_veto_id_mc_eff.txt",eVeto_idisoMCEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_gsf_id_data_eff.txt",e_gsfidDataEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_gsf_id_mc_eff.txt",e_gsfidMCEff_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_ele_tight_id_SF.txt",eTight_idisoSF_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_gsf_id_SF.txt",e_gsfidSF_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_ele_veto_id_data_eff.txt",eVeto_idisoDataEff_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",eVeto_idisoMCEff_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_gsf_id_data_eff.txt",e_gsfidDataEff_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_gsf_id_mc_eff.txt",e_gsfidMCEff_,do_idiso_errupordown_);
         //fillVectorError("input/scale_factors/Fall15_76X_ele_tight_id_SF.txt",eTight_idisoSF_,do_idiso_errupordown_);
         //fillVectorError("input/scale_factors/Fall15_76X_ele_veto_id_data_eff.txt",eVeto_idisoDataEff_,do_idiso_errupordown_);
         //fillVectorError("input/scale_factors/Fall15_76X_ele_veto_id_mc_eff.txt",eVeto_idisoMCEff_,do_idiso_errupordown_);
@@ -1213,7 +1213,7 @@ namespace ic {//namespace
     unsigned nEta = etabinvec.size()-1;
     unsigned nPt = ptbinvec.size()-1;
     unsigned etabin = 0;
-    unsigned ptbin = 0;
+    unsigned ptbin = nPt-1;
     for (unsigned ieta(0); ieta<nEta;++ieta){
       if (aEta>=etabinvec[ieta] &&  aEta<etabinvec[ieta+1]) {
         etabin = ieta;
