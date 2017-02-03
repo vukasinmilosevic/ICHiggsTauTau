@@ -4,7 +4,7 @@ DOSUBMIT=0
 #JETTYPE="ak4SlimmedJetsPuppi"
 JETTYPE="pfJetsPFlow"
 MYEXEC=LightTreeMakerFromMiniAODRDM
-PRODUCTION=161031
+PRODUCTION=170201
 PRODUSER=rdimaria
 JPTCUTVAL=40
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
