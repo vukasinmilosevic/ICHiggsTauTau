@@ -1,0 +1,182 @@
+#include "TFile.h"
+#include "TGraphAsymmErrors.h"
+#include "TH2F.h"
+
+#include <iostream>
+#include <sstream>
+#include <fstream>
+
+
+
+int makeMuonRun2DTxtFiles2016(){//main
+
+  TFile *muId[2];
+  muId[0] = TFile::Open("Summer16_muonID_BCDEF.root");
+  muId[1] = TFile::Open("Summer16_muonID_GH.root");
+  TFile *muIso[2];
+  muIso[0] = TFile::Open("Summer16_muonIso_BCDEF.root");
+  muIso[1] = TFile::Open("Summer16_muonIso_GH.root");
+
+
+  double extraIdSyst = 0;//sqrt(pow(0.01,2)+pow(0.005,2)); //On top of the "usual" systematcis for ID (1%) from the tag-and-probe method documented here, due to the known effect of HIPs on tracker efficiency it is recommended to add an additinal 0.5% systematic in quadrature.
+  double extraIsoSyst = 0;//0.005;
+  double extraIsoSyst_tight = 0;//0.01; //For what concerns isolation, the loose isolation working points are rather well modeled in term of pile-up, hence the standard (0.5%) prescription for systematcis holds, whereas it is suggested to increase that value to 1% for tight PF isolation, due to the difference between the sample used to deliver results and the ICHEP dataset.
+
+  TH2F *hist_muon[4][3];
+
+  double lumi[2] = {20.2,16.6};
+  double totlumi = lumi[0]+lumi[1];
+
+  //looseID
+  muId[0]->cd("MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta/efficienciesDATA/");
+  hist_muon[0][0] = (TH2F*)gDirectory->Get("abseta_pt_DATA");
+  muId[1]->cd("MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta/efficienciesDATA/");
+  hist_muon[0][0]->Add(hist_muon[0][0],(TH2F*)gDirectory->Get("abseta_pt_DATA"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  muId[0]->cd("MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta/efficienciesMC/");
+  hist_muon[0][1] = (TH2F*)gDirectory->Get("abseta_pt_MC");
+  muId[1]->cd("MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta/efficienciesMC/");
+  hist_muon[0][1]->Add(hist_muon[0][1],(TH2F*)gDirectory->Get("abseta_pt_MC"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  muId[0]->cd("MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta/");
+  hist_muon[0][2] = (TH2F*)gDirectory->Get("abseta_pt_ratio");
+  muId[1]->cd("MC_NUM_LooseID_DEN_genTracks_PAR_pt_eta/");
+  hist_muon[0][2]->Add(hist_muon[0][2],(TH2F*)gDirectory->Get("abseta_pt_ratio"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  //tight ID
+  muId[0]->cd("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/efficienciesDATA/");
+  hist_muon[1][0] = (TH2F*)gDirectory->Get("abseta_pt_DATA");
+  muId[1]->cd("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/efficienciesDATA/");
+  hist_muon[1][0]->Add(hist_muon[1][0],(TH2F*)gDirectory->Get("abseta_pt_DATA"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  muId[0]->cd("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/efficienciesMC/");
+  hist_muon[1][1] = (TH2F*)gDirectory->Get("abseta_pt_MC");
+  muId[1]->cd("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/efficienciesMC/");
+  hist_muon[1][1]->Add(hist_muon[1][1],(TH2F*)gDirectory->Get("abseta_pt_MC"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  muId[0]->cd("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/");
+  hist_muon[1][2] = (TH2F*)gDirectory->Get("abseta_pt_ratio");
+  muId[1]->cd("MC_NUM_TightID_DEN_genTracks_PAR_pt_eta/");
+  hist_muon[1][2]->Add(hist_muon[1][2],(TH2F*)gDirectory->Get("abseta_pt_ratio"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  //loose Iso
+  muIso[0]->cd("LooseISO_LooseID_pt_eta/efficienciesDATA/");
+  hist_muon[2][0] = (TH2F*)gDirectory->Get("abseta_pt_DATA");
+  muIso[1]->cd("LooseISO_LooseID_pt_eta/efficienciesDATA/");
+  hist_muon[2][0]->Add(hist_muon[2][0],(TH2F*)gDirectory->Get("abseta_pt_DATA"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  muIso[0]->cd("LooseISO_LooseID_pt_eta/efficienciesMC/");
+  hist_muon[2][1] = (TH2F*)gDirectory->Get("abseta_pt_MC");
+  muIso[1]->cd("LooseISO_LooseID_pt_eta/efficienciesMC/");
+  hist_muon[2][1]->Add(hist_muon[2][1],(TH2F*)gDirectory->Get("abseta_pt_MC"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  muIso[0]->cd("LooseISO_LooseID_pt_eta/");
+  hist_muon[2][2] = (TH2F*)gDirectory->Get("abseta_pt_ratio");
+  muIso[1]->cd("LooseISO_LooseID_pt_eta/");
+  hist_muon[2][2]->Add(hist_muon[2][2],(TH2F*)gDirectory->Get("abseta_pt_ratio"),lumi[0]/totlumi,lumi[1]/totlumi);
+  
+  //tight Iso
+  muIso[0]->cd("TightISO_TightID_pt_eta/efficienciesDATA/");
+  hist_muon[3][0] = (TH2F*)gDirectory->Get("abseta_pt_DATA");
+  muIso[1]->cd("TightISO_TightID_pt_eta/efficienciesDATA/");
+  hist_muon[3][0]->Add(hist_muon[3][0],(TH2F*)gDirectory->Get("abseta_pt_DATA"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  muIso[0]->cd("TightISO_TightID_pt_eta/efficienciesMC/");
+  hist_muon[3][1] = (TH2F*)gDirectory->Get("abseta_pt_MC");
+  muIso[1]->cd("TightISO_TightID_pt_eta/efficienciesMC/");
+  hist_muon[3][1]->Add(hist_muon[3][1],(TH2F*)gDirectory->Get("abseta_pt_MC"),lumi[0]/totlumi,lumi[1]/totlumi);
+
+  muIso[0]->cd("TightISO_TightID_pt_eta/");
+  hist_muon[3][2] = (TH2F*)gDirectory->Get("abseta_pt_ratio");
+  muIso[1]->cd("TightISO_TightID_pt_eta/");
+  hist_muon[3][2]->Add(hist_muon[3][2],(TH2F*)gDirectory->Get("abseta_pt_ratio"),lumi[0]/totlumi,lumi[1]/totlumi);
+  
+
+  const unsigned nEta = hist_muon[0][0]->GetXaxis()->GetNbins();
+  const unsigned nEtaBis = hist_muon[2][0]->GetXaxis()->GetNbins();
+
+  if (nEtaBis != nEta) std::cout << " WARNING! Different eta binning for Loose Iso, please check!" << std::endl;
+
+  double etaMin[nEta];
+  double etaMax[nEta];
+
+  for (unsigned ie(0);ie<nEta;++ie){
+    etaMin[ie] = hist_muon[0][0]->GetXaxis()->GetBinLowEdge(ie+1);
+    etaMax[ie] = hist_muon[0][0]->GetXaxis()->GetBinLowEdge(ie+2);
+    std::cout << "eta min " << etaMin[ie] << " max " << etaMax[ie] << std::endl;
+  }
+
+  const unsigned nPt = hist_muon[0][0]->GetYaxis()->GetNbins();
+  const unsigned nPtBis = hist_muon[2][0]->GetYaxis()->GetNbins();
+  if (nPt != nPtBis) std::cout << " WARNING! Different pT binning for Loose Iso, please check!" << std::endl;
+
+  double ptMin[nPt];
+  double ptMax[nPt];
+
+  for (unsigned ie(0);ie<nPt;++ie){
+    ptMin[ie] = hist_muon[0][0]->GetYaxis()->GetBinLowEdge(ie+1);
+    ptMax[ie] = hist_muon[0][0]->GetYaxis()->GetBinLowEdge(ie+2);
+    std::cout << "pt min " << ptMin[ie] << " max " << ptMax[ie] << std::endl;
+  }
+
+  std::cout << " nEta = " << nEta << " nPt = " << nPt << std::endl;
+
+  const unsigned nP = 4;
+  //std::string prefix = "Fall15_76X_";
+  std::string prefix = "Summer16_80X_";
+  std::string lFileName[nP] = {"mu_loose_id","mu_tight_id","mu_loose_iso","mu_tight_iso"};
+  double lSystematic[nP]    = {extraIdSyst,extraIdSyst,extraIsoSyst,extraIsoSyst_tight};
+  std::string lDataType[3] = {"data_eff","mc_eff","SF"};
+  
+
+  std::ostringstream lName;
+
+  for (unsigned iWP(0);iWP<nP;++iWP){//loop on WP
+    std::cout << lFileName[iWP] << std::endl;    
+    //double valcheck[3][nEta][nPt];
+
+    for (unsigned iData(0);iData<3;++iData){//loop on data type: data, MC, SF
+      lName.str("");
+      lName << prefix << lFileName[iWP] << "_" << lDataType[iData] << ".txt";
+      std::ofstream lOut(lName.str().c_str());
+      
+      //do negative eta
+      for (unsigned iEta(nEta); iEta>0; --iEta){//loop on eta bin
+	for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
+	  double val = hist_muon[iWP][iData]->GetBinContent(iEta,iPt+1);
+	  double err = hist_muon[iWP][iData]->GetBinError(iEta,iPt+1);
+          err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
+	  std::ostringstream lstr;
+	  lstr << ptMin[iPt] << " " << ptMax[iPt] << " " << -etaMax[iEta-1] << " " << -etaMin[iEta-1] << " " << val << " " << err << " " << err << std::endl;
+	  lOut << lstr.str();
+	  //if (iWP==2) std::cout << lDataType[iData] << " " << lstr.str();
+	}//loop on pT bins
+	
+      }//loop on eta bin
+      
+      //do positive eta
+      for (unsigned iEta(0); iEta<nEta; ++iEta){//loop on eta bin
+	for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
+	  double val = hist_muon[iWP][iData]->GetBinContent(iEta+1,iPt+1);
+	  //valcheck[iData][iEta][iPt] = val;
+	  double err = hist_muon[iWP][iData]->GetBinError(iEta+1,iPt+1);
+          err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
+	  lOut << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " " << val << " " << err << " " << err << std::endl;
+	}//loop on pT bins
+	
+      }//loop on eta bin
+      
+      lOut.close();
+    }//loop on data type
+
+    //for (unsigned iEta(0); iEta<nEta; ++iEta){//loop on eta bin
+    //for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
+    //	std::cout << " Check: " << valcheck[2][iEta][iPt] << " data/MC " << valcheck[0][iEta][iPt]/valcheck[1][iEta][iPt] << std::endl;
+    //}
+    //}
+
+  }//loop on WP
+  
+  return 0;
+
+}//
