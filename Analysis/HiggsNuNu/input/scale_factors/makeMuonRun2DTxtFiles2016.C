@@ -24,7 +24,7 @@ int makeMuonRun2DTxtFiles2016(){//main
 
   TH2F *hist_muon[4][3];
 
-  double lumi[2] = {20.6,16.};
+  double lumi[2] = {20.2,16.6};
   double totlumi = lumi[0]+lumi[1];
 
   //looseID
