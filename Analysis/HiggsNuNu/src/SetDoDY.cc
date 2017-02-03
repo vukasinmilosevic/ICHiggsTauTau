@@ -10,7 +10,7 @@ void SetDoDY(ic::mc mc, HinvWeights* xsWeights){
   long double TF_oneMinusAll,TF_htBin1,TF_htBin2,TF_htBin3,TF_htBin4;
   long double IY_Inclusive,IY_htBin1,IY_htBin2,IY_htBin3,IY_htBin4;
 
-  if (mc == mc::spring16_80X){
+  if (mc == mc::spring16_80X || mc == mc::summer16_80X){
     //XS_MC_DYJetsToLL and 1 2 3 4
     TF_oneMinusAll = 0.739828;
     TF_htBin1      = 0.175356;

@@ -211,7 +211,7 @@ int main(int argc, char* argv[]){
     ("dospring10gaus",        po::value<bool>(&dospring10gaus)->default_value(false))
     ("jesuncfile",            po::value<string>(&jesuncfile)->default_value("input/jec/Spring16_25nsV6_MC_Uncertainty_AK4PFchs.txt"))
     ("reapplyJEC",            po::value<bool>(&reapplyJEC)->default_value(false))
-    ("jecdata",               po::value<string>(&jecdata)->default_value("input/jec/Spring16_25nsV6_DATA_L1FastJet_AK4PFchs.txt,input/jec/Spring16_25nsV6_DATA_L2Relative_AK4PFchs.txt,input/jec/Spring16_25nsV6_DATA_L3Absolute_AK4PFchs.txt,input/jec/Spring16_25nsV6_DATA_L2L3Residual_AK4PFchs.txt"))
+    ("jecdata",               po::value<string>(&jecdata)->default_value(""))
     ("turnoffpuid",           po::value<bool>(&turnoffpuid)->default_value(false))
     ("useOldLT",              po::value<bool>(&useOldLT)->default_value(false))
     ("doTrigLT",              po::value<bool>(&doTrigLT)->default_value(false))
@@ -399,11 +399,14 @@ int main(int argc, char* argv[]){
 
   if (era == era::data_2016){
     if (doICHEP2016){ // 12d9 /fb
-      data_json     =  "input/json/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt";
+      data_json = "input/json/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt";
     }
     else if (doLastJSON){ // 36d77 /fb
-      data_json     =  "input/json/Cert_271036-284044_13TeV_PromptReco_Collisions16_JSON.txt";
+      data_json = "input/json/Cert_271036-284044_13TeV_PromptReco_Collisions16_JSON.txt";
     }
+  }
+  if (era == era::data_2016_moriond17){// 36d815 /fb
+    data_json = "input/json/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt";
   }
 
   LumiMask lumiMask = LumiMask("LumiMask")
@@ -422,6 +425,7 @@ int main(int argc, char* argv[]){
   if (mc == mc::spring15_74X) mc_pu_file = "input/pileup/MC_Spring15_PU25_Startup.root";
   if (mc == mc::fall15_76X) mc_pu_file   = "input/pileup/MC_Fall15_PU25_V1.root";
   if (mc == mc::spring16_80X) mc_pu_file = "input/pileup/MC_Spring16_PU25ns_V1.root";
+  if (mc == mc::summer16_80X) mc_pu_file = "input/pileup/MC_Summer16_PU25ns_V1.root";
 
   string data_pu_file;
   if (era == era::data_2012_rereco) data_pu_file  =  "input/pileup/Data_Pileup_2012_ReRecoPixel-600bins.root";
@@ -434,11 +438,14 @@ int main(int argc, char* argv[]){
   if (era == era::data_2015_25ns) data_pu_file    =  "input/pileup/Data_Pileup_mb69_2015D_246908-260627-600bins.root";
   if (era == era::data_2016){
     if (doICHEP2016){ // 12d9 /fb
-      data_pu_file         =  "input/pileup/12d9/Data_Pileup_mb69d2_2016-600bins.root";
+      data_pu_file = "input/pileup/12d9/Data_Pileup_mb69d2_2016-600bins.root";
     }
     else if (doLastJSON){ // 36d77 /fb
-      data_pu_file         =  "input/pileup/36d77/Data_Pileup_mb69d2_2016-600bins.root";
+      data_pu_file = "input/pileup/36d77/Data_Pileup_mb69d2_2016-600bins.root";
     }
+  }
+  if (era == era::data_2016_moriond17){// 36d815 /fb
+    data_pu_file = "input/pileup/ReReco_Moriond17/Data_Pileup_mb69d2_2016-600bins.root";
   }
 
   TH1D data_pu  = GetFromTFile<TH1D>(data_pu_file, "/", "pileup");
@@ -472,6 +479,10 @@ int main(int argc, char* argv[]){
       data_pu_up    = GetFromTFile<TH1D>("input/pileup/36d77/Data_Pileup_mb72d4_2016-600bins.root", "/", "pileup");
       data_pu_down  = GetFromTFile<TH1D>("input/pileup/36d77/Data_Pileup_mb66_2016-600bins.root", "/", "pileup");
     }
+  }
+  else if(era == era::data_2016_moriond17){// 36d815 /fb
+    data_pu_up    = GetFromTFile<TH1D>("input/pileup/ReReco_Moriond17/Data_Pileup_mb72d4_2016-600bins.root", "/", "pileup");
+    data_pu_down  = GetFromTFile<TH1D>("input/pileup/ReReco_Moriond17/Data_Pileup_mb66_2016-600bins.root", "/", "pileup");
   }
 
   if (!is_data) {

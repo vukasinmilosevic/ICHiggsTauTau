@@ -151,7 +151,7 @@ namespace ic {//namespace
     }
 
     if (do_w_soup_) {
-      if (mc_ == mc::spring16_80X){
+      if (mc_ == mc::spring16_80X || mc_ == mc::summer16_80X){
         std::cout << "-- Making W Soup:" << std::endl;
         std::cout << "nInc = " << n_inc_ << std::endl;
         w1_ = (n_inc_*f1_) / ( (n_inc_*f1_) + n1_ );
@@ -961,7 +961,7 @@ namespace ic {//namespace
         else if (400 <= gen_ht &&gen_ht<600) eventInfo->set_weight("wsoup", w3_);
         else if (gen_ht >= 600) eventInfo->set_weight("wsoup", w4_);
       }
-      else if (mc_ == mc::spring16_80X){
+      else if (mc_ == mc::spring16_80X || mc_ == mc::summer16_80X){
         double gen_ht = lheHT;
         if (100 <= gen_ht&&gen_ht <200) eventInfo->set_weight("wsoup", w1_);
         else if (200 <= gen_ht&&gen_ht <400) eventInfo->set_weight("wsoup", w2_);

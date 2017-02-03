@@ -158,7 +158,7 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN ELEEFFUP ELE
       echo $FILELIST > tmp.txt
 
 
-      MCOPTION="--mc=spring16_80X"
+      MCOPTION="--mc=summer16_80X"
       #PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}_MC
       PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1095//store/user/${PRODUSER}/${PRODUCTION}_MC
       sed "s/filelists\/${PRODUCTION}\/$QUEUEDIR\/${PRODUCTION}_MC_//" tmp.txt > tmp2.txt
@@ -182,7 +182,7 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN ELEEFFUP ELE
       grep "Htoinv" tmp.txt
       if (( "$?" == 0 )); then
         JPTCUT=0
-        MCOPTION="--mc=spring16_80X --donoskim=true"
+        MCOPTION="--mc=summer16_80X --donoskim=true"
       fi
 
       NEEDSSTREAM=0
