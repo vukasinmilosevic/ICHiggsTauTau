@@ -359,37 +359,32 @@ namespace ic {//namespace
     if (save_weights_){
       std::vector<double> dummypt;
       std::vector<double> dummyeta;
-      fillVector("input/scale_factors/Summer16_80X_ele_tight_id_SF.txt",5,10,eTight_idisoSF_,e_ptbin_,e_etabin_);
-      fillVector("input/scale_factors/Summer16_80X_gsf_id_SF.txt",1,28,e_gsfidSF_,gsf_ptbin_,gsf_etabin_);
-      fillVector("input/scale_factors/Spring16_80X_mu_tight_id_SF.txt",7,8,muTight_idSF_,mu_ptbin_,mu_etabin_);
-      fillVector("input/scale_factors/Spring16_80X_mu_trackingSF.txt",1,10,mu_tkSF_,tk_ptbin_,tk_etabin_);
+      fillVector("input/scale_factors/Summer16_80X_ele_tight_id_SF.txt",6,10,eTight_idisoSF_,e_ptbin_,e_etabin_);
+      fillVector("input/scale_factors/Summer16_80X_gsf_id_SF.txt",3,30,e_gsfidSF_,gsf_ptbin_,gsf_etabin_);
+      fillVector("input/scale_factors/Summer16_80X_mu_tight_id_SF.txt",6,8,muTight_idSF_,mu_ptbin_,mu_etabin_);
       if(!do_idiso_err_ || (do_idiso_err_ && do_idiso_errmuore_) ){//Central value electrons
-        fillVector("input/scale_factors/Summer16_80X_ele_veto_id_data_eff.txt",5,10,eVeto_idisoDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",5,10,eVeto_idisoMCEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_gsf_id_data_eff.txt",1,28,e_gsfidDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_gsf_id_mc_eff.txt",1,28,e_gsfidMCEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_ele_veto_id_data_eff.txt",6,10,eVeto_idisoDataEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",6,10,eVeto_idisoMCEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_gsf_id_data_eff.txt",3,30,e_gsfidDataEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_gsf_id_mc_eff.txt",3,30,e_gsfidMCEff_,dummypt,dummyeta);
         //fillVector("input/scale_factors/Fall15_76X_ele_tight_id_SF.txt",eTight_idisoSF_);
         //fillVector("input/scale_factors/Fall15_76X_ele_veto_id_data_eff.txt",eVeto_idisoDataEff_);
         //fillVector("input/scale_factors/Fall15_76X_ele_veto_id_mc_eff.txt",eVeto_idisoMCEff_);
       }
       if (!do_idiso_err_ || (do_idiso_err_ && !do_idiso_errmuore_) ){//Central value muons
-        fillVector("input/scale_factors/Spring16_80X_mu_tight_iso_SF.txt",7,8,muTight_isoSF_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Spring16_80X_mu_loose_id_data_eff.txt",7,8,muVeto_idDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Spring16_80X_mu_loose_iso_data_eff.txt",7,8,muVeto_isoDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Spring16_80X_mu_loose_id_mc_eff.txt",7,8,muVeto_idMCEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Spring16_80X_mu_loose_iso_mc_eff.txt",7,8,muVeto_isoMCEff_,dummypt,dummyeta);
-        //for tracking, MC is 1, SF=dataEff
-        fillVector("input/scale_factors/Spring16_80X_mu_trackingSF.txt",1,10,mu_tkDataEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_mu_tight_iso_SF.txt",6,8,muTight_isoSF_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_mu_loose_id_data_eff.txt",6,8,muVeto_idDataEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_mu_loose_iso_data_eff.txt",6,8,muVeto_isoDataEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_mu_loose_id_mc_eff.txt",6,8,muVeto_idMCEff_,dummypt,dummyeta);
+        fillVector("input/scale_factors/Summer16_80X_mu_loose_iso_mc_eff.txt",6,8,muVeto_isoMCEff_,dummypt,dummyeta);
       }
       if(do_idiso_err_ && do_idiso_errmuore_){//Muon eff varied
-        fillVectorError("input/scale_factors/Spring16_80X_mu_tight_id_SF.txt",muTight_idSF_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_mu_tight_iso_SF.txt",muTight_isoSF_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_mu_loose_id_data_eff.txt",muVeto_idDataEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_mu_loose_iso_data_eff.txt",muVeto_isoDataEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_mu_loose_id_mc_eff.txt",muVeto_idMCEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_mu_loose_iso_mc_eff.txt",muVeto_isoMCEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_mu_trackingSF.txt",mu_tkSF_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Spring16_80X_mu_trackingSF.txt",mu_tkDataEff_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_mu_tight_id_SF.txt",muTight_idSF_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_mu_tight_iso_SF.txt",muTight_isoSF_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_mu_loose_id_data_eff.txt",muVeto_idDataEff_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_mu_loose_iso_data_eff.txt",muVeto_isoDataEff_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_mu_loose_id_mc_eff.txt",muVeto_idMCEff_,do_idiso_errupordown_);
+        fillVectorError("input/scale_factors/Summer16_80X_mu_loose_iso_mc_eff.txt",muVeto_isoMCEff_,do_idiso_errupordown_);
       }
       else if (do_idiso_err_ && !do_idiso_errmuore_) {//Electron eff varied
         fillVectorError("input/scale_factors/Summer16_80X_ele_tight_id_SF.txt",eTight_idisoSF_,do_idiso_errupordown_);
@@ -398,9 +393,6 @@ namespace ic {//namespace
         fillVectorError("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",eVeto_idisoMCEff_,do_idiso_errupordown_);
         fillVectorError("input/scale_factors/Summer16_80X_gsf_id_data_eff.txt",e_gsfidDataEff_,do_idiso_errupordown_);
         fillVectorError("input/scale_factors/Summer16_80X_gsf_id_mc_eff.txt",e_gsfidMCEff_,do_idiso_errupordown_);
-        //fillVectorError("input/scale_factors/Fall15_76X_ele_tight_id_SF.txt",eTight_idisoSF_,do_idiso_errupordown_);
-        //fillVectorError("input/scale_factors/Fall15_76X_ele_veto_id_data_eff.txt",eVeto_idisoDataEff_,do_idiso_errupordown_);
-        //fillVectorError("input/scale_factors/Fall15_76X_ele_veto_id_mc_eff.txt",eVeto_idisoMCEff_,do_idiso_errupordown_);
       }
 
 
@@ -417,11 +409,6 @@ namespace ic {//namespace
         muVeto_idisoDataEff_.push_back(muVeto_idDataEff_[iBin]*muVeto_isoDataEff_[iBin]);
         muVeto_idisoMCEff_.push_back(muVeto_idMCEff_[iBin]*muVeto_isoMCEff_[iBin]);
         //std::cout<<muVeto_idisoMCEff_.back()<<" "<<muVeto_idisoDataEff_.back()<<" "<<muTight_idisoSF_.back()<<std::endl;//!!
-      }
-
-      for (unsigned iBin(0); iBin<e_gsfidDataEff_.size();++iBin){
-        if(mu_tkDataEff_[iBin]>=1)mu_tkDataEff_[iBin]=0.99999;
-        if(mu_tkDataEff_[iBin]<0)mu_tkDataEff_[iBin]=0;
       }
 
       for (unsigned iBin(0); iBin<eVeto_idisoDataEff_.size();++iBin){
@@ -874,8 +861,8 @@ namespace ic {//namespace
     double mu_weight = 1.0;
     for (unsigned iEle(0); iEle<mus.size();++iEle){
       unsigned lBin = findPtEtaBin(mus[iEle]->pt(),mus[iEle]->eta(),mu_ptbin_,mu_etabin_);
-      unsigned mBin = findPtEtaBin(mus[iEle]->pt(),mus[iEle]->eta(),tk_ptbin_,tk_etabin_);
-      mu_weight *= muTight_idisoSF_[lBin] * mu_tkSF_[mBin];
+      //unsigned mBin = findPtEtaBin(mus[iEle]->pt(),mus[iEle]->eta(),tk_ptbin_,tk_etabin_);
+      mu_weight *= muTight_idisoSF_[lBin];// * mu_tkSF_[mBin];
     }
     //add veto which are not tight
     std::vector<Muon*> const& loosemus = event->GetPtrVec<Muon>("vetoMuons");
@@ -883,8 +870,8 @@ namespace ic {//namespace
       //check overlap with tight
       if (isTightMuon(loosemus[iEle],mus)) continue;
       unsigned lBin = findPtEtaBin(loosemus[iEle]->pt(),loosemus[iEle]->eta(),mu_ptbin_,mu_etabin_);
-      unsigned mBin = findPtEtaBin(loosemus[iEle]->pt(),loosemus[iEle]->eta(),tk_ptbin_,tk_etabin_);
-      mu_weight *= muVeto_idisoDataEff_[lBin]/muVeto_idisoMCEff_[lBin] * mu_tkSF_[mBin];
+      //unsigned mBin = findPtEtaBin(loosemus[iEle]->pt(),loosemus[iEle]->eta(),tk_ptbin_,tk_etabin_);
+      mu_weight *= muVeto_idisoDataEff_[lBin]/muVeto_idisoMCEff_[lBin];// * mu_tkSF_[mBin];
     }
     eventInfo->set_weight("!muTight_idisoSF",mu_weight);
     tightmuweight->Fill(mu_weight);
@@ -937,8 +924,9 @@ namespace ic {//namespace
         else eventsWithGenMuon_++;
         if (genParts[iEle]->pt() > 10 && fabs(genParts[iEle]->eta()) < 2.1) {
           unsigned lBin = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),mu_ptbin_,mu_etabin_);
-          unsigned lBinTk = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),tk_ptbin_,tk_etabin_);
-          mu_veto_weight *= (1-(muVeto_idisoDataEff_[lBin]*mu_tkDataEff_[lBinTk]))/(1-muVeto_idisoMCEff_[lBin]);
+          //unsigned lBinTk = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),tk_ptbin_,tk_etabin_);
+          //mu_veto_weight *= (1-(muVeto_idisoDataEff_[lBin]*mu_tkDataEff_[lBinTk]))/(1-muVeto_idisoMCEff_[lBin]);
+          mu_veto_weight *= (1-muVeto_idisoDataEff_[lBin])/(1-muVeto_idisoMCEff_[lBin]);
           //if(mu_veto_weight<0)std::cout<<"Below zero weight:"<<(1-muVeto_idisoDataEff_[lBin])/(1-muVeto_idisoMCEff_[lBin])<<" "<<muVeto_idisoDataEff_[lBin]<<" "<<muVeto_idisoMCEff_[lBin]<<std::endl;//!!
           //if(mu_veto_weight>10000)std::cout<<"Very high weight:"<<(1-muVeto_idisoDataEff_[lBin])/(1-muVeto_idisoMCEff_[lBin])<<" "<<muVeto_idisoDataEff_[lBin]<<" "<<muVeto_idisoMCEff_[lBin]<<" "<<genParts[iEle]->pt()<<" "<<genParts[iEle]->eta()<<std::endl;//!!
           if (isTau) eventsWithGenMuonFromTauInAcc_++;
@@ -1283,9 +1271,9 @@ namespace ic {//namespace
       }
     }
 
-//     std::cout << " ---- Size of vector for file " << aFileName << " = " << aVector.size() << std::endl;
-//     std::cout << " ---- Size of pt bin vector: " << ptbin.size() << std::endl;
-//     std::cout << " ---- Size of eta bin vector: " << etabin.size() << std::endl;
+    std::cout << " ---- CHECK! Size of pt and eta vectors for file " << aFileName << " : ";
+    std::cout << " " << nPtBins;
+    std::cout << " " << nEtaBins << std::endl;
 
     lInput.close();
 
@@ -1297,8 +1285,8 @@ namespace ic {//namespace
     lInput.open(aFileName);
     if(!lInput.is_open()){
       std::cerr << "Unable to open file: " << aFileName << ". Setting vector content to 1." << std::endl;
-      //max expected size for e and mu is 33...
-      aVector.resize(33,1);
+      //max expected size for e and mu ??
+      aVector.resize(100,1);
       return;
     }
     while(1){

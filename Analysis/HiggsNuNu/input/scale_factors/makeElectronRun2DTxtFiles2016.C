@@ -53,6 +53,7 @@ int makeElectronRun2DTxtFiles2016(){//main
     //correct by hand the binning for gsf eff: add <20 and >80 to have extra syst correctly
     const unsigned nPt = iWP==2?3:hist_elec[iWP][2]->GetYaxis()->GetNbins();
 
+    std::cout << lFileName[iWP] << " nEta = " << nEta << " nPt = " << nPt << std::endl;
     
     double ptMin[nPt];
     double ptMax[nPt];
