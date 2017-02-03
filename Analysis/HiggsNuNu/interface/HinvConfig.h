@@ -134,7 +134,7 @@ struct mc_def {
 		phys14_72X,			  // 72X MC
 		spring15_74X,			// 74X MC
 		fall15_76X,			  // 76X MC
-		spring16_80X			// 80X MC
+		spring16_80X,			// 80X MC
 		summer16_80X			// 80X MC for Moriond 2017
 	};
 };
