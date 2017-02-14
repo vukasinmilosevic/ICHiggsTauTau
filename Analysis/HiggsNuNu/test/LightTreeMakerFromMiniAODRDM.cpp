@@ -197,10 +197,10 @@ int main(int argc, char* argv[]){
     ("doidisoerrupordown",    po::value<bool>(&doidisoerrupordown)->default_value(true))
     ("doidisoerrmuore",       po::value<bool>(&doidisoerrmuore)->default_value(true))
     ("dolumixsweight",        po::value<bool>(&dolumixsweight)->default_value(false))
-    ("inputparams",           po::value<string>(&inputparams)->default_value("filelists/170201/Params170201.dat"))
+    ("inputparams",           po::value<string>(&inputparams)->default_value(""))
     ("jettype",               po::value<string>(&jettype)->default_value("pfJetsPFlow"))
-    ("trg_weight_file",       po::value<string>(&trg_weight_file)->default_value("input/scale_factors/TrigEff2016_MET1DFitHFBinned_errors_12d9fb.root"))
-    ("trg_to_use",            po::value<string>(&trg_to_use)->default_value("HLT_DiPFJet40_DEta3p5_MJJ600_PFMETNoMu140"))
+    ("trg_weight_file",       po::value<string>(&trg_weight_file)->default_value(""))
+    ("trg_to_use",            po::value<string>(&trg_to_use)->default_value(""))
     ("printEventList",        po::value<bool>(&printEventList)->default_value(false))
     ("printEventContent",     po::value<bool>(&printEventContent)->default_value(false))
     ("dosmear",               po::value<bool>(&dosmear)->default_value(false))
@@ -231,16 +231,22 @@ int main(int argc, char* argv[]){
   boost::split(filtersVec, filters, boost::is_any_of(","));
 
   if (era == era::data_2016_moriond17){
-    if (output_name.find("2016E") != output_name.npos ||
-        output_name.find("2016F") != output_name.npos) {
+    if (output_name.find("2016B") != output_name.npos || 
+        output_name.find("2016C") != output_name.npos || 
+        output_name.find("2016D") != output_name.npos) {
+      jesuncfile="input/jec/Summer16_23Sep2016BCDV4_DATA_Uncertainty_AK4PFchs.txt";
+      jecdata="input/jec/Summer16_23Sep2016BCDV4_DATA_L1FastJet_AK4PFchs.txt,input/jec/Summer16_23Sep2016BCDV4_DATA_L2Relative_AK4PFchs.txt,input/jec/Summer16_23Sep2016BCDV4_DATA_L3Absolute_AK4PFchs.txt,input/jec/Summer16_23Sep2016BCDV4_DATA_L2L3Residual_AK4PFchs.txt";
+    }
+    else if (output_name.find("2016E") != output_name.npos || 
+             output_name.find("2016F") != output_name.npos) {
       jesuncfile="input/jec/Summer16_23Sep2016EFV4_DATA_Uncertainty_AK4PFchs.txt";
       jecdata="input/jec/Summer16_23Sep2016EFV4_DATA_L1FastJet_AK4PFchs.txt,input/jec/Summer16_23Sep2016EFV4_DATA_L2Relative_AK4PFchs.txt,input/jec/Summer16_23Sep2016EFV4_DATA_L3Absolute_AK4PFchs.txt,input/jec/Summer16_23Sep2016EFV4_DATA_L2L3Residual_AK4PFchs.txt";
     }
-    if (output_name.find("2016G") != output_name.npos) {
+    else if (output_name.find("2016G") != output_name.npos) {
       jesuncfile="input/jec/Summer16_23Sep2016GV4_DATA_Uncertainty_AK4PFchs.txt";
-    jecdata="input/jec/Summer16_23Sep2016GV4_DATA_L1FastJet_AK4PFchs.txt,input/jec/Summer16_23Sep2016GV4_DATA_L2Relative_AK4PFchs.txt,input/jec/Summer16_23Sep2016GV4_DATA_L3Absolute_AK4PFchs.txt,input/jec/Summer16_23Sep2016GV4_DATA_L2L3Residual_AK4PFchs.txt";
+      jecdata="input/jec/Summer16_23Sep2016GV4_DATA_L1FastJet_AK4PFchs.txt,input/jec/Summer16_23Sep2016GV4_DATA_L2Relative_AK4PFchs.txt,input/jec/Summer16_23Sep2016GV4_DATA_L3Absolute_AK4PFchs.txt,input/jec/Summer16_23Sep2016GV4_DATA_L2L3Residual_AK4PFchs.txt";
     }
-    if (output_name.find("2016H") != output_name.npos) {
+    else if (output_name.find("2016H") != output_name.npos) {
       jesuncfile="input/jec/Summer16_23Sep2016HV4_DATA_Uncertainty_AK4PFchs.txt";
       jecdata="input/jec/Summer16_23Sep2016HV4_DATA_L1FastJet_AK4PFchs.txt,input/jec/Summer16_23Sep2016HV4_DATA_L2Relative_AK4PFchs.txt,input/jec/Summer16_23Sep2016HV4_DATA_L3Absolute_AK4PFchs.txt,input/jec/Summer16_23Sep2016HV4_DATA_L2L3Residual_AK4PFchs.txt";
     }
@@ -386,6 +392,8 @@ int main(int argc, char* argv[]){
     "icEventProducer/EventTree", // TTree name
     max_events);          // Max. events to process (-1 = all)
 
+    //The following seems not working:
+    //analysis.StopOnFileFailure(false);
   // ------------------------------------------------------------------------------------
   // Misc Modules
   // ------------------------------------------------------------------------------------
@@ -409,7 +417,7 @@ int main(int argc, char* argv[]){
 //   if (era == era::data_2012_moriond) data_json   =  "input/json/data_2012_moriond.txt";
 //   if (era == era::data_2012_donly) data_json     =  "input/json/data_2012_donly.txt";
 
-  std::string mydebugoutput("/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/mydebugoutput");
+  std::string mydebugoutput("./mydebugJSON");
   std::string suffix = output_name.substr( 0 , output_name.find(".root") );
   mydebugoutput.append(suffix);
 
@@ -426,7 +434,7 @@ int main(int argc, char* argv[]){
   }
 
   LumiMask lumiMask = LumiMask("LumiMask")
-   //.set_produce_output_jsons(mydebugoutput.c_str())
+    //.set_produce_output_jsons(mydebugoutput.c_str())
     .set_input_file(data_json);
 
   MakeRunStats runStats = MakeRunStats("RunStats")
@@ -963,11 +971,13 @@ int main(int argc, char* argv[]){
     jptbinning.push_back(0);
     jptbinning.push_back(7000);
     std::vector<double> mjjbinning;
-    //mjjbinning.push_back(800);
-    //mjjbinning.push_back(1000);
-    //mjjbinning.push_back(10000);
     mjjbinning.push_back(0);
+    mjjbinning.push_back(800);
+    mjjbinning.push_back(1200);
+    mjjbinning.push_back(1700);
     mjjbinning.push_back(14000);
+    //mjjbinning.push_back(0);
+    //mjjbinning.push_back(14000);
     hinvWeights.set_do_trg_weights(dotrgeff)
       .set_do_3dtrg_weights(do3dtrgeff)
       .set_do_1dparkedtrg_weights(do1dparkedtrgeff)
@@ -981,8 +991,8 @@ int main(int argc, char* argv[]){
       .set_trg_applied_in_mc(false);
     if(do3dtrgeff){
       hinvWeights.set_Alumi(0.889)
-	.set_BClumi(11.023)
-	.set_Dlumi(7.315);
+        .set_BClumi(11.023)
+        .set_Dlumi(7.315);
     }
     hinvWeights.set_do_idiso_veto_weights(false);
     hinvWeights.set_do_idiso_tight_weights(false);
@@ -1010,14 +1020,15 @@ int main(int argc, char* argv[]){
 //     SetDoW( mc, &xsWeights );
 //   }
 
-  if (output_name.find("JetsToLL-mg-m50") != output_name.npos &&
-      output_name.find("PtZ-100-madgraph") == output_name.npos &&
-      output_name.find("Zpt150") == output_name.npos &&
-      output_name.find("DYJJ01") == output_name.npos &&
-      output_name.find("m50-ht") == output_name.npos) {
-
-    SetDoDY( mc, &xsWeights );
-  }
+//   Do not weight anymore, since we are dropping all the samples *but* HT-binned due to MIT sync
+//   if (output_name.find("JetsToLL-mg-m50") != output_name.npos &&
+//       output_name.find("PtZ-100-madgraph") == output_name.npos &&
+//       output_name.find("Zpt150") == output_name.npos &&
+//       output_name.find("DYJJ01") == output_name.npos &&
+//       output_name.find("m50-ht") == output_name.npos) {
+// 
+//     SetDoDY( mc, &xsWeights );
+//   }
 
   if (output_name.find("JetsToLL-mg-m50-ht") != output_name.npos ||
       output_name.find("JetsToNuNu") != output_name.npos) {
@@ -1027,14 +1038,6 @@ int main(int argc, char* argv[]){
   if (output_name.find("JetsToLNu-mg-ht") != output_name.npos) {
     xsWeights.set_do_w_reweighting(true);
   }
-
-  /*if (output_name.find("JetsToLL") != output_name.npos &&
-      output_name.find("m50-ht") != output_name.npos){
-    xsWeights.set_do_dy_soup_htbinned(false);
-    xsWeights.set_do_dy_reweighting(false);
-    xsWeights.SetDYTargetFractions(1,1,1,1,1);
-    xsWeights.SetDYInputYields(9004328,0,962195,1069003,1031103);
-    }*/
 
   // ------------------------------------------------------------------------------------
   // Gen particle selection modules
@@ -1083,7 +1086,6 @@ int main(int argc, char* argv[]){
     .set_trigger_path("HLT_DiPFJet40_PFMETnoMu65_MJJ800VBF_AllJets_v");
   //.set_trig_obj_label("triggerObjectsPFMET170NoiseCleaned");
 
-//  LightTreeAM lightTreeNew = LightTreeAM("LightTreeNew")
   LightTreeRDM lightTreeNew = LightTreeRDM("LightTreeNew")
     .set_fs(fs)
     .set_debug(debug)
@@ -1110,8 +1112,8 @@ int main(int argc, char* argv[]){
     //do W streaming to e,mu,tau
     if (isW) {
       if (wstream != "nunu") {
-	if (is2012) analysis.AddModule(&WtoLeptonFilter2012);
-	else analysis.AddModule(&WtoLeptonFilter);
+        if (is2012) analysis.AddModule(&WtoLeptonFilter2012);
+        else analysis.AddModule(&WtoLeptonFilter);
       }
     }
     //Do PU Weight
@@ -1131,7 +1133,6 @@ int main(int argc, char* argv[]){
 
   //if (printEventList) analysis.AddModule(&hinvPrintList);
   if (true) { //it was "is_data"; now changed to apply on MC badChargedHadronFilter & badMuonFilter; but be careful to change correctly the cfg file
-    // see line 459
     //analysis.AddModule(&dataMCTriggerPathFilter);
     analysis.AddModule(&metFilters);
     //74X only

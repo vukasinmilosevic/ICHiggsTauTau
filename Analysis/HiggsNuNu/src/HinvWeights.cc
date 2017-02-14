@@ -60,24 +60,31 @@ namespace ic {//namespace
     do_idiso_errmuore_      = true;
     do_lumixs_weights_      = false;
     save_lumixs_weights_    = true;
-    input_params_ = "filelists/Apr04/ParamsApr04.dat";
+    input_params_ = "";
     sample_name_= "test";
     input_met_ = "metNoMuons";
     input_jet_ = "pfJetsPFlow";
-    trg_weight_file_="input/scale_factors/DataMCWeight_53X_v1.root";
+    trg_weight_file_="";
     Alumi_  = -1;
     BClumi_ = -1;
     Dlumi_  = -1;
 
-    errLabel.push_back("");
-    errLabel.push_back("_v0Up");
-    errLabel.push_back("_v0Down");
-    errLabel.push_back("_v1Up");
-    errLabel.push_back("_v1Down");
-    errLabel.push_back("_v2Up");
-    errLabel.push_back("_v2Down");
+    errLabelSave.push_back("");
+    errLabelSave.push_back("_Up");
+    errLabelSave.push_back("_Down");
+    //errLabel.push_back("_v0Up");
+    //errLabel.push_back("_v0Down");
+    //errLabel.push_back("_v1Up");
+    //errLabel.push_back("_v1Down");
+    //errLabel.push_back("_v2Up");
+    //errLabel.push_back("_v2Down");
+
+    errLabel.push_back("f1_");
+    errLabel.push_back("f1Up_");
+    errLabel.push_back("f1Down_");
 
     // For v_nlo_Reweighting (kfactor_VBF_zjets_v2.root and kfactor_VBF_wjets_v2.root files in input/scalefactors from MIT group)
+    kfactors_file_="input/scale_factors/kfactors.root";
     kfactor_VBF_zjets_v2_file_="input/scale_factors/kfactor_VBF_zjets_v2.root";
     kfactor_VBF_wjets_v2_file_="input/scale_factors/kfactor_VBF_wjets_v2.root";
   }
@@ -197,6 +204,7 @@ namespace ic {//namespace
     }
     if (do_w_reweighting_ || do_dy_reweighting_) { // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
 
+      kfactors_ = TFile::Open(kfactors_file_.c_str());
       kfactor_VBF_zjets_v2_ = TFile::Open(kfactor_VBF_zjets_v2_file_.c_str());
       kfactor_VBF_wjets_v2_ = TFile::Open(kfactor_VBF_wjets_v2_file_.c_str());
 
@@ -208,11 +216,15 @@ namespace ic {//namespace
 //         hist_kfactors_N_W->Scale(1./hist_kfactors_N_W->Integral());
 //         hist_kfactors_D_W->Sumw2();
 //         hist_kfactors_D_W->Scale(1./hist_kfactors_D_W->Integral());
+        hist_kfactors_EWKcorr_W      = (TH1F*)kfactors_->Get("EWKcorr/W");
+        hist_kfactors_WJets_012j_NLO = (TH1F*)kfactors_->Get("WJets_012j_NLO/nominal");
       }
       if (do_dy_reweighting_) {
         std::cout << " -- Applying reweighting of DY events to NLO from MIT (Raffaele)." << std::endl;
         hist_kfactors_N_Z = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_NLO_vbf");
         hist_kfactors_D_Z = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_LO_vbf");
+        hist_kfactors_EWKcorr_Z      = (TH1F*)kfactors_->Get("EWKcorr/Z");
+        hist_kfactors_ZJets_012j_NLO = (TH1F*)kfactors_->Get("ZJets_012j_NLO/nominal");
       }
     }
 
@@ -269,14 +281,15 @@ namespace ic {//namespace
       else if(do_binnedin2d1dfittedtrg_weights_){
         std::cout<<"Getting trigger efficiency functions"<<std::endl;
         for(unsigned iVar1=0;iVar1<(binnedin2d1dfitweightvar1binning_.size()-1);iVar1++){
-          std::vector<std::vector<TF1*> > thisfuncvectorvector[7];
+          std::vector<std::vector<TF1*> > thisfuncvectorvector[errLabel.size()];
           for(unsigned iVar2=0;iVar2<(binnedin2d1dfitweightvar2binning_.size()-1);iVar2++){
-            std::vector<TF1*> thisfuncvector[7];
+            std::vector<TF1*> thisfuncvector[errLabel.size()];
             //HF bins
             for(unsigned iVar3=0;iVar3<(do_run2_?2:1);iVar3++){
               std::ostringstream convert;
               if (!do_metmht_) convert<<iVar1+1<<iVar2+1;
-              if (do_run2_) convert<<iVar3+1;
+              //if (do_run2_) convert<<iVar3+1;
+              if (do_run2_) convert<<iVar2+1;
               std::string histnumber=convert.str();
               if(!do_run2_){
                 thisfuncvector[0].push_back((TF1*)gDirectory->Get(("fData_"+binnedin2d1dfitweightvarorder_[2]+"_1D_"+histnumber+"A").c_str()));
@@ -284,19 +297,26 @@ namespace ic {//namespace
                 thisfuncvector[0].push_back((TF1*)gDirectory->Get(("fData_"+binnedin2d1dfitweightvarorder_[2]+"_1D_"+histnumber+"D").c_str()));
               }
               else{
-                for (unsigned iErr(0); iErr<7;++iErr){
-                  if (!do_metmht_) thisfuncvector[iErr].push_back((TF1*)gDirectory->Get(("fdata_"+binnedin2d1dfitweightvarorder_[2]+"_1d_"+histnumber+"Deff"+errLabel[iErr]).c_str()));
-                  else thisfuncvector[iErr].push_back((TF1*)gDirectory->Get(("METMHT_BIN"+histnumber+errLabel[iErr]).c_str()));
+                for (unsigned iErr(0); iErr<errLabel.size();++iErr){
+                  std::string newhistnumber= histnumber;
+                  if (do_metmht_ && iErr>0) newhistnumber = "1;"+histnumber;
+                  TF1 *tmp;
+                  if (!do_metmht_) tmp = (TF1*)gDirectory->Get(("fdata_"+binnedin2d1dfitweightvarorder_[2]+"_1d_"+histnumber+"Deff"+errLabel[iErr]).c_str());
+                  //else thisfuncvector[iErr].push_back((TF1*)gDirectory->Get(("METMHT_BIN"+histnumber+errLabel[iErr]).c_str()));
+                  else tmp = (TF1*)gDirectory->Get((errLabel[iErr]+"METMHT120_MJJBIN"+newhistnumber).c_str());
+
+                  thisfuncvector[iErr].push_back(tmp);
+                  std::cout << " -- trigger Function " << errLabel[iErr]+"METMHT120_MJJBIN"+newhistnumber << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->GetName() << " " << tmp->GetName() << " check value Mjj=2000 " << tmp->Eval(2000.) << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->Eval(2000.) << std::endl; 
                 }
               }
             }
             if(!do_run2_) thisfuncvectorvector[0].push_back(thisfuncvector[0]);
-            for (unsigned iErr(0); iErr<7;++iErr){
+            for (unsigned iErr(0); iErr<errLabel.size();++iErr){
               thisfuncvectorvector[iErr].push_back(thisfuncvector[iErr]);
             }
           }
           if (!do_run2_) func_trigSF_binnedin2d[0].push_back(thisfuncvectorvector[0]);
-          for (unsigned iErr(0); iErr<7;++iErr){
+          for (unsigned iErr(0); iErr<errLabel.size();++iErr){
             func_trigSF_binnedin2d[iErr].push_back(thisfuncvectorvector[iErr]);
           }
         }
@@ -704,7 +724,7 @@ namespace ic {//namespace
             if(var2bin==-10)var2bin=binnedin2d1dfitweightvar2binning_.size()-1;
           }
 
-          for (unsigned iErr(0); iErr<7;++iErr){//Loop on errors
+          for (unsigned iErr(0); iErr<errLabel.size();++iErr){//Loop on errors
             double trgweights[3]={0,0,0};
             double xmin,xmax;
             if((var1bin!=-1)&&(var2bin!=-1)){
@@ -751,7 +771,7 @@ namespace ic {//namespace
               <<" hasJetsInHF=" << hasJetsInHF
               <<std::endl;   */
             //SET TRIGGER WEIGHT
-            eventInfo->set_weight(("!trig_2dbinned1d"+errLabel[iErr]).c_str(),trgweight);
+            eventInfo->set_weight(("!trig_2dbinned1d"+errLabelSave[iErr]).c_str(),trgweight);
 
           }//endof Loop on errors
         }//2D-1D
@@ -992,6 +1012,7 @@ namespace ic {//namespace
     if (do_w_reweighting_ || do_dy_reweighting_) { // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
       double v_nlo_Reweight = 1.0;
       double v_pt = 0.0;
+      double v_pt_oldBinning = 0.0;
 
       std::vector<GenParticle*> const& parts = event->GetPtrVec<GenParticle>("genParticles");
 
@@ -1003,6 +1024,7 @@ namespace ic {//namespace
                 flags[GenStatusBits::FromHardProcess] && 
                 flags[GenStatusBits::IsFirstCopy]) ) continue;
         v_pt = parts[idxPart]->pt();
+        v_pt_oldBinning = parts[idxPart]->pt();
 
         if (absPdgId==24) {// W+-
           if (v_pt<150) {
@@ -1010,10 +1032,16 @@ namespace ic {//namespace
             v_pt = 151.0;
           }
           if (v_pt>=1000) {
-            //std::cout << " -- Overflow! v_pt = "<< v_pt << " has been re-set to v_pt = 999.0" << std::endl;
+            //std::cout << " -- Overflow! v_pt = "<< v_pt << " has been re-set to v_pt = 1249.0" << std::endl;
             v_pt = 999.0;
           }
-          v_nlo_Reweight = (hist_kfactors_N_W->GetBinContent(hist_kfactors_N_W->FindBin(v_pt)))/(hist_kfactors_D_W->GetBinContent(hist_kfactors_D_W->FindBin(v_pt)));
+          if (v_pt_oldBinning<150) {
+            v_pt_oldBinning = 151.0;
+          }
+          if (v_pt_oldBinning>=1250) {
+            v_pt_oldBinning = 1249.0;
+          }
+          v_nlo_Reweight = ( ( hist_kfactors_N_W->GetBinContent(hist_kfactors_N_W->FindBin(v_pt)) )/( hist_kfactors_D_W->GetBinContent(hist_kfactors_D_W->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_W->GetBinContent(hist_kfactors_EWKcorr_W->FindBin(v_pt_oldBinning)) )/( hist_kfactors_WJets_012j_NLO->GetBinContent(hist_kfactors_WJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
           //std::cout << " -- The NLO weight of W is v_nlo_Reweight = "<< v_nlo_Reweight << std::endl;
         } 
         if (absPdgId==23) {// Z
@@ -1022,10 +1050,16 @@ namespace ic {//namespace
             v_pt = 151.0;
           }
           if (v_pt>=1000) {
-            //std::cout << " -- Overflow! v_pt = "<< v_pt << " has been re-set to v_pt = 999.0" << std::endl;
+            //std::cout << " -- Overflow! v_pt = "<< v_pt << " has been re-set to v_pt = 1249.0" << std::endl;
             v_pt = 999.0;
           }
-          v_nlo_Reweight = (hist_kfactors_N_Z->GetBinContent(hist_kfactors_N_Z->FindBin(v_pt)))/(hist_kfactors_D_Z->GetBinContent(hist_kfactors_D_Z->FindBin(v_pt)));
+          if (v_pt_oldBinning<150) {
+            v_pt_oldBinning = 151.0;
+          }
+          if (v_pt_oldBinning>=1250) {
+            v_pt_oldBinning = 1249.0;
+          }
+          v_nlo_Reweight = ( ( hist_kfactors_N_Z->GetBinContent(hist_kfactors_N_Z->FindBin(v_pt)) )/( hist_kfactors_D_Z->GetBinContent(hist_kfactors_D_Z->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_Z->GetBinContent(hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning)) )/( hist_kfactors_ZJets_012j_NLO->GetBinContent(hist_kfactors_ZJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
           //std::cout << " -- The NLO weight of Z is v_nlo_Reweight = "<< v_nlo_Reweight << std::endl;
         }
       }//endof Loop over genParticles

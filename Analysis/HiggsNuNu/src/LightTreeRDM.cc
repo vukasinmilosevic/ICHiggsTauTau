@@ -692,8 +692,9 @@ namespace ic {
       pileupwtup=eventInfo->weight("pileup_up");
       pileupwtdown=eventInfo->weight("pileup_down");
 
-      std::string label[7] = {"","_v0Up","_v0Down","_v1Up","_v1Down","_v2Up","_v2Down"};
-      for (unsigned iT(0); iT<7; ++iT){
+      //std::string label[7] = {"","_v0Up","_v0Down","_v1Up","_v1Down","_v2Up","_v2Down"};
+      std::string label[7] = {"","_Up","_Down"};
+      for (unsigned iT(0); iT<3; ++iT){
         std::string thislabel = "trig_2dbinned1d"+label[iT];
         weight_trig_[iT]=eventInfo->weight_defined(thislabel.c_str())?eventInfo->weight(thislabel.c_str()):0;
       }
@@ -1006,11 +1007,10 @@ namespace ic {
         jet_uncorpt_[nJets_]     = jets[i]->uncorrected_energy()/jets[i]->energy()*jets[i]->pt();
         jet_neutralhadfrac_[nJets_] = jets[i]->neutral_had_energy()/jets[i]->uncorrected_energy();
         jet_chargedhadfrac_[nJets_] = jets[i]->charged_had_energy_frac();
-	jet_neutralemfrac_[nJets_] = jets[i]->neutral_em_energy_frac();
-	jet_chargedemfrac_[nJets_] = jets[i]->charged_em_energy_frac();
-	jet_chargedmult_[nJets_] = jets[i]->charged_multiplicity();
-	jet_neutralmult_[nJets_] = jets[i]->neutral_multiplicity();
-
+        jet_neutralemfrac_[nJets_] = jets[i]->neutral_em_energy_frac();
+        jet_chargedemfrac_[nJets_] = jets[i]->charged_em_energy_frac();
+        jet_chargedmult_[nJets_] = jets[i]->charged_multiplicity();
+        jet_neutralmult_[nJets_] = jets[i]->neutral_multiplicity();
         jet_E_[nJets_]   =jets[i]->energy();
         jet_eta_[nJets_] =jets[i]->eta();
         jet_phi_[nJets_] =jets[i]->phi();
@@ -1147,16 +1147,7 @@ namespace ic {
     for (unsigned selmuonselements = 0; selmuonselements<selmuons.size(); ++selmuonselements){
     mynewselmuons_.push_back(*selmuons[selmuonselements]);
     }
-    /*
-    for (unsigned elements = 0; elements<vetoelectrons.size(); ++elements){
-    mynewvetoelectrons_.push_back(*vetoelectrons[elements]);
-    }
-    for (unsigned elements = 0; elements<vetoelectrons.size(); ++elements){
-    mynewvetoelectrons_.push_back(*vetoelectrons[elements]);
-    }
-    for (unsigned elements = 0; elements<vetoelectrons.size(); ++elements){
-    mynewvetoelectrons_.push_back(*vetoelectrons[elements]);
-    }*/
+
     if(!ignoreLeptons_){
       nvetomuons_=vetomuons.size();
       nvetoelectrons_=vetoelectrons.size();
@@ -1312,37 +1303,37 @@ namespace ic {
       nmediumphotons_=mediumphotons.size();
       ntightphotons_=tightphotons.size();
       std::sort(tightphotons.begin(), tightphotons.end(), bind(&Candidate::pt, _1) > bind(&Candidate::pt, _2));
-      
+
       std::vector<std::pair<unsigned,bool> > recotogen_photons;
       recotogen_photons.resize(tightphotons.size(),std::pair<unsigned,bool>(1000,false));
       if (!is_data_) getGenRecoMatches<Photon,Candidate>(tightphotons,genPhotons,recotogen_photons);
-      
+
       for (unsigned loosephotonselements = 0; loosephotonselements<loosephotons.size(); ++loosephotonselements){
-	mynewloosephotons_.push_back(*loosephotons[loosephotonselements]);
+        mynewloosephotons_.push_back(*loosephotons[loosephotonselements]);
       }
-      
+
       for (unsigned mediumphotonselements = 0; mediumphotonselements<mediumphotons.size(); ++mediumphotonselements){
-	mynewmediumphotons_.push_back(*mediumphotons[mediumphotonselements]);
+        mynewmediumphotons_.push_back(*mediumphotons[mediumphotonselements]);
       }
-      
+
       for (unsigned tightphotonselements = 0; tightphotonselements<tightphotons.size(); ++tightphotonselements){
-	mynewtightphotons_.push_back(*tightphotons[tightphotonselements]);
+        mynewtightphotons_.push_back(*tightphotons[tightphotonselements]);
       }
-      
+
       if(ntightphotons_>=1){
-	gamma1_pt_=tightphotons[0]->pt();
-	gamma1_eta_=tightphotons[0]->eta();
-	gamma1_phi_=tightphotons[0]->phi();
-	if (!is_data_ && recotogen_photons[0].second){
-	  unsigned genid = recotogen_photons[0].first;
-	  gamma1_genmindR_ = ROOT::Math::VectorUtil::DeltaR(genPhotons[genid]->vector(),tightphotons[0]->vector());
-	  gamma1_genpt_=genPhotons[genid]->pt();
-	  gamma1_geneta_=genPhotons[genid]->eta();
-	  gamma1_genphi_=genPhotons[genid]->phi();
-	}
+        gamma1_pt_=tightphotons[0]->pt();
+        gamma1_eta_=tightphotons[0]->eta();
+        gamma1_phi_=tightphotons[0]->phi();
+        if (!is_data_ && recotogen_photons[0].second){
+          unsigned genid = recotogen_photons[0].first;
+          gamma1_genmindR_ = ROOT::Math::VectorUtil::DeltaR(genPhotons[genid]->vector(),tightphotons[0]->vector());
+          gamma1_genpt_=genPhotons[genid]->pt();
+          gamma1_geneta_=genPhotons[genid]->eta();
+          gamma1_genphi_=genPhotons[genid]->phi();
+        }
       }
-      
-      
+
+
       if (debug_) std::cout << " nPhotons = " << nloosephotons_ << " " << nmediumphotons_ << " " << ntightphotons_ << std::endl;
     } catch (...) {
       //if photon collections not there, ignore....

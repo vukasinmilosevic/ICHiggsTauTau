@@ -37,15 +37,15 @@ namespace ic{
 
     //!!MAKE CHOICE CONFIGURABLE
     TString lumi_13TeV_2016_ICHEP = "12.9 fb^{-1}";
-    TString lumi_13TeV_2016_full  = "27.7 fb^{-1}";
+    TString lumi_13TeV_2016_Moriond  = "36.8 fb^{-1}";
     TString lumi_13TeV_2015 = "2.3 fb^{-1}";
     TString lumi_8TeV = "19.2 fb^{-1}";
     TString lumi_7TeV = "5.1 fb^{-1}";
 
-    lumiText +=lumi_13TeV_2016_ICHEP;//lumi_13TeV;//lumi_8TeV;
-    lumiText +=" (13 TeV - ICHEP)";
-    //lumiText +=lumi_13TeV_2016_full;//lumi_13TeV;//lumi_8TeV;
-    //lumiText +=" (13 TeV)";
+    //lumiText +=lumi_13TeV_2016_ICHEP;//lumi_13TeV;//lumi_8TeV;
+    //lumiText +=" (13 TeV - ICHEP)";
+    lumiText +=lumi_13TeV_2016_Moriond;//lumi_13TeV;//lumi_8TeV;
+    lumiText +=" (13 TeV)";
 
 
     bool outOfFrame = false;
