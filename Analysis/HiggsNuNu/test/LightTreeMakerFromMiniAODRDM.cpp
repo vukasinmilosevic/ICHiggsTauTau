@@ -469,7 +469,7 @@ int main(int argc, char* argv[]){
     }
   }
   if (era == era::data_2016_moriond17){// 36d815 /fb
-    data_pu_file = "input/pileup/ReReco_Moriond17/Data_Pileup_mb69d2_2016-600bins.root";
+    data_pu_file = "input/pileup/ReReco_Moriond17/Data_Pileup_mb69d2_2016-800bins.root";
   }
 
   TH1D data_pu  = GetFromTFile<TH1D>(data_pu_file, "/", "pileup");
@@ -505,8 +505,8 @@ int main(int argc, char* argv[]){
     }
   }
   else if(era == era::data_2016_moriond17){// 36d815 /fb
-    data_pu_up    = GetFromTFile<TH1D>("input/pileup/ReReco_Moriond17/Data_Pileup_mb72d4_2016-600bins.root", "/", "pileup");
-    data_pu_down  = GetFromTFile<TH1D>("input/pileup/ReReco_Moriond17/Data_Pileup_mb66_2016-600bins.root", "/", "pileup");
+    data_pu_up    = GetFromTFile<TH1D>("input/pileup/ReReco_Moriond17/Data_Pileup_mb72d4_2016-800bins.root", "/", "pileup");
+    data_pu_down  = GetFromTFile<TH1D>("input/pileup/ReReco_Moriond17/Data_Pileup_mb66_2016-800bins.root", "/", "pileup");
   }
 
   if (!is_data) {

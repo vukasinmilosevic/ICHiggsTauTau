@@ -122,7 +122,6 @@ int main(int argc, char* argv[]){
   bool dataonly;
   bool datalist;
   bool do_list;
-  std::string listset;
 
   bool do_latex;
   bool do_logy;
@@ -153,17 +152,16 @@ int main(int argc, char* argv[]){
   config.add_options()
     //Input output and config options
     ("output_name,o",            po::value<std::string>(&outputname)->default_value("tmp.root"))
-    ("input_folder,i",           po::value<std::string>(&inputfolder)->default_value("/vols/cms/rd1715/HiggsToInv/output_lighttree_161031/"))
+    ("input_folder,i",           po::value<std::string>(&inputfolder)->default_value(""))
     ("eos_path_mc",              po::value<std::string>(&eos_path_mc)->default_value(""))
     ("eos_path_data",            po::value<std::string>(&eos_path_data)->default_value(""))
     ("syst,s",                   po::value<std::string>(&syst)->default_value(""))
-    ("input_params,p",           po::value<std::string>(&inputparams)->default_value("../filelists/161031/Params161031.dat"))
+    ("input_params,p",           po::value<std::string>(&inputparams)->default_value(""))
     ("filelist,f",               po::value<std::string>(&filelist)->default_value("filelists/run2filelist80X.dat"))
     ("dataset,d",                po::value<std::string>(&dataset)->default_value("MET"))
     ("dataonly",                 po::value<bool>(&dataonly)->default_value(false))
     ("datalist",                 po::value<bool>(&datalist)->default_value(false))
     ("do_list",                  po::value<bool>(&do_list)->default_value(false))
-    ("listset",                  po::value<std::string>(&listset)->default_value("Top"))
     ("basesel",                  po::value<std::string>(&basesel)->default_value(""))
     ("baseselele",               po::value<std::string>(&baseselele)->default_value(""))
     ("channel",                  po::value<std::string>(&channel)->default_value("nunu"))

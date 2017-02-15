@@ -22,7 +22,6 @@ echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
 CONFIG=scripts/DefaultRun2Config.cfg
-#CONFIG=scripts/DefaultRun2Config_withDY.cfg
 
 QUEUEDIR=short #medium long
 

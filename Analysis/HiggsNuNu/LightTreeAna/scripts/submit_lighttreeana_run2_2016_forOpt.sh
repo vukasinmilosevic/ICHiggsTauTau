@@ -9,11 +9,11 @@ DOSUBMIT=1
 
 GRIDSETUP=1
 if [ "$DOCERN" = "0" ]
-    then
-    JOBSCRIPT="./scripts/submit_ic_batch_job.sh"
+  then
+  JOBSCRIPT="./scripts/submit_ic_batch_job.sh"
 else
-    JOBSCRIPT="./scripts/submit_cern_batch_job.sh"
-    GRIDSETUP=0
+  JOBSCRIPT="./scripts/submit_cern_batch_job.sh"
+  GRIDSETUP=0
 fi
 export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 
@@ -21,13 +21,13 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
-CONFIG=scripts/DefaultRun2Config.cfg
+CONFIG=scripts/DefaultRun2Config_forOpt.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_170127/
+JOBDIRPREFIX=jobs_run2ana_170210
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_170127/
+OUTPUTPREFIX=output_run2ana_170210
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -37,38 +37,37 @@ mkdir -p $JOBDIR
 mkdir -p $OUTPUTDIR
 
 if [ "$DOCERN" = "0" ]
+  then
+  if [ "$QUEUEDIR" = "medium" ]
     then
-    if [ "$QUEUEDIR" = "medium" ]
-	then
-	JOBQUEUE="5:59:0"
-    elif [ "$QUEUEDIR" = "long" ]
-	then
-	JOBQUEUE="47:59:0"
-    else
-	JOBQUEUE="2:59:0"
-    fi
+    JOBQUEUE="5:59:0"
+  elif [ "$QUEUEDIR" = "long" ]
+    then
+    JOBQUEUE="47:59:0"
+  else
+    JOBQUEUE="2:59:0"
+  fi
 else
-    if [ "$QUEUEDIR" = "medium" ]
-	then
-	JOBQUEUE="1nd"
-    elif [ "$QUEUEDIR" = "long" ]
-	then
-	JOBQUEUE="2nd"
-    else
-	JOBQUEUE="1nh"
-    fi
-
+  if [ "$QUEUEDIR" = "medium" ]
+    then
+    JOBQUEUE="1nd"
+  elif [ "$QUEUEDIR" = "long" ]
+    then
+    JOBQUEUE="2nd"
+  else
+    JOBQUEUE="1nh"
+  fi
 fi
 export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
 echo "JOB name = $JOB"
-for syst in "" JESUP JESDOWN JERBETTER JERWORSE ELEEFFUP ELEEFFDOWN MUEFFUP MUEFFDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+for syst in "" #JESUP JESDOWN JERBETTER JERWORSE ELEEFFUP ELEEFFDOWN MUEFFUP MUEFFDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
 #for syst in JESUP JESDOWN JERBETTER JERWORSE ELEEFFUP ELEEFFDOWN MUEFFUP MUEFFDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in enu munu taunu ee mumu qcd nunu
+  for channels in mumu munu taunu qcd #enu munu taunu ee mumu qcd nunu
     do
     JOB=$channels
     #executable expect strings separated by "!"
@@ -78,11 +77,13 @@ do
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
     ## To produce all of the hist for datacard
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     ## To test for one hist
+    #HISTSTRING=";#Delta#phi_{jj};Events"
+    #SHAPESTRING="dijet_dphi(20,0.,3.1416)"
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events"
     #SHAPESTRING="metnomuons(25,200.,600.)"
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events!;Forward tag jet #eta;Events"
@@ -93,7 +94,9 @@ do
     OUTPUTNAME="$channels.root"
     MINDPHICUT="alljetsmetnomu_mindphi\>=0.5"
     if [ "$channels" = "taunu" ]; then
-      MINDPHICUT="jetmetnomu_mindphi\>=1.0" #\&\&alljetsmetnomu_mindphi\<2.3"
+	############MINDPHICUT="jetmetnomu_mindphi\>=1.0" #\&\&alljetsmetnomu_mindphi\<2.3"
+	#MINDPHICUT="jetmetnomu_mindphi\>=1.0\&\&alljetsmetnomu_mindphi\<2.3"
+      MINDPHICUT="alljetsmetnomu_mindphi\>=0.5"
     fi
     if [ "$channels" = "qcd" ]; then
       MINDPHICUT="alljetsmetnomu_mindphi\<0.5"
