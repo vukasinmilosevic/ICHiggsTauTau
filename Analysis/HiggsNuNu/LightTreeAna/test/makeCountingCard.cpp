@@ -57,8 +57,8 @@ int main(int argc, char* argv[]){
   po::variables_map vm;
   po::options_description config("Configuration");
   config.add_options()
-    //Input output and config options                                                                                                                   
-    ("input_folder,i",           po::value<std::string>(&indir)->default_value("output_run2ana_161015"))
+    //Input output and config options
+    ("input_folder,i",           po::value<std::string>(&indir)->default_value(""))
     ("outname,o",                po::value<std::string>(&outname)->default_value("vbfhinv.txt"))
     ("blind",                    po::value<bool>(&blind)->default_value(true))
     ("do_tau_veto_unc",          po::value<bool>(&do_tau_veto_unc)->default_value(false))
@@ -87,7 +87,7 @@ int main(int argc, char* argv[]){
     ("maxvarXcut",               po::value<double>(&maxvarXcut)->default_value(14000))
     ("maxvarYcut",               po::value<double>(&maxvarYcut)->default_value(14000))
     ("maxvarZcut",               po::value<double>(&maxvarZcut)->default_value(14000))
-    ("histoToIntegrate",         po::value<std::string>(&histoToIntegrate)->default_value("alljetsmetnomu_mindphi"))
+    ("histoToIntegrate",         po::value<std::string>(&histoToIntegrate)->default_value(""))
 
 ;
 
@@ -774,8 +774,10 @@ int main(int argc, char* argv[]){
     systematics.push_back(wtauqcdmcstat);
     systematics.push_back(wtauewkmcstat);
   }
-  systematics.push_back(wtauideff);
-  if (channel=="taunu") systematics.push_back(wtaujetmetextrap);
+  if (channel=="taunu") {
+    systematics.push_back(wtauideff);
+    systematics.push_back(wtaujetmetextrap);
+  }
   if (!mcBkgOnly) {
     systematics.push_back(wmudatastat);
     systematics.push_back(weldatastat);
@@ -1167,10 +1169,38 @@ int main(int argc, char* argv[]){
 	    }
 	  }
 
-	  if (downlnnfac==downlnnfac && downlnnfac>0) datacard<<"\t"<<downlnnfac;
-	  else datacard<<"\t-";
-	  if (uplnnfac==uplnnfac && uplnnfac>0) datacard<<"/"<<uplnnfac;
-	  else datacard<<"/-";
+	  // Brutal hack to avoid pathological behaviour of JES and JER unc
+	  if ( systematics[iSyst].name()=="CMS_scale_j" ||
+         systematics[iSyst].name()=="CMS_res_j" ) {
+      if (downlnnfac==downlnnfac && downlnnfac>0 && downlnnfac < 0.9) {
+        downlnnfac=0.9;
+      }
+      else if (downlnnfac==downlnnfac && downlnnfac>0 && downlnnfac > 1.1) {
+        downlnnfac=1.1;
+      }
+      if (uplnnfac==uplnnfac && uplnnfac>0 && uplnnfac > 1.1) {
+        uplnnfac=1.1;
+      }
+      else if (uplnnfac==uplnnfac && uplnnfac>0 && uplnnfac < 0.9) {
+        uplnnfac=0.9;
+      }
+    }
+    if ( systematics[iSyst].name()=="CMS_VBFHinv_trigweight" ) {
+      if (channel=="ee" || channel=="enu") {
+        downlnnfac=-1;
+      }
+      if (channel=="ee" || channel=="enu") {
+        uplnnfac=-1;
+      }
+    }
+
+	  if ( !(downlnnfac==downlnnfac && downlnnfac>0 && uplnnfac==uplnnfac && uplnnfac>0) ) datacard<<"\t-";
+	  else {
+	    if (downlnnfac==downlnnfac && downlnnfac>0) datacard<<"\t"<<downlnnfac;
+	    else datacard<<"\t-";
+	    if (uplnnfac==uplnnfac && uplnnfac>0) datacard<<"/"<<uplnnfac;
+	    else datacard<<"/-";
+    }
 
 	  double error=(fabs(1-uplnnfac)+fabs(1-downlnnfac))/2;
 
