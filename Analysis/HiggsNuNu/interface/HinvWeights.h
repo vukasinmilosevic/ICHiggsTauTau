@@ -23,9 +23,6 @@ class HinvWeights : public ModuleBase {
   CLASS_MEMBER(HinvWeights, bool, save_lumixs_weights)  
   CLASS_MEMBER(HinvWeights, bool, do_top_reweighting)
   CLASS_MEMBER(HinvWeights, bool, do_trg_weights)
-  CLASS_MEMBER(HinvWeights, bool, do_1dparkedtrg_weights)
-  CLASS_MEMBER(HinvWeights, bool, do_fitted1dparkedtrg_weights)
-  CLASS_MEMBER(HinvWeights, bool, do_3dtrg_weights)
   CLASS_MEMBER(HinvWeights, bool, do_binnedin2d1dfittedtrg_weights)
   CLASS_MEMBER(HinvWeights, std::vector<std::string>, binnedin2d1dfitweightvarorder)//bin in first two fit in 3rd
   CLASS_MEMBER(HinvWeights, std::vector<double>, binnedin2d1dfitweightvar1binning)//binning of first var
@@ -75,25 +72,9 @@ class HinvWeights : public ModuleBase {
 
 
   TFile *triggerSF_;
-  std::vector<TH1F*> hist_trigSF_METL1vec;
-  std::vector<TH1F*> hist_trigSF_METHLTvec;
-  std::vector<TH1F*> hist_trigSF_MjjHLTvec;
-  std::vector<TH1F*> hist_trigSF_JetHLTvec;
-  std::vector<TF1*> func_trigSF_METL1vec;
-  std::vector<TF1*> func_trigSF_METHLTvec;
-  std::vector<TF1*> func_trigSF_MjjHLTvec;
-  std::vector<TF1*> func_trigSF_JetHLTvec;
-
   std::vector<std::vector<std::vector<TF1*> > > func_trigSF_binnedin2d[7];
   std::vector<std::string> errLabel;
   std::vector<std::string> errLabelSave;
-
-  TH1F *hist_trigSF_METL1;
-  TH1F *hist_trigSF_METHLT;
-  TH1F *hist_trigSF_MjjHLT;
-  TH1F *hist_trigSF_JetHLT;
-
-  std::vector<TH3F*> hist_trigSF_3D;
 
   TH1F *tighteleweight;
   TH1F *tightmuweight;
@@ -103,6 +84,7 @@ class HinvWeights : public ModuleBase {
   double lumixsweight;
 
   std::vector<double> eTight_idisoSF_;
+  std::vector<double> e_trigDataEff_;
   std::vector<double> eVeto_idisoDataEff_;
   std::vector<double> eVeto_idisoMCEff_;
   std::vector<double> e_gsfidSF_;
@@ -124,6 +106,8 @@ class HinvWeights : public ModuleBase {
   std::vector<double> gsf_ptbin_;
   std::vector<double> e_etabin_;
   std::vector<double> e_ptbin_;
+  std::vector<double> e_etatrig_;
+  std::vector<double> e_pttrig_;
 
   std::vector<double> tk_etabin_;
   std::vector<double> tk_ptbin_;

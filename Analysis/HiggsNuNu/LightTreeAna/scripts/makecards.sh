@@ -8,8 +8,8 @@ fi
 
 DOSUBMIT=$1
 DO4PARAMS=$2
-infolder=output_run2ana_170217/
-outfolder=cards_run2ana_170217/
+infolder=output_run2ana_170220/
+outfolder=cards_run2ana_170220/
 do_tau_veto_unc=false
 wzqcd_syst=1.15
 wzewk_syst=1.15
@@ -19,7 +19,7 @@ mkdir -p $outfolder
 
 extraoptions="--do_ues=false" #--do_ggh=false --do_separate_qcdewk=false"
 
-for channel in enu munu taunu mumu ee qcd nunu
+for channel in enu #munu taunu mumu ee qcd nunu
   do
   echo " ********************************"
   echo " *** Processing channel $channel"
@@ -29,7 +29,7 @@ for channel in enu munu taunu mumu ee qcd nunu
 
   echo "channel $channel"
 
-  HistToIntegrate="jet2_pt"
+  HistToIntegrate="jet1_pt"
 
   echo "channel $channel, HistToIntegrate: $HistToIntegrate"
 

@@ -636,11 +636,13 @@ namespace ic {
         if (name.find("HLT_PFMETNoMu100") != name.npos && name.find("PFMHTNoMu100") != name.npos) pass_metmht100trigger_ = prescale;
         if (name.find("HLT_PFMETNoMu110") != name.npos && name.find("PFMHTNoMu110") != name.npos) pass_metmht110trigger_ = prescale;
         if (name.find("HLT_PFMETNoMu120") != name.npos && name.find("PFMHTNoMu120") != name.npos) pass_metmht120trigger_ = prescale;
-        if (name.find("HLT_Ele23_WPLoose_Gsf_v") != name.npos ||
-            name.find("HLT_Ele27_WPLoose_Gsf_v") != name.npos ||
-            name.find("HLT_Ele27_eta2p1_WPLoose_Gsf_v") != name.npos ||
+        if (//name.find("HLT_Ele23_WPLoose_Gsf_v") != name.npos ||
+            //name.find("HLT_Ele27_WPLoose_Gsf_v") != name.npos ||
+            //name.find("HLT_Ele27_eta2p1_WPLoose_Gsf_v") != name.npos ||
             name.find("HLT_Ele27_WPTight_Gsf_v") != name.npos ||
-            name.find("HLT_Ele35_WPLoose_Gsf_v") != name.npos ) pass_singleEltrigger_ = prescale;
+	    name.find("HLT_Ele105_CaloIdVT_GsfTrkIdT") != name.npos 
+            //name.find("HLT_Ele35_WPLoose_Gsf_v") != name.npos 
+	    ) pass_singleEltrigger_ = prescale;
       }
       if(do_trigskim_){
         if(!(pass_muontrigger_==1     ||

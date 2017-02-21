@@ -110,9 +110,6 @@ int main(int argc, char* argv[]){
   string filters;
   //unsigned signal_region;       // DeltaPhi cut > 2.7
   bool dotrgeff;                  // Do trigger efficiency corrections
-  bool do3dtrgeff;                // Do 3d trigger efficiency corrections
-  bool do1dparkedtrgeff;          // Do 1d parked trigger efficiency corrections
-  bool dofitted1dparkedtrgeff;    // Do 1d fitted parked trigger efficiency corrections
   bool dobinnedin2d1dtrgeff;      // Do 2d binned fitted 1d parked trigger efficiency corrections
   bool doidisoeff;                // Do lepton ID-iso efficiency corrections
   bool doidisoerr;                // Do lepton ID-iso efficiency correction error
@@ -185,9 +182,6 @@ int main(int argc, char* argv[]){
     ("taulepdiscrtight",      po::value<bool>(&taulepdiscrtight)->default_value(false))
     ("dojerdebug",            po::value<bool>(&dojerdebug)->default_value(false))
     ("dotrgeff",              po::value<bool>(&dotrgeff)->default_value(false))
-    ("do3dtrgeff",            po::value<bool>(&do3dtrgeff)->default_value(false))
-    ("do1dparkedtrgeff",      po::value<bool>(&do1dparkedtrgeff)->default_value(false))
-    ("dofitted1dparkedtrgeff",po::value<bool>(&dofitted1dparkedtrgeff)->default_value(false))
     ("dobinnedin2d1dtrgeff",  po::value<bool>(&dobinnedin2d1dtrgeff)->default_value(false))
     ("doidisoeff",            po::value<bool>(&doidisoeff)->default_value(false))
     ("dotopreweighting",      po::value<bool>(&dotopreweighting)->default_value(false))
@@ -979,9 +973,6 @@ int main(int argc, char* argv[]){
     //mjjbinning.push_back(0);
     //mjjbinning.push_back(14000);
     hinvWeights.set_do_trg_weights(dotrgeff)
-      .set_do_3dtrg_weights(do3dtrgeff)
-      .set_do_1dparkedtrg_weights(do1dparkedtrgeff)
-      .set_do_fitted1dparkedtrg_weights(dofitted1dparkedtrgeff)
       .set_do_binnedin2d1dfittedtrg_weights(dobinnedin2d1dtrgeff)
       .set_binnedin2d1dfitweightvar1binning(jptbinning)
       .set_binnedin2d1dfitweightvar2binning(mjjbinning)
@@ -989,11 +980,6 @@ int main(int argc, char* argv[]){
       .set_do_metmht(true)
       .set_trg_weight_file(trg_weight_file)
       .set_trg_applied_in_mc(false);
-    if(do3dtrgeff){
-      hinvWeights.set_Alumi(0.889)
-        .set_BClumi(11.023)
-        .set_Dlumi(7.315);
-    }
     hinvWeights.set_do_idiso_veto_weights(false);
     hinvWeights.set_do_idiso_tight_weights(false);
   }

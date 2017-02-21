@@ -25,9 +25,9 @@ CONFIG=scripts/DefaultRun2Config.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_170217
+JOBDIRPREFIX=jobs_run2ana_170220
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_170217
+OUTPUTPREFIX=output_run2ana_170220
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -67,7 +67,7 @@ for syst in "" JESUP JESDOWN JERBETTER JERWORSE ELEEFFUP ELEEFFDOWN MUEFFUP MUEF
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in enu munu taunu ee mumu qcd nunu
+  for channels in enu #munu taunu ee mumu qcd nunu
     do
     JOB=$channels
     #executable expect strings separated by "!"
@@ -77,10 +77,12 @@ do
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
     ## To produce all of the hist for datacard
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
     ## To test for one hist
     #HISTSTRING=";#Delta#phi_{jj};Events"
     #SHAPESTRING="dijet_dphi(20,0.,3.1416)"

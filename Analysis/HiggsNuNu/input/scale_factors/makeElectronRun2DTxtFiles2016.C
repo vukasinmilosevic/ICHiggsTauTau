@@ -1,6 +1,7 @@
 #include "TFile.h"
 #include "TGraphAsymmErrors.h"
 #include "TH2F.h"
+#include "TEfficiency.h"
 
 #include <iostream>
 #include <sstream>
@@ -10,15 +11,16 @@
 
 int makeElectronRun2DTxtFiles2016(){//main
 
-  const unsigned nP = 3;
+  const unsigned nP = 4;
   std::string prefix = "Summer16_80X_";
-  std::string lFileName[nP] = {"ele_veto_id","ele_tight_id","gsf_id"};//,"ele_loose_iso","ele_tight_iso"};
+  std::string lFileName[nP] = {"ele_veto_id","ele_tight_id","gsf_id","ele_trig"};//,"ele_loose_iso","ele_tight_iso"};
   std::string lDataType[3] = {"data_eff","mc_eff","SF"};
 
   TFile *eleId[nP];
   eleId[0] = TFile::Open("Summer16_eleVetoEff.root");
   eleId[1] = TFile::Open("Summer16_eleTightEff.root");
   eleId[2] = TFile::Open("Summer16_eleRecoEff.root");
+  eleId[3] = TFile::Open("triggerEfficiency_DATA_SingleElectron.root");
 
   //double extraIdSyst = 0;
   double extraGsfSyst = 0.01;//for pT<20 GeV due to gsfID
@@ -29,41 +31,51 @@ int makeElectronRun2DTxtFiles2016(){//main
       hist_elec[iWP][iData]=0;
     }
   }
+  TEfficiency *myeff = 0;
 
 
   for (unsigned iWP(0);iWP<nP;++iWP){//loop on WP
     eleId[iWP]->cd();
-    hist_elec[iWP][0] = (TH2F*)gDirectory->Get("EGamma_EffData2D");
-    hist_elec[iWP][1] = (TH2F*)gDirectory->Get("EGamma_EffMC2D");
-    hist_elec[iWP][2] = (TH2F*)gDirectory->Get("EGamma_SF2D");
+    if (iWP<3){
+      hist_elec[iWP][0] = (TH2F*)gDirectory->Get("EGamma_EffData2D");
+      hist_elec[iWP][1] = (TH2F*)gDirectory->Get("EGamma_EffMC2D");
+      hist_elec[iWP][2] = (TH2F*)gDirectory->Get("EGamma_SF2D");
+    }
+    else {
+      myeff = (TEfficiency*)gDirectory->Get("trgeff_ele");
+      if (!myeff) return 1;
+      hist_elec[iWP][0] = (TH2F*)myeff->CreateHistogram();
+      if (!hist_elec[iWP][0]) return 1;
+      std::cout << "Check : " << hist_elec[iWP][0]->GetXaxis()->GetNbins() << " " << hist_elec[iWP][0]->GetYaxis()->GetNbins() << std::endl;
+    }
   }
 
   for (unsigned iWP(0);iWP<nP;++iWP){//loop on WP
 
-    const unsigned nEta = hist_elec[iWP][2]->GetXaxis()->GetNbins();
+    const unsigned nEta = hist_elec[iWP][0]->GetXaxis()->GetNbins();
     double etaMin[nEta];
     double etaMax[nEta];
     
     for (unsigned ie(0);ie<nEta;++ie){
-      etaMin[ie] = hist_elec[iWP][2]->GetXaxis()->GetBinLowEdge(ie+1);
-      etaMax[ie] = hist_elec[iWP][2]->GetXaxis()->GetBinLowEdge(ie+2);
-      //std::cout << "eta min " << etaMin[ie] << " max " << etaMax[ie] << std::endl;
+      etaMin[ie] = hist_elec[iWP][0]->GetXaxis()->GetBinLowEdge(ie+1);
+      etaMax[ie] = hist_elec[iWP][0]->GetXaxis()->GetBinLowEdge(ie+2);
+      if (iWP==3) std::cout << "eta min " << etaMin[ie] << " max " << etaMax[ie] << std::endl;
     }
 
     //correct by hand the binning for gsf eff: add <20 and >80 to have extra syst correctly
-    const unsigned nPt = iWP==2?3:hist_elec[iWP][2]->GetYaxis()->GetNbins();
+    const unsigned nPt = iWP==2?3:hist_elec[iWP][0]->GetYaxis()->GetNbins();
 
     std::cout << lFileName[iWP] << " nEta = " << nEta << " nPt = " << nPt << std::endl;
     
     double ptMin[nPt];
     double ptMax[nPt];
     
-    if (iWP<2){
+    if (iWP!=2){
       for (unsigned ie(0);ie<nPt;++ie){
-	ptMin[ie] = hist_elec[iWP][2]->GetYaxis()->GetBinLowEdge(ie+1);
-	ptMax[ie] = hist_elec[iWP][2]->GetYaxis()->GetBinLowEdge(ie+2);
+	ptMin[ie] = hist_elec[iWP][0]->GetYaxis()->GetBinLowEdge(ie+1);
+	ptMax[ie] = hist_elec[iWP][0]->GetYaxis()->GetBinLowEdge(ie+2);
+	if (iWP==3) std::cout << "pt min " << ptMin[ie] << " max " << ptMax[ie] << std::endl;
       }
-      //std::cout << "pt min " << ptMin[ie] << " max " << ptMax[ie] << std::endl;
     }
     else {
       ptMin[0] = 1;
@@ -86,19 +98,28 @@ int makeElectronRun2DTxtFiles2016(){//main
       for (unsigned iEta(0); iEta<nEta; ++iEta){//loop on eta bin
 	for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
 	  double val = hist_elec[iWP][iData]->GetBinContent(iEta+1,iWP==2?1:iPt+1);
-	  double err = hist_elec[iWP][iData]->GetBinError(iEta+1,iWP==2?1:iPt+1);
+	  double errmin = hist_elec[iWP][iData]->GetBinError(iEta+1,iWP==2?1:iPt+1);
+	  double errmax = errmin;
 	  if (iData!=1){
 	    //apply extra systs only to SF or data
 	    //if (iWP<2) err = sqrt(pow(err,2)+pow(extraIdSyst,2));
-	    if (iWP==2 && (ptMin[iPt]<20 || ptMin[iPt]>=80)) err = sqrt(pow(err,2)+pow(extraGsfSyst,2));
+	    if (iWP==2 && (ptMin[iPt]<20 || ptMin[iPt]>=80)) errmin = sqrt(pow(errmin,2)+pow(extraGsfSyst,2));
 	  }
 	  //fix last bin to previous bin value for eff (already the case for SF)
 	  if (iWP<2 && iPt==nPt-1 && iData<2) {
 	    val = hist_elec[iWP][iData]->GetBinContent(iEta+1,iPt);
-	    err = hist_elec[iWP][iData]->GetBinError(iEta+1,iPt);
+	    errmin = hist_elec[iWP][iData]->GetBinError(iEta+1,iPt);
 	  }
+	  if (iWP==3){
+	    int bin = myeff->GetGlobalBin(iEta+1,iPt+1);
+	    std::cout << "Check " << iEta << " " << iPt << " " << val << " " << myeff->GetEfficiency(bin) << std::endl;
+	    val = myeff->GetEfficiency(bin);
+	    errmin = myeff->GetEfficiencyErrorLow(bin);
+	    errmax = myeff->GetEfficiencyErrorUp(bin);
+	  }
+	  else errmax = errmin;
 
-	  lOut << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " " << val << " " << err << " " << err << std::endl;
+	  lOut << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " " << val << " " << errmin << " " << errmax << std::endl;
 
 	  unsigned iBin = nPt*iEta+iPt;
 	  valcheck[iData][iBin] = val;
@@ -115,7 +136,10 @@ int makeElectronRun2DTxtFiles2016(){//main
       int iPt = iBin%nPt;
       int ieta = iBin/nPt;
       if (iBin != nPt*ieta+iPt) return 1;
-      std::cout << " pt " << ptMin[iPt] << "-" << ptMax[iPt] << " eta " << etaMin[ieta] << "-" << etaMax[ieta] << " SF " << valcheck[2][iBin] << " data/MC " << valcheck[0][iBin]/valcheck[1][iBin] << std::endl;
+      std::cout << " pt " << ptMin[iPt] << "-" << ptMax[iPt] << " eta " << etaMin[ieta] << "-" << etaMax[ieta] ;
+      if (iWP<3) std::cout << " SF " << valcheck[2][iBin] << " data/MC " << valcheck[0][iBin]/valcheck[1][iBin];
+      else std::cout << " data eff " << valcheck[0][iBin];
+      std::cout << std::endl;
     }
 
   }//loop on WP

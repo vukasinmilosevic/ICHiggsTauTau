@@ -725,7 +725,7 @@ int main(int argc, char* argv[]){
   }
   //if (!do_run2) 
   systematics.push_back(pu);
-  systematics.push_back(trig);
+  if (channel!="ee" && channel != "enu")systematics.push_back(trig);
   //systematics.push_back(trig0);
   //systematics.push_back(trig1);
   //systematics.push_back(trig2);

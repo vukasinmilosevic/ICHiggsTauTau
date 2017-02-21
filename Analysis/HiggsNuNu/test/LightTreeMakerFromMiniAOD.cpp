@@ -831,9 +831,9 @@ int main(int argc, char* argv[]){
     mjjbinning.push_back(1000);
     mjjbinning.push_back(10000);
     hinvWeights.set_do_trg_weights(dotrgeff)
-      .set_do_3dtrg_weights(do3dtrgeff)
-      .set_do_1dparkedtrg_weights(do1dparkedtrgeff)
-      .set_do_fitted1dparkedtrg_weights(dofitted1dparkedtrgeff)
+      //.set_do_3dtrg_weights(do3dtrgeff)
+      //.set_do_1dparkedtrg_weights(do1dparkedtrgeff)
+      //.set_do_fitted1dparkedtrg_weights(dofitted1dparkedtrgeff)
       .set_do_binnedin2d1dfittedtrg_weights(dobinnedin2d1dtrgeff)
       .set_binnedin2d1dfitweightvar1binning(jptbinning)
       .set_binnedin2d1dfitweightvar2binning(mjjbinning)

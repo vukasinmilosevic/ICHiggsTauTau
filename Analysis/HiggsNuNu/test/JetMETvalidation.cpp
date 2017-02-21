@@ -625,9 +625,6 @@ int main(int argc, char* argv[]){
     .set_input_met("metNoMuons");
   if (!is_data) {
     hinvWeights.set_do_trg_weights(false)
-      .set_do_3dtrg_weights(false)
-      .set_do_1dparkedtrg_weights(false)
-      .set_do_fitted1dparkedtrg_weights(false)
       .set_do_binnedin2d1dfittedtrg_weights(false)
       .set_trg_weight_file(trg_weight_file)
       .set_trg_applied_in_mc(false);
