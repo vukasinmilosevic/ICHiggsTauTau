@@ -27,8 +27,8 @@ echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
 INPUTPARAMS="filelists/$PRODUCTION/Params${PRODUCTION}.dat"
-CONFIG=scripts/DefaultLightTreeConfig_data.cfg
-#CONFIG=scripts/DefaultLightTreeConfig_data_forMaria.cfg
+#CONFIG=scripts/DefaultLightTreeConfig_data.cfg
+CONFIG=scripts/DefaultLightTreeConfig_data_forMaria.cfg
 
 
 for SYST in central
@@ -37,11 +37,11 @@ for SYST in central
 
   #JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_${PRODUCTION}_ICHEP
   #JOBDIRPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/jobs_lighttree_170111
-  JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170215
+  JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170221
   JOBDIR=$JOBDIRPREFIX/
   #OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_${PRODUCTION}_ICHEP
   #OUTPUTPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/output_lighttree_170111
-  OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_170215
+  OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_170221
   OUTPUTDIR=$OUTPUTPREFIX/
 
   if [ "$SYST" != "central" ]
@@ -93,9 +93,10 @@ for SYST in central
     fi
 
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_SingleMuon*`
+    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/170201_DATA_SingleMuon-2016H-ReMiniAOD_ver2-v1_split44`
 
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_SingleElectron*`
-    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_*MET*`
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_*MET*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_*`
       do
       echo "Processing files in "$FILELIST

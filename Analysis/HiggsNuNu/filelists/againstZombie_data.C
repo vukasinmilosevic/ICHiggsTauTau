@@ -4,10 +4,10 @@
 using namespace std;
 int againstZombie_data(){
 
-  fstream fList("list_data");
+  fstream fList("list_data_reminiaod");
 
   std::ofstream outfile;
-  outfile.open("failed_files_DATA.dat");
+  outfile.open("failed_files_DATA_reminiaod.dat");
   int i=0;
   char buf[10000];
 
