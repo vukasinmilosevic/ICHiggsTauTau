@@ -496,18 +496,18 @@ int main(int argc, char* argv[]){
   if(syst=="PUUP") mcweightpufactor << "*puweight_up_scale";
   if(syst=="PUDOWN") mcweightpufactor << "*puweight_down_scale";
   
-  if (syst=="TRIGUP") mcweightpufactor<<"*weight_trig_1/weight_trig_0";
-  if (syst=="TRIGDOWN") mcweightpufactor<<"*weight_trig_2/weight_trig_0";
-  if (syst=="TRIG0UP") mcweightpufactor<<"*weight_trig_1/weight_trig_0";
-  if (syst=="TRIG0DOWN") mcweightpufactor<<"*weight_trig_2/weight_trig_0";
-  if (syst=="TRIG1UP") mcweightpufactor<<"*weight_trig_3/weight_trig_0";
-  if (syst=="TRIG1DOWN") mcweightpufactor<<"*weight_trig_4/weight_trig_0";
-  if (syst=="TRIG2UP") mcweightpufactor<<"*weight_trig_5/weight_trig_0";
-  if (syst=="TRIG2DOWN") mcweightpufactor<<"*weight_trig_6/weight_trig_0";
+  if (syst=="TRIGUP" && channel!="ee" && channel!="enu") mcweightpufactor<<"*weight_trig_1/weight_trig_0";
+  if (syst=="TRIGDOWN" && channel!="ee" && channel!="enu") mcweightpufactor<<"*weight_trig_2/weight_trig_0";
+  //if (syst=="TRIG0UP") mcweightpufactor<<"*weight_trig_1/weight_trig_0";
+  //if (syst=="TRIG0DOWN") mcweightpufactor<<"*weight_trig_2/weight_trig_0";
+  //if (syst=="TRIG1UP") mcweightpufactor<<"*weight_trig_3/weight_trig_0";
+  //if (syst=="TRIG1DOWN") mcweightpufactor<<"*weight_trig_4/weight_trig_0";
+  //if (syst=="TRIG2UP") mcweightpufactor<<"*weight_trig_5/weight_trig_0";
+  //if (syst=="TRIG2DOWN") mcweightpufactor<<"*weight_trig_6/weight_trig_0";
 
   if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") sigmcweight="total_weight_lepveto"+mcweightpufactor.str();//+mcweightpufactordebug;
   //remove trigger weight for e channels which do not use signal trigger
-  else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig"+mcweightpufactor.str();//+mcweightpufactordebug;
+  else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig*weight_eletrigEff"+mcweightpufactor.str();//+mcweightpufactordebug;
   else sigmcweight="total_weight_leptight"+mcweightpufactor.str();//+mcweightpufactordebug;
   sig125mcweight="total_weight_lepveto"+mcweightpufactor.str();
 

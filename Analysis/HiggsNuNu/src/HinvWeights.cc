@@ -232,6 +232,7 @@ namespace ic {//namespace
 
       //get trigger scale factor histograms from file
       triggerSF_ = new TFile(trg_weight_file_.c_str());
+      if (!triggerSF_) return 1;
       if(do_binnedin2d1dfittedtrg_weights_){
         std::cout<<"Getting trigger efficiency functions"<<std::endl;
         for(unsigned iVar1=0;iVar1<(binnedin2d1dfitweightvar1binning_.size()-1);iVar1++){
