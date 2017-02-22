@@ -112,9 +112,6 @@ int main(int argc, char* argv[]){
   bool dotrgeff;                  // Do trigger efficiency corrections
   bool dobinnedin2d1dtrgeff;      // Do 2d binned fitted 1d parked trigger efficiency corrections
   bool doidisoeff;                // Do lepton ID-iso efficiency corrections
-  bool doidisoerr;                // Do lepton ID-iso efficiency correction error
-  bool doidisoerrupordown;        // Do lepton ID-iso efficiency correction error up or down
-  bool doidisoerrmuore;           // Do lepton ID-iso efficiency correction error for muons or electrons
   bool dolumixsweight;            // Do lumi*xs/evt weight online
   string inputparams;             // Params file to use for info on lumi xs and evt
   string trg_weight_file;         // Trigger weights to use
@@ -187,9 +184,6 @@ int main(int argc, char* argv[]){
     ("dotopreweighting",      po::value<bool>(&dotopreweighting)->default_value(false))
     ("dopromptskim",          po::value<bool>(&dopromptskim)->default_value(false))
     ("donoskim",              po::value<bool>(&donoskim)->default_value(false))
-    ("doidisoerr",            po::value<bool>(&doidisoerr)->default_value(false))
-    ("doidisoerrupordown",    po::value<bool>(&doidisoerrupordown)->default_value(true))
-    ("doidisoerrmuore",       po::value<bool>(&doidisoerrmuore)->default_value(true))
     ("dolumixsweight",        po::value<bool>(&dolumixsweight)->default_value(false))
     ("inputparams",           po::value<string>(&inputparams)->default_value(""))
     ("jettype",               po::value<string>(&jettype)->default_value("pfJetsPFlow"))
@@ -951,9 +945,6 @@ int main(int argc, char* argv[]){
     .set_trg_applied_in_mc(false)
     .set_do_idiso_tight_weights(false)
     .set_do_idiso_veto_weights(false)
-    .set_do_idiso_err(doidisoerr)
-    .set_do_idiso_errupordown(doidisoerrupordown)
-    .set_do_idiso_errmuore(doidisoerrmuore)
     .set_fs(fs)
     .set_input_met("metNoMuons");
   if (!is_data) {
@@ -976,7 +967,6 @@ int main(int argc, char* argv[]){
       .set_do_binnedin2d1dfittedtrg_weights(dobinnedin2d1dtrgeff)
       .set_binnedin2d1dfitweightvar1binning(jptbinning)
       .set_binnedin2d1dfitweightvar2binning(mjjbinning)
-      .set_do_run2(true)
       .set_do_metmht(true)
       .set_trg_weight_file(trg_weight_file)
       .set_trg_applied_in_mc(false);

@@ -30,10 +30,9 @@ INPUTPARAMS="filelists/$PRODUCTION/Params${PRODUCTION}.dat"
 CONFIG=scripts/DefaultLightTreeConfig_mc.cfg
 
 
-for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN ELEEFFUP ELEEFFDOWN MUEFFUP MUEFFDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
+for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 #for SYST in JESUP JESDOWN JERBETTER JERWORSE
-#for SYST in UESUP UESDOWN ELEEFFUP ELEEFFDOWN
-#for SYST in MUEFFUP MUEFFDOWN
+#for SYST in UESUP UESDOWN
 
   do
   SYSTOPTIONS="--dojessyst=false --dojersyst=false"
@@ -82,26 +81,6 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN ELEEFFUP ELE
   if [ "$SYST" = "UESDOWN" ]
     then
     SYSTOPTIONS="--douessyst=true --uesupordown=false"
-  fi
-
-  if [ "$SYST" = "ELEEFFUP" ]
-    then
-    SYSTOPTIONS="--doidisoerr=true --doidisoerrmuore=false --doidisoerrupordown=true"
-  fi
-
-  if [ "$SYST" = "ELEEFFDOWN" ]
-    then
-    SYSTOPTIONS="--doidisoerr=true --doidisoerrmuore=false --doidisoerrupordown=false"
-  fi
-
-  if [ "$SYST" = "MUEFFUP" ]
-    then
-    SYSTOPTIONS="--doidisoerr=true --doidisoerrmuore=true --doidisoerrupordown=true"
-  fi
-
-  if [ "$SYST" = "MUEFFDOWN" ]
-    then
-    SYSTOPTIONS="--doidisoerr=true --doidisoerrmuore=true --doidisoerrupordown=false"
   fi
 
 

@@ -42,7 +42,6 @@ namespace ic {//namespace
     thisvar2binning.push_back(1000);
     thisvar2binning.push_back(5000);
     binnedin2d1dfitweightvar2binning_ = thisvar2binning;
-    do_run2_                = true;
     do_metmht_              = true;
     trg_applied_in_mc_      = false;
     do_idiso_tight_weights_ = false;
@@ -52,9 +51,6 @@ namespace ic {//namespace
     do_dy_soup_             = false;
     do_dy_soup_htbinned_    = false;
     do_dy_reweighting_      = false;
-    do_idiso_err_           = false;
-    do_idiso_errupordown_   = true;
-    do_idiso_errmuore_      = true;
     do_lumixs_weights_      = false;
     save_lumixs_weights_    = true;
     input_params_ = "";
@@ -62,9 +58,6 @@ namespace ic {//namespace
     input_met_ = "metNoMuons";
     input_jet_ = "pfJetsPFlow";
     trg_weight_file_="";
-    Alumi_  = -1;
-    BClumi_ = -1;
-    Dlumi_  = -1;
 
     errLabelSave.push_back("");
     errLabelSave.push_back("_Up");
@@ -103,13 +96,9 @@ namespace ic {//namespace
     //std::cout << "Trg Sel Applied?: \t\t" << trg_applied_in_mc_ << std::endl;
     std::cout << "-- Do ID & iso weights for Tight leptons ?: \t\t" << do_idiso_tight_weights_ << std::endl;
     std::cout << "-- Do ID & iso weights for veto leptons ?: \t\t" << do_idiso_veto_weights_ << std::endl;
-    std::cout << "-- Do ID & iso weight errors ?: \t\t" << do_idiso_err_ <<std::endl;
-    std::cout << "-- Do ID & iso weight error for muore ?: \t\t" << do_idiso_errmuore_ <<std::endl;
-    std::cout << "-- Do ID & iso weight errors up or down?: \t\t" << do_idiso_errupordown_ <<std::endl;
 
     std::cout << "-- Input MET for MET HLT:  \t\t" << input_met_ << std::endl;
     std::cout << "-- Note: Input MET for MET L1 is always metNoMuons." << std::endl;
-    std::cout << "-- A lumi: "<<Alumi_<<", BC lumi: "<<BClumi_<<", D lumi: "<<Dlumi_<<std::endl;
 
     //Making output histograms
     TFileDirectory const& dir = fs_->mkdir("leptoneffweights");
@@ -240,37 +229,28 @@ namespace ic {//namespace
           for(unsigned iVar2=0;iVar2<(binnedin2d1dfitweightvar2binning_.size()-1);iVar2++){
             std::vector<TF1*> thisfuncvector[errLabel.size()];
             //HF bins
-            for(unsigned iVar3=0;iVar3<(do_run2_?2:1);iVar3++){
+            for(unsigned iVar3=0;iVar3<2;iVar3++){
               std::ostringstream convert;
               if (!do_metmht_) convert<<iVar1+1<<iVar2+1;
-              //if (do_run2_) convert<<iVar3+1;
-              if (do_run2_) convert<<iVar2+1;
+              //convert<<iVar3+1;
+              convert<<iVar2+1;
               std::string histnumber=convert.str();
-              if(!do_run2_){
-                thisfuncvector[0].push_back((TF1*)gDirectory->Get(("fData_"+binnedin2d1dfitweightvarorder_[2]+"_1D_"+histnumber+"A").c_str()));
-                thisfuncvector[0].push_back((TF1*)gDirectory->Get(("fData_"+binnedin2d1dfitweightvarorder_[2]+"_1D_"+histnumber+"BC").c_str()));
-                thisfuncvector[0].push_back((TF1*)gDirectory->Get(("fData_"+binnedin2d1dfitweightvarorder_[2]+"_1D_"+histnumber+"D").c_str()));
-              }
-              else{
-                for (unsigned iErr(0); iErr<errLabel.size();++iErr){
-                  std::string newhistnumber= histnumber;
-                  if (do_metmht_ && iErr>0) newhistnumber = "1;"+histnumber;
-                  TF1 *tmp;
-                  if (!do_metmht_) tmp = (TF1*)gDirectory->Get(("fdata_"+binnedin2d1dfitweightvarorder_[2]+"_1d_"+histnumber+"Deff"+errLabel[iErr]).c_str());
-                  //else thisfuncvector[iErr].push_back((TF1*)gDirectory->Get(("METMHT_BIN"+histnumber+errLabel[iErr]).c_str()));
-                  else tmp = (TF1*)gDirectory->Get((errLabel[iErr]+"METMHT120_MJJBIN"+newhistnumber).c_str());
-
-                  thisfuncvector[iErr].push_back(tmp);
-                  std::cout << " -- trigger Function " << errLabel[iErr]+"METMHT120_MJJBIN"+newhistnumber << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->GetName() << " " << tmp->GetName() << " check value Mjj=2000 " << tmp->Eval(2000.) << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->Eval(2000.) << std::endl; 
-                }
-              }
+	      for (unsigned iErr(0); iErr<errLabel.size();++iErr){
+		std::string newhistnumber= histnumber;
+		if (do_metmht_ && iErr>0) newhistnumber = "1;"+histnumber;
+		TF1 *tmp;
+		if (!do_metmht_) tmp = (TF1*)gDirectory->Get(("fdata_"+binnedin2d1dfitweightvarorder_[2]+"_1d_"+histnumber+"Deff"+errLabel[iErr]).c_str());
+		//else thisfuncvector[iErr].push_back((TF1*)gDirectory->Get(("METMHT_BIN"+histnumber+errLabel[iErr]).c_str()));
+		else tmp = (TF1*)gDirectory->Get((errLabel[iErr]+"METMHT120_MJJBIN"+newhistnumber).c_str());
+		
+		thisfuncvector[iErr].push_back(tmp);
+		std::cout << " -- trigger Function " << errLabel[iErr]+"METMHT120_MJJBIN"+newhistnumber << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->GetName() << " " << tmp->GetName() << " check value Mjj=2000 " << tmp->Eval(2000.) << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->Eval(2000.) << std::endl; 
+	      }
             }
-            if(!do_run2_) thisfuncvectorvector[0].push_back(thisfuncvector[0]);
             for (unsigned iErr(0); iErr<errLabel.size();++iErr){
               thisfuncvectorvector[iErr].push_back(thisfuncvector[iErr]);
             }
           }
-          if (!do_run2_) func_trigSF_binnedin2d[0].push_back(thisfuncvectorvector[0]);
           for (unsigned iErr(0); iErr<errLabel.size();++iErr){
             func_trigSF_binnedin2d[iErr].push_back(thisfuncvectorvector[iErr]);
           }
@@ -281,74 +261,35 @@ namespace ic {//namespace
     if (save_weights_){
       std::vector<double> dummypt;
       std::vector<double> dummyeta;
-      fillVector("input/scale_factors/Summer16_80X_ele_tight_id_SF.txt",6,10,eTight_idisoSF_,e_ptbin_,e_etabin_);
-      fillVector("input/scale_factors/Summer16_80X_ele_trig_data_eff.txt",15,6,e_trigDataEff_,e_pttrig_,e_etatrig_);
-      fillVector("input/scale_factors/Summer16_80X_gsf_id_SF.txt",3,30,e_gsfidSF_,gsf_ptbin_,gsf_etabin_);
-      fillVector("input/scale_factors/Summer16_80X_mu_tight_id_SF.txt",6,8,muTight_idSF_,mu_ptbin_,mu_etabin_);
-      if(!do_idiso_err_ || (do_idiso_err_ && do_idiso_errmuore_) ){//Central value electrons
-        fillVector("input/scale_factors/Summer16_80X_ele_veto_id_data_eff.txt",6,10,eVeto_idisoDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",6,10,eVeto_idisoMCEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_gsf_id_data_eff.txt",3,30,e_gsfidDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_gsf_id_mc_eff.txt",3,30,e_gsfidMCEff_,dummypt,dummyeta);
-        //fillVector("input/scale_factors/Fall15_76X_ele_tight_id_SF.txt",eTight_idisoSF_);
-        //fillVector("input/scale_factors/Fall15_76X_ele_veto_id_data_eff.txt",eVeto_idisoDataEff_);
-        //fillVector("input/scale_factors/Fall15_76X_ele_veto_id_mc_eff.txt",eVeto_idisoMCEff_);
-      }
-      if (!do_idiso_err_ || (do_idiso_err_ && !do_idiso_errmuore_) ){//Central value muons
-        fillVector("input/scale_factors/Summer16_80X_mu_tight_iso_SF.txt",6,8,muTight_isoSF_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_mu_loose_id_data_eff.txt",6,8,muVeto_idDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_mu_loose_iso_data_eff.txt",6,8,muVeto_isoDataEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_mu_loose_id_mc_eff.txt",6,8,muVeto_idMCEff_,dummypt,dummyeta);
-        fillVector("input/scale_factors/Summer16_80X_mu_loose_iso_mc_eff.txt",6,8,muVeto_isoMCEff_,dummypt,dummyeta);
-      }
-      if(do_idiso_err_ && do_idiso_errmuore_){//Muon eff varied
-        fillVectorError("input/scale_factors/Summer16_80X_mu_tight_id_SF.txt",muTight_idSF_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_mu_tight_iso_SF.txt",muTight_isoSF_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_mu_loose_id_data_eff.txt",muVeto_idDataEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_mu_loose_iso_data_eff.txt",muVeto_isoDataEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_mu_loose_id_mc_eff.txt",muVeto_idMCEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_mu_loose_iso_mc_eff.txt",muVeto_isoMCEff_,do_idiso_errupordown_);
-      }
-      else if (do_idiso_err_ && !do_idiso_errmuore_) {//Electron eff varied
-        fillVectorError("input/scale_factors/Summer16_80X_ele_tight_id_SF.txt",eTight_idisoSF_,do_idiso_errupordown_);
-	fillVectorError("input/scale_factors/Summer16_80X_ele_trig_data_eff.txt",e_trigDataEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_gsf_id_SF.txt",e_gsfidSF_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_ele_veto_id_data_eff.txt",eVeto_idisoDataEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",eVeto_idisoMCEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_gsf_id_data_eff.txt",e_gsfidDataEff_,do_idiso_errupordown_);
-        fillVectorError("input/scale_factors/Summer16_80X_gsf_id_mc_eff.txt",e_gsfidMCEff_,do_idiso_errupordown_);
-      }
+      //last bool: protect against values > 1, just for efficiencies not for SF
+      fillVector("input/scale_factors/Summer16_80X_ele_tight_id_SF.txt",6,10,eTight_idisoSF_,e_ptbin_,e_etabin_,false);
+      fillVector("input/scale_factors/Summer16_80X_ele_trig_data_eff.txt",15,6,e_trigDataEff_,e_pttrig_,e_etatrig_,true);
+      fillVector("input/scale_factors/Summer16_80X_gsf_id_SF.txt",3,30,e_gsfidSF_,gsf_ptbin_,gsf_etabin_,false);
+      fillVector("input/scale_factors/Summer16_80X_mu_tight_id_SF.txt",6,8,muTight_idSF_,mu_ptbin_,mu_etabin_,false);
 
+      fillVector("input/scale_factors/Summer16_80X_ele_veto_id_data_eff.txt",6,10,eVeto_idisoDataEff_,dummypt,dummyeta,true);
+      fillVector("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",6,10,eVeto_idisoMCEff_,dummypt,dummyeta,true);
+      fillVector("input/scale_factors/Summer16_80X_gsf_id_data_eff.txt",3,30,e_gsfidDataEff_,dummypt,dummyeta,true);
+      fillVector("input/scale_factors/Summer16_80X_gsf_id_mc_eff.txt",3,30,e_gsfidMCEff_,dummypt,dummyeta,true);
 
-      for (unsigned iBin(0); iBin<muTight_idSF_.size();++iBin){
-        muTight_idisoSF_.push_back(muTight_idSF_[iBin]*muTight_isoSF_[iBin]);
-        if(muVeto_idDataEff_[iBin]>=1)muVeto_idDataEff_[iBin]=0.99999;
-        if(muVeto_isoDataEff_[iBin]>=1)muVeto_isoDataEff_[iBin]=0.99999;
-        if(muVeto_idMCEff_[iBin]>=1)muVeto_idMCEff_[iBin]=0.99999;
-        if(muVeto_isoMCEff_[iBin]>=1)muVeto_isoMCEff_[iBin]=0.99999;
-        if(muVeto_idDataEff_[iBin]<0)muVeto_idDataEff_[iBin]=0;
-        if(muVeto_isoDataEff_[iBin]<0)muVeto_isoDataEff_[iBin]=0;
-        if(muVeto_idMCEff_[iBin]<0)muVeto_idMCEff_[iBin]=0;
-        if(muVeto_isoMCEff_[iBin]<0)muVeto_isoMCEff_[iBin]=0;
-        muVeto_idisoDataEff_.push_back(muVeto_idDataEff_[iBin]*muVeto_isoDataEff_[iBin]);
-        muVeto_idisoMCEff_.push_back(muVeto_idMCEff_[iBin]*muVeto_isoMCEff_[iBin]);
+      fillVector("input/scale_factors/Summer16_80X_mu_tight_iso_SF.txt",6,8,muTight_isoSF_,dummypt,dummyeta,false);
+      fillVector("input/scale_factors/Summer16_80X_mu_loose_id_data_eff.txt",6,8,muVeto_idDataEff_,dummypt,dummyeta,true);
+      fillVector("input/scale_factors/Summer16_80X_mu_loose_iso_data_eff.txt",6,8,muVeto_isoDataEff_,dummypt,dummyeta,true);
+      fillVector("input/scale_factors/Summer16_80X_mu_loose_id_mc_eff.txt",6,8,muVeto_idMCEff_,dummypt,dummyeta,true);
+      fillVector("input/scale_factors/Summer16_80X_mu_loose_iso_mc_eff.txt",6,8,muVeto_isoMCEff_,dummypt,dummyeta,true);
+      
+      for (unsigned iBin(0); iBin<muTight_idSF_[0].size();++iBin){
+        muTight_idisoSF_[0].push_back(muTight_idSF_[0][iBin]*muTight_isoSF_[0][iBin]);
+        muTight_idisoSF_[1].push_back(muTight_idSF_[1][iBin]*muTight_isoSF_[1][iBin]);
+        muTight_idisoSF_[2].push_back(muTight_idSF_[2][iBin]*muTight_isoSF_[2][iBin]);
+        muVeto_idisoDataEff_[0].push_back(muVeto_idDataEff_[0][iBin]*muVeto_isoDataEff_[0][iBin]);
+        muVeto_idisoMCEff_[0].push_back(muVeto_idMCEff_[0][iBin]*muVeto_isoMCEff_[0][iBin]);
+        muVeto_idisoDataEff_[1].push_back(muVeto_idDataEff_[1][iBin]*muVeto_isoDataEff_[1][iBin]);
+        muVeto_idisoMCEff_[1].push_back(muVeto_idMCEff_[1][iBin]*muVeto_isoMCEff_[1][iBin]);
+        muVeto_idisoDataEff_[2].push_back(muVeto_idDataEff_[2][iBin]*muVeto_isoDataEff_[2][iBin]);
+        muVeto_idisoMCEff_[2].push_back(muVeto_idMCEff_[2][iBin]*muVeto_isoMCEff_[2][iBin]);
         //std::cout<<muVeto_idisoMCEff_.back()<<" "<<muVeto_idisoDataEff_.back()<<" "<<muTight_idisoSF_.back()<<std::endl;//!!
       }
-
-      for (unsigned iBin(0); iBin<eVeto_idisoDataEff_.size();++iBin){
-        if(eVeto_idisoDataEff_[iBin]>=1)eVeto_idisoDataEff_[iBin]=0.99999;
-        if(eVeto_idisoMCEff_[iBin]>=1)eVeto_idisoMCEff_[iBin]=0.99999;
-        if(eVeto_idisoDataEff_[iBin]<0)eVeto_idisoDataEff_[iBin]=0;
-        if(eVeto_idisoMCEff_[iBin]<0)eVeto_idisoMCEff_[iBin]=0;
-      }
-
-      for (unsigned iBin(0); iBin<e_gsfidDataEff_.size();++iBin){
-        if(e_gsfidDataEff_[iBin]>=1)e_gsfidDataEff_[iBin]=0.99999;
-        if(e_gsfidMCEff_[iBin]>=1)e_gsfidMCEff_[iBin]=0.99999;
-        if(e_gsfidDataEff_[iBin]<0)e_gsfidDataEff_[iBin]=0;
-        if(e_gsfidMCEff_[iBin]<0)e_gsfidMCEff_[iBin]=0;
-      }
-
 
       eventsWithGenElectron_ = 0;
       eventsWithGenElectronFromTau_ = 0;
@@ -419,9 +360,7 @@ namespace ic {//namespace
         jet2pt = jet2->pt();
         hasJetsInHF = fabs(jet1->eta())>=3 || fabs(jet2->eta())>=3 ;
         //std::cout<<"mjj "<<mjj<<" j2pt "<<jet2pt<<" metl1 "<<l1met<<" hltmet "<<hltmet<<std::endl;
-        unsigned nruns;
-        if(!do_run2_) nruns=3;
-        else nruns=2;
+        unsigned nruns = 2;
 
         if(do_binnedin2d1dfittedtrg_weights_){//2D-1D
           //if(l1met!=hltmet){
@@ -504,14 +443,8 @@ namespace ic {//namespace
               }
             }
             double trgweight;
-            if(!do_run2_){
-              //LUMI WEIGHTED AVERAGE OVER RUNS                                                                                                      
-              trgweight=(trgweights[0]*Alumi_+trgweights[1]*BClumi_+trgweights[2]*Dlumi_)/(Alumi_+BClumi_+Dlumi_);
-            }
-            else{
-              if (!hasJetsInHF) trgweight=trgweights[0];
-              else trgweight=trgweights[1];
-            }
+	    if (!hasJetsInHF) trgweight=trgweights[0];
+	    else trgweight=trgweights[1];
             /*if (var1bin>0&&var2bin>0) 
               std::cout<<" Total Weight "<<trgweight
               <<" vars[0]=" << vars[0] << "(" << var1bin << ")"
@@ -573,20 +506,26 @@ namespace ic {//namespace
 
     //ID+iso tight leptons
     std::vector<Electron*> const& elecs = event->GetPtrVec<Electron>("selElectrons");
-    double ele_weight = 1.0;
+    double ele_weight[3] = {1.0,1.0,1.0};
     //record first two electrons
-    double trigW[2] = {1.0,1.0};
+    double trigW[3][2];
     for (unsigned iEle(0); iEle<elecs.size();++iEle){
-      ele_weight *= eTight_idisoSF_[findPtEtaBin(elecs[iEle]->pt(),elecs[iEle]->eta(),e_ptbin_,e_etabin_)];
-      ele_weight *= e_gsfidSF_[findPtEtaBin(elecs[iEle]->pt(),elecs[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
-      if (iEle<2) trigW[iEle] = e_trigDataEff_[findPtEtaBin(elecs[iEle]->pt(),fabs(elecs[iEle]->eta()),e_pttrig_,e_etatrig_)];
+      for (unsigned err(0); err<3;++err){
+	ele_weight[err] *= eTight_idisoSF_[err][findPtEtaBin(elecs[iEle]->pt(),elecs[iEle]->eta(),e_ptbin_,e_etabin_)];
+	ele_weight[err] *= e_gsfidSF_[err][findPtEtaBin(elecs[iEle]->pt(),elecs[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
+	if (iEle<2) trigW[err][iEle] = e_trigDataEff_[err][findPtEtaBin(elecs[iEle]->pt(),fabs(elecs[iEle]->eta()),e_pttrig_,e_etatrig_)];
+      }
     }
 
     //calculate electron trigger weight
-    double eleTrigW = 1;
-    if (elecs.size()>1) eleTrigW = trigW[0]+trigW[1]-trigW[0]*trigW[1];
-    else eleTrigW = trigW[0]; 
-    eventInfo->set_weight("!ele_trigEff",eleTrigW);
+    double eleTrigW[3] = {1,1,1};
+    for (unsigned err(0); err<3;++err){
+      if (elecs.size()>1) eleTrigW[err] = trigW[err][0]+trigW[err][1]-trigW[err][0]*trigW[err][1];
+      else eleTrigW[err] = trigW[err][0]; 
+    }
+    eventInfo->set_weight("!ele_trigEff",eleTrigW[0]);
+    eventInfo->set_weight("!ele_trigEff_up",eleTrigW[1]);
+    eventInfo->set_weight("!ele_trigEff_down",eleTrigW[2]);
 
     //add veto which are not tight
     std::vector<Electron*> const& loose = event->GetPtrVec<Electron>("vetoElectrons");
@@ -594,21 +533,28 @@ namespace ic {//namespace
       //check overlap with tight
       if (isTightElectron(loose[iEle],elecs)) continue;
       unsigned lBin = findPtEtaBin(loose[iEle]->pt(),loose[iEle]->eta(),e_ptbin_,e_etabin_);
-      ele_weight *= eVeto_idisoDataEff_[lBin]/eVeto_idisoMCEff_[lBin];
-      ele_weight *= e_gsfidSF_[findPtEtaBin(loose[iEle]->pt(),loose[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
+      for (unsigned err(0); err<3;++err){
+	ele_weight[err] *= eVeto_idisoDataEff_[err][lBin]/eVeto_idisoMCEff_[err][lBin];
+	ele_weight[err] *= e_gsfidSF_[err][findPtEtaBin(loose[iEle]->pt(),loose[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
+      }
     }
-    eventInfo->set_weight("!eleTight_idisoSF",ele_weight);
-    tighteleweight->Fill(ele_weight);
+    eventInfo->set_weight("!eleTight_idisoSF",ele_weight[0]);
+    eventInfo->set_weight("!eleTight_idisoSF_up",ele_weight[1]);
+    eventInfo->set_weight("!eleTight_idisoSF_down",ele_weight[2]);
+    tighteleweight->Fill(ele_weight[0]);
 
     //std::cout << " ele OK" << std::endl;
 
     std::vector<Muon*> const& mus = event->GetPtrVec<Muon>("selMuons");
-    double mu_weight = 1.0;
+    double mu_weight[3] = {1.0,1.0,1.0};
     for (unsigned iEle(0); iEle<mus.size();++iEle){
       unsigned lBin = findPtEtaBin(mus[iEle]->pt(),mus[iEle]->eta(),mu_ptbin_,mu_etabin_);
       //unsigned mBin = findPtEtaBin(mus[iEle]->pt(),mus[iEle]->eta(),tk_ptbin_,tk_etabin_);
-      mu_weight *= muTight_idisoSF_[lBin];// * mu_tkSF_[mBin];
+      for (unsigned err(0); err<3;++err){
+	mu_weight[err] *= muTight_idisoSF_[err][lBin];// * mu_tkSF_[mBin];
+      }
     }
+
     //add veto which are not tight
     std::vector<Muon*> const& loosemus = event->GetPtrVec<Muon>("vetoMuons");
     for (unsigned iEle(0); iEle<loosemus.size();++iEle){
@@ -616,18 +562,22 @@ namespace ic {//namespace
       if (isTightMuon(loosemus[iEle],mus)) continue;
       unsigned lBin = findPtEtaBin(loosemus[iEle]->pt(),loosemus[iEle]->eta(),mu_ptbin_,mu_etabin_);
       //unsigned mBin = findPtEtaBin(loosemus[iEle]->pt(),loosemus[iEle]->eta(),tk_ptbin_,tk_etabin_);
-      mu_weight *= muVeto_idisoDataEff_[lBin]/muVeto_idisoMCEff_[lBin];// * mu_tkSF_[mBin];
+      for (unsigned err(0); err<3;++err){
+	mu_weight[err] *= muVeto_idisoDataEff_[err][lBin]/muVeto_idisoMCEff_[err][lBin];// * mu_tkSF_[mBin];
+      }
     }
-    eventInfo->set_weight("!muTight_idisoSF",mu_weight);
-    tightmuweight->Fill(mu_weight);
+    eventInfo->set_weight("!muTight_idisoSF",mu_weight[0]);
+    eventInfo->set_weight("!muTight_idisoSF_up",mu_weight[1]);
+    eventInfo->set_weight("!muTight_idisoSF_down",mu_weight[2]);
+    tightmuweight->Fill(mu_weight[0]);
 
     //std::cout << " mu OK" << std::endl;
 
     if(do_idiso_tight_weights_){
-      eventInfo->set_weight("idisoTight",ele_weight*mu_weight);
+      eventInfo->set_weight("idisoTight",ele_weight[0]*mu_weight[0]);
     }
     else{
-      eventInfo->set_weight("!idisoTight",ele_weight*mu_weight);
+      eventInfo->set_weight("!idisoTight",ele_weight[0]*mu_weight[0]);
     }
 
     //std::cout << " IDISO tight done." << std::endl;
@@ -635,8 +585,8 @@ namespace ic {//namespace
     //TO DO: id+iso veto leptons
     //first try: take leptons from W in pT,eta acceptance
     std::vector<GenParticle*> const& genParts = event->GetPtrVec<GenParticle>("genParticles");
-    double ele_veto_weight = 1.0;
-    double mu_veto_weight = 1.0;
+    double ele_veto_weight[3] = {1.0,1.0,1.0};
+    double mu_veto_weight[3] = {1.0,1.0,1.0};
 
     for (unsigned iEle(0); iEle<genParts.size(); ++iEle){//Loop on genparticles
 
@@ -656,7 +606,9 @@ namespace ic {//namespace
         if (genParts[iEle]->pt() > 10 && fabs(genParts[iEle]->eta()) < 2.4) {
           unsigned lBin = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),e_ptbin_,e_etabin_);
           unsigned lBinGsf = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),gsf_ptbin_,gsf_etabin_);
-          ele_veto_weight *= (1-(eVeto_idisoDataEff_[lBin]*e_gsfidDataEff_[lBinGsf]))/(1-(eVeto_idisoMCEff_[lBin]*e_gsfidMCEff_[lBinGsf]));
+	  for (unsigned err(0); err<3;++err){
+	    ele_veto_weight[err] *= (1-(eVeto_idisoDataEff_[err][lBin]*e_gsfidDataEff_[err][lBinGsf]))/(1-(eVeto_idisoMCEff_[err][lBin]*e_gsfidMCEff_[err][lBinGsf]));
+	  }
           if (isTau) eventsWithGenElectronFromTauInAcc_++;
           else eventsWithGenElectronInAcc_++;
         }
@@ -671,7 +623,9 @@ namespace ic {//namespace
           unsigned lBin = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),mu_ptbin_,mu_etabin_);
           //unsigned lBinTk = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),tk_ptbin_,tk_etabin_);
           //mu_veto_weight *= (1-(muVeto_idisoDataEff_[lBin]*mu_tkDataEff_[lBinTk]))/(1-muVeto_idisoMCEff_[lBin]);
-          mu_veto_weight *= (1-muVeto_idisoDataEff_[lBin])/(1-muVeto_idisoMCEff_[lBin]);
+	  for (unsigned err(0); err<3;++err){
+	    mu_veto_weight[err] *= (1-muVeto_idisoDataEff_[err][lBin])/(1-muVeto_idisoMCEff_[err][lBin]);
+	  }
           //if(mu_veto_weight<0)std::cout<<"Below zero weight:"<<(1-muVeto_idisoDataEff_[lBin])/(1-muVeto_idisoMCEff_[lBin])<<" "<<muVeto_idisoDataEff_[lBin]<<" "<<muVeto_idisoMCEff_[lBin]<<std::endl;//!!
           //if(mu_veto_weight>10000)std::cout<<"Very high weight:"<<(1-muVeto_idisoDataEff_[lBin])/(1-muVeto_idisoMCEff_[lBin])<<" "<<muVeto_idisoDataEff_[lBin]<<" "<<muVeto_idisoMCEff_[lBin]<<" "<<genParts[iEle]->pt()<<" "<<genParts[iEle]->eta()<<std::endl;//!!
           if (isTau) eventsWithGenMuonFromTauInAcc_++;
@@ -679,17 +633,25 @@ namespace ic {//namespace
         }
       }
     }//endof Loop on genparticles
+    
+    vetoeleweight->Fill(ele_veto_weight[0]);
+    vetomuweight->Fill(mu_veto_weight[0]);
+    if (do_idiso_veto_weights_) eventInfo->set_weight("idisoVeto",ele_veto_weight[0]*mu_veto_weight[0]);
+    else eventInfo->set_weight("!idisoVeto",ele_veto_weight[0]*mu_veto_weight[0]);
 
-    vetoeleweight->Fill(ele_veto_weight);
-    vetomuweight->Fill(mu_veto_weight);
-    if (do_idiso_veto_weights_) eventInfo->set_weight("idisoVeto",ele_veto_weight*mu_veto_weight);
-    else eventInfo->set_weight("!idisoVeto",ele_veto_weight*mu_veto_weight);
+    eventInfo->set_weight("!eleVeto_idisoSF",ele_veto_weight[0]);
+    eventInfo->set_weight("!eleVeto_idisoSF_up",ele_veto_weight[1]);
+    eventInfo->set_weight("!eleVeto_idisoSF_down",ele_veto_weight[2]);
+
+    eventInfo->set_weight("!muVeto_idisoSF",mu_veto_weight[0]);
+    eventInfo->set_weight("!muVeto_idisoSF_up",mu_veto_weight[1]);
+    eventInfo->set_weight("!muVeto_idisoSF_down",mu_veto_weight[2]);
 
     //std::cout << " IDISO veto done." << std::endl;
 
-
+    
     }//endof Save weights
-
+    
 
     bool zeroParton = false;
 
@@ -985,11 +947,14 @@ namespace ic {//namespace
   void HinvWeights::fillVector(const std::string & aFileName, 
 			       const unsigned nPtBins,
 			       const unsigned nEtaBins,
-			       std::vector<double> & aVector,
+			       std::vector<double> aVector[3],
 			       std::vector<double> & ptbin,
-			       std::vector<double> & etabin){
+			       std::vector<double> & etabin,
+			       bool protect){
     //std::cout<<aFileName<<":"<<std::endl;//!!
-    aVector.clear();
+    aVector[0].clear();
+    aVector[1].clear();
+    aVector[2].clear();
     ptbin.clear();
     etabin.clear();
     std::ifstream lInput;
@@ -997,7 +962,9 @@ namespace ic {//namespace
     if(!lInput.is_open()) {
       std::cerr << "Unable to open file: " << aFileName << ". Setting vector content to 1." << std::endl;
       //max expected size for e and mu is 33...
-      aVector.resize(nPtBins*nEtaBins,1);
+      aVector[0].resize(nPtBins*nEtaBins,1);
+      aVector[1].resize(nPtBins*nEtaBins,1);
+      aVector[2].resize(nPtBins*nEtaBins,1);
       return;
     }
 
@@ -1016,7 +983,14 @@ namespace ic {//namespace
 
       //protect against blank line at the end of the file
       if (pTmin > 1) {
-        aVector.push_back(SF);
+	if (protect && SF>1) SF=1;
+	if (SF<0) SF=0;
+        aVector[0].push_back(SF);
+	if (protect && (SF+SFerrPlus) > 1) aVector[1].push_back(1);
+        else aVector[1].push_back(SF+SFerrPlus);
+        if ((SF-SFerrMinus) < 0) aVector[2].push_back(0);
+	else aVector[2].push_back(SF-SFerrMinus);
+
         if (counter%nPtBins==0) etabin.push_back(etaMin);
         if (counter<nPtBins) ptbin.push_back(pTmin);
         counter++;
@@ -1034,45 +1008,6 @@ namespace ic {//namespace
     std::cout << " " << nPtBins;
     std::cout << " " << nEtaBins << std::endl;
 
-    lInput.close();
-
-  }
-
-  void HinvWeights::fillVectorError(const std::string & aFileName, std::vector<double> & aVector, bool upordown){
-    //std::cout<<aFileName<<":"<<std::endl;//!!
-    std::ifstream lInput;
-    lInput.open(aFileName);
-    if(!lInput.is_open()){
-      std::cerr << "Unable to open file: " << aFileName << ". Setting vector content to 1." << std::endl;
-      //max expected size for e and mu ??
-      aVector.resize(100,1);
-      return;
-    }
-    while(1){
-      double pTmin = 0;
-      double pTmax = 0;
-      double etaMin = 0;
-      double etaMax = 0;
-      double SF = 0;
-      double SFerrPlus = 0;
-      double SFerrMinus = 0;
-      lInput>>pTmin>>pTmax>>etaMin>>etaMax>>SF>>SFerrMinus>>SFerrPlus;
-      //protect against blank line at the end of the file
-      if(upordown){
-        //std::cout<<"  "<<pTmin<<" "<<pTmax<<" "<<etaMin<<" "<<etaMax<<" "<<SF+SFerrPlus<<std::endl;//!!
-        if (pTmin > 1) aVector.push_back(SF+SFerrPlus);
-      }
-      else{
-        //std::cout<<"  "<<pTmin<<" "<<pTmax<<" "<<etaMin<<" "<<etaMax<<" "<<SF-SFerrMinus<<std::endl;//!!
-        if (pTmin > 1) aVector.push_back(SF-SFerrMinus);
-      }
-
-      if(lInput.eof()){
-        break;
-      }
-    }
-
-    std::cout << " ---- Size of vector for file " << aFileName << " = " << aVector.size() << std::endl;
     lInput.close();
 
   }

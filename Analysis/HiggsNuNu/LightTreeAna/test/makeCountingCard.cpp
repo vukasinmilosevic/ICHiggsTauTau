@@ -218,10 +218,10 @@ int main(int argc, char* argv[]){
   TFile* jerworse=new TFile((indir+"/JERWORSE/"+channel+".root").c_str());
   TFile* uesup=new TFile((indir+"/UESUP/"+channel+".root").c_str());
   TFile* uesdown=new TFile((indir+"/UESDOWN/"+channel+".root").c_str());
-  TFile* eleup=do_run2?0:new TFile((indir+"/ELEEFFUP/"+channel+".root").c_str());
-  TFile* eledown=do_run2?0:new TFile((indir+"/ELEEFFDOWN/"+channel+".root").c_str());
-  TFile* muup=do_run2?0:new TFile((indir+"/MUEFFUP/"+channel+".root").c_str());
-  TFile* mudown=do_run2?0:new TFile((indir+"/MUEFFDOWN/"+channel+".root").c_str());
+  TFile* eleup=do_run2?0:new TFile((indir+"/LEPEFF_ELEUP/"+channel+".root").c_str());
+  TFile* eledown=do_run2?0:new TFile((indir+"/LEPEFF_ELEDOWN/"+channel+".root").c_str());
+  TFile* muup=do_run2?0:new TFile((indir+"/LEPEFF_MUUP/"+channel+".root").c_str());
+  TFile* mudown=do_run2?0:new TFile((indir+"/LEPEFF_MUDOWN/"+channel+".root").c_str());
   TFile* puup=new TFile((indir+"/PUUP/"+channel+".root").c_str());
   TFile* pudown=new TFile((indir+"/PUDOWN/"+channel+".root").c_str());
 
@@ -340,6 +340,14 @@ int main(int argc, char* argv[]){
   Syst trig;
   trig.set_name("CMS_VBFHinv_trigweight")
     .set_latexname("Trig weight")
+    .set_type("fromfilelnN")
+    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_uptfile(trigup)
+    .set_downtfile(trigdown);
+
+  Syst eletrig;
+  trig.set_name("CMS_VBFHinv_eletrigweight")
+    .set_latexname("Ele Trig weight")
     .set_type("fromfilelnN")
     .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
     .set_uptfile(trigup)
@@ -725,7 +733,8 @@ int main(int argc, char* argv[]){
   }
   //if (!do_run2) 
   systematics.push_back(pu);
-  if (channel!="ee" && channel != "enu")systematics.push_back(trig);
+  if (channel!="ee" && channel != "enu") systematics.push_back(trig);
+  else systematics.push_back(eletrig);
   //systematics.push_back(trig0);
   //systematics.push_back(trig1);
   //systematics.push_back(trig2);
@@ -1185,14 +1194,14 @@ int main(int argc, char* argv[]){
         uplnnfac=0.9;
       }
     }
-    if ( systematics[iSyst].name()=="CMS_VBFHinv_trigweight" ) {
-      if (channel=="ee" || channel=="enu") {
-        downlnnfac=-1;
-      }
-      if (channel=="ee" || channel=="enu") {
-        uplnnfac=-1;
-      }
-    }
+	  /*if ( systematics[iSyst].name()=="CMS_VBFHinv_trigweight" ) {
+	    if (channel=="ee" || channel=="enu") {
+	    downlnnfac=-1;
+	    }
+	    if (channel=="ee" || channel=="enu") {
+	    uplnnfac=-1;
+	    }
+	    }*/
 
 	  if ( !(downlnnfac==downlnnfac && downlnnfac>0 && uplnnfac==uplnnfac && uplnnfac>0) ) datacard<<"\t-";
 	  else {

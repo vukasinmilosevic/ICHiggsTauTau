@@ -94,7 +94,13 @@ namespace ic {
     puweight_up_scale_=1;
     puweight_down_scale_=1;
     v_nlo_Reweight_=1;
-    weight_eletrigEff_ = 1;
+    for (unsigned err(0); err<3;++err){
+      weight_eletrigEff_[err] = 1;
+      weight_eleVeto_[err] = 1;
+      weight_eleTight_[err] = 1;
+      weight_muVeto_[err] = 1;
+      weight_muTight_[err] = 1;
+    }
 
     nJets_ = 0;
     nGenJets_ = 0;
@@ -359,7 +365,21 @@ namespace ic {
     outputTree_->Branch("puweight_up_scale",&puweight_up_scale_);
     outputTree_->Branch("puweight_down_scale",&puweight_down_scale_);
     outputTree_->Branch("v_nlo_Reweight",&v_nlo_Reweight_);
-    outputTree_->Branch("weight_eletrigEff",&weight_eletrigEff_);
+    outputTree_->Branch("weight_eletrigEff",&weight_eletrigEff_[0]);
+    outputTree_->Branch("weight_eletrigEff_up",&weight_eletrigEff_[1]);
+    outputTree_->Branch("weight_eletrigEff_down",&weight_eletrigEff_[2]);
+    outputTree_->Branch("weight_eleVeto",&weight_eleVeto_[0]);
+    outputTree_->Branch("weight_eleVeto_up",&weight_eleVeto_[1]);
+    outputTree_->Branch("weight_eleVeto_down",&weight_eleVeto_[2]);
+    outputTree_->Branch("weight_eleTight",&weight_eleTight_[0]);
+    outputTree_->Branch("weight_eleTight_up",&weight_eleTight_[1]);
+    outputTree_->Branch("weight_eleTight_down",&weight_eleTight_[2]);
+    outputTree_->Branch("weight_muVeto",&weight_muVeto_[0]);
+    outputTree_->Branch("weight_muVeto_up",&weight_muVeto_[1]);
+    outputTree_->Branch("weight_muVeto_down",&weight_muVeto_[2]);
+    outputTree_->Branch("weight_muTight",&weight_muTight_[0]);
+    outputTree_->Branch("weight_muTight_up",&weight_muTight_[1]);
+    outputTree_->Branch("weight_muTight_down",&weight_muTight_[2]);
 
     outputTree_->Branch("nGenJets",&nGenJets_);
 
@@ -692,7 +712,22 @@ namespace ic {
       v_nlo_Reweight_= eventInfo->weight_defined("v_nlo_Reweighting")?eventInfo->weight("v_nlo_Reweighting"):1;
       weight_lepveto_= eventInfo->weight("idisoVeto");
       weight_leptight_ = eventInfo->weight("idisoTight");
-      weight_eletrigEff_ = eventInfo->weight("ele_trigEff");
+      weight_eletrigEff_[0] = eventInfo->weight("ele_trigEff");
+      weight_eletrigEff_[1] = eventInfo->weight("ele_trigEff_up");
+      weight_eletrigEff_[2] = eventInfo->weight("ele_trigEff_down");
+      weight_eleVeto_[0] = eventInfo->weight("eleVeto_idisoSF");
+      weight_eleVeto_[1] = eventInfo->weight("eleVeto_idisoSF_up");
+      weight_eleVeto_[2] = eventInfo->weight("eleVeto_idisoSF_down");
+      weight_eleTight_[0] = eventInfo->weight("eleTight_idisoSF");
+      weight_eleTight_[1] = eventInfo->weight("eleTight_idisoSF_up");
+      weight_eleTight_[2] = eventInfo->weight("eleTight_idisoSF_down");
+      weight_muVeto_[0] = eventInfo->weight("muVeto_idisoSF");
+      weight_muVeto_[1] = eventInfo->weight("muVeto_idisoSF_up");
+      weight_muVeto_[2] = eventInfo->weight("muVeto_idisoSF_down");
+      weight_muTight_[0] = eventInfo->weight("muTight_idisoSF");
+      weight_muTight_[1] = eventInfo->weight("muTight_idisoSF_up");
+      weight_muTight_[2] = eventInfo->weight("muTight_idisoSF_down");
+
       pileupwt=eventInfo->weight("pileup");
       pileupwtup=eventInfo->weight("pileup_up");
       pileupwtdown=eventInfo->weight("pileup_down");

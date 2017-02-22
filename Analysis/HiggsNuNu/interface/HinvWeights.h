@@ -27,7 +27,6 @@ class HinvWeights : public ModuleBase {
   CLASS_MEMBER(HinvWeights, std::vector<std::string>, binnedin2d1dfitweightvarorder)//bin in first two fit in 3rd
   CLASS_MEMBER(HinvWeights, std::vector<double>, binnedin2d1dfitweightvar1binning)//binning of first var
   CLASS_MEMBER(HinvWeights, std::vector<double>, binnedin2d1dfitweightvar2binning)//binning of second var
-  CLASS_MEMBER(HinvWeights, bool, do_run2)
   CLASS_MEMBER(HinvWeights, bool, do_metmht)
 
 
@@ -41,16 +40,10 @@ class HinvWeights : public ModuleBase {
   CLASS_MEMBER(HinvWeights, bool, do_dy_reweighting)
   CLASS_MEMBER(HinvWeights, std::string, input_met)
   CLASS_MEMBER(HinvWeights, std::string, input_jet)
-  CLASS_MEMBER(HinvWeights, bool, do_idiso_err)
-  CLASS_MEMBER(HinvWeights, bool, do_idiso_errmuore)
-  CLASS_MEMBER(HinvWeights, bool, do_idiso_errupordown)
   CLASS_MEMBER(HinvWeights, bool, do_lumixs_weights)
   CLASS_MEMBER(HinvWeights, std::string, input_params)
   CLASS_MEMBER(HinvWeights, std::string, sample_name)
   CLASS_MEMBER(HinvWeights, std::string, trg_weight_file)
-  CLASS_MEMBER(HinvWeights, double, Alumi)
-  CLASS_MEMBER(HinvWeights, double, BClumi)
-  CLASS_MEMBER(HinvWeights, double, Dlumi)
 
   // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
   CLASS_MEMBER(HinvWeights, std::string, kfactors_file)
@@ -83,24 +76,25 @@ class HinvWeights : public ModuleBase {
 
   double lumixsweight;
 
-  std::vector<double> eTight_idisoSF_;
-  std::vector<double> e_trigDataEff_;
-  std::vector<double> eVeto_idisoDataEff_;
-  std::vector<double> eVeto_idisoMCEff_;
-  std::vector<double> e_gsfidSF_;
-  std::vector<double> e_gsfidDataEff_;
-  std::vector<double> e_gsfidMCEff_;
-  std::vector<double> muTight_idSF_;
-  std::vector<double> muTight_isoSF_;
-  std::vector<double> muVeto_idDataEff_;
-  std::vector<double> muVeto_isoDataEff_;
-  std::vector<double> muVeto_idMCEff_;
-  std::vector<double> muVeto_isoMCEff_;
-  std::vector<double> muTight_idisoSF_;
-  std::vector<double> muVeto_idisoDataEff_;
-  std::vector<double> muVeto_idisoMCEff_;
-  std::vector<double> mu_tkSF_;
-  std::vector<double> mu_tkDataEff_;
+  //[3]=central-up-down
+  std::vector<double> eTight_idisoSF_[3];
+  std::vector<double> e_trigDataEff_[3];
+  std::vector<double> eVeto_idisoDataEff_[3];
+  std::vector<double> eVeto_idisoMCEff_[3];
+  std::vector<double> e_gsfidSF_[3];
+  std::vector<double> e_gsfidDataEff_[3];
+  std::vector<double> e_gsfidMCEff_[3];
+  std::vector<double> muTight_idSF_[3];
+  std::vector<double> muTight_isoSF_[3];
+  std::vector<double> muVeto_idDataEff_[3];
+  std::vector<double> muVeto_isoDataEff_[3];
+  std::vector<double> muVeto_idMCEff_[3];
+  std::vector<double> muVeto_isoMCEff_[3];
+  std::vector<double> muTight_idisoSF_[3];
+  std::vector<double> muVeto_idisoDataEff_[3];
+  std::vector<double> muVeto_idisoMCEff_[3];
+  //std::vector<double> mu_tkSF_;
+  //std::vector<double> mu_tkDataEff_;
 
   std::vector<double> gsf_etabin_;
   std::vector<double> gsf_ptbin_;
@@ -109,8 +103,8 @@ class HinvWeights : public ModuleBase {
   std::vector<double> e_etatrig_;
   std::vector<double> e_pttrig_;
 
-  std::vector<double> tk_etabin_;
-  std::vector<double> tk_ptbin_;
+  //std::vector<double> tk_etabin_;
+  //std::vector<double> tk_ptbin_;
   std::vector<double> mu_etabin_;
   std::vector<double> mu_ptbin_;
 
@@ -150,11 +144,10 @@ class HinvWeights : public ModuleBase {
   void fillVector(const std::string & aFileName, 
                   const unsigned nPtBins,
                   const unsigned nEtaBins,
-                  std::vector<double> & aVector,
+                  std::vector<double> aVector[3],
                   std::vector<double> & ptbin,
-                  std::vector<double> & etabin);
-
-  void fillVectorError(const std::string & aFileName, std::vector<double> & aVector, bool upordown);
+                  std::vector<double> & etabin,
+		  const bool protect);
 
   double nloReweighting(const double & aMjj, const double & aYstar);
 

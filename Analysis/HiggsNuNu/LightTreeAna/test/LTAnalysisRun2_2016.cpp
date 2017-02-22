@@ -223,7 +223,7 @@ int main(int argc, char* argv[]){
   analysis->SetEosFolders(eos_path_data,eos_path_mc);
 
   analysis->AddFiles(filelist);
-  if(syst!="PUUP"&&syst!="PUDOWN"&&syst.find("TRIG")==syst.npos&&syst.size()!=0){
+  if(syst.find("LEPEFF")==syst.npos&&syst!="PUUP"&&syst!="PUDOWN"&&syst.find("TRIG")==syst.npos&&syst.size()!=0){
     std::cout<<"Syst, taking input from: "<<inputfolder<<"/"<<syst<<std::endl;
     analysis->SetInFolder(inputfolder+"/"+syst);
   }
@@ -488,28 +488,44 @@ int main(int argc, char* argv[]){
   }
 
   std::string sigmcweight;
-  std::string sig125mcweight;
   //std::string mcweightpufactordebug="*1./(weight_trig_1*weight_trig_2*weight_trig_3*weight_trig_4*weight_trig_5*weight_trig_6)";
 
-  std::ostringstream mcweightpufactor;
-  mcweightpufactor << "*" << lumiSF;
-  if(syst=="PUUP") mcweightpufactor << "*puweight_up_scale";
-  if(syst=="PUDOWN") mcweightpufactor << "*puweight_down_scale";
+  std::ostringstream mcweightsystfactor;
+  mcweightsystfactor << "*" << lumiSF;
+  if(syst=="PUUP") mcweightsystfactor << "*puweight_up_scale";
+  if(syst=="PUDOWN") mcweightsystfactor << "*puweight_down_scale";
   
-  if (syst=="TRIGUP" && channel!="ee" && channel!="enu") mcweightpufactor<<"*weight_trig_1/weight_trig_0";
-  if (syst=="TRIGDOWN" && channel!="ee" && channel!="enu") mcweightpufactor<<"*weight_trig_2/weight_trig_0";
-  //if (syst=="TRIG0UP") mcweightpufactor<<"*weight_trig_1/weight_trig_0";
-  //if (syst=="TRIG0DOWN") mcweightpufactor<<"*weight_trig_2/weight_trig_0";
-  //if (syst=="TRIG1UP") mcweightpufactor<<"*weight_trig_3/weight_trig_0";
-  //if (syst=="TRIG1DOWN") mcweightpufactor<<"*weight_trig_4/weight_trig_0";
-  //if (syst=="TRIG2UP") mcweightpufactor<<"*weight_trig_5/weight_trig_0";
-  //if (syst=="TRIG2DOWN") mcweightpufactor<<"*weight_trig_6/weight_trig_0";
+  if (syst=="TRIGUP" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_1/weight_trig_0";
+  if (syst=="TRIGDOWN" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_2/weight_trig_0";
+  if (syst=="TRIGUP" && (channel=="ee" || channel=="enu")) mcweightsystfactor<<"*weight_eletrigEff_up/weight_eletrigEff";
+  if (syst=="TRIGDOWN" && (channel=="ee" || channel=="enu")) mcweightsystfactor<<"*weight_eletrigEff_down/weight_eletrigEff";
 
-  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") sigmcweight="total_weight_lepveto"+mcweightpufactor.str();//+mcweightpufactordebug;
+  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd"){
+    if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleVeto_up/weight_eleVeto";
+    if (syst=="LEPEFF_ELEDOWN") mcweightsystfactor<<"*weight_eleVeto_down/weight_eleVeto";
+    if (syst=="LEPEFF_MUUP") mcweightsystfactor<<"*weight_muVeto_up/weight_muVeto";
+    if (syst=="LEPEFF_MUDOWN") mcweightsystfactor<<"*weight_muVeto_down/weight_muVeto";
+  }
+  else if (channel=="ee" || channel=="enu") {
+    if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleTight_up/weight_eleTight";
+    if (syst=="LEPEFF_ELEDOWN") mcweightsystfactor<<"*weight_eleTight_down/weight_eleTight";
+  }
+  else if (channel=="mumu" || channel=="munu") {
+    if (syst=="LEPEFF_MUUP") mcweightsystfactor<<"*weight_muTight_up/weight_muTight";
+    if (syst=="LEPEFF_MUDOWN") mcweightsystfactor<<"*weight_muTight_down/weight_muTight";
+  }
+
+  //if (syst=="TRIG0UP") mcweightsystfactor<<"*weight_trig_1/weight_trig_0";
+  //if (syst=="TRIG0DOWN") mcweightsystfactor<<"*weight_trig_2/weight_trig_0";
+  //if (syst=="TRIG1UP") mcweightsystfactor<<"*weight_trig_3/weight_trig_0";
+  //if (syst=="TRIG1DOWN") mcweightsystfactor<<"*weight_trig_4/weight_trig_0";
+  //if (syst=="TRIG2UP") mcweightsystfactor<<"*weight_trig_5/weight_trig_0";
+  //if (syst=="TRIG2DOWN") mcweightsystfactor<<"*weight_trig_6/weight_trig_0";
+
+  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") sigmcweight="total_weight_lepveto"+mcweightsystfactor.str();
   //remove trigger weight for e channels which do not use signal trigger
-  else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig*weight_eletrigEff"+mcweightpufactor.str();//+mcweightpufactordebug;
-  else sigmcweight="total_weight_leptight"+mcweightpufactor.str();//+mcweightpufactordebug;
-  sig125mcweight="total_weight_lepveto"+mcweightpufactor.str();
+  else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig*weight_eletrigEff"+mcweightsystfactor.str();
+  else sigmcweight="total_weight_leptight"+mcweightsystfactor.str();
 
   //add NLO reweighting
   sigmcweight=sigmcweight+"*v_nlo_Reweight";
@@ -537,7 +553,7 @@ int main(int argc, char* argv[]){
   totsignal125.set_dataset("H125")
     .set_dirname("sig125")
     .set_shape(shape)
-    .set_dataweight(sig125mcweight)
+    .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
@@ -554,7 +570,7 @@ int main(int argc, char* argv[]){
   qqH125.set_dataset("VBFH125")
     .set_dirname("qqH125")
     .set_shape(shape)
-    .set_dataweight(sig125mcweight)
+    .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);  
 

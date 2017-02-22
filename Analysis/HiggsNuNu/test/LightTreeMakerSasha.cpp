@@ -695,9 +695,6 @@ int main(int argc, char* argv[]){
     .set_trg_applied_in_mc(false)
     .set_do_idiso_tight_weights(false)
     .set_do_idiso_veto_weights(false)
-    .set_do_idiso_err(doidisoerr)
-    .set_do_idiso_errupordown(doidisoerrupordown)
-    .set_do_idiso_errmuore(doidisoerrmuore)
     .set_fs(fs)
     .set_input_met("metNoMuons");
   if (!is_data) {
@@ -705,11 +702,6 @@ int main(int argc, char* argv[]){
       .set_do_binnedin2d1dfittedtrg_weights(dobinnedin2d1dtrgeff)
       .set_trg_weight_file(trg_weight_file)
       .set_trg_applied_in_mc(true);
-    if(do3dtrgeff){
-      hinvWeights.set_Alumi(0.889)
-	.set_BClumi(11.023)
-	.set_Dlumi(7.315);
-    }
     hinvWeights.set_do_idiso_veto_weights(false);
     hinvWeights.set_do_idiso_tight_weights(false);
   }
