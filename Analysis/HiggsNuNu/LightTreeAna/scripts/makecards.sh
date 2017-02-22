@@ -29,7 +29,7 @@ for channel in enu #munu taunu mumu ee qcd nunu
 
   echo "channel $channel"
 
-  HistToIntegrate="jet1_pt"
+  HistToIntegrate="jet2_pt"
 
   echo "channel $channel, HistToIntegrate: $HistToIntegrate"
 

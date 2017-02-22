@@ -62,11 +62,12 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
 echo "JOB name = $JOB"
-for syst in "" #JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+#for syst in "" #JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+for syst in "" LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in enu munu taunu ee mumu qcd nunu
+  for channels in enu #munu taunu ee mumu qcd nunu
     do
     JOB=$channels
     #executable expect strings separated by "!"
@@ -76,10 +77,10 @@ do
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
     ## To produce all of the hist for datacard
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
     ## To test for one hist

@@ -218,10 +218,10 @@ int main(int argc, char* argv[]){
   TFile* jerworse=new TFile((indir+"/JERWORSE/"+channel+".root").c_str());
   TFile* uesup=new TFile((indir+"/UESUP/"+channel+".root").c_str());
   TFile* uesdown=new TFile((indir+"/UESDOWN/"+channel+".root").c_str());
-  TFile* eleup=do_run2?0:new TFile((indir+"/LEPEFF_ELEUP/"+channel+".root").c_str());
-  TFile* eledown=do_run2?0:new TFile((indir+"/LEPEFF_ELEDOWN/"+channel+".root").c_str());
-  TFile* muup=do_run2?0:new TFile((indir+"/LEPEFF_MUUP/"+channel+".root").c_str());
-  TFile* mudown=do_run2?0:new TFile((indir+"/LEPEFF_MUDOWN/"+channel+".root").c_str());
+  TFile* eleup=new TFile((indir+"/LEPEFF_ELEUP/"+channel+".root").c_str());
+  TFile* eledown=new TFile((indir+"/LEPEFF_ELEDOWN/"+channel+".root").c_str());
+  TFile* muup=new TFile((indir+"/LEPEFF_MUUP/"+channel+".root").c_str());
+  TFile* mudown=new TFile((indir+"/LEPEFF_MUDOWN/"+channel+".root").c_str());
   TFile* puup=new TFile((indir+"/PUUP/"+channel+".root").c_str());
   TFile* pudown=new TFile((indir+"/PUDOWN/"+channel+".root").c_str());
 
@@ -346,7 +346,7 @@ int main(int argc, char* argv[]){
     .set_downtfile(trigdown);
 
   Syst eletrig;
-  trig.set_name("CMS_VBFHinv_eletrigweight")
+  eletrig.set_name("CMS_VBFHinv_eletrigweight")
     .set_latexname("Ele Trig weight")
     .set_type("fromfilelnN")
     .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
@@ -721,8 +721,8 @@ int main(int argc, char* argv[]){
   }
 
   systematics.push_back(lumi8tev);
-  if (!do_run2)  systematics.push_back(eleeff);
-  if (!do_run2) systematics.push_back(mueff);
+  systematics.push_back(eleeff);
+  systematics.push_back(mueff);
   //if (!do_run2) 
   systematics.push_back(jes);
   //if (!do_run2) 
