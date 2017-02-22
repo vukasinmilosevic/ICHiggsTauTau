@@ -21,13 +21,13 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
-CONFIG=scripts/DefaultRun2Config.cfg
+CONFIG=scripts/DefaultRun2Config_vetos.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_170222
+JOBDIRPREFIX=jobs_run2ana_170222_vetos
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_170222
+OUTPUTPREFIX=output_run2ana_170222_vetos
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -67,7 +67,7 @@ for syst in "" LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in enu #munu taunu ee mumu qcd nunu
+  for channels in enu munu taunu ee mumu qcd nunu
     do
     JOB=$channels
     #executable expect strings separated by "!"
