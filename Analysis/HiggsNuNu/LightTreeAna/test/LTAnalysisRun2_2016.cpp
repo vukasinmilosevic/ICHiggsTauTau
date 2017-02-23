@@ -497,8 +497,10 @@ int main(int argc, char* argv[]){
   
   if (syst=="TRIGUP" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_1/weight_trig_0";
   if (syst=="TRIGDOWN" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_2/weight_trig_0";
-  if (syst=="TRIGUP" && (channel=="ee" || channel=="enu")) mcweightsystfactor<<"*weight_eletrigEff_up/weight_eletrigEff";
-  if (syst=="TRIGDOWN" && (channel=="ee" || channel=="enu")) mcweightsystfactor<<"*weight_eletrigEff_down/weight_eletrigEff";
+
+  if (syst=="TRIGUP" && (channel=="ee" || channel=="enu")) mcweightsystfactor<<"*weight_eletrigEff_up";
+  else if (syst=="TRIGDOWN" && (channel=="ee" || channel=="enu")) mcweightsystfactor<<"*weight_eletrigEff_down";
+  else if (channel=="ee" || channel=="enu") mcweightsystfactor<<"*weight_eletrigEff";
 
   if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd"){
     if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleVeto_up/weight_eleVeto";
@@ -524,7 +526,7 @@ int main(int argc, char* argv[]){
 
   if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") sigmcweight="total_weight_lepveto"+mcweightsystfactor.str();
   //remove trigger weight for e channels which do not use signal trigger
-  else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig*weight_eletrigEff"+mcweightsystfactor.str();
+  else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig"+mcweightsystfactor.str();
   else sigmcweight="total_weight_leptight"+mcweightsystfactor.str();
 
   //add NLO reweighting
