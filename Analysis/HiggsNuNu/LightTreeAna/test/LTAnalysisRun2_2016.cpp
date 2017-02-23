@@ -540,7 +540,7 @@ int main(int argc, char* argv[]){
   std::string j1forwardj2central="TMath::Abs(jet1_eta)>=3&&TMath::Abs(jet2_eta)<3";
 
   std::string additionalcut=(syst=="PUUP")?("&&abs(puweight_up_scale)<200"): (syst=="PUDOWN")?("&&abs(puweight_down_scale)<10") : ("");
-  if (syst.find("TRIG")!=syst.npos) additionalcut="&&weight_trig_0>0";
+  if (syst.find("TRIG")!=syst.npos && channel!= "ee" && channel != "enu") additionalcut="&&weight_trig_0>0";
   analysis->set_baseselection(basesel+additionalcut);
 
   //DATA SHAPE GENERATION
@@ -1299,9 +1299,11 @@ int main(int argc, char* argv[]){
     elementvec.push_back(qcdele);
     elementvec.push_back(vvele);
 
-    if(channel=="nunu") {
+    if(channel=="nunu" || channel=="qcd") {
       elementvec.push_back(qcdznunuele);
       elementvec.push_back(ewkznunuele);
+    }
+    if(channel=="nunu") {
       elementvec.push_back(sigele);
       elementvec.push_back(qqHele);
       elementvec.push_back(ggHele);
