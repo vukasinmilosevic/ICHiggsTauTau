@@ -1091,7 +1091,7 @@ namespace ic {
 
       if(jets[i]->pt()>15) n_jets_15_++;
       if(jets[i]->pt()>30) n_jets_30_++;
-      if (fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8) n_jets_csv2medium_++;
+      if (fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484) n_jets_csv2medium_++;
       //3rd jet
       if (i > 1) {
         double eta_high = -5;
