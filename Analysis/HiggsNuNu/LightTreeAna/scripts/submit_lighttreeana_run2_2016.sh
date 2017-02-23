@@ -2,6 +2,8 @@
 DOCERN=0
 DOSUBMIT=1
 
+DATE=170223
+
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
 : ${JOBWRAPPER:="./scripts/generate_job.sh"}
@@ -21,13 +23,14 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
-CONFIG=scripts/DefaultRun2Config_vetos.cfg
+CONFIG=scripts/DefaultRun2Config.cfg
+#CONFIG=scripts/DefaultRun2Config_vetos.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_170222_vetos
+JOBDIRPREFIX=jobs_run2ana_${DATE}_datacard
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_170222_vetos
+OUTPUTPREFIX=output_run2ana_${DATE}_datacard
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -62,8 +65,8 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
 echo "JOB name = $JOB"
-#for syst in "" #JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
-for syst in "" LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN
+for syst in "" JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+#for syst in JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
@@ -71,8 +74,6 @@ do
     do
     JOB=$channels
     #executable expect strings separated by "!"
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_nomindphi.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_nomindphi.hists`
     ## To produce all of the hist
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`

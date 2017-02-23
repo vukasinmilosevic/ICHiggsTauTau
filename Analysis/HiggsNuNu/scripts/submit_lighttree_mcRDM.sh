@@ -6,6 +6,9 @@ MYEXEC=LightTreeMakerFromMiniAODRDM
 PRODUCTION=170201
 PRODUSER=rdimaria
 JPTCUTVAL=40
+
+DATE=170223
+
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
 : ${JOBWRAPPER:="./scripts/generate_job.sh $DOCERN $MYEXEC $PRODUCTION"}
@@ -14,11 +17,11 @@ JPTCUTVAL=40
 GRIDSETUP=1
 
 if [ "$DOCERN" = "0" ]
-    then
-    JOBSCRIPT="./scripts/submit_ic_batch_job.sh"
+  then
+  JOBSCRIPT="./scripts/submit_ic_batch_job.sh"
 else
-    JOBSCRIPT="./scripts/submit_cern_batch_job.sh"
-    GRIDSETUP=0
+  JOBSCRIPT="./scripts/submit_cern_batch_job.sh"
+  GRIDSETUP=0
 fi
 export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 
@@ -31,19 +34,17 @@ CONFIG=scripts/DefaultLightTreeConfig_mc.cfg
 
 
 for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
-#for SYST in JESUP JESDOWN JERBETTER JERWORSE
-#for SYST in UESUP UESDOWN
+#for SYST in JESUP JESDOWN JERBETTER
+#for SYST in JERWORSE UESUP UESDOWN
 
   do
   SYSTOPTIONS="--dojessyst=false --dojersyst=false"
 
-  #JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_${PRODUCTION}_ICHEP
-  JOBDIRPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/jobs_lighttree_170222
-  #JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170215
+  JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_${DATE}
+  #JOBDIRPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/jobs_lighttree_170222
   JOBDIR=$JOBDIRPREFIX/
-  #OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_${PRODUCTION}_ICHEP
-  OUTPUTPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/output_lighttree_170222
-  #OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_170215
+  OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_${DATE}
+  #OUTPUTPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/output_lighttree_170222
 
   OUTPUTDIR=$OUTPUTPREFIX/
 
@@ -120,11 +121,6 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN
     #PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}_MC
     PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1095//store/user/${PRODUSER}/${PRODUCTION}_MC
 
-    if [ "$PRODUCTION" = "Dec18" ]
-      then
-      PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}/MC
-    fi
-
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJets*ht400*`
     for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
@@ -149,11 +145,6 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN
       JOB=MC_`sed "s/\.dat//" tmp2.txt`
 
       echo "JOB name = $JOB"
-
-      #grep "JetsToLL" tmp.txt
-      #if (( "$?" != 0 )); then
-      # continue
-      #fi
 
       JPTCUT=$JPTCUTVAL
       grep "Htoinv" tmp.txt
@@ -196,74 +187,6 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN
 
     done
 
-
-#Process bkg common with HiggsTautau (ONLY NEEDED IN Mar20 and Apr04)
-    DOSHARED=false
-    if [ "$PRODUCTION" = "Mar20" ]
-      then
-      DOSHARED=true
-      SHAREDPREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/rlane/Feb20/MC_53X/
-      FILELISTPREFIX=Feb20_MC_53X_
-    else
-      if [ "$PRODUCTION" = "Apr04" ]
-        then
-        DOSHARED=true
-        SHAREDPREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/$PRODUCTION/MCtaushared/
-        FILELISTPREFIX=Apr04_MCtaushared_
-      fi
-    fi
-
-    for FILELIST in filelists/$PRODUCTION/$QUEUEDIR/${FILELISTPREFIX}*
-      do
-      if [ "$DOSHARED" = "true" ]
-        then
-        echo "Processing files in "$FILELIST
-
-        echo $FILELIST > tmp.txt
-
-        sed "s/filelists\/${PRODUCTION}\/$QUEUEDIR\/${FILELISTPREFIX}//" tmp.txt > tmp2.txt
-        JOB=MC_`sed "s/\.dat//" tmp2.txt`
-
-        echo "JOB name = $JOB"
-
-        #grep "JetsToLL" tmp.txt
-        #if (( "$?" != 0 )); then
-        #  continue
-        #fi
-
-        grep  "JetsToLNu" tmp.txt
-        if (( "$?" == 0 )); then
-          for FLAVOUR in enu munu taunu
-            do
-
-            WJOB=$JOB"_"$FLAVOUR
-		
-            $JOBWRAPPER $JOBDIR $OUTPUTDIR "./bin/$MYEXEC --cfg=$CONFIG --prod="$PRODUCTION" --filelist="$FILELIST" --input_prefix=$SHAREDPREFIX --output_name=$WJOB.root --output_folder=$OUTPUTDIR $SYSTOPTIONS --inputparams=$INPUTPARAMS --wstream=$FLAVOUR --jet1ptcut="$JPTCUT" --jet2ptcut="$JPTCUT" --jettype=$JETTYPE &> $JOBDIR/$WJOB.log" $JOBDIR/$WJOB.sh $GRIDSETUP
-            if [ "$DOSUBMIT" = "1" ]; then 
-              $JOBSUBMIT $JOBDIR/$WJOB.sh
-            else
-              echo "$JOBSUBMIT $JOBDIR/$WJOB.sh"
-            fi
-          done
-        else
-          $JOBWRAPPER $JOBDIR $OUTPUTDIR "./bin/$MYEXEC --cfg=$CONFIG --prod="$PRODUCTION" --filelist="$FILELIST" --input_prefix=$SHAREDPREFIX --output_name=$JOB.root --output_folder=$OUTPUTDIR $SYSTOPTIONS --inputparams=$INPUTPARAMS --jet1ptcut="$JPTCUT" --jet2ptcut="$JPTCUT" --jettype=$JETTYPE &> $JOBDIR/$JOB.log" $JOBDIR/$JOB.sh $GRIDSETUP
-          if [ "$DOSUBMIT" = "1" ]; then 
-            $JOBSUBMIT $JOBDIR/$JOB.sh
-          else
-            echo "$JOBSUBMIT $JOBDIR/$JOB.sh"
-          fi
-        fi
-
-        rm tmp.txt tmp2.txt
-      fi
-
-    done
-
   done
 
 done
-#if (( "$#" != "2" ))
-#then
-#echo ""
-#    exit
-#fi

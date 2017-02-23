@@ -1305,7 +1305,6 @@ int main(int argc, char* argv[]){
       elementvec.push_back(ggHele);
     }
   }
-  //if(!(channel=="nunu"&&runblind))elementvec.push_back(dataele);
 
   if (debug){
     std::cout << " number of elements: " << elementvec.size() << std::endl;
