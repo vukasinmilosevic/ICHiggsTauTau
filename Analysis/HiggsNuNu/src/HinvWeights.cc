@@ -71,7 +71,7 @@ namespace ic {//namespace
 
     errLabel.push_back("f1_");
     errLabel.push_back("f1Up_");
-    errLabel.push_back("f1Down_");
+    errLabel.push_back("f1DownV2_");
 
     // For v_nlo_Reweighting (kfactor_VBF_zjets_v2.root and kfactor_VBF_wjets_v2.root files in input/scalefactors from MIT group)
     kfactors_file_="input/scale_factors/kfactors.root";
@@ -236,15 +236,15 @@ namespace ic {//namespace
               convert<<iVar2+1;
               std::string histnumber=convert.str();
 	      for (unsigned iErr(0); iErr<errLabel.size();++iErr){
-		std::string newhistnumber= histnumber;
-		if (do_metmht_ && iErr>0) newhistnumber = "1;"+histnumber;
+		//std::string newhistnumber= histnumber;
+		//if (do_metmht_ && iErr>0) newhistnumber = "1;"+histnumber;
 		TF1 *tmp;
 		if (!do_metmht_) tmp = (TF1*)gDirectory->Get(("fdata_"+binnedin2d1dfitweightvarorder_[2]+"_1d_"+histnumber+"Deff"+errLabel[iErr]).c_str());
 		//else thisfuncvector[iErr].push_back((TF1*)gDirectory->Get(("METMHT_BIN"+histnumber+errLabel[iErr]).c_str()));
-		else tmp = (TF1*)gDirectory->Get((errLabel[iErr]+"METMHT120_MJJBIN"+newhistnumber).c_str());
+		else tmp = (TF1*)gDirectory->Get((errLabel[iErr]+"METMHT120_MJJBIN"+histnumber).c_str());
 		
 		thisfuncvector[iErr].push_back(tmp);
-		std::cout << " -- trigger Function " << errLabel[iErr]+"METMHT120_MJJBIN"+newhistnumber << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->GetName() << " " << tmp->GetName() << " check value Mjj=2000 " << tmp->Eval(2000.) << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->Eval(2000.) << std::endl; 
+		std::cout << " -- trigger Function " << errLabel[iErr]+"METMHT120_MJJBIN"+histnumber << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->GetName() << " " << tmp->GetName() << " check value Mjj=2000 " << tmp->Eval(2000.) << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->Eval(2000.) << std::endl; 
 	      }
             }
             for (unsigned iErr(0); iErr<errLabel.size();++iErr){
@@ -509,6 +509,10 @@ namespace ic {//namespace
     double ele_weight[3] = {1.0,1.0,1.0};
     //record first two electrons
     double trigW[3][2];
+    for (unsigned err(0); err<3;++err){
+      trigW[err][0] = 1.;
+      trigW[err][1] = 1.;
+    }
     for (unsigned iEle(0); iEle<elecs.size();++iEle){
       for (unsigned err(0); err<3;++err){
 	ele_weight[err] *= eTight_idisoSF_[err][findPtEtaBin(elecs[iEle]->pt(),elecs[iEle]->eta(),e_ptbin_,e_etabin_)];
