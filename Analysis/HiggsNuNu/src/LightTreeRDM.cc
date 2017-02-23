@@ -146,6 +146,7 @@ namespace ic {
     n_jets_15_ = 0;
     n_jets_30_ = 0;
     n_jets_csv2medium_ = 0;
+    n_extrajets_csv2medium_ = 0;
     cjvjetpt_=-1;
 
     dijet_M_ = 0;
@@ -415,6 +416,7 @@ namespace ic {
     outputTree_->Branch("n_jets_cjv_20EB_30EE",&n_jets_cjv_20EB_30EE_);
     outputTree_->Branch("n_jets_15",&n_jets_15_);
     outputTree_->Branch("n_jets_csv2medium",&n_jets_csv2medium_);
+    outputTree_->Branch("n_extrajets_csv2medium",&n_extrajets_csv2medium_);
     outputTree_->Branch("n_jets_30",&n_jets_30_);
     outputTree_->Branch("cjvjetpt",&cjvjetpt_);
 
@@ -1092,6 +1094,7 @@ namespace ic {
       if(jets[i]->pt()>15) n_jets_15_++;
       if(jets[i]->pt()>30) n_jets_30_++;
       if (fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484) n_jets_csv2medium_++;
+      if (i>1 && fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484) n_extrajets_csv2medium_++;
       //3rd jet
       if (i > 1) {
         double eta_high = -5;

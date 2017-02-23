@@ -121,6 +121,7 @@ namespace ic {
     unsigned n_jets_15_;
     unsigned n_jets_30_;
     unsigned n_jets_csv2medium_;
+    unsigned n_extrajets_csv2medium_;
     double cjvjetpt_;
 
     double dijet_M_;
