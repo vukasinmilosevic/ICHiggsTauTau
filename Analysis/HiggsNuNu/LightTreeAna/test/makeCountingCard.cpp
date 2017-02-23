@@ -118,7 +118,7 @@ int main(int argc, char* argv[]){
   }
 
   std::vector<std::string> sigprocesses;
-    std::vector<std::string> sigprocessesnames;
+  std::vector<std::string> sigprocessesnames;
   std::vector<std::string> sigprocesslatex;
   if (channel=="nunu") {
     sigprocesses.push_back("qqH"+mass);
@@ -129,7 +129,7 @@ int main(int argc, char* argv[]){
     if(do_ggh)sigprocesslatex.push_back("Signal(ggH)");
   }
   std::vector<std::string> bkgprocesses;
-  if (channel=="nunu") {
+  if (channel=="nunu" || channel=="qcd") {
     if (!do_separate_qcdewk) bkgprocesses.push_back("zvvqcd");
     else {
       bkgprocesses.push_back("zvvqcd");
@@ -168,7 +168,7 @@ int main(int argc, char* argv[]){
   bkgprocesses.push_back("vv");
   
   std::vector<std::string> bkgprocesslatex;
-  if (channel=="nunu"){
+  if (channel=="nunu" || channel=="qcd"){
     if (!do_separate_qcdewk) bkgprocesslatex.push_back("$Z\\rightarrow\\nu\\nu$");
     else {
       bkgprocesslatex.push_back("$qcdZ\\rightarrow\\nu\\nu$");
@@ -738,9 +738,9 @@ int main(int argc, char* argv[]){
   //systematics.push_back(trig0);
   //systematics.push_back(trig1);
   //systematics.push_back(trig2);
-  if (channel=="nunu" || channel=="mumu" || channel=="ee") {
+  if (channel=="nunu" || channel=="mumu" || channel=="ee" || channel=="qcd") {
     //if (mcBkgOnly) systematics.push_back(zxsunc);
-    if (channel=="nunu") {
+    if (channel=="nunu" || channel=="qcd") {
       if (!do_separate_qcdewk) systematics.push_back(zvvmcstat);
       else {
 	systematics.push_back(zvvewkmcstat);
@@ -761,7 +761,7 @@ int main(int argc, char* argv[]){
         systematics.push_back(zeeewkmcstat);
       }
     }
-    if (channel=="ee" || channel=="mumu" || channel=="nunu") {
+    if (channel=="ee" || channel=="mumu" || channel=="nunu" || channel=="qcd") {
       systematics.push_back(wzratioqcd);
       systematics.push_back(wzratioewk);
     }
@@ -1179,21 +1179,21 @@ int main(int argc, char* argv[]){
 	  }
 
 	  // Brutal hack to avoid pathological behaviour of JES and JER unc
-	  if ( systematics[iSyst].name()=="CMS_scale_j" ||
-         systematics[iSyst].name()=="CMS_res_j" ) {
-      if (downlnnfac==downlnnfac && downlnnfac>0 && downlnnfac < 0.9) {
-        downlnnfac=0.9;
-      }
-      else if (downlnnfac==downlnnfac && downlnnfac>0 && downlnnfac > 1.1) {
-        downlnnfac=1.1;
-      }
-      if (uplnnfac==uplnnfac && uplnnfac>0 && uplnnfac > 1.1) {
-        uplnnfac=1.1;
-      }
-      else if (uplnnfac==uplnnfac && uplnnfac>0 && uplnnfac < 0.9) {
-        uplnnfac=0.9;
-      }
-    }
+// 	  if ( systematics[iSyst].name()=="CMS_scale_j" ||
+//          systematics[iSyst].name()=="CMS_res_j" ) {
+//       if (downlnnfac==downlnnfac && downlnnfac>0 && downlnnfac < 0.9) {
+//         downlnnfac=0.9;
+//       }
+//       else if (downlnnfac==downlnnfac && downlnnfac>0 && downlnnfac > 1.1) {
+//         downlnnfac=1.1;
+//       }
+//       if (uplnnfac==uplnnfac && uplnnfac>0 && uplnnfac > 1.1) {
+//         uplnnfac=1.1;
+//       }
+//       else if (uplnnfac==uplnnfac && uplnnfac>0 && uplnnfac < 0.9) {
+//         uplnnfac=0.9;
+//       }
+//     }
 	  /*if ( systematics[iSyst].name()=="CMS_VBFHinv_trigweight" ) {
 	    if (channel=="ee" || channel=="enu") {
 	    downlnnfac=-1;
@@ -1493,7 +1493,7 @@ datacard<<std::endl;
       datacard<<"WZ_xsection rateParam ch1 zeeqcd 1"<<std::endl;
       datacard<<"WZ_xsection rateParam ch1 zeeewk 1"<<std::endl;
     }
-    if (channel=="nunu"){
+    if (channel=="nunu" || channel=="qcd"){
       datacard<<"WZ_xsection rateParam ch1 zvvewk 1"<<std::endl;
       datacard<<"WZ_xsection rateParam ch1 zvvqcd 1"<<std::endl;
     }
