@@ -1179,7 +1179,7 @@ int main(int argc, char* argv[]){
 	  }
 
 	  // Brutal hack to avoid pathological behaviour of JES and JER unc
-	  if ( systematics[iSyst].name()=="CMS_scale_j" ||
+	  /*if ( systematics[iSyst].name()=="CMS_scale_j" ||
          systematics[iSyst].name()=="CMS_res_j" ) {
       if (downlnnfac==downlnnfac && downlnnfac>0 && downlnnfac < 0.9) {
         downlnnfac=0.9;
@@ -1193,7 +1193,7 @@ int main(int argc, char* argv[]){
       else if (uplnnfac==uplnnfac && uplnnfac>0 && uplnnfac < 0.9) {
         uplnnfac=0.9;
       }
-    }
+      }*/
 	  /*if ( systematics[iSyst].name()=="CMS_VBFHinv_trigweight" ) {
 	    if (channel=="ee" || channel=="enu") {
 	    downlnnfac=-1;
