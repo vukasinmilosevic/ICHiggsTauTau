@@ -98,9 +98,12 @@ namespace ic {
       weight_eletrigEff_[err] = 1;
       weight_eleVeto_[err] = 1;
       weight_eleTight_[err] = 1;
+      weight_gsfTight_[err] = 1;
       weight_muVeto_[err] = 1;
       weight_muTight_[err] = 1;
     }
+    weight_eleVeto_[3] = 1;
+    weight_eleVeto_[4] = 1;
 
     nJets_ = 0;
     nGenJets_ = 0;
@@ -372,9 +375,14 @@ namespace ic {
     outputTree_->Branch("weight_eleVeto",&weight_eleVeto_[0]);
     outputTree_->Branch("weight_eleVeto_up",&weight_eleVeto_[1]);
     outputTree_->Branch("weight_eleVeto_down",&weight_eleVeto_[2]);
+    outputTree_->Branch("weight_eleVeto_gsfup",&weight_eleVeto_[3]);
+    outputTree_->Branch("weight_eleVeto_gsfdown",&weight_eleVeto_[4]);
     outputTree_->Branch("weight_eleTight",&weight_eleTight_[0]);
     outputTree_->Branch("weight_eleTight_up",&weight_eleTight_[1]);
     outputTree_->Branch("weight_eleTight_down",&weight_eleTight_[2]);
+    outputTree_->Branch("weight_gsfTight",&weight_gsfTight_[0]);
+    outputTree_->Branch("weight_gsfTight_up",&weight_gsfTight_[1]);
+    outputTree_->Branch("weight_gsfTight_down",&weight_gsfTight_[2]);
     outputTree_->Branch("weight_muVeto",&weight_muVeto_[0]);
     outputTree_->Branch("weight_muVeto_up",&weight_muVeto_[1]);
     outputTree_->Branch("weight_muVeto_down",&weight_muVeto_[2]);
@@ -720,9 +728,14 @@ namespace ic {
       weight_eleVeto_[0] = eventInfo->weight("eleVeto_idisoSF");
       weight_eleVeto_[1] = eventInfo->weight("eleVeto_idisoSF_up");
       weight_eleVeto_[2] = eventInfo->weight("eleVeto_idisoSF_down");
+      weight_eleVeto_[3] = eventInfo->weight("eleVeto_gsfSF_up");
+      weight_eleVeto_[4] = eventInfo->weight("eleVeto_gsfSF_down");
       weight_eleTight_[0] = eventInfo->weight("eleTight_idisoSF");
       weight_eleTight_[1] = eventInfo->weight("eleTight_idisoSF_up");
       weight_eleTight_[2] = eventInfo->weight("eleTight_idisoSF_down");
+      weight_gsfTight_[0] = eventInfo->weight("eleTight_gsfSF");
+      weight_gsfTight_[1] = eventInfo->weight("eleTight_gsfSF_up");
+      weight_gsfTight_[2] = eventInfo->weight("eleTight_gsfSF_down");
       weight_muVeto_[0] = eventInfo->weight("muVeto_idisoSF");
       weight_muVeto_[1] = eventInfo->weight("muVeto_idisoSF_up");
       weight_muVeto_[2] = eventInfo->weight("muVeto_idisoSF_down");

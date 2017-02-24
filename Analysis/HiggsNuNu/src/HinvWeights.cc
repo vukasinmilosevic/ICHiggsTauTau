@@ -508,6 +508,7 @@ namespace ic {//namespace
     //ID+iso tight leptons
     std::vector<Electron*> const& elecs = event->GetPtrVec<Electron>("selElectrons");
     double ele_weight[3] = {1.0,1.0,1.0};
+    double gsf_weight[3] = {1.0,1.0,1.0};
     //record first two electrons
     double trigW[3][2];
     for (unsigned err(0); err<3;++err){
@@ -517,7 +518,8 @@ namespace ic {//namespace
     for (unsigned iEle(0); iEle<elecs.size();++iEle){
       for (unsigned err(0); err<3;++err){
 	ele_weight[err] *= eTight_idisoSF_[err][findPtEtaBin(elecs[iEle]->pt(),elecs[iEle]->eta(),e_ptbin_,e_etabin_)];
-	ele_weight[err] *= e_gsfidSF_[err][findPtEtaBin(elecs[iEle]->pt(),elecs[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
+	//ele_weight[err] *= e_gsfidSF_[err][findPtEtaBin(elecs[iEle]->pt(),elecs[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
+	gsf_weight[err] *= e_gsfidSF_[err][findPtEtaBin(elecs[iEle]->pt(),elecs[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
 	if (iEle<2) trigW[err][iEle] = e_trigDataEff_[err][findPtEtaBin(elecs[iEle]->pt(),fabs(elecs[iEle]->eta()),e_pttrig_,e_etatrig_)];
       }
     }
@@ -540,13 +542,17 @@ namespace ic {//namespace
       unsigned lBin = findPtEtaBin(loose[iEle]->pt(),loose[iEle]->eta(),e_ptbin_,e_etabin_);
       for (unsigned err(0); err<3;++err){
 	ele_weight[err] *= eVeto_idisoDataEff_[err][lBin]/eVeto_idisoMCEff_[err][lBin];
-	ele_weight[err] *= e_gsfidSF_[err][findPtEtaBin(loose[iEle]->pt(),loose[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
+	//ele_weight[err] *= e_gsfidSF_[err][findPtEtaBin(loose[iEle]->pt(),loose[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
+	gsf_weight[err] *= e_gsfidSF_[err][findPtEtaBin(loose[iEle]->pt(),loose[iEle]->eta(),gsf_ptbin_,gsf_etabin_)];
       }
     }
     eventInfo->set_weight("!eleTight_idisoSF",ele_weight[0]);
     eventInfo->set_weight("!eleTight_idisoSF_up",ele_weight[1]);
     eventInfo->set_weight("!eleTight_idisoSF_down",ele_weight[2]);
-    tighteleweight->Fill(ele_weight[0]);
+    eventInfo->set_weight("!eleTight_gsfSF",gsf_weight[0]);
+    eventInfo->set_weight("!eleTight_gsfSF_up",gsf_weight[1]);
+    eventInfo->set_weight("!eleTight_gsfSF_down",gsf_weight[2]);
+    tighteleweight->Fill(ele_weight[0]*gsf_weight[0]);
 
     //std::cout << " ele OK" << std::endl;
 
@@ -579,10 +585,10 @@ namespace ic {//namespace
     //std::cout << " mu OK" << std::endl;
 
     if(do_idiso_tight_weights_){
-      eventInfo->set_weight("idisoTight",ele_weight[0]*mu_weight[0]);
+      eventInfo->set_weight("idisoTight",ele_weight[0]*gsf_weight[0]*mu_weight[0]);
     }
     else{
-      eventInfo->set_weight("!idisoTight",ele_weight[0]*mu_weight[0]);
+      eventInfo->set_weight("!idisoTight",ele_weight[0]*gsf_weight[0]*mu_weight[0]);
     }
 
     //std::cout << " IDISO tight done." << std::endl;
@@ -590,7 +596,7 @@ namespace ic {//namespace
     //TO DO: id+iso veto leptons
     //first try: take leptons from W in pT,eta acceptance
     std::vector<GenParticle*> const& genParts = event->GetPtrVec<GenParticle>("genParticles");
-    double ele_veto_weight[3] = {1.0,1.0,1.0};
+    double ele_veto_weight[5] = {1.0,1.0,1.0,1.0,1.0};
     double mu_veto_weight[3] = {1.0,1.0,1.0};
 
     for (unsigned iEle(0); iEle<genParts.size(); ++iEle){//Loop on genparticles
@@ -612,8 +618,10 @@ namespace ic {//namespace
           unsigned lBin = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),e_ptbin_,e_etabin_);
           unsigned lBinGsf = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),gsf_ptbin_,gsf_etabin_);
 	  for (unsigned err(0); err<3;++err){
-	    ele_veto_weight[err] *= (1-(eVeto_idisoDataEff_[err][lBin]*e_gsfidDataEff_[err][lBinGsf]))/(1-(eVeto_idisoMCEff_[err][lBin]*e_gsfidMCEff_[err][lBinGsf]));
+	    ele_veto_weight[err] *= (1-(eVeto_idisoDataEff_[err][lBin]*e_gsfidDataEff_[0][lBinGsf]))/(1-(eVeto_idisoMCEff_[err][lBin]*e_gsfidMCEff_[0][lBinGsf]));
 	  }
+	  ele_veto_weight[3] *= (1-(eVeto_idisoDataEff_[0][lBin]*e_gsfidDataEff_[1][lBinGsf]))/(1-(eVeto_idisoMCEff_[0][lBin]*e_gsfidMCEff_[1][lBinGsf]));
+	  ele_veto_weight[4] *= (1-(eVeto_idisoDataEff_[0][lBin]*e_gsfidDataEff_[2][lBinGsf]))/(1-(eVeto_idisoMCEff_[0][lBin]*e_gsfidMCEff_[2][lBinGsf]));
           if (isTau) eventsWithGenElectronFromTauInAcc_++;
           else eventsWithGenElectronInAcc_++;
         }
@@ -647,6 +655,8 @@ namespace ic {//namespace
     eventInfo->set_weight("!eleVeto_idisoSF",ele_veto_weight[0]);
     eventInfo->set_weight("!eleVeto_idisoSF_up",ele_veto_weight[1]);
     eventInfo->set_weight("!eleVeto_idisoSF_down",ele_veto_weight[2]);
+    eventInfo->set_weight("!eleVeto_gsfSF_up",ele_veto_weight[3]);
+    eventInfo->set_weight("!eleVeto_gsfSF_down",ele_veto_weight[4]);
 
     eventInfo->set_weight("!muVeto_idisoSF",mu_veto_weight[0]);
     eventInfo->set_weight("!muVeto_idisoSF_up",mu_veto_weight[1]);
