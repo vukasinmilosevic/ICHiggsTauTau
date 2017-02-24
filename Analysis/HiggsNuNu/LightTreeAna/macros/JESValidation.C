@@ -53,38 +53,44 @@ int JESValidation(){//main
   // *************************************
   // ********* Open files for SR *********
   // *************************************
-  std::string nunu_file         = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/nunu.root";
-  std::string nunu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESUP/nunu.root";
-  std::string nunu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESDOWN/nunu.root";
+  std::string nunu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/nunu.root";
+  std::string nunu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/nunu.root";
+  std::string nunu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/nunu.root";
 
   // ********************************************
   // ********* Open files for W(enu) CR *********
   // ********************************************
-  std::string enu_file         = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/enu.root";
-  std::string enu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESUP/enu.root";
-  std::string enu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESDOWN/enu.root";
+  std::string enu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/enu.root";
+  std::string enu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/enu.root";
+  std::string enu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/enu.root";
 
   // *********************************************
   // ********* Open files for W(munu) CR *********
   // *********************************************
-  std::string munu_file         = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/munu.root";
-  std::string munu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESUP/munu.root";
-  std::string munu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESDOWN/munu.root";
+  std::string munu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/munu.root";
+  std::string munu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/munu.root";
+  std::string munu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/munu.root";
 
   // **********************************************
   // ********* Open files for W(taunu) CR *********
   // **********************************************
-  std::string taunu_file         = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/taunu.root";
-  std::string taunu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESUP/taunu.root";
-  std::string taunu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESDOWN/taunu.root";
+  std::string taunu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/taunu.root";
+  std::string taunu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/taunu.root";
+  std::string taunu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/taunu.root";
 
   // **********************************************
   // ********* Open files for Z(mumu) CR *********
   // **********************************************
-  std::string mumu_file         = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/mumu.root";
-  std::string mumu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESUP/mumu.root";
-  std::string mumu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_20/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_161031_ICHEP/JESDOWN/mumu.root";
+  std::string mumu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/mumu.root";
+  std::string mumu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/mumu.root";
+  std::string mumu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/mumu.root";
 
+  // **********************************************
+  // ********* Open files for Z(ee) CR *********
+  // **********************************************
+  std::string ee_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/ee.root";
+  std::string ee_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/ee.root";
+  std::string ee_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/ee.root";
 
   // ********* Variables of interest for plots *********
   const unsigned nR = 1;
@@ -166,10 +172,22 @@ int JESValidation(){//main
   mumu_Tfile         = TFile::Open(mumu_file.c_str());
   mumu_JESUP_Tfile   = TFile::Open(mumu_JESUP_file.c_str());
   mumu_JESDOWN_Tfile = TFile::Open(mumu_JESDOWN_file.c_str());
-  if (!taunu_Tfile)        { std::cout << " Input file " << mumu_file << " not found." << std::endl; return 1; }
-  if (!taunu_JESUP_Tfile)  { std::cout << " Input file " << mumu_JESUP_file << " not found." << std::endl; return 1; }
-  if (!taunu_JESDOWN_Tfile){ std::cout << " Input file " << mumu_JESDOWN_file << " not found." << std::endl; return 1; }
+  if (!mumu_Tfile)        { std::cout << " Input file " << mumu_file << " not found." << std::endl; return 1; }
+  if (!mumu_JESUP_Tfile)  { std::cout << " Input file " << mumu_JESUP_file << " not found." << std::endl; return 1; }
+  if (!mumu_JESDOWN_Tfile){ std::cout << " Input file " << mumu_JESDOWN_file << " not found." << std::endl; return 1; }
 
+  // ***********************************************
+  // ********* Open TFiles for Z(ee) CR *********
+  // ***********************************************
+  TFile *ee_Tfile, 
+        *ee_JESUP_Tfile, 
+        *ee_JESDOWN_Tfile;
+  ee_Tfile         = TFile::Open(ee_file.c_str());
+  ee_JESUP_Tfile   = TFile::Open(ee_JESUP_file.c_str());
+  ee_JESDOWN_Tfile = TFile::Open(ee_JESDOWN_file.c_str());
+  if (!ee_Tfile)        { std::cout << " Input file " << ee_file << " not found." << std::endl; return 1; }
+  if (!ee_JESUP_Tfile)  { std::cout << " Input file " << ee_JESUP_file << " not found." << std::endl; return 1; }
+  if (!ee_JESDOWN_Tfile){ std::cout << " Input file " << ee_JESDOWN_file << " not found." << std::endl; return 1; }
 
 
   THStack * st[nR];
@@ -342,6 +360,28 @@ int JESValidation(){//main
     TH1F * mumuVV_JESDOWN_hist  = (TH1F*)mumu_JESDOWN_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
     TH1F * mumuTOP_JESDOWN_hist = (TH1F*)mumu_JESDOWN_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
+    // ***************************************
+    // ********* Hists for Z(ee) CR *********
+    // ***************************************
+
+    // ********* Central *********
+    TH1F * eeDATAOBS_hist = (TH1F*)ee_Tfile->Get( Form("data_obs/%s", variables[i].c_str()) );
+    TH1F * eeQCD_hist     = (TH1F*)ee_Tfile->Get( Form("zeeqcd/%s", variables[i].c_str()) );
+    TH1F * eeEWK_hist     = (TH1F*)ee_Tfile->Get( Form("zeeewk/%s", variables[i].c_str()) );
+    TH1F * eeVV_hist      = (TH1F*)ee_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * eeTOP_hist     = (TH1F*)ee_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+
+    // ********* JESUP *********
+    TH1F * eeQCD_JESUP_hist = (TH1F*)ee_JESUP_Tfile->Get( Form("zeeqcd/%s", variables[i].c_str()) );
+    TH1F * eeEWK_JESUP_hist = (TH1F*)ee_JESUP_Tfile->Get( Form("zeeewk/%s", variables[i].c_str()) );
+    TH1F * eeVV_JESUP_hist  = (TH1F*)ee_JESUP_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * eeTOP_JESUP_hist = (TH1F*)ee_JESUP_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+
+    // ********* JESDOWN *********
+    TH1F * eeQCD_JESDOWN_hist = (TH1F*)ee_JESDOWN_Tfile->Get( Form("zeeqcd/%s", variables[i].c_str()) );
+    TH1F * eeEWK_JESDOWN_hist = (TH1F*)ee_JESDOWN_Tfile->Get( Form("zeeewk/%s", variables[i].c_str()) );
+    TH1F * eeVV_JESDOWN_hist  = (TH1F*)ee_JESDOWN_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * eeTOP_JESDOWN_hist = (TH1F*)ee_JESDOWN_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
     if (i==0) {
 
