@@ -15,6 +15,9 @@
 #include "UserCode/ICHiggsTauTau/interface/PFJet.hh"
 #include "UserCode/ICHiggsTauTau/interface/GenJet.hh"
 
+#include "UserCode/ICHiggsTauTau/Analysis/Utilities/interface/BTagCalibrationStandalone.h"
+
+
 #include "TTree.h"
 #include "TVector3.h"
 #include "Math/VectorUtil.h"
@@ -62,6 +65,13 @@ namespace ic {
     double weight_muTight_[3];
 
     double weight_eletrigEff_[3];
+
+    double weight_0b_alljets_;
+    double weight_0bup_alljets_;
+    double weight_0bdown_alljets_;
+    double weight_0b_extrajets_;
+    double weight_0bup_extrajets_;
+    double weight_0bdown_extrajets_;
 
     unsigned nJetsSave_;
     unsigned nJets_;
@@ -302,6 +312,9 @@ namespace ic {
 
     // Boson pt
     double boson_pt_;
+
+    const BTagCalibration *calib;
+    BTagCalibrationReader* reader_comb;
 
   public:
     LightTreeRDM(std::string const& name);

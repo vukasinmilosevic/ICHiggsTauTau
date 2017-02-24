@@ -105,6 +105,13 @@ namespace ic {
     weight_eleVeto_[3] = 1;
     weight_eleVeto_[4] = 1;
 
+    weight_0b_alljets_ = 1;
+    weight_0bup_alljets_ = 1;
+    weight_0bdown_alljets_ = 1;
+    weight_0b_extrajets_ = 1;
+    weight_0bup_extrajets_ = 1;
+    weight_0bdown_extrajets_ = 1;
+
     nJets_ = 0;
     nGenJets_ = 0;
 
@@ -390,6 +397,13 @@ namespace ic {
     outputTree_->Branch("weight_muTight_up",&weight_muTight_[1]);
     outputTree_->Branch("weight_muTight_down",&weight_muTight_[2]);
 
+    outputTree_->Branch("weight_0b_alljets",&weight_0b_alljets_);
+    outputTree_->Branch("weight_0bup_alljets",&weight_0bup_alljets_);
+    outputTree_->Branch("weight_0bdown_alljets",&weight_0bdown_alljets_);
+    outputTree_->Branch("weight_0b_extrajets",&weight_0b_extrajets_);
+    outputTree_->Branch("weight_0bup_extrajets",&weight_0bup_extrajets_);
+    outputTree_->Branch("weight_0bdown_extrajets",&weight_0bdown_extrajets_);
+
     outputTree_->Branch("nGenJets",&nGenJets_);
 
     for (unsigned ij(0); ij<nJetsSave_;++ij){
@@ -612,6 +626,15 @@ namespace ic {
     // Boson pt
     outputTree_->Branch("boson_pt",&boson_pt_);
 
+
+    //btag SF
+    std::string csv_file_path = "input/btag_sf/CSVv2_Moriond17_B_H.csv";
+    calib = new const BTagCalibration("csvv2",csv_file_path);
+    reader_comb = new BTagCalibrationReader(BTagEntry::OP_MEDIUM, "central",{"up","down"});
+    reader_comb->load(*calib,BTagEntry::FLAV_B,"comb");
+    reader_comb->load(*calib,BTagEntry::FLAV_C,"comb");
+    reader_comb->load(*calib,BTagEntry::FLAV_UDSG,"comb");
+
     return 0;
   }
 
@@ -753,7 +776,9 @@ namespace ic {
         std::string thislabel = "trig_2dbinned1d"+label[iT];
         weight_trig_[iT]=eventInfo->weight_defined(thislabel.c_str())?eventInfo->weight(thislabel.c_str()):0;
       }
-    }
+
+
+    }//for MC
     if (pileupwt!=0) {
       puweight_up_scale_=pileupwtup/pileupwt;
       puweight_down_scale_=pileupwtdown/pileupwt;
@@ -1106,8 +1131,18 @@ namespace ic {
 
       if(jets[i]->pt()>15) n_jets_15_++;
       if(jets[i]->pt()>30) n_jets_30_++;
-      if (fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484) n_jets_csv2medium_++;
-      if (i>1 && fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484) n_extrajets_csv2medium_++;
+      if (fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484) {
+	n_jets_csv2medium_++;
+        weight_0b_alljets_ *= (1-reader_comb->eval_auto_bounds("central",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
+        weight_0bup_alljets_ *= (1-reader_comb->eval_auto_bounds("up",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
+        weight_0bdown_alljets_ *= (1-reader_comb->eval_auto_bounds("down",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
+      }
+      if (i>1 && fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484){
+	n_extrajets_csv2medium_++;
+        weight_0b_extrajets_ *= (1-reader_comb->eval_auto_bounds("central",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
+        weight_0bup_extrajets_ *= (1-reader_comb->eval_auto_bounds("up",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
+	weight_0bdown_extrajets_ *= (1-reader_comb->eval_auto_bounds("down",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
+      }
       //3rd jet
       if (i > 1) {
         double eta_high = -5;
