@@ -48,49 +48,49 @@ double Error(TH1F const* hist) {
 }
 
 
-int JESValidation(){//main
+int JERValidation(){//main
 
   // *************************************
   // ********* Open files for SR *********
   // *************************************
   std::string nunu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/nunu.root";
-  std::string nunu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/nunu.root";
-  std::string nunu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/nunu.root";
+  std::string nunu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/nunu.root";
+  std::string nunu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/nunu.root";
 
   // ********************************************
   // ********* Open files for W(enu) CR *********
   // ********************************************
   std::string enu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/enu.root";
-  std::string enu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/enu.root";
-  std::string enu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/enu.root";
+  std::string enu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/enu.root";
+  std::string enu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/enu.root";
 
   // *********************************************
   // ********* Open files for W(munu) CR *********
   // *********************************************
   std::string munu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/munu.root";
-  std::string munu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/munu.root";
-  std::string munu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/munu.root";
+  std::string munu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/munu.root";
+  std::string munu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/munu.root";
 
   // **********************************************
   // ********* Open files for W(taunu) CR *********
   // **********************************************
   std::string taunu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/taunu.root";
-  std::string taunu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/taunu.root";
-  std::string taunu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/taunu.root";
+  std::string taunu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/taunu.root";
+  std::string taunu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/taunu.root";
 
   // **********************************************
   // ********* Open files for Z(mumu) CR *********
   // **********************************************
   std::string mumu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/mumu.root";
-  std::string mumu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/mumu.root";
-  std::string mumu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/mumu.root";
+  std::string mumu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/mumu.root";
+  std::string mumu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/mumu.root";
 
   // **********************************************
   // ********* Open files for Z(ee) CR *********
   // **********************************************
   std::string ee_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/ee.root";
-  std::string ee_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESUP/ee.root";
-  std::string ee_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JESDOWN/ee.root";
+  std::string ee_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/ee.root";
+  std::string ee_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/ee.root";
 
   // ********* Variables of interest for plots *********
   const unsigned nR = 1;
@@ -115,79 +115,79 @@ int JESValidation(){//main
   // ********* Open TFiles for SR *********
   // **************************************
   TFile *nunu_Tfile, 
-        *nunu_JESUP_Tfile, 
-        *nunu_JESDOWN_Tfile;
+        *nunu_JERBETTER_Tfile, 
+        *nunu_JERWORSE_Tfile;
   nunu_Tfile         = TFile::Open(nunu_file.c_str());
-  nunu_JESUP_Tfile   = TFile::Open(nunu_JESUP_file.c_str());
-  nunu_JESDOWN_Tfile = TFile::Open(nunu_JESDOWN_file.c_str());
+  nunu_JERBETTER_Tfile   = TFile::Open(nunu_JERBETTER_file.c_str());
+  nunu_JERWORSE_Tfile = TFile::Open(nunu_JERWORSE_file.c_str());
   if (!nunu_Tfile)        { std::cout << " Input file " << nunu_file << " not found." << std::endl; return 1; }
-  if (!nunu_JESUP_Tfile)  { std::cout << " Input file " << nunu_JESUP_file << " not found." << std::endl; return 1; }
-  if (!nunu_JESDOWN_Tfile){ std::cout << " Input file " << nunu_JESDOWN_file << " not found." << std::endl; return 1; }
+  if (!nunu_JERBETTER_Tfile)  { std::cout << " Input file " << nunu_JERBETTER_file << " not found." << std::endl; return 1; }
+  if (!nunu_JERWORSE_Tfile){ std::cout << " Input file " << nunu_JERWORSE_file << " not found." << std::endl; return 1; }
 
   // *********************************************
   // ********* Open TFiles for W(enu) CR *********
   // *********************************************
   TFile *enu_Tfile, 
-        *enu_JESUP_Tfile, 
-        *enu_JESDOWN_Tfile;
+        *enu_JERBETTER_Tfile, 
+        *enu_JERWORSE_Tfile;
   enu_Tfile         = TFile::Open(enu_file.c_str());
-  enu_JESUP_Tfile   = TFile::Open(enu_JESUP_file.c_str());
-  enu_JESDOWN_Tfile = TFile::Open(enu_JESDOWN_file.c_str());
+  enu_JERBETTER_Tfile   = TFile::Open(enu_JERBETTER_file.c_str());
+  enu_JERWORSE_Tfile = TFile::Open(enu_JERWORSE_file.c_str());
   if (!enu_Tfile)        { std::cout << " Input file " << enu_file << " not found." << std::endl; return 1; }
-  if (!enu_JESUP_Tfile)  { std::cout << " Input file " << enu_JESUP_file << " not found." << std::endl; return 1; }
-  if (!enu_JESDOWN_Tfile){ std::cout << " Input file " << enu_JESDOWN_file << " not found." << std::endl; return 1; }
+  if (!enu_JERBETTER_Tfile)  { std::cout << " Input file " << enu_JERBETTER_file << " not found." << std::endl; return 1; }
+  if (!enu_JERWORSE_Tfile){ std::cout << " Input file " << enu_JERWORSE_file << " not found." << std::endl; return 1; }
 
   // **********************************************
   // ********* Open TFiles for W(munu) CR *********
   // **********************************************
   TFile *munu_Tfile, 
-        *munu_JESUP_Tfile, 
-        *munu_JESDOWN_Tfile;
+        *munu_JERBETTER_Tfile, 
+        *munu_JERWORSE_Tfile;
   munu_Tfile         = TFile::Open(munu_file.c_str());
-  munu_JESUP_Tfile   = TFile::Open(munu_JESUP_file.c_str());
-  munu_JESDOWN_Tfile = TFile::Open(munu_JESDOWN_file.c_str());
+  munu_JERBETTER_Tfile   = TFile::Open(munu_JERBETTER_file.c_str());
+  munu_JERWORSE_Tfile = TFile::Open(munu_JERWORSE_file.c_str());
   if (!munu_Tfile)        { std::cout << " Input file " << munu_file << " not found." << std::endl; return 1; }
-  if (!munu_JESUP_Tfile)  { std::cout << " Input file " << munu_JESUP_file << " not found." << std::endl; return 1; }
-  if (!munu_JESDOWN_Tfile){ std::cout << " Input file " << munu_JESDOWN_file << " not found." << std::endl; return 1; }
+  if (!munu_JERBETTER_Tfile)  { std::cout << " Input file " << munu_JERBETTER_file << " not found." << std::endl; return 1; }
+  if (!munu_JERWORSE_Tfile){ std::cout << " Input file " << munu_JERWORSE_file << " not found." << std::endl; return 1; }
 
   // ***********************************************
   // ********* Open TFiles for W(taunu) CR *********
   // ***********************************************
   TFile *taunu_Tfile, 
-        *taunu_JESUP_Tfile, 
-        *taunu_JESDOWN_Tfile;
+        *taunu_JERBETTER_Tfile, 
+        *taunu_JERWORSE_Tfile;
   taunu_Tfile         = TFile::Open(taunu_file.c_str());
-  taunu_JESUP_Tfile   = TFile::Open(taunu_JESUP_file.c_str());
-  taunu_JESDOWN_Tfile = TFile::Open(taunu_JESDOWN_file.c_str());
+  taunu_JERBETTER_Tfile   = TFile::Open(taunu_JERBETTER_file.c_str());
+  taunu_JERWORSE_Tfile = TFile::Open(taunu_JERWORSE_file.c_str());
   if (!taunu_Tfile)        { std::cout << " Input file " << taunu_file << " not found." << std::endl; return 1; }
-  if (!taunu_JESUP_Tfile)  { std::cout << " Input file " << taunu_JESUP_file << " not found." << std::endl; return 1; }
-  if (!taunu_JESDOWN_Tfile){ std::cout << " Input file " << taunu_JESDOWN_file << " not found." << std::endl; return 1; }
+  if (!taunu_JERBETTER_Tfile)  { std::cout << " Input file " << taunu_JERBETTER_file << " not found." << std::endl; return 1; }
+  if (!taunu_JERWORSE_Tfile){ std::cout << " Input file " << taunu_JERWORSE_file << " not found." << std::endl; return 1; }
 
   // ***********************************************
   // ********* Open TFiles for Z(mumu) CR *********
   // ***********************************************
   TFile *mumu_Tfile, 
-        *mumu_JESUP_Tfile, 
-        *mumu_JESDOWN_Tfile;
+        *mumu_JERBETTER_Tfile, 
+        *mumu_JERWORSE_Tfile;
   mumu_Tfile         = TFile::Open(mumu_file.c_str());
-  mumu_JESUP_Tfile   = TFile::Open(mumu_JESUP_file.c_str());
-  mumu_JESDOWN_Tfile = TFile::Open(mumu_JESDOWN_file.c_str());
+  mumu_JERBETTER_Tfile   = TFile::Open(mumu_JERBETTER_file.c_str());
+  mumu_JERWORSE_Tfile = TFile::Open(mumu_JERWORSE_file.c_str());
   if (!mumu_Tfile)        { std::cout << " Input file " << mumu_file << " not found." << std::endl; return 1; }
-  if (!mumu_JESUP_Tfile)  { std::cout << " Input file " << mumu_JESUP_file << " not found." << std::endl; return 1; }
-  if (!mumu_JESDOWN_Tfile){ std::cout << " Input file " << mumu_JESDOWN_file << " not found." << std::endl; return 1; }
+  if (!mumu_JERBETTER_Tfile)  { std::cout << " Input file " << mumu_JERBETTER_file << " not found." << std::endl; return 1; }
+  if (!mumu_JERWORSE_Tfile){ std::cout << " Input file " << mumu_JERWORSE_file << " not found." << std::endl; return 1; }
 
   // ***********************************************
   // ********* Open TFiles for Z(ee) CR *********
   // ***********************************************
   TFile *ee_Tfile, 
-        *ee_JESUP_Tfile, 
-        *ee_JESDOWN_Tfile;
+        *ee_JERBETTER_Tfile, 
+        *ee_JERWORSE_Tfile;
   ee_Tfile         = TFile::Open(ee_file.c_str());
-  ee_JESUP_Tfile   = TFile::Open(ee_JESUP_file.c_str());
-  ee_JESDOWN_Tfile = TFile::Open(ee_JESDOWN_file.c_str());
+  ee_JERBETTER_Tfile   = TFile::Open(ee_JERBETTER_file.c_str());
+  ee_JERWORSE_Tfile = TFile::Open(ee_JERWORSE_file.c_str());
   if (!ee_Tfile)        { std::cout << " Input file " << ee_file << " not found." << std::endl; return 1; }
-  if (!ee_JESUP_Tfile)  { std::cout << " Input file " << ee_JESUP_file << " not found." << std::endl; return 1; }
-  if (!ee_JESDOWN_Tfile){ std::cout << " Input file " << ee_JESDOWN_file << " not found." << std::endl; return 1; }
+  if (!ee_JERBETTER_Tfile)  { std::cout << " Input file " << ee_JERBETTER_file << " not found." << std::endl; return 1; }
+  if (!ee_JERWORSE_Tfile){ std::cout << " Input file " << ee_JERWORSE_file << " not found." << std::endl; return 1; }
 
 
   THStack * st[nR];
@@ -225,29 +225,29 @@ int JESValidation(){//main
     TH1F * nunuZvvQCD_hist  = (TH1F*)nunu_Tfile->Get( Form("zvvqcd/%s", variables[i].c_str()) );
     TH1F * nunuZvvEWK_hist  = (TH1F*)nunu_Tfile->Get( Form("zvvewk/%s", variables[i].c_str()) );
 
-    // ********* JESUP *********
-    TH1F * nunuWenuQCD_JESUP_hist   = (TH1F*)nunu_JESUP_Tfile->Get( Form("welqcd/%s", variables[i].c_str()) );
-    TH1F * nunuWenuEWK_JESUP_hist   = (TH1F*)nunu_JESUP_Tfile->Get( Form("welewk/%s", variables[i].c_str()) );
-    TH1F * nunuWmunuQCD_JESUP_hist  = (TH1F*)nunu_JESUP_Tfile->Get( Form("wmuqcd/%s", variables[i].c_str()) );
-    TH1F * nunuWmunuEWK_JESUP_hist  = (TH1F*)nunu_JESUP_Tfile->Get( Form("wmuewk/%s", variables[i].c_str()) );
-    TH1F * nunuWtaunuQCD_JESUP_hist = (TH1F*)nunu_JESUP_Tfile->Get( Form("wtauqcd/%s", variables[i].c_str()) );
-    TH1F * nunuWtaunuEWK_JESUP_hist = (TH1F*)nunu_JESUP_Tfile->Get( Form("wtauewk/%s", variables[i].c_str()) );
-    TH1F * nunuZmumuQCD_JESUP_hist  = (TH1F*)nunu_JESUP_Tfile->Get( Form("zmumuqcd/%s", variables[i].c_str()) );
-    TH1F * nunuZmumuEWK_JESUP_hist  = (TH1F*)nunu_JESUP_Tfile->Get( Form("zmumuewk/%s", variables[i].c_str()) );
-    TH1F * nunuZvvQCD_JESUP_hist  = (TH1F*)nunu_JESUP_Tfile->Get( Form("zvvqcd/%s", variables[i].c_str()) );
-    TH1F * nunuZvvEWK_JESUP_hist  = (TH1F*)nunu_JESUP_Tfile->Get( Form("zvvewk/%s", variables[i].c_str()) );
+    // ********* JERBETTER *********
+    TH1F * nunuWenuQCD_JERBETTER_hist   = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("welqcd/%s", variables[i].c_str()) );
+    TH1F * nunuWenuEWK_JERBETTER_hist   = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("welewk/%s", variables[i].c_str()) );
+    TH1F * nunuWmunuQCD_JERBETTER_hist  = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("wmuqcd/%s", variables[i].c_str()) );
+    TH1F * nunuWmunuEWK_JERBETTER_hist  = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("wmuewk/%s", variables[i].c_str()) );
+    TH1F * nunuWtaunuQCD_JERBETTER_hist = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("wtauqcd/%s", variables[i].c_str()) );
+    TH1F * nunuWtaunuEWK_JERBETTER_hist = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("wtauewk/%s", variables[i].c_str()) );
+    TH1F * nunuZmumuQCD_JERBETTER_hist  = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("zmumuqcd/%s", variables[i].c_str()) );
+    TH1F * nunuZmumuEWK_JERBETTER_hist  = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("zmumuewk/%s", variables[i].c_str()) );
+    TH1F * nunuZvvQCD_JERBETTER_hist  = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("zvvqcd/%s", variables[i].c_str()) );
+    TH1F * nunuZvvEWK_JERBETTER_hist  = (TH1F*)nunu_JERBETTER_Tfile->Get( Form("zvvewk/%s", variables[i].c_str()) );
 
-    // ********* JESDOWN *********
-    TH1F * nunuWenuQCD_JESDOWN_hist   = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("welqcd/%s", variables[i].c_str()) );
-    TH1F * nunuWenuEWK_JESDOWN_hist   = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("welewk/%s", variables[i].c_str()) );
-    TH1F * nunuWmunuQCD_JESDOWN_hist  = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("wmuqcd/%s", variables[i].c_str()) );
-    TH1F * nunuWmunuEWK_JESDOWN_hist  = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("wmuewk/%s", variables[i].c_str()) );
-    TH1F * nunuWtaunuQCD_JESDOWN_hist = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("wtauqcd/%s", variables[i].c_str()) );
-    TH1F * nunuWtaunuEWK_JESDOWN_hist = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("wtauewk/%s", variables[i].c_str()) );
-    TH1F * nunuZmumuQCD_JESDOWN_hist  = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("zmumuqcd/%s", variables[i].c_str()) );
-    TH1F * nunuZmumuEWK_JESDOWN_hist  = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("zmumuewk/%s", variables[i].c_str()) );
-    TH1F * nunuZvvQCD_JESDOWN_hist  = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("zvvqcd/%s", variables[i].c_str()) );
-    TH1F * nunuZvvEWK_JESDOWN_hist  = (TH1F*)nunu_JESDOWN_Tfile->Get( Form("zvvewk/%s", variables[i].c_str()) );
+    // ********* JERWORSE *********
+    TH1F * nunuWenuQCD_JERWORSE_hist   = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("welqcd/%s", variables[i].c_str()) );
+    TH1F * nunuWenuEWK_JERWORSE_hist   = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("welewk/%s", variables[i].c_str()) );
+    TH1F * nunuWmunuQCD_JERWORSE_hist  = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("wmuqcd/%s", variables[i].c_str()) );
+    TH1F * nunuWmunuEWK_JERWORSE_hist  = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("wmuewk/%s", variables[i].c_str()) );
+    TH1F * nunuWtaunuQCD_JERWORSE_hist = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("wtauqcd/%s", variables[i].c_str()) );
+    TH1F * nunuWtaunuEWK_JERWORSE_hist = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("wtauewk/%s", variables[i].c_str()) );
+    TH1F * nunuZmumuQCD_JERWORSE_hist  = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("zmumuqcd/%s", variables[i].c_str()) );
+    TH1F * nunuZmumuEWK_JERWORSE_hist  = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("zmumuewk/%s", variables[i].c_str()) );
+    TH1F * nunuZvvQCD_JERWORSE_hist  = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("zvvqcd/%s", variables[i].c_str()) );
+    TH1F * nunuZvvEWK_JERWORSE_hist  = (TH1F*)nunu_JERWORSE_Tfile->Get( Form("zvvewk/%s", variables[i].c_str()) );
 
 
     // ***************************************
@@ -261,17 +261,17 @@ int JESValidation(){//main
     TH1F * enuVV_hist      = (TH1F*)enu_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
     TH1F * enuTOP_hist     = (TH1F*)enu_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
-    // ********* JESUP *********
-    TH1F * enuQCD_JESUP_hist = (TH1F*)enu_JESUP_Tfile->Get( Form("welqcd/%s", variables[i].c_str()) );
-    TH1F * enuEWK_JESUP_hist = (TH1F*)enu_JESUP_Tfile->Get( Form("welewk/%s", variables[i].c_str()) );
-    TH1F * enuVV_JESUP_hist  = (TH1F*)enu_JESUP_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * enuTOP_JESUP_hist = (TH1F*)enu_JESUP_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    // ********* JERBETTER *********
+    TH1F * enuQCD_JERBETTER_hist = (TH1F*)enu_JERBETTER_Tfile->Get( Form("welqcd/%s", variables[i].c_str()) );
+    TH1F * enuEWK_JERBETTER_hist = (TH1F*)enu_JERBETTER_Tfile->Get( Form("welewk/%s", variables[i].c_str()) );
+    TH1F * enuVV_JERBETTER_hist  = (TH1F*)enu_JERBETTER_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * enuTOP_JERBETTER_hist = (TH1F*)enu_JERBETTER_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
-    // ********* JESDOWN *********
-    TH1F * enuQCD_JESDOWN_hist = (TH1F*)enu_JESDOWN_Tfile->Get( Form("welqcd/%s", variables[i].c_str()) );
-    TH1F * enuEWK_JESDOWN_hist = (TH1F*)enu_JESDOWN_Tfile->Get( Form("welewk/%s", variables[i].c_str()) );
-    TH1F * enuVV_JESDOWN_hist  = (TH1F*)enu_JESDOWN_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * enuTOP_JESDOWN_hist = (TH1F*)enu_JESDOWN_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    // ********* JERWORSE *********
+    TH1F * enuQCD_JERWORSE_hist = (TH1F*)enu_JERWORSE_Tfile->Get( Form("welqcd/%s", variables[i].c_str()) );
+    TH1F * enuEWK_JERWORSE_hist = (TH1F*)enu_JERWORSE_Tfile->Get( Form("welewk/%s", variables[i].c_str()) );
+    TH1F * enuVV_JERWORSE_hist  = (TH1F*)enu_JERWORSE_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * enuTOP_JERWORSE_hist = (TH1F*)enu_JERWORSE_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
 
     // ****************************************
@@ -286,28 +286,28 @@ int JESValidation(){//main
     TH1F * munuTOP_hist         = (TH1F*)munu_Tfile->Get( Form("top/%s", variables[i].c_str()) );
     TH1F * munuQCDmultijet_hist = (TH1F*)munu_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
 
-    // ********* JESUP *********
-    TH1F * munuQCD_JESUP_hist         = (TH1F*)munu_JESUP_Tfile->Get( Form("wmuqcd/%s", variables[i].c_str()) );
-    TH1F * munuEWK_JESUP_hist         = (TH1F*)munu_JESUP_Tfile->Get( Form("wmuewk/%s", variables[i].c_str()) );
-    TH1F * munuVV_JESUP_hist          = (TH1F*)munu_JESUP_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * munuTOP_JESUP_hist         = (TH1F*)munu_JESUP_Tfile->Get( Form("top/%s", variables[i].c_str()) );
-    TH1F * munuQCDmultijet_JESUP_hist = (TH1F*)munu_JESUP_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
+    // ********* JERBETTER *********
+    TH1F * munuQCD_JERBETTER_hist         = (TH1F*)munu_JERBETTER_Tfile->Get( Form("wmuqcd/%s", variables[i].c_str()) );
+    TH1F * munuEWK_JERBETTER_hist         = (TH1F*)munu_JERBETTER_Tfile->Get( Form("wmuewk/%s", variables[i].c_str()) );
+    TH1F * munuVV_JERBETTER_hist          = (TH1F*)munu_JERBETTER_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * munuTOP_JERBETTER_hist         = (TH1F*)munu_JERBETTER_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    TH1F * munuQCDmultijet_JERBETTER_hist = (TH1F*)munu_JERBETTER_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
 
-    // ********* JESDOWN *********
-    TH1F * munuQCD_JESDOWN_hist         = (TH1F*)munu_JESDOWN_Tfile->Get( Form("wmuqcd/%s", variables[i].c_str()) );
-    TH1F * munuEWK_JESDOWN_hist         = (TH1F*)munu_JESDOWN_Tfile->Get( Form("wmuewk/%s", variables[i].c_str()) );
-    TH1F * munuVV_JESDOWN_hist          = (TH1F*)munu_JESDOWN_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * munuTOP_JESDOWN_hist         = (TH1F*)munu_JESDOWN_Tfile->Get( Form("top/%s", variables[i].c_str()) );
-    TH1F * munuQCDmultijet_JESDOWN_hist = (TH1F*)munu_JESDOWN_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
+    // ********* JERWORSE *********
+    TH1F * munuQCD_JERWORSE_hist         = (TH1F*)munu_JERWORSE_Tfile->Get( Form("wmuqcd/%s", variables[i].c_str()) );
+    TH1F * munuEWK_JERWORSE_hist         = (TH1F*)munu_JERWORSE_Tfile->Get( Form("wmuewk/%s", variables[i].c_str()) );
+    TH1F * munuVV_JERWORSE_hist          = (TH1F*)munu_JERWORSE_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * munuTOP_JERWORSE_hist         = (TH1F*)munu_JERWORSE_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    TH1F * munuQCDmultijet_JERWORSE_hist = (TH1F*)munu_JERWORSE_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
 
     // ********* Ratio_Hits *********
-    TH1F * munuQCD_JESUP_ratio_hist   = (TH1F*)munuQCD_JESUP_hist->Clone();
-    TH1F * munuQCD_JESDOWN_ratio_hist = (TH1F*)munuQCD_JESDOWN_hist->Clone();
+    TH1F * munuQCD_JERBETTER_ratio_hist   = (TH1F*)munuQCD_JERBETTER_hist->Clone();
+    TH1F * munuQCD_JERWORSE_ratio_hist = (TH1F*)munuQCD_JERWORSE_hist->Clone();
 
-    munuQCD_JESUP_ratio_hist->Divide(munuQCD_hist);
-    munuQCD_JESUP_ratio_hist->SetLineColor(kBlue);
-    munuQCD_JESDOWN_ratio_hist->Divide(munuQCD_hist);
-    munuQCD_JESDOWN_ratio_hist->SetLineColor(kRed);
+    munuQCD_JERBETTER_ratio_hist->Divide(munuQCD_hist);
+    munuQCD_JERBETTER_ratio_hist->SetLineColor(kBlue);
+    munuQCD_JERWORSE_ratio_hist->Divide(munuQCD_hist);
+    munuQCD_JERWORSE_ratio_hist->SetLineColor(kRed);
 
 
     // *****************************************
@@ -322,19 +322,19 @@ int JESValidation(){//main
     TH1F * taunuTOP_hist         = (TH1F*)taunu_Tfile->Get( Form("top/%s", variables[i].c_str()) );
     TH1F * taunuQCDmultijet_hist = (TH1F*)taunu_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
 
-    // ********* JESUP *********
-    TH1F * taunuQCD_JESUP_hist         = (TH1F*)taunu_JESUP_Tfile->Get( Form("wtauqcd/%s", variables[i].c_str()) );
-    TH1F * taunuEWK_JESUP_hist         = (TH1F*)taunu_JESUP_Tfile->Get( Form("wtauewk/%s", variables[i].c_str()) );
-    TH1F * taunuVV_JESUP_hist          = (TH1F*)taunu_JESUP_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * taunuTOP_JESUP_hist         = (TH1F*)taunu_JESUP_Tfile->Get( Form("top/%s", variables[i].c_str()) );
-    TH1F * taunuQCDmultijet_JESUP_hist = (TH1F*)taunu_JESUP_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
+    // ********* JERBETTER *********
+    TH1F * taunuQCD_JERBETTER_hist         = (TH1F*)taunu_JERBETTER_Tfile->Get( Form("wtauqcd/%s", variables[i].c_str()) );
+    TH1F * taunuEWK_JERBETTER_hist         = (TH1F*)taunu_JERBETTER_Tfile->Get( Form("wtauewk/%s", variables[i].c_str()) );
+    TH1F * taunuVV_JERBETTER_hist          = (TH1F*)taunu_JERBETTER_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * taunuTOP_JERBETTER_hist         = (TH1F*)taunu_JERBETTER_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    TH1F * taunuQCDmultijet_JERBETTER_hist = (TH1F*)taunu_JERBETTER_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
 
-    // ********* JESDOWN *********
-    TH1F * taunuQCD_JESDOWN_hist         = (TH1F*)taunu_JESDOWN_Tfile->Get( Form("wtauqcd/%s", variables[i].c_str()) );
-    TH1F * taunuEWK_JESDOWN_hist         = (TH1F*)taunu_JESDOWN_Tfile->Get( Form("wtauewk/%s", variables[i].c_str()) );
-    TH1F * taunuVV_JESDOWN_hist          = (TH1F*)taunu_JESDOWN_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * taunuTOP_JESDOWN_hist         = (TH1F*)taunu_JESDOWN_Tfile->Get( Form("top/%s", variables[i].c_str()) );
-    TH1F * taunuQCDmultijet_JESDOWN_hist = (TH1F*)taunu_JESDOWN_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
+    // ********* JERWORSE *********
+    TH1F * taunuQCD_JERWORSE_hist         = (TH1F*)taunu_JERWORSE_Tfile->Get( Form("wtauqcd/%s", variables[i].c_str()) );
+    TH1F * taunuEWK_JERWORSE_hist         = (TH1F*)taunu_JERWORSE_Tfile->Get( Form("wtauewk/%s", variables[i].c_str()) );
+    TH1F * taunuVV_JERWORSE_hist          = (TH1F*)taunu_JERWORSE_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * taunuTOP_JERWORSE_hist         = (TH1F*)taunu_JERWORSE_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    TH1F * taunuQCDmultijet_JERWORSE_hist = (TH1F*)taunu_JERWORSE_Tfile->Get( Form("qcd/%s", variables[i].c_str()) );
 
 
     // ***************************************
@@ -348,17 +348,17 @@ int JESValidation(){//main
     TH1F * mumuVV_hist      = (TH1F*)mumu_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
     TH1F * mumuTOP_hist     = (TH1F*)mumu_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
-    // ********* JESUP *********
-    TH1F * mumuQCD_JESUP_hist = (TH1F*)mumu_JESUP_Tfile->Get( Form("zmumuqcd/%s", variables[i].c_str()) );
-    TH1F * mumuEWK_JESUP_hist = (TH1F*)mumu_JESUP_Tfile->Get( Form("zmumuewk/%s", variables[i].c_str()) );
-    TH1F * mumuVV_JESUP_hist  = (TH1F*)mumu_JESUP_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * mumuTOP_JESUP_hist = (TH1F*)mumu_JESUP_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    // ********* JERBETTER *********
+    TH1F * mumuQCD_JERBETTER_hist = (TH1F*)mumu_JERBETTER_Tfile->Get( Form("zmumuqcd/%s", variables[i].c_str()) );
+    TH1F * mumuEWK_JERBETTER_hist = (TH1F*)mumu_JERBETTER_Tfile->Get( Form("zmumuewk/%s", variables[i].c_str()) );
+    TH1F * mumuVV_JERBETTER_hist  = (TH1F*)mumu_JERBETTER_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * mumuTOP_JERBETTER_hist = (TH1F*)mumu_JERBETTER_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
-    // ********* JESDOWN *********
-    TH1F * mumuQCD_JESDOWN_hist = (TH1F*)mumu_JESDOWN_Tfile->Get( Form("zmumuqcd/%s", variables[i].c_str()) );
-    TH1F * mumuEWK_JESDOWN_hist = (TH1F*)mumu_JESDOWN_Tfile->Get( Form("zmumuewk/%s", variables[i].c_str()) );
-    TH1F * mumuVV_JESDOWN_hist  = (TH1F*)mumu_JESDOWN_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * mumuTOP_JESDOWN_hist = (TH1F*)mumu_JESDOWN_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    // ********* JERWORSE *********
+    TH1F * mumuQCD_JERWORSE_hist = (TH1F*)mumu_JERWORSE_Tfile->Get( Form("zmumuqcd/%s", variables[i].c_str()) );
+    TH1F * mumuEWK_JERWORSE_hist = (TH1F*)mumu_JERWORSE_Tfile->Get( Form("zmumuewk/%s", variables[i].c_str()) );
+    TH1F * mumuVV_JERWORSE_hist  = (TH1F*)mumu_JERWORSE_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * mumuTOP_JERWORSE_hist = (TH1F*)mumu_JERWORSE_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
     // ***************************************
     // ********* Hists for Z(ee) CR *********
@@ -371,17 +371,17 @@ int JESValidation(){//main
     TH1F * eeVV_hist      = (TH1F*)ee_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
     TH1F * eeTOP_hist     = (TH1F*)ee_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
-    // ********* JESUP *********
-    TH1F * eeQCD_JESUP_hist = (TH1F*)ee_JESUP_Tfile->Get( Form("zeeqcd/%s", variables[i].c_str()) );
-    TH1F * eeEWK_JESUP_hist = (TH1F*)ee_JESUP_Tfile->Get( Form("zeeewk/%s", variables[i].c_str()) );
-    TH1F * eeVV_JESUP_hist  = (TH1F*)ee_JESUP_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * eeTOP_JESUP_hist = (TH1F*)ee_JESUP_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    // ********* JERBETTER *********
+    TH1F * eeQCD_JERBETTER_hist = (TH1F*)ee_JERBETTER_Tfile->Get( Form("zeeqcd/%s", variables[i].c_str()) );
+    TH1F * eeEWK_JERBETTER_hist = (TH1F*)ee_JERBETTER_Tfile->Get( Form("zeeewk/%s", variables[i].c_str()) );
+    TH1F * eeVV_JERBETTER_hist  = (TH1F*)ee_JERBETTER_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * eeTOP_JERBETTER_hist = (TH1F*)ee_JERBETTER_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
-    // ********* JESDOWN *********
-    TH1F * eeQCD_JESDOWN_hist = (TH1F*)ee_JESDOWN_Tfile->Get( Form("zeeqcd/%s", variables[i].c_str()) );
-    TH1F * eeEWK_JESDOWN_hist = (TH1F*)ee_JESDOWN_Tfile->Get( Form("zeeewk/%s", variables[i].c_str()) );
-    TH1F * eeVV_JESDOWN_hist  = (TH1F*)ee_JESDOWN_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
-    TH1F * eeTOP_JESDOWN_hist = (TH1F*)ee_JESDOWN_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+    // ********* JERWORSE *********
+    TH1F * eeQCD_JERWORSE_hist = (TH1F*)ee_JERWORSE_Tfile->Get( Form("zeeqcd/%s", variables[i].c_str()) );
+    TH1F * eeEWK_JERWORSE_hist = (TH1F*)ee_JERWORSE_Tfile->Get( Form("zeeewk/%s", variables[i].c_str()) );
+    TH1F * eeVV_JERWORSE_hist  = (TH1F*)ee_JERWORSE_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
+    TH1F * eeTOP_JERWORSE_hist = (TH1F*)ee_JERWORSE_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
     if (i==0) {
 
@@ -395,7 +395,7 @@ int JESValidation(){//main
       // ****************************************
       // ****************************************
       // ****************************************
-      std::cout << " \\textbf{W($e\\nu$)}              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W($e\\nu$)}              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
 
       // ********* Central error *********
@@ -410,53 +410,53 @@ int JESValidation(){//main
       std::vector<double> errorBKG_enu_hist;
       errorBKG_enu_hist.push_back(Error(enuTOP_hist));
       errorBKG_enu_hist.push_back(Error(enuVV_hist));
-      // ********* JESUP error *********
-      std::vector<double> error_enu_JESUP_hist;
-      error_enu_JESUP_hist.push_back(Error(enuQCD_JESUP_hist));
-      error_enu_JESUP_hist.push_back(Error(enuEWK_JESUP_hist));
+      // ********* JERBETTER error *********
+      std::vector<double> error_enu_JERBETTER_hist;
+      error_enu_JERBETTER_hist.push_back(Error(enuQCD_JERBETTER_hist));
+      error_enu_JERBETTER_hist.push_back(Error(enuEWK_JERBETTER_hist));
 
-      std::vector<double> error_nunuWenu_JESUP_hist;
-      error_nunuWenu_JESUP_hist.push_back(Error(nunuWenuQCD_JESUP_hist));
-      error_nunuWenu_JESUP_hist.push_back(Error(nunuWenuEWK_JESUP_hist));
+      std::vector<double> error_nunuWenu_JERBETTER_hist;
+      error_nunuWenu_JERBETTER_hist.push_back(Error(nunuWenuQCD_JERBETTER_hist));
+      error_nunuWenu_JERBETTER_hist.push_back(Error(nunuWenuEWK_JERBETTER_hist));
 
-      std::vector<double> errorBKG_enu_JESUP_hist;
-      errorBKG_enu_JESUP_hist.push_back(Error(enuTOP_JESUP_hist));
-      errorBKG_enu_JESUP_hist.push_back(Error(enuVV_JESUP_hist));
-      // ********* JESDOWN error *********
-      std::vector<double> error_enu_JESDOWN_hist;
-      error_enu_JESDOWN_hist.push_back(Error(enuQCD_JESDOWN_hist));
-      error_enu_JESDOWN_hist.push_back(Error(enuEWK_JESDOWN_hist));
+      std::vector<double> errorBKG_enu_JERBETTER_hist;
+      errorBKG_enu_JERBETTER_hist.push_back(Error(enuTOP_JERBETTER_hist));
+      errorBKG_enu_JERBETTER_hist.push_back(Error(enuVV_JERBETTER_hist));
+      // ********* JERWORSE error *********
+      std::vector<double> error_enu_JERWORSE_hist;
+      error_enu_JERWORSE_hist.push_back(Error(enuQCD_JERWORSE_hist));
+      error_enu_JERWORSE_hist.push_back(Error(enuEWK_JERWORSE_hist));
 
-      std::vector<double> error_nunuWenu_JESDOWN_hist;
-      error_nunuWenu_JESDOWN_hist.push_back(Error(nunuWenuQCD_JESDOWN_hist));
-      error_nunuWenu_JESDOWN_hist.push_back(Error(nunuWenuEWK_JESDOWN_hist));
+      std::vector<double> error_nunuWenu_JERWORSE_hist;
+      error_nunuWenu_JERWORSE_hist.push_back(Error(nunuWenuQCD_JERWORSE_hist));
+      error_nunuWenu_JERWORSE_hist.push_back(Error(nunuWenuEWK_JERWORSE_hist));
 
-      std::vector<double> errorBKG_enu_JESDOWN_hist;
-      errorBKG_enu_JESDOWN_hist.push_back(Error(enuTOP_JESDOWN_hist));
-      errorBKG_enu_JESDOWN_hist.push_back(Error(enuVV_JESDOWN_hist));
+      std::vector<double> errorBKG_enu_JERWORSE_hist;
+      errorBKG_enu_JERWORSE_hist.push_back(Error(enuTOP_JERWORSE_hist));
+      errorBKG_enu_JERWORSE_hist.push_back(Error(enuVV_JERWORSE_hist));
 
       std::cout << " N$_\\text{MC}^\\text{CR}$           &  " 
                 << enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
                    enuEWK_hist->Integral(0, enuEWK_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( error_enu_hist ) << " & "
-                << enuQCD_JESUP_hist->Integral(0, enuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                   enuEWK_JESUP_hist->Integral(0, enuEWK_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_enu_JESUP_hist ) << " & "
-                << enuQCD_JESDOWN_hist->Integral(0, enuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                   enuEWK_JESDOWN_hist->Integral(0, enuEWK_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_enu_JESDOWN_hist ) 
+                << enuQCD_JERBETTER_hist->Integral(0, enuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                   enuEWK_JERBETTER_hist->Integral(0, enuEWK_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_enu_JERBETTER_hist ) << " & "
+                << enuQCD_JERWORSE_hist->Integral(0, enuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                   enuEWK_JERWORSE_hist->Integral(0, enuEWK_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_enu_JERWORSE_hist ) 
                 << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{MC}^\\text{SR}$           &  " 
                 << nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) + 
                    nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( error_nunuWenu_hist ) << " & "
-                << nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                   nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWenu_JESUP_hist ) << " & "
-                << nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                   nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWenu_JESDOWN_hist ) 
+                << nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                   nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWenu_JERBETTER_hist ) << " & "
+                << nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                   nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWenu_JERWORSE_hist ) 
                 << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{data\\_obs}^\\text{CR}$     &  " 
@@ -469,12 +469,12 @@ int JESValidation(){//main
                 << enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                    enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( errorBKG_enu_hist ) << " & "
-                << enuTOP_JESUP_hist->Integral(0, enuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                   enuVV_JESUP_hist->Integral(0, enuVV_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( errorBKG_enu_JESUP_hist ) << " & "
-                << enuTOP_JESDOWN_hist->Integral(0, enuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                   enuVV_JESDOWN_hist->Integral(0, enuVV_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( errorBKG_enu_JESDOWN_hist ) 
+                << enuTOP_JERBETTER_hist->Integral(0, enuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                   enuVV_JERBETTER_hist->Integral(0, enuVV_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( errorBKG_enu_JERBETTER_hist ) << " & "
+                << enuTOP_JERWORSE_hist->Integral(0, enuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                   enuVV_JERWORSE_hist->Integral(0, enuVV_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( errorBKG_enu_JERWORSE_hist ) 
                 << "\\\\ " << std::endl;
 
       std::cout << " \\hline" << std::endl;
@@ -487,20 +487,20 @@ int JESValidation(){//main
                        enuDATAOBS_hist->Integral(0, enuDATAOBS_hist->GetNbinsX() + 1) - ( 
                        enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                        enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) ) ) << "             & "
-                << ( ( nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                       nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-                       enuQCD_JESUP_hist->Integral(0, enuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                       enuEWK_JESUP_hist->Integral(0, enuEWK_JESUP_hist->GetNbinsX() + 1) ) )*( 
+                << ( ( nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                       nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+                       enuQCD_JERBETTER_hist->Integral(0, enuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                       enuEWK_JERBETTER_hist->Integral(0, enuEWK_JERBETTER_hist->GetNbinsX() + 1) ) )*( 
                        enuDATAOBS_hist->Integral(0, enuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                       enuTOP_JESUP_hist->Integral(0, enuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                       enuVV_JESUP_hist->Integral(0, enuVV_JESUP_hist->GetNbinsX() + 1) ) ) << "             & "
-                << ( ( nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                       nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-                       enuQCD_JESDOWN_hist->Integral(0, enuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                       enuEWK_JESDOWN_hist->Integral(0, enuEWK_JESDOWN_hist->GetNbinsX() + 1) ) )*( 
+                       enuTOP_JERBETTER_hist->Integral(0, enuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                       enuVV_JERBETTER_hist->Integral(0, enuVV_JERBETTER_hist->GetNbinsX() + 1) ) ) << "             & "
+                << ( ( nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                       nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+                       enuQCD_JERWORSE_hist->Integral(0, enuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                       enuEWK_JERWORSE_hist->Integral(0, enuEWK_JERWORSE_hist->GetNbinsX() + 1) ) )*( 
                        enuDATAOBS_hist->Integral(0, enuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                       enuTOP_JESDOWN_hist->Integral(0, enuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                       enuVV_JESDOWN_hist->Integral(0, enuVV_JESDOWN_hist->GetNbinsX() + 1) ) )
+                       enuTOP_JERWORSE_hist->Integral(0, enuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                       enuVV_JERWORSE_hist->Integral(0, enuVV_JERWORSE_hist->GetNbinsX() + 1) ) )
                 << "\\\\ " << std::endl;
       std::cout << std::endl;
 
@@ -508,32 +508,32 @@ int JESValidation(){//main
       std::cout << " *****************************************" << std::endl;
       // ****************************************
 
-      std::cout << " \\textbf{W($e\\nu$)}             &  JESUP\\_Impact (\\%)              &  JESDOWN\\_Impact (\\%)\\\\ " << std::endl;
+      std::cout << " \\textbf{W($e\\nu$)}             &  JERBETTER\\_Impact (\\%)              &  JERWORSE\\_Impact (\\%)\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
 
       std::cout << " N$_\\text{MC}^\\text{CR}$           &  " 
-                << (( enuQCD_JESUP_hist->Integral(0, enuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                      enuEWK_JESUP_hist->Integral(0, enuEWK_JESUP_hist->GetNbinsX() + 1) ) - 
+                << (( enuQCD_JERBETTER_hist->Integral(0, enuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                      enuEWK_JERBETTER_hist->Integral(0, enuEWK_JERBETTER_hist->GetNbinsX() + 1) ) - 
                     ( enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
                       enuEWK_hist->Integral(0, enuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
                       enuEWK_hist->Integral(0, enuEWK_hist->GetNbinsX() + 1) ) << " & "
-                << (( enuQCD_JESDOWN_hist->Integral(0, enuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                      enuEWK_JESDOWN_hist->Integral(0, enuEWK_JESDOWN_hist->GetNbinsX() + 1) ) - 
+                << (( enuQCD_JERWORSE_hist->Integral(0, enuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                      enuEWK_JERWORSE_hist->Integral(0, enuEWK_JERWORSE_hist->GetNbinsX() + 1) ) - 
                     ( enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
                       enuEWK_hist->Integral(0, enuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
                       enuEWK_hist->Integral(0, enuEWK_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{MC}^\\text{SR}$           &  " 
-                << (( nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                      nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) ) - 
+                << (( nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                      nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) ) - 
                     ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) + 
                       nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) + 
                       nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) ) << " & "
-                << (( nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                      nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) ) - 
+                << (( nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                      nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) ) - 
                     ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) + 
                       nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) + 
@@ -544,14 +544,14 @@ int JESValidation(){//main
                 << " 0 " << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{backgrounds}^\\text{CR}$  &  " 
-                << (( enuTOP_JESUP_hist->Integral(0, enuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                      enuVV_JESUP_hist->Integral(0, enuVV_JESUP_hist->GetNbinsX() + 1) ) - 
+                << (( enuTOP_JERBETTER_hist->Integral(0, enuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                      enuVV_JERBETTER_hist->Integral(0, enuVV_JERBETTER_hist->GetNbinsX() + 1) ) - 
                     ( enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                       enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) ))*100/
                     ( enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                       enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) ) << " & "
-                << (( enuTOP_JESDOWN_hist->Integral(0, enuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                      enuVV_JESDOWN_hist->Integral(0, enuVV_JESDOWN_hist->GetNbinsX() + 1) ) - 
+                << (( enuTOP_JERWORSE_hist->Integral(0, enuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                      enuVV_JERWORSE_hist->Integral(0, enuVV_JERWORSE_hist->GetNbinsX() + 1) ) - 
                     ( enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                       enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) ))*100/
                     ( enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
@@ -560,13 +560,13 @@ int JESValidation(){//main
       std::cout << " \\hline" << std::endl;
 
       std::cout << " N$_\\text{W($e\\nu$)}^\\text{SR}$  &  " 
-                << (( ( ( nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                          nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-                          enuQCD_JESUP_hist->Integral(0, enuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                          enuEWK_JESUP_hist->Integral(0, enuEWK_JESUP_hist->GetNbinsX() + 1) ) )*( 
+                << (( ( ( nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                          nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+                          enuQCD_JERBETTER_hist->Integral(0, enuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                          enuEWK_JERBETTER_hist->Integral(0, enuEWK_JERBETTER_hist->GetNbinsX() + 1) ) )*( 
                           enuDATAOBS_hist->Integral(0, enuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                          enuTOP_JESUP_hist->Integral(0, enuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                          enuVV_JESUP_hist->Integral(0, enuVV_JESUP_hist->GetNbinsX() + 1) ) ) ) - 
+                          enuTOP_JERBETTER_hist->Integral(0, enuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                          enuVV_JERBETTER_hist->Integral(0, enuVV_JERBETTER_hist->GetNbinsX() + 1) ) ) ) - 
                     ( ( ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) + 
                           nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) )/( 
                           enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
@@ -581,13 +581,13 @@ int JESValidation(){//main
                           enuDATAOBS_hist->Integral(0, enuDATAOBS_hist->GetNbinsX() + 1) - ( 
                           enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                           enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) ) ) ) << " & "
-                << (( ( ( nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                          nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-                          enuQCD_JESDOWN_hist->Integral(0, enuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                          enuEWK_JESDOWN_hist->Integral(0, enuEWK_JESDOWN_hist->GetNbinsX() + 1) ) )*( 
+                << (( ( ( nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                          nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+                          enuQCD_JERWORSE_hist->Integral(0, enuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                          enuEWK_JERWORSE_hist->Integral(0, enuEWK_JERWORSE_hist->GetNbinsX() + 1) ) )*( 
                           enuDATAOBS_hist->Integral(0, enuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                          enuTOP_JESDOWN_hist->Integral(0, enuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                          enuVV_JESDOWN_hist->Integral(0, enuVV_JESDOWN_hist->GetNbinsX() + 1) ) ) ) - 
+                          enuTOP_JERWORSE_hist->Integral(0, enuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                          enuVV_JERWORSE_hist->Integral(0, enuVV_JERWORSE_hist->GetNbinsX() + 1) ) ) ) - 
                     ( ( ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) + 
                           nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) )/( 
                           enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
@@ -606,10 +606,10 @@ int JESValidation(){//main
       std::cout << " \\hline" << std::endl;
 
       std::cout << " $\\frac{\\text{N}_\\text{MC}^\\text{SR}}{\\text{N}_\\text{MC}^\\text{CR}}$  &  " 
-                << (( ( nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                        nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-                        enuQCD_JESUP_hist->Integral(0, enuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                        enuEWK_JESUP_hist->Integral(0, enuEWK_JESUP_hist->GetNbinsX() + 1) ) ) - 
+                << (( ( nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                        nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+                        enuQCD_JERBETTER_hist->Integral(0, enuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                        enuEWK_JERBETTER_hist->Integral(0, enuEWK_JERBETTER_hist->GetNbinsX() + 1) ) ) - 
                     ( ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) + 
                         nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) )/( 
                         enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
@@ -618,10 +618,10 @@ int JESValidation(){//main
                         nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) )/( 
                         enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
                         enuEWK_hist->Integral(0, enuEWK_hist->GetNbinsX() + 1) ) ) << " & "
-                << (( ( nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                        nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-                        enuQCD_JESDOWN_hist->Integral(0, enuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                        enuEWK_JESDOWN_hist->Integral(0, enuEWK_JESDOWN_hist->GetNbinsX() + 1) ) ) - 
+                << (( ( nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                        nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+                        enuQCD_JERWORSE_hist->Integral(0, enuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                        enuEWK_JERWORSE_hist->Integral(0, enuEWK_JERWORSE_hist->GetNbinsX() + 1) ) ) - 
                     ( ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) + 
                         nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) )/( 
                         enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) + 
@@ -634,15 +634,15 @@ int JESValidation(){//main
       std::cout << " ( N$_\\text{data\\_obs}^\\text{CR}$ - N$_\\text{backgrounds}^\\text{CR}$)  &  " 
                 << ( enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                      enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) -
-                   ( enuTOP_JESUP_hist->Integral(0, enuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                     enuVV_JESUP_hist->Integral(0, enuVV_JESUP_hist->GetNbinsX() + 1) ) )*100/
+                   ( enuTOP_JERBETTER_hist->Integral(0, enuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                     enuVV_JERBETTER_hist->Integral(0, enuVV_JERBETTER_hist->GetNbinsX() + 1) ) )*100/
                    ( enuDATAOBS_hist->Integral(0, enuDATAOBS_hist->GetNbinsX() + 1) - 
                    ( enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                      enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) ) ) << " & "
                 << ( enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                      enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) -
-                   ( enuTOP_JESDOWN_hist->Integral(0, enuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                     enuVV_JESDOWN_hist->Integral(0, enuVV_JESDOWN_hist->GetNbinsX() + 1) ) )*100/
+                   ( enuTOP_JERWORSE_hist->Integral(0, enuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                     enuVV_JERWORSE_hist->Integral(0, enuVV_JERWORSE_hist->GetNbinsX() + 1) ) )*100/
                    ( enuDATAOBS_hist->Integral(0, enuDATAOBS_hist->GetNbinsX() + 1) - 
                    ( enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) + 
                      enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) ) ) << "\\\\ " << std::endl;
@@ -653,61 +653,61 @@ int JESValidation(){//main
       std::cout << " *****************************************" << std::endl;
       // ****************************************
 
-      std::cout << " \\textbf{W($e\\nu$)} Backgrounds    &              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W($e\\nu$)} Backgrounds    &              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{TOP}       &  Integral    & " 
                 << enuTOP_hist->Integral(0, enuTOP_hist->GetNbinsX() + 1) << "              & " 
-                << enuTOP_JESUP_hist->Integral(0, enuTOP_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << enuTOP_JESDOWN_hist->Integral(0, enuTOP_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << enuTOP_JERBETTER_hist->Integral(0, enuTOP_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << enuTOP_JERWORSE_hist->Integral(0, enuTOP_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << enuTOP_hist->GetEntries() << "                  & " 
-                << enuTOP_JESUP_hist->GetEntries() << "                 & "
-                << enuTOP_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << enuTOP_JERBETTER_hist->GetEntries() << "                 & "
+                << enuTOP_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{VV}       &  Integral    & " 
                 << enuVV_hist->Integral(0, enuVV_hist->GetNbinsX() + 1) << "              & " 
-                << enuVV_JESUP_hist->Integral(0, enuVV_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << enuVV_JESDOWN_hist->Integral(0, enuVV_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << enuVV_JERBETTER_hist->Integral(0, enuVV_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << enuVV_JERWORSE_hist->Integral(0, enuVV_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << enuVV_hist->GetEntries() << "                  & " 
-                << enuVV_JESUP_hist->GetEntries() << "                 & "
-                << enuVV_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << enuVV_JERBETTER_hist->GetEntries() << "                 & "
+                << enuVV_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
-      std::cout << " \\textbf{W($e\\nu$)}     &              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W($e\\nu$)}     &              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{CR}$-QCD}       &  Integral    & " 
                 << enuQCD_hist->Integral(0, enuQCD_hist->GetNbinsX() + 1) << "              & " 
-                << enuQCD_JESUP_hist->Integral(0, enuQCD_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << enuQCD_JESDOWN_hist->Integral(0, enuQCD_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << enuQCD_JERBETTER_hist->Integral(0, enuQCD_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << enuQCD_JERWORSE_hist->Integral(0, enuQCD_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << enuQCD_hist->GetEntries() << "                  & " 
-                << enuQCD_JESUP_hist->GetEntries() << "                 & "
-                << enuQCD_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << enuQCD_JERBETTER_hist->GetEntries() << "                 & "
+                << enuQCD_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{CR}$-EWK}       &  Integral    & " 
                 << enuEWK_hist->Integral(0, enuEWK_hist->GetNbinsX() + 1) << "              & " 
-                << enuEWK_JESUP_hist->Integral(0, enuEWK_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << enuEWK_JESDOWN_hist->Integral(0, enuEWK_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << enuEWK_JERBETTER_hist->Integral(0, enuEWK_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << enuEWK_JERWORSE_hist->Integral(0, enuEWK_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << enuEWK_hist->GetEntries() << "                  & " 
-                << enuEWK_JESUP_hist->GetEntries() << "                 & "
-                << enuEWK_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << enuEWK_JERBETTER_hist->GetEntries() << "                 & "
+                << enuEWK_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{SR}$-QCD}       &  Integral    & " 
                 << nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) << "              & " 
-                << nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << nunuWenuQCD_hist->GetEntries() << "                  & " 
-                << nunuWenuQCD_JESUP_hist->GetEntries() << "                 & "
-                << nunuWenuQCD_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << nunuWenuQCD_JERBETTER_hist->GetEntries() << "                 & "
+                << nunuWenuQCD_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{SR}$-EWK}       &  Integral    & " 
                 << nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) << "              & " 
-                << nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << nunuWenuEWK_hist->GetEntries() << "                  & " 
-                << nunuWenuEWK_JESUP_hist->GetEntries() << "                 & "
-                << nunuWenuEWK_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << nunuWenuEWK_JERBETTER_hist->GetEntries() << "                 & "
+                << nunuWenuEWK_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
 
       std::cout << std::endl;
 
@@ -719,7 +719,7 @@ int JESValidation(){//main
       // ****************************************
       // ****************************************
       // ****************************************
-      std::cout << " \\textbf{W($\\mu\\nu$)}              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W($\\mu\\nu$)}              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
 
       // ********* Central error *********
@@ -735,55 +735,55 @@ int JESValidation(){//main
       errorBKG_munu_hist.push_back(Error(munuTOP_hist));
       errorBKG_munu_hist.push_back(Error(munuVV_hist));
       errorBKG_munu_hist.push_back(Error(munuQCDmultijet_hist));
-      // ********* JESUP error *********
-      std::vector<double> error_munu_JESUP_hist;
-      error_munu_JESUP_hist.push_back(Error(munuQCD_JESUP_hist));
-      error_munu_JESUP_hist.push_back(Error(munuEWK_JESUP_hist));
+      // ********* JERBETTER error *********
+      std::vector<double> error_munu_JERBETTER_hist;
+      error_munu_JERBETTER_hist.push_back(Error(munuQCD_JERBETTER_hist));
+      error_munu_JERBETTER_hist.push_back(Error(munuEWK_JERBETTER_hist));
 
-      std::vector<double> error_nunuWmunu_JESUP_hist;
-      error_nunuWmunu_JESUP_hist.push_back(Error(nunuWmunuQCD_JESUP_hist));
-      error_nunuWmunu_JESUP_hist.push_back(Error(nunuWmunuEWK_JESUP_hist));
+      std::vector<double> error_nunuWmunu_JERBETTER_hist;
+      error_nunuWmunu_JERBETTER_hist.push_back(Error(nunuWmunuQCD_JERBETTER_hist));
+      error_nunuWmunu_JERBETTER_hist.push_back(Error(nunuWmunuEWK_JERBETTER_hist));
 
-      std::vector<double> errorBKG_munu_JESUP_hist;
-      errorBKG_munu_JESUP_hist.push_back(Error(munuTOP_JESUP_hist));
-      errorBKG_munu_JESUP_hist.push_back(Error(munuVV_JESUP_hist));
-      errorBKG_munu_JESUP_hist.push_back(Error(munuQCDmultijet_JESUP_hist));
-      // ********* JESDOWN error *********
-      std::vector<double> error_munu_JESDOWN_hist;
-      error_munu_JESDOWN_hist.push_back(Error(munuQCD_JESDOWN_hist));
-      error_munu_JESDOWN_hist.push_back(Error(munuEWK_JESDOWN_hist));
+      std::vector<double> errorBKG_munu_JERBETTER_hist;
+      errorBKG_munu_JERBETTER_hist.push_back(Error(munuTOP_JERBETTER_hist));
+      errorBKG_munu_JERBETTER_hist.push_back(Error(munuVV_JERBETTER_hist));
+      errorBKG_munu_JERBETTER_hist.push_back(Error(munuQCDmultijet_JERBETTER_hist));
+      // ********* JERWORSE error *********
+      std::vector<double> error_munu_JERWORSE_hist;
+      error_munu_JERWORSE_hist.push_back(Error(munuQCD_JERWORSE_hist));
+      error_munu_JERWORSE_hist.push_back(Error(munuEWK_JERWORSE_hist));
 
-      std::vector<double> error_nunuWmunu_JESDOWN_hist;
-      error_nunuWmunu_JESDOWN_hist.push_back(Error(nunuWmunuQCD_JESDOWN_hist));
-      error_nunuWmunu_JESDOWN_hist.push_back(Error(nunuWmunuEWK_JESDOWN_hist));
+      std::vector<double> error_nunuWmunu_JERWORSE_hist;
+      error_nunuWmunu_JERWORSE_hist.push_back(Error(nunuWmunuQCD_JERWORSE_hist));
+      error_nunuWmunu_JERWORSE_hist.push_back(Error(nunuWmunuEWK_JERWORSE_hist));
 
-      std::vector<double> errorBKG_munu_JESDOWN_hist;
-      errorBKG_munu_JESDOWN_hist.push_back(Error(munuTOP_JESDOWN_hist));
-      errorBKG_munu_JESDOWN_hist.push_back(Error(munuVV_JESDOWN_hist));
-      errorBKG_munu_JESDOWN_hist.push_back(Error(munuQCDmultijet_JESDOWN_hist));
+      std::vector<double> errorBKG_munu_JERWORSE_hist;
+      errorBKG_munu_JERWORSE_hist.push_back(Error(munuTOP_JERWORSE_hist));
+      errorBKG_munu_JERWORSE_hist.push_back(Error(munuVV_JERWORSE_hist));
+      errorBKG_munu_JERWORSE_hist.push_back(Error(munuQCDmultijet_JERWORSE_hist));
 
       std::cout << " N$_\\text{MC}^\\text{CR}$           &  " 
                 << munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
                    munuEWK_hist->Integral(0, munuEWK_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( error_munu_hist ) << " & "
-                << munuQCD_JESUP_hist->Integral(0, munuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                   munuEWK_JESUP_hist->Integral(0, munuEWK_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_munu_JESUP_hist ) << " & "
-                << munuQCD_JESDOWN_hist->Integral(0, munuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                   munuEWK_JESDOWN_hist->Integral(0, munuEWK_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_munu_JESDOWN_hist ) 
+                << munuQCD_JERBETTER_hist->Integral(0, munuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                   munuEWK_JERBETTER_hist->Integral(0, munuEWK_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_munu_JERBETTER_hist ) << " & "
+                << munuQCD_JERWORSE_hist->Integral(0, munuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                   munuEWK_JERWORSE_hist->Integral(0, munuEWK_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_munu_JERWORSE_hist ) 
                 << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{MC}^\\text{SR}$           &  " 
                 << nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) + 
                    nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( error_nunuWmunu_hist ) << " & "
-                << nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                   nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWmunu_JESUP_hist ) << " & "
-                << nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                   nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWmunu_JESDOWN_hist ) 
+                << nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                   nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWmunu_JERBETTER_hist ) << " & "
+                << nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                   nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWmunu_JERWORSE_hist ) 
                 << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{data\\_obs}^\\text{CR}$     &  " 
@@ -797,14 +797,14 @@ int JESValidation(){//main
                    munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
                    munuQCDmultijet_hist->Integral(0, munuQCDmultijet_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( errorBKG_munu_hist ) << " & "
-                << munuTOP_JESUP_hist->Integral(0, munuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                   munuVV_JESUP_hist->Integral(0, munuVV_JESUP_hist->GetNbinsX() + 1) + 
-                   munuQCDmultijet_JESUP_hist->Integral(0, munuQCDmultijet_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( errorBKG_munu_JESUP_hist ) << " & "
-                << munuTOP_JESDOWN_hist->Integral(0, munuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                   munuVV_JESDOWN_hist->Integral(0, munuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                   munuQCDmultijet_JESDOWN_hist->Integral(0, munuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( errorBKG_munu_JESDOWN_hist ) 
+                << munuTOP_JERBETTER_hist->Integral(0, munuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                   munuVV_JERBETTER_hist->Integral(0, munuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                   munuQCDmultijet_JERBETTER_hist->Integral(0, munuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( errorBKG_munu_JERBETTER_hist ) << " & "
+                << munuTOP_JERWORSE_hist->Integral(0, munuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                   munuVV_JERWORSE_hist->Integral(0, munuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                   munuQCDmultijet_JERWORSE_hist->Integral(0, munuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( errorBKG_munu_JERWORSE_hist ) 
                 << "\\\\ " << std::endl;
 
       std::cout << " \\hline" << std::endl;
@@ -818,22 +818,22 @@ int JESValidation(){//main
                        munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) + 
                        munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
                        munuQCDmultijet_hist->Integral(0, munuQCDmultijet_hist->GetNbinsX() + 1) ) ) << "             & "
-                << ( ( nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                       nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-                       munuQCD_JESUP_hist->Integral(0, munuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                       munuEWK_JESUP_hist->Integral(0, munuEWK_JESUP_hist->GetNbinsX() + 1) ) )*( 
+                << ( ( nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                       nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+                       munuQCD_JERBETTER_hist->Integral(0, munuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                       munuEWK_JERBETTER_hist->Integral(0, munuEWK_JERBETTER_hist->GetNbinsX() + 1) ) )*( 
                        munuDATAOBS_hist->Integral(0, munuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                       munuTOP_JESUP_hist->Integral(0, munuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                       munuVV_JESUP_hist->Integral(0, munuVV_JESUP_hist->GetNbinsX() + 1) + 
-                       munuQCDmultijet_JESUP_hist->Integral(0, munuQCDmultijet_JESUP_hist->GetNbinsX() + 1) ) ) << "             & "
-                << ( ( nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                       nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-                       munuQCD_JESDOWN_hist->Integral(0, munuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                       munuEWK_JESDOWN_hist->Integral(0, munuEWK_JESDOWN_hist->GetNbinsX() + 1) ) )*( 
+                       munuTOP_JERBETTER_hist->Integral(0, munuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                       munuVV_JERBETTER_hist->Integral(0, munuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                       munuQCDmultijet_JERBETTER_hist->Integral(0, munuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) ) ) << "             & "
+                << ( ( nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                       nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+                       munuQCD_JERWORSE_hist->Integral(0, munuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                       munuEWK_JERWORSE_hist->Integral(0, munuEWK_JERWORSE_hist->GetNbinsX() + 1) ) )*( 
                        munuDATAOBS_hist->Integral(0, munuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                       munuTOP_JESDOWN_hist->Integral(0, munuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                       munuVV_JESDOWN_hist->Integral(0, munuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                       munuQCDmultijet_JESDOWN_hist->Integral(0, munuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) ) )
+                       munuTOP_JERWORSE_hist->Integral(0, munuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                       munuVV_JERWORSE_hist->Integral(0, munuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                       munuQCDmultijet_JERWORSE_hist->Integral(0, munuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) ) )
                 << "\\\\ " << std::endl;
       std::cout << std::endl;
 
@@ -841,32 +841,32 @@ int JESValidation(){//main
       std::cout << " *****************************************" << std::endl;
       // ****************************************
 
-      std::cout << " \\textbf{W($\\mu\\nu$)}             &  JESUP\\_Impact (\\%)              &  JESDOWN\\_Impact (\\%)\\\\ " << std::endl;
+      std::cout << " \\textbf{W($\\mu\\nu$)}             &  JERBETTER\\_Impact (\\%)              &  JERWORSE\\_Impact (\\%)\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
 
       std::cout << " N$_\\text{MC}^\\text{CR}$           &  " 
-                << (( munuQCD_JESUP_hist->Integral(0, munuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                      munuEWK_JESUP_hist->Integral(0, munuEWK_JESUP_hist->GetNbinsX() + 1) ) - 
+                << (( munuQCD_JERBETTER_hist->Integral(0, munuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                      munuEWK_JERBETTER_hist->Integral(0, munuEWK_JERBETTER_hist->GetNbinsX() + 1) ) - 
                     ( munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
                       munuEWK_hist->Integral(0, munuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
                       munuEWK_hist->Integral(0, munuEWK_hist->GetNbinsX() + 1) ) << " & "
-                << (( munuQCD_JESDOWN_hist->Integral(0, munuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                      munuEWK_JESDOWN_hist->Integral(0, munuEWK_JESDOWN_hist->GetNbinsX() + 1) ) - 
+                << (( munuQCD_JERWORSE_hist->Integral(0, munuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                      munuEWK_JERWORSE_hist->Integral(0, munuEWK_JERWORSE_hist->GetNbinsX() + 1) ) - 
                     ( munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
                       munuEWK_hist->Integral(0, munuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
                       munuEWK_hist->Integral(0, munuEWK_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{MC}^\\text{SR}$           &  " 
-                << (( nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                      nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) ) - 
+                << (( nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                      nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) ) - 
                     ( nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) + 
                       nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) + 
                       nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) ) << " & "
-                << (( nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                      nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) ) - 
+                << (( nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                      nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) ) - 
                     ( nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) + 
                       nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) + 
@@ -877,18 +877,18 @@ int JESValidation(){//main
                 << " 0 " << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{backgrounds}^\\text{CR}$  &  " 
-                << (( munuTOP_JESUP_hist->Integral(0, munuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                      munuVV_JESUP_hist->Integral(0, munuVV_JESUP_hist->GetNbinsX() + 1) + 
-                      munuQCDmultijet_JESUP_hist->Integral(0, munuQCDmultijet_JESUP_hist->GetNbinsX() + 1) ) - 
+                << (( munuTOP_JERBETTER_hist->Integral(0, munuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                      munuVV_JERBETTER_hist->Integral(0, munuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                      munuQCDmultijet_JERBETTER_hist->Integral(0, munuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) ) - 
                     ( munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) + 
                       munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
                       munuQCDmultijet_hist->Integral(0, munuQCDmultijet_hist->GetNbinsX() + 1) ))*100/
                     ( munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) + 
                       munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
                       munuQCDmultijet_hist->Integral(0, munuQCDmultijet_hist->GetNbinsX() + 1) ) << " & "
-                << (( munuTOP_JESDOWN_hist->Integral(0, munuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                      munuVV_JESDOWN_hist->Integral(0, munuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                      munuQCDmultijet_JESDOWN_hist->Integral(0, munuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) ) - 
+                << (( munuTOP_JERWORSE_hist->Integral(0, munuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                      munuVV_JERWORSE_hist->Integral(0, munuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                      munuQCDmultijet_JERWORSE_hist->Integral(0, munuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) ) - 
                     ( munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) + 
                       munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
                       munuQCDmultijet_hist->Integral(0, munuQCDmultijet_hist->GetNbinsX() + 1) ))*100/
@@ -899,14 +899,14 @@ int JESValidation(){//main
       std::cout << " \\hline" << std::endl;
 
       std::cout << " N$_\\text{W($\\mu\\nu$)}^\\text{SR}$  &  " 
-                << (( ( ( nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                          nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-                          munuQCD_JESUP_hist->Integral(0, munuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                          munuEWK_JESUP_hist->Integral(0, munuEWK_JESUP_hist->GetNbinsX() + 1) ) )*( 
+                << (( ( ( nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                          nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+                          munuQCD_JERBETTER_hist->Integral(0, munuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                          munuEWK_JERBETTER_hist->Integral(0, munuEWK_JERBETTER_hist->GetNbinsX() + 1) ) )*( 
                           munuDATAOBS_hist->Integral(0, munuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                          munuTOP_JESUP_hist->Integral(0, munuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                          munuVV_JESUP_hist->Integral(0, munuVV_JESUP_hist->GetNbinsX() + 1) + 
-                          munuQCDmultijet_JESUP_hist->Integral(0, munuQCDmultijet_JESUP_hist->GetNbinsX() + 1) ) ) ) - 
+                          munuTOP_JERBETTER_hist->Integral(0, munuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                          munuVV_JERBETTER_hist->Integral(0, munuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                          munuQCDmultijet_JERBETTER_hist->Integral(0, munuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) ) ) ) - 
                     ( ( ( nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) + 
                           nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) )/( 
                           munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
@@ -923,14 +923,14 @@ int JESValidation(){//main
                           munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) + 
                           munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
                           munuQCDmultijet_hist->Integral(0, munuQCDmultijet_hist->GetNbinsX() + 1) ) ) ) << " & "
-                << (( ( ( nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                          nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-                          munuQCD_JESDOWN_hist->Integral(0, munuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                          munuEWK_JESDOWN_hist->Integral(0, munuEWK_JESDOWN_hist->GetNbinsX() + 1) ) )*( 
+                << (( ( ( nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                          nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+                          munuQCD_JERWORSE_hist->Integral(0, munuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                          munuEWK_JERWORSE_hist->Integral(0, munuEWK_JERWORSE_hist->GetNbinsX() + 1) ) )*( 
                           munuDATAOBS_hist->Integral(0, munuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                          munuTOP_JESDOWN_hist->Integral(0, munuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                          munuVV_JESDOWN_hist->Integral(0, munuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                          munuQCDmultijet_JESDOWN_hist->Integral(0, munuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) ) ) ) - 
+                          munuTOP_JERWORSE_hist->Integral(0, munuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                          munuVV_JERWORSE_hist->Integral(0, munuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                          munuQCDmultijet_JERWORSE_hist->Integral(0, munuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) ) ) ) - 
                     ( ( ( nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) + 
                           nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) )/( 
                           munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
@@ -951,10 +951,10 @@ int JESValidation(){//main
       std::cout << " \\hline" << std::endl;
 
       std::cout << " $\\frac{\\text{N}_\\text{MC}^\\text{SR}}{\\text{N}_\\text{MC}^\\text{CR}}$  &  " 
-                << (( ( nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                        nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-                        munuQCD_JESUP_hist->Integral(0, munuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                        munuEWK_JESUP_hist->Integral(0, munuEWK_JESUP_hist->GetNbinsX() + 1) ) ) - 
+                << (( ( nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                        nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+                        munuQCD_JERBETTER_hist->Integral(0, munuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                        munuEWK_JERBETTER_hist->Integral(0, munuEWK_JERBETTER_hist->GetNbinsX() + 1) ) ) - 
                     ( ( nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) + 
                         nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) )/( 
                         munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
@@ -963,10 +963,10 @@ int JESValidation(){//main
                         nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) )/( 
                         munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
                         munuEWK_hist->Integral(0, munuEWK_hist->GetNbinsX() + 1) ) ) << " & "
-                << (( ( nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                        nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-                        munuQCD_JESDOWN_hist->Integral(0, munuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                        munuEWK_JESDOWN_hist->Integral(0, munuEWK_JESDOWN_hist->GetNbinsX() + 1) ) ) - 
+                << (( ( nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                        nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+                        munuQCD_JERWORSE_hist->Integral(0, munuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                        munuEWK_JERWORSE_hist->Integral(0, munuEWK_JERWORSE_hist->GetNbinsX() + 1) ) ) - 
                     ( ( nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) + 
                         nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) )/( 
                         munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) + 
@@ -980,9 +980,9 @@ int JESValidation(){//main
                 << ( munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) + 
                     munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
                     munuQCDmultijet_hist->Integral(0, munuQCDmultijet_hist->GetNbinsX() + 1) -
-                  ( munuTOP_JESUP_hist->Integral(0, munuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                    munuVV_JESUP_hist->Integral(0, munuVV_JESUP_hist->GetNbinsX() + 1) + 
-                    munuQCDmultijet_JESUP_hist->Integral(0, munuQCDmultijet_JESUP_hist->GetNbinsX() + 1) ) )*100/
+                  ( munuTOP_JERBETTER_hist->Integral(0, munuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                    munuVV_JERBETTER_hist->Integral(0, munuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                    munuQCDmultijet_JERBETTER_hist->Integral(0, munuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) ) )*100/
                   ( munuDATAOBS_hist->Integral(0, munuDATAOBS_hist->GetNbinsX() + 1) - 
                   ( munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) + 
                     munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
@@ -990,9 +990,9 @@ int JESValidation(){//main
                 << ( munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) + 
                     munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
                     munuQCDmultijet_hist->Integral(0, munuQCDmultijet_hist->GetNbinsX() + 1) -
-                  ( munuTOP_JESDOWN_hist->Integral(0, munuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                    munuVV_JESDOWN_hist->Integral(0, munuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                    munuQCDmultijet_JESDOWN_hist->Integral(0, munuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) ) )*100/
+                  ( munuTOP_JERWORSE_hist->Integral(0, munuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                    munuVV_JERWORSE_hist->Integral(0, munuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                    munuQCDmultijet_JERWORSE_hist->Integral(0, munuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) ) )*100/
                   ( munuDATAOBS_hist->Integral(0, munuDATAOBS_hist->GetNbinsX() + 1) - 
                   ( munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) + 
                     munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) + 
@@ -1004,70 +1004,70 @@ int JESValidation(){//main
       std::cout << " *****************************************" << std::endl;
       // ****************************************
 
-      std::cout << " \\textbf{W($\\mu\\nu$)} Backgrounds     &              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W($\\mu\\nu$)} Backgrounds     &              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{TOP}       &  Integral    & " 
                 << munuTOP_hist->Integral(0, munuTOP_hist->GetNbinsX() + 1) << "              & " 
-                << munuTOP_JESUP_hist->Integral(0, munuTOP_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << munuTOP_JESDOWN_hist->Integral(0, munuTOP_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << munuTOP_JERBETTER_hist->Integral(0, munuTOP_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << munuTOP_JERWORSE_hist->Integral(0, munuTOP_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << munuTOP_hist->GetEntries() << "                  & " 
-                << munuTOP_JESUP_hist->GetEntries() << "                 & "
-                << munuTOP_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << munuTOP_JERBETTER_hist->GetEntries() << "                 & "
+                << munuTOP_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{VV}       &  Integral    & " 
                 << munuVV_hist->Integral(0, munuVV_hist->GetNbinsX() + 1) << "              & " 
-                << munuVV_JESUP_hist->Integral(0, munuVV_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << munuVV_JESDOWN_hist->Integral(0, munuVV_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << munuVV_JERBETTER_hist->Integral(0, munuVV_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << munuVV_JERWORSE_hist->Integral(0, munuVV_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << munuVV_hist->GetEntries() << "                  & " 
-                << munuVV_JESUP_hist->GetEntries() << "                 & "
-                << munuVV_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << munuVV_JERBETTER_hist->GetEntries() << "                 & "
+                << munuVV_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{QCDmultijet}       &  Integral    & " 
                 << munuQCDmultijet_hist->Integral(0, munuQCDmultijet_hist->GetNbinsX() + 1) << "              & " 
-                << munuQCDmultijet_JESUP_hist->Integral(0, munuQCDmultijet_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << munuQCDmultijet_JESDOWN_hist->Integral(0, munuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << munuQCDmultijet_JERBETTER_hist->Integral(0, munuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << munuQCDmultijet_JERWORSE_hist->Integral(0, munuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                                  &  GetEntries  & " 
                 << munuQCDmultijet_hist->GetEntries() << "                  & " 
-                << munuQCDmultijet_JESUP_hist->GetEntries() << "                 & "
-                << munuQCDmultijet_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << munuQCDmultijet_JERBETTER_hist->GetEntries() << "                 & "
+                << munuQCDmultijet_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
-      std::cout << " \\textbf{W($\\mu\\nu$)}     &              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W($\\mu\\nu$)}     &              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{CR}$-QCD}       &  Integral    & " 
                 << munuQCD_hist->Integral(0, munuQCD_hist->GetNbinsX() + 1) << "              & " 
-                << munuQCD_JESUP_hist->Integral(0, munuQCD_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << munuQCD_JESDOWN_hist->Integral(0, munuQCD_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << munuQCD_JERBETTER_hist->Integral(0, munuQCD_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << munuQCD_JERWORSE_hist->Integral(0, munuQCD_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << munuQCD_hist->GetEntries() << "                  & " 
-                << munuQCD_JESUP_hist->GetEntries() << "                 & "
-                << munuQCD_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << munuQCD_JERBETTER_hist->GetEntries() << "                 & "
+                << munuQCD_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{CR}$-EWK}       &  Integral    & " 
                 << munuEWK_hist->Integral(0, munuEWK_hist->GetNbinsX() + 1) << "              & " 
-                << munuEWK_JESUP_hist->Integral(0, munuEWK_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << munuEWK_JESDOWN_hist->Integral(0, munuEWK_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << munuEWK_JERBETTER_hist->Integral(0, munuEWK_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << munuEWK_JERWORSE_hist->Integral(0, munuEWK_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << munuEWK_hist->GetEntries() << "                  & " 
-                << munuEWK_JESUP_hist->GetEntries() << "                 & "
-                << munuEWK_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << munuEWK_JERBETTER_hist->GetEntries() << "                 & "
+                << munuEWK_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{SR}$-QCD}       &  Integral    & " 
                 << nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) << "              & " 
-                << nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << nunuWmunuQCD_hist->GetEntries() << "                  & " 
-                << nunuWmunuQCD_JESUP_hist->GetEntries() << "                 & "
-                << nunuWmunuQCD_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << nunuWmunuQCD_JERBETTER_hist->GetEntries() << "                 & "
+                << nunuWmunuQCD_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{SR}$-EWK}       &  Integral    & " 
                 << nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) << "              & " 
-                << nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << nunuWmunuEWK_hist->GetEntries() << "                  & " 
-                << nunuWmunuEWK_JESUP_hist->GetEntries() << "                 & "
-                << nunuWmunuEWK_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << nunuWmunuEWK_JERBETTER_hist->GetEntries() << "                 & "
+                << nunuWmunuEWK_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
 
 
       std::cout << std::endl;
@@ -1081,7 +1081,7 @@ int JESValidation(){//main
       // ****************************************
       // ****************************************
       // ****************************************
-      std::cout << " \\textbf{W($\\tau\\nu$)}              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W($\\tau\\nu$)}              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
 
       // ********* Central error *********
@@ -1097,55 +1097,55 @@ int JESValidation(){//main
       errorBKG_taunu_hist.push_back(Error(taunuTOP_hist));
       errorBKG_taunu_hist.push_back(Error(taunuVV_hist));
       errorBKG_taunu_hist.push_back(Error(taunuQCDmultijet_hist));
-      // ********* JESUP error *********
-      std::vector<double> error_taunu_JESUP_hist;
-      error_taunu_JESUP_hist.push_back(Error(taunuQCD_JESUP_hist));
-      error_taunu_JESUP_hist.push_back(Error(taunuEWK_JESUP_hist));
+      // ********* JERBETTER error *********
+      std::vector<double> error_taunu_JERBETTER_hist;
+      error_taunu_JERBETTER_hist.push_back(Error(taunuQCD_JERBETTER_hist));
+      error_taunu_JERBETTER_hist.push_back(Error(taunuEWK_JERBETTER_hist));
 
-      std::vector<double> error_nunuWtaunu_JESUP_hist;
-      error_nunuWtaunu_JESUP_hist.push_back(Error(nunuWtaunuQCD_JESUP_hist));
-      error_nunuWtaunu_JESUP_hist.push_back(Error(nunuWtaunuEWK_JESUP_hist));
+      std::vector<double> error_nunuWtaunu_JERBETTER_hist;
+      error_nunuWtaunu_JERBETTER_hist.push_back(Error(nunuWtaunuQCD_JERBETTER_hist));
+      error_nunuWtaunu_JERBETTER_hist.push_back(Error(nunuWtaunuEWK_JERBETTER_hist));
 
-      std::vector<double> errorBKG_taunu_JESUP_hist;
-      errorBKG_taunu_JESUP_hist.push_back(Error(taunuTOP_JESUP_hist));
-      errorBKG_taunu_JESUP_hist.push_back(Error(taunuVV_JESUP_hist));
-      errorBKG_taunu_JESUP_hist.push_back(Error(taunuQCDmultijet_JESUP_hist));
-      // ********* JESDOWN error *********
-      std::vector<double> error_taunu_JESDOWN_hist;
-      error_taunu_JESDOWN_hist.push_back(Error(taunuQCD_JESDOWN_hist));
-      error_taunu_JESDOWN_hist.push_back(Error(taunuEWK_JESDOWN_hist));
+      std::vector<double> errorBKG_taunu_JERBETTER_hist;
+      errorBKG_taunu_JERBETTER_hist.push_back(Error(taunuTOP_JERBETTER_hist));
+      errorBKG_taunu_JERBETTER_hist.push_back(Error(taunuVV_JERBETTER_hist));
+      errorBKG_taunu_JERBETTER_hist.push_back(Error(taunuQCDmultijet_JERBETTER_hist));
+      // ********* JERWORSE error *********
+      std::vector<double> error_taunu_JERWORSE_hist;
+      error_taunu_JERWORSE_hist.push_back(Error(taunuQCD_JERWORSE_hist));
+      error_taunu_JERWORSE_hist.push_back(Error(taunuEWK_JERWORSE_hist));
 
-      std::vector<double> error_nunuWtaunu_JESDOWN_hist;
-      error_nunuWtaunu_JESDOWN_hist.push_back(Error(nunuWtaunuQCD_JESDOWN_hist));
-      error_nunuWtaunu_JESDOWN_hist.push_back(Error(nunuWtaunuEWK_JESDOWN_hist));
+      std::vector<double> error_nunuWtaunu_JERWORSE_hist;
+      error_nunuWtaunu_JERWORSE_hist.push_back(Error(nunuWtaunuQCD_JERWORSE_hist));
+      error_nunuWtaunu_JERWORSE_hist.push_back(Error(nunuWtaunuEWK_JERWORSE_hist));
 
-      std::vector<double> errorBKG_taunu_JESDOWN_hist;
-      errorBKG_taunu_JESDOWN_hist.push_back(Error(taunuTOP_JESDOWN_hist));
-      errorBKG_taunu_JESDOWN_hist.push_back(Error(taunuVV_JESDOWN_hist));
-      errorBKG_taunu_JESDOWN_hist.push_back(Error(taunuQCDmultijet_JESDOWN_hist));
+      std::vector<double> errorBKG_taunu_JERWORSE_hist;
+      errorBKG_taunu_JERWORSE_hist.push_back(Error(taunuTOP_JERWORSE_hist));
+      errorBKG_taunu_JERWORSE_hist.push_back(Error(taunuVV_JERWORSE_hist));
+      errorBKG_taunu_JERWORSE_hist.push_back(Error(taunuQCDmultijet_JERWORSE_hist));
 
       std::cout << " N$_\\text{MC}^\\text{CR}$           &  " 
                 << taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
                    taunuEWK_hist->Integral(0, taunuEWK_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( error_taunu_hist ) << " & "
-                << taunuQCD_JESUP_hist->Integral(0, taunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                   taunuEWK_JESUP_hist->Integral(0, taunuEWK_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_taunu_JESUP_hist ) << " & "
-                << taunuQCD_JESDOWN_hist->Integral(0, taunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                   taunuEWK_JESDOWN_hist->Integral(0, taunuEWK_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_taunu_JESDOWN_hist ) 
+                << taunuQCD_JERBETTER_hist->Integral(0, taunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                   taunuEWK_JERBETTER_hist->Integral(0, taunuEWK_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_taunu_JERBETTER_hist ) << " & "
+                << taunuQCD_JERWORSE_hist->Integral(0, taunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                   taunuEWK_JERWORSE_hist->Integral(0, taunuEWK_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_taunu_JERWORSE_hist ) 
                 << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{MC}^\\text{SR}$           &  " 
                 << nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) + 
                    nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( error_nunuWtaunu_hist ) << " & "
-                << nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                   nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWtaunu_JESUP_hist ) << " & "
-                << nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                   nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWtaunu_JESDOWN_hist ) 
+                << nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                   nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWtaunu_JERBETTER_hist ) << " & "
+                << nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                   nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWtaunu_JERWORSE_hist ) 
                 << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{data\\_obs}^\\text{CR}$     &  " 
@@ -1159,14 +1159,14 @@ int JESValidation(){//main
                    taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
                    taunuQCDmultijet_hist->Integral(0, taunuQCDmultijet_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( errorBKG_taunu_hist ) << " & "
-                << taunuTOP_JESUP_hist->Integral(0, taunuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                   taunuVV_JESUP_hist->Integral(0, taunuVV_JESUP_hist->GetNbinsX() + 1) + 
-                   taunuQCDmultijet_JESUP_hist->Integral(0, taunuQCDmultijet_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( errorBKG_taunu_JESUP_hist ) << " & "
-                << taunuTOP_JESDOWN_hist->Integral(0, taunuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                   taunuVV_JESDOWN_hist->Integral(0, taunuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                   taunuQCDmultijet_JESDOWN_hist->Integral(0, taunuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( errorBKG_taunu_JESDOWN_hist ) 
+                << taunuTOP_JERBETTER_hist->Integral(0, taunuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                   taunuVV_JERBETTER_hist->Integral(0, taunuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                   taunuQCDmultijet_JERBETTER_hist->Integral(0, taunuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( errorBKG_taunu_JERBETTER_hist ) << " & "
+                << taunuTOP_JERWORSE_hist->Integral(0, taunuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                   taunuVV_JERWORSE_hist->Integral(0, taunuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                   taunuQCDmultijet_JERWORSE_hist->Integral(0, taunuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( errorBKG_taunu_JERWORSE_hist ) 
                 << "\\\\ " << std::endl;
 
       std::cout << " \\hline" << std::endl;
@@ -1180,22 +1180,22 @@ int JESValidation(){//main
                        taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) + 
                        taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
                        taunuQCDmultijet_hist->Integral(0, taunuQCDmultijet_hist->GetNbinsX() + 1) ) ) << "             & "
-                << ( ( nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                       nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-                       taunuQCD_JESUP_hist->Integral(0, taunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                       taunuEWK_JESUP_hist->Integral(0, taunuEWK_JESUP_hist->GetNbinsX() + 1) ) )*( 
+                << ( ( nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                       nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+                       taunuQCD_JERBETTER_hist->Integral(0, taunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                       taunuEWK_JERBETTER_hist->Integral(0, taunuEWK_JERBETTER_hist->GetNbinsX() + 1) ) )*( 
                        taunuDATAOBS_hist->Integral(0, taunuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                       taunuTOP_JESUP_hist->Integral(0, taunuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                       taunuVV_JESUP_hist->Integral(0, taunuVV_JESUP_hist->GetNbinsX() + 1) + 
-                       taunuQCDmultijet_JESUP_hist->Integral(0, taunuQCDmultijet_JESUP_hist->GetNbinsX() + 1) ) ) << "             & "
-                << ( ( nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                       nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-                       taunuQCD_JESDOWN_hist->Integral(0, taunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                       taunuEWK_JESDOWN_hist->Integral(0, taunuEWK_JESDOWN_hist->GetNbinsX() + 1) ) )*( 
+                       taunuTOP_JERBETTER_hist->Integral(0, taunuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                       taunuVV_JERBETTER_hist->Integral(0, taunuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                       taunuQCDmultijet_JERBETTER_hist->Integral(0, taunuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) ) ) << "             & "
+                << ( ( nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                       nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+                       taunuQCD_JERWORSE_hist->Integral(0, taunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                       taunuEWK_JERWORSE_hist->Integral(0, taunuEWK_JERWORSE_hist->GetNbinsX() + 1) ) )*( 
                        taunuDATAOBS_hist->Integral(0, taunuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                       taunuTOP_JESDOWN_hist->Integral(0, taunuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                       taunuVV_JESDOWN_hist->Integral(0, taunuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                       taunuQCDmultijet_JESDOWN_hist->Integral(0, taunuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) ) )
+                       taunuTOP_JERWORSE_hist->Integral(0, taunuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                       taunuVV_JERWORSE_hist->Integral(0, taunuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                       taunuQCDmultijet_JERWORSE_hist->Integral(0, taunuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) ) )
                 << "\\\\ " << std::endl;
       std::cout << std::endl;
 
@@ -1203,32 +1203,32 @@ int JESValidation(){//main
       std::cout << " *****************************************" << std::endl;
       // ****************************************
 
-      std::cout << " \\textbf{W($\\tau\\nu$)}             &  JESUP\\_Impact (\\%)              &  JESDOWN\\_Impact (\\%)\\\\ " << std::endl;
+      std::cout << " \\textbf{W($\\tau\\nu$)}             &  JERBETTER\\_Impact (\\%)              &  JERWORSE\\_Impact (\\%)\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
 
       std::cout << " N$_\\text{MC}^\\text{CR}$           &  " 
-                << (( taunuQCD_JESUP_hist->Integral(0, taunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                      taunuEWK_JESUP_hist->Integral(0, taunuEWK_JESUP_hist->GetNbinsX() + 1) ) - 
+                << (( taunuQCD_JERBETTER_hist->Integral(0, taunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                      taunuEWK_JERBETTER_hist->Integral(0, taunuEWK_JERBETTER_hist->GetNbinsX() + 1) ) - 
                     ( taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
                       taunuEWK_hist->Integral(0, taunuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
                       taunuEWK_hist->Integral(0, taunuEWK_hist->GetNbinsX() + 1) ) << " & "
-                << (( taunuQCD_JESDOWN_hist->Integral(0, taunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                      taunuEWK_JESDOWN_hist->Integral(0, taunuEWK_JESDOWN_hist->GetNbinsX() + 1) ) - 
+                << (( taunuQCD_JERWORSE_hist->Integral(0, taunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                      taunuEWK_JERWORSE_hist->Integral(0, taunuEWK_JERWORSE_hist->GetNbinsX() + 1) ) - 
                     ( taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
                       taunuEWK_hist->Integral(0, taunuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
                       taunuEWK_hist->Integral(0, taunuEWK_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{MC}^\\text{SR}$           &  " 
-                << (( nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                      nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) ) - 
+                << (( nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                      nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) ) - 
                     ( nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) + 
                       nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) + 
                       nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) ) << " & "
-                << (( nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                      nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) ) - 
+                << (( nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                      nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) ) - 
                     ( nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) + 
                       nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) ))*100/
                     ( nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) + 
@@ -1239,18 +1239,18 @@ int JESValidation(){//main
                 << " 0 " << "\\\\ " << std::endl;
 
       std::cout << " N$_\\text{backgrounds}^\\text{CR}$  &  " 
-                << (( taunuTOP_JESUP_hist->Integral(0, taunuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                      taunuVV_JESUP_hist->Integral(0, taunuVV_JESUP_hist->GetNbinsX() + 1) + 
-                      taunuQCDmultijet_JESUP_hist->Integral(0, taunuQCDmultijet_JESUP_hist->GetNbinsX() + 1) ) - 
+                << (( taunuTOP_JERBETTER_hist->Integral(0, taunuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                      taunuVV_JERBETTER_hist->Integral(0, taunuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                      taunuQCDmultijet_JERBETTER_hist->Integral(0, taunuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) ) - 
                     ( taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) + 
                       taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
                       taunuQCDmultijet_hist->Integral(0, taunuQCDmultijet_hist->GetNbinsX() + 1) ))*100/
                     ( taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) + 
                       taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
                       taunuQCDmultijet_hist->Integral(0, taunuQCDmultijet_hist->GetNbinsX() + 1) ) << " & "
-                << (( taunuTOP_JESDOWN_hist->Integral(0, taunuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                      taunuVV_JESDOWN_hist->Integral(0, taunuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                      taunuQCDmultijet_JESDOWN_hist->Integral(0, taunuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) ) - 
+                << (( taunuTOP_JERWORSE_hist->Integral(0, taunuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                      taunuVV_JERWORSE_hist->Integral(0, taunuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                      taunuQCDmultijet_JERWORSE_hist->Integral(0, taunuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) ) - 
                     ( taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) + 
                       taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
                       taunuQCDmultijet_hist->Integral(0, taunuQCDmultijet_hist->GetNbinsX() + 1) ))*100/
@@ -1261,14 +1261,14 @@ int JESValidation(){//main
       std::cout << " \\hline" << std::endl;
 
       std::cout << " N$_\\text{W($\\tau\\nu$)}^\\text{SR}$  &  " 
-                << (( ( ( nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                          nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-                          taunuQCD_JESUP_hist->Integral(0, taunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                          taunuEWK_JESUP_hist->Integral(0, taunuEWK_JESUP_hist->GetNbinsX() + 1) ) )*( 
+                << (( ( ( nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                          nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+                          taunuQCD_JERBETTER_hist->Integral(0, taunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                          taunuEWK_JERBETTER_hist->Integral(0, taunuEWK_JERBETTER_hist->GetNbinsX() + 1) ) )*( 
                           taunuDATAOBS_hist->Integral(0, taunuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                          taunuTOP_JESUP_hist->Integral(0, taunuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                          taunuVV_JESUP_hist->Integral(0, taunuVV_JESUP_hist->GetNbinsX() + 1) + 
-                          taunuQCDmultijet_JESUP_hist->Integral(0, taunuQCDmultijet_JESUP_hist->GetNbinsX() + 1) ) ) ) - 
+                          taunuTOP_JERBETTER_hist->Integral(0, taunuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                          taunuVV_JERBETTER_hist->Integral(0, taunuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                          taunuQCDmultijet_JERBETTER_hist->Integral(0, taunuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) ) ) ) - 
                     ( ( ( nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) + 
                           nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/( 
                           taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
@@ -1285,14 +1285,14 @@ int JESValidation(){//main
                           taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) + 
                           taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
                           taunuQCDmultijet_hist->Integral(0, taunuQCDmultijet_hist->GetNbinsX() + 1) ) ) ) << " & "
-                << (( ( ( nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                          nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-                          taunuQCD_JESDOWN_hist->Integral(0, taunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                          taunuEWK_JESDOWN_hist->Integral(0, taunuEWK_JESDOWN_hist->GetNbinsX() + 1) ) )*( 
+                << (( ( ( nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                          nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+                          taunuQCD_JERWORSE_hist->Integral(0, taunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                          taunuEWK_JERWORSE_hist->Integral(0, taunuEWK_JERWORSE_hist->GetNbinsX() + 1) ) )*( 
                           taunuDATAOBS_hist->Integral(0, taunuDATAOBS_hist->GetNbinsX() + 1) - ( 
-                          taunuTOP_JESDOWN_hist->Integral(0, taunuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                          taunuVV_JESDOWN_hist->Integral(0, taunuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                          taunuQCDmultijet_JESDOWN_hist->Integral(0, taunuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) ) ) ) - 
+                          taunuTOP_JERWORSE_hist->Integral(0, taunuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                          taunuVV_JERWORSE_hist->Integral(0, taunuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                          taunuQCDmultijet_JERWORSE_hist->Integral(0, taunuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) ) ) ) - 
                     ( ( ( nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) + 
                           nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/( 
                           taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
@@ -1313,10 +1313,10 @@ int JESValidation(){//main
       std::cout << " \\hline" << std::endl;
 
       std::cout << " $\\frac{\\text{N}_\\text{MC}^\\text{SR}}{\\text{N}_\\text{MC}^\\text{CR}}$  &  " 
-                << (( ( nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                        nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-                        taunuQCD_JESUP_hist->Integral(0, taunuQCD_JESUP_hist->GetNbinsX() + 1) + 
-                        taunuEWK_JESUP_hist->Integral(0, taunuEWK_JESUP_hist->GetNbinsX() + 1) ) ) - 
+                << (( ( nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                        nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+                        taunuQCD_JERBETTER_hist->Integral(0, taunuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+                        taunuEWK_JERBETTER_hist->Integral(0, taunuEWK_JERBETTER_hist->GetNbinsX() + 1) ) ) - 
                     ( ( nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) + 
                         nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/( 
                         taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
@@ -1325,10 +1325,10 @@ int JESValidation(){//main
                         nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/( 
                         taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
                         taunuEWK_hist->Integral(0, taunuEWK_hist->GetNbinsX() + 1) ) ) << " & "
-                << (( ( nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                        nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-                        taunuQCD_JESDOWN_hist->Integral(0, taunuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-                        taunuEWK_JESDOWN_hist->Integral(0, taunuEWK_JESDOWN_hist->GetNbinsX() + 1) ) ) - 
+                << (( ( nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                        nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+                        taunuQCD_JERWORSE_hist->Integral(0, taunuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+                        taunuEWK_JERWORSE_hist->Integral(0, taunuEWK_JERWORSE_hist->GetNbinsX() + 1) ) ) - 
                     ( ( nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) + 
                         nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/( 
                         taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) + 
@@ -1342,9 +1342,9 @@ int JESValidation(){//main
                 << ( taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) + 
                      taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
                      taunuQCDmultijet_hist->Integral(0, taunuQCDmultijet_hist->GetNbinsX() + 1) -
-                   ( taunuTOP_JESUP_hist->Integral(0, taunuTOP_JESUP_hist->GetNbinsX() + 1) + 
-                     taunuVV_JESUP_hist->Integral(0, taunuVV_JESUP_hist->GetNbinsX() + 1) + 
-                     taunuQCDmultijet_JESUP_hist->Integral(0, taunuQCDmultijet_JESUP_hist->GetNbinsX() + 1) ) )*100/
+                   ( taunuTOP_JERBETTER_hist->Integral(0, taunuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+                     taunuVV_JERBETTER_hist->Integral(0, taunuVV_JERBETTER_hist->GetNbinsX() + 1) + 
+                     taunuQCDmultijet_JERBETTER_hist->Integral(0, taunuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) ) )*100/
                    ( taunuDATAOBS_hist->Integral(0, taunuDATAOBS_hist->GetNbinsX() + 1) - 
                    ( taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) + 
                      taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
@@ -1352,9 +1352,9 @@ int JESValidation(){//main
                 << ( taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) + 
                      taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
                      taunuQCDmultijet_hist->Integral(0, taunuQCDmultijet_hist->GetNbinsX() + 1) -
-                   ( taunuTOP_JESDOWN_hist->Integral(0, taunuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-                     taunuVV_JESDOWN_hist->Integral(0, taunuVV_JESDOWN_hist->GetNbinsX() + 1) + 
-                     taunuQCDmultijet_JESDOWN_hist->Integral(0, taunuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) ) )*100/
+                   ( taunuTOP_JERWORSE_hist->Integral(0, taunuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+                     taunuVV_JERWORSE_hist->Integral(0, taunuVV_JERWORSE_hist->GetNbinsX() + 1) + 
+                     taunuQCDmultijet_JERWORSE_hist->Integral(0, taunuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) ) )*100/
                    ( taunuDATAOBS_hist->Integral(0, taunuDATAOBS_hist->GetNbinsX() + 1) - 
                    ( taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) + 
                      taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) + 
@@ -1366,70 +1366,70 @@ int JESValidation(){//main
       std::cout << " *****************************************" << std::endl;
       // ****************************************
 
-      std::cout << " \\textbf{W($\\tau\\nu$)} Backgrounds    &              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W($\\tau\\nu$)} Backgrounds    &              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{TOP}       &  Integral    & " 
                 << taunuTOP_hist->Integral(0, taunuTOP_hist->GetNbinsX() + 1) << "              & " 
-                << taunuTOP_JESUP_hist->Integral(0, taunuTOP_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << taunuTOP_JESDOWN_hist->Integral(0, taunuTOP_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << taunuTOP_JERBETTER_hist->Integral(0, taunuTOP_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << taunuTOP_JERWORSE_hist->Integral(0, taunuTOP_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << taunuTOP_hist->GetEntries() << "                  & " 
-                << taunuTOP_JESUP_hist->GetEntries() << "                 & "
-                << taunuTOP_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << taunuTOP_JERBETTER_hist->GetEntries() << "                 & "
+                << taunuTOP_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{VV}       &  Integral    & " 
                 << taunuVV_hist->Integral(0, taunuVV_hist->GetNbinsX() + 1) << "              & " 
-                << taunuVV_JESUP_hist->Integral(0, taunuVV_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << taunuVV_JESDOWN_hist->Integral(0, taunuVV_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << taunuVV_JERBETTER_hist->Integral(0, taunuVV_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << taunuVV_JERWORSE_hist->Integral(0, taunuVV_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << taunuVV_hist->GetEntries() << "                  & " 
-                << taunuVV_JESUP_hist->GetEntries() << "                 & "
-                << taunuVV_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << taunuVV_JERBETTER_hist->GetEntries() << "                 & "
+                << taunuVV_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{QCDmultijet}       &  Integral    & " 
                 << taunuQCDmultijet_hist->Integral(0, taunuQCDmultijet_hist->GetNbinsX() + 1) << "              & " 
-                << taunuQCDmultijet_JESUP_hist->Integral(0, taunuQCDmultijet_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << taunuQCDmultijet_JESDOWN_hist->Integral(0, taunuQCDmultijet_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << taunuQCDmultijet_JERBETTER_hist->Integral(0, taunuQCDmultijet_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << taunuQCDmultijet_JERWORSE_hist->Integral(0, taunuQCDmultijet_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                                  &  GetEntries  & " 
                 << taunuQCDmultijet_hist->GetEntries() << "                  & " 
-                << taunuQCDmultijet_JESUP_hist->GetEntries() << "                 & "
-                << taunuQCDmultijet_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << taunuQCDmultijet_JERBETTER_hist->GetEntries() << "                 & "
+                << taunuQCDmultijet_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
-      std::cout << " \\textbf{W($\\tau\\nu$)}     &              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W($\\tau\\nu$)}     &              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{CR}$-QCD}       &  Integral    & " 
                 << taunuQCD_hist->Integral(0, taunuQCD_hist->GetNbinsX() + 1) << "              & " 
-                << taunuQCD_JESUP_hist->Integral(0, taunuQCD_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << taunuQCD_JESDOWN_hist->Integral(0, taunuQCD_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << taunuQCD_JERBETTER_hist->Integral(0, taunuQCD_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << taunuQCD_JERWORSE_hist->Integral(0, taunuQCD_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << taunuQCD_hist->GetEntries() << "                  & " 
-                << taunuQCD_JESUP_hist->GetEntries() << "                 & "
-                << taunuQCD_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << taunuQCD_JERBETTER_hist->GetEntries() << "                 & "
+                << taunuQCD_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{CR}$-EWK}       &  Integral    & " 
                 << taunuEWK_hist->Integral(0, taunuEWK_hist->GetNbinsX() + 1) << "              & " 
-                << taunuEWK_JESUP_hist->Integral(0, taunuEWK_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << taunuEWK_JESDOWN_hist->Integral(0, taunuEWK_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << taunuEWK_JERBETTER_hist->Integral(0, taunuEWK_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << taunuEWK_JERWORSE_hist->Integral(0, taunuEWK_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << taunuEWK_hist->GetEntries() << "                  & " 
-                << taunuEWK_JESUP_hist->GetEntries() << "                 & "
-                << taunuEWK_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << taunuEWK_JERBETTER_hist->GetEntries() << "                 & "
+                << taunuEWK_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{SR}$-QCD}       &  Integral    & " 
                 << nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) << "              & " 
-                << nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << nunuWtaunuQCD_hist->GetEntries() << "                  & " 
-                << nunuWtaunuQCD_JESUP_hist->GetEntries() << "                 & "
-                << nunuWtaunuQCD_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << nunuWtaunuQCD_JERBETTER_hist->GetEntries() << "                 & "
+                << nunuWtaunuQCD_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
       std::cout << " \\multirow{2}*{N$_\\text{MC}^\\text{SR}$-EWK}       &  Integral    & " 
                 << nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) << "              & " 
-                << nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) << "             & "
-                << nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+                << nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+                << nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
       std::cout << "                          &  GetEntries  & " 
                 << nunuWtaunuEWK_hist->GetEntries() << "                  & " 
-                << nunuWtaunuEWK_JESUP_hist->GetEntries() << "                 & "
-                << nunuWtaunuEWK_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+                << nunuWtaunuEWK_JERBETTER_hist->GetEntries() << "                 & "
+                << nunuWtaunuEWK_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
 
 
       std::cout << std::endl;
@@ -1443,7 +1443,7 @@ int JESValidation(){//main
 //       // ****************************************
 //       // ****************************************
 //       // ****************************************
-//       std::cout << " \\textbf{Z($\\mu\\mu$)}              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+//       std::cout << " \\textbf{Z($\\mu\\mu$)}              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
 //       std::cout << " \\hline" << std::endl;
 // 
 //       // ********* Central error *********
@@ -1458,53 +1458,53 @@ int JESValidation(){//main
 //       std::vector<double> errorBKG_mumu_hist;
 //       errorBKG_mumu_hist.push_back(Error(mumuTOP_hist));
 //       errorBKG_mumu_hist.push_back(Error(mumuVV_hist));
-//       // ********* JESUP error *********
-//       std::vector<double> error_mumu_JESUP_hist;
-//       error_mumu_JESUP_hist.push_back(Error(mumuQCD_JESUP_hist));
-//       error_mumu_JESUP_hist.push_back(Error(mumuEWK_JESUP_hist));
+//       // ********* JERBETTER error *********
+//       std::vector<double> error_mumu_JERBETTER_hist;
+//       error_mumu_JERBETTER_hist.push_back(Error(mumuQCD_JERBETTER_hist));
+//       error_mumu_JERBETTER_hist.push_back(Error(mumuEWK_JERBETTER_hist));
 // 
-//       std::vector<double> error_nunuZmumu_JESUP_hist;
-//       error_nunuZmumu_JESUP_hist.push_back(Error(nunuZmumuQCD_JESUP_hist));
-//       error_nunuZmumu_JESUP_hist.push_back(Error(nunuZmumuEWK_JESUP_hist));
+//       std::vector<double> error_nunuZmumu_JERBETTER_hist;
+//       error_nunuZmumu_JERBETTER_hist.push_back(Error(nunuZmumuQCD_JERBETTER_hist));
+//       error_nunuZmumu_JERBETTER_hist.push_back(Error(nunuZmumuEWK_JERBETTER_hist));
 // 
-//       std::vector<double> errorBKG_mumu_JESUP_hist;
-//       errorBKG_mumu_JESUP_hist.push_back(Error(mumuTOP_JESUP_hist));
-//       errorBKG_mumu_JESUP_hist.push_back(Error(mumuVV_JESUP_hist));
-//       // ********* JESDOWN error *********
-//       std::vector<double> error_mumu_JESDOWN_hist;
-//       error_mumu_JESDOWN_hist.push_back(Error(mumuQCD_JESDOWN_hist));
-//       error_mumu_JESDOWN_hist.push_back(Error(mumuEWK_JESDOWN_hist));
+//       std::vector<double> errorBKG_mumu_JERBETTER_hist;
+//       errorBKG_mumu_JERBETTER_hist.push_back(Error(mumuTOP_JERBETTER_hist));
+//       errorBKG_mumu_JERBETTER_hist.push_back(Error(mumuVV_JERBETTER_hist));
+//       // ********* JERWORSE error *********
+//       std::vector<double> error_mumu_JERWORSE_hist;
+//       error_mumu_JERWORSE_hist.push_back(Error(mumuQCD_JERWORSE_hist));
+//       error_mumu_JERWORSE_hist.push_back(Error(mumuEWK_JERWORSE_hist));
 // 
-//       std::vector<double> error_nunuZmumu_JESDOWN_hist;
-//       error_nunuZmumu_JESDOWN_hist.push_back(Error(nunuZmumuQCD_JESDOWN_hist));
-//       error_nunuZmumu_JESDOWN_hist.push_back(Error(nunuZmumuEWK_JESDOWN_hist));
+//       std::vector<double> error_nunuZmumu_JERWORSE_hist;
+//       error_nunuZmumu_JERWORSE_hist.push_back(Error(nunuZmumuQCD_JERWORSE_hist));
+//       error_nunuZmumu_JERWORSE_hist.push_back(Error(nunuZmumuEWK_JERWORSE_hist));
 // 
-//       std::vector<double> errorBKG_mumu_JESDOWN_hist;
-//       errorBKG_mumu_JESDOWN_hist.push_back(Error(mumuTOP_JESDOWN_hist));
-//       errorBKG_mumu_JESDOWN_hist.push_back(Error(mumuVV_JESDOWN_hist));
+//       std::vector<double> errorBKG_mumu_JERWORSE_hist;
+//       errorBKG_mumu_JERWORSE_hist.push_back(Error(mumuTOP_JERWORSE_hist));
+//       errorBKG_mumu_JERWORSE_hist.push_back(Error(mumuVV_JERWORSE_hist));
 // 
 //       std::cout << " N$_\\text{MC}^\\text{CR}$           &  " 
 //                 << mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
 //                    mumuEWK_hist->Integral(0, mumuEWK_hist->GetNbinsX() + 1) 
 //                 << " $\\pm$ " << quadrature( error_mumu_hist ) << " & "
-//                 << mumuQCD_JESUP_hist->Integral(0, mumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                    mumuEWK_JESUP_hist->Integral(0, mumuEWK_JESUP_hist->GetNbinsX() + 1) 
-//                 << " $\\pm$ " << quadrature( error_mumu_JESUP_hist ) << " & "
-//                 << mumuQCD_JESDOWN_hist->Integral(0, mumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                    mumuEWK_JESDOWN_hist->Integral(0, mumuEWK_JESDOWN_hist->GetNbinsX() + 1) 
-//                 << " $\\pm$ " << quadrature( error_mumu_JESDOWN_hist ) 
+//                 << mumuQCD_JERBETTER_hist->Integral(0, mumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                    mumuEWK_JERBETTER_hist->Integral(0, mumuEWK_JERBETTER_hist->GetNbinsX() + 1) 
+//                 << " $\\pm$ " << quadrature( error_mumu_JERBETTER_hist ) << " & "
+//                 << mumuQCD_JERWORSE_hist->Integral(0, mumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                    mumuEWK_JERWORSE_hist->Integral(0, mumuEWK_JERWORSE_hist->GetNbinsX() + 1) 
+//                 << " $\\pm$ " << quadrature( error_mumu_JERWORSE_hist ) 
 //                 << "\\\\ " << std::endl;
 // 
 //       std::cout << " N$_\\text{MC}^\\text{SR}$           &  " 
 //                 << nunuZmumuQCD_hist->Integral(0, nunuZmumuQCD_hist->GetNbinsX() + 1) + 
 //                    nunuZmumuEWK_hist->Integral(0, nunuZmumuEWK_hist->GetNbinsX() + 1) 
 //                 << " $\\pm$ " << quadrature( error_nunuZmumu_hist ) << " & "
-//                 << nunuZmumuQCD_JESUP_hist->Integral(0, nunuZmumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                    nunuZmumuEWK_JESUP_hist->Integral(0, nunuZmumuEWK_JESUP_hist->GetNbinsX() + 1) 
-//                 << " $\\pm$ " << quadrature( error_nunuZmumu_JESUP_hist ) << " & "
-//                 << nunuZmumuQCD_JESDOWN_hist->Integral(0, nunuZmumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                    nunuZmumuEWK_JESDOWN_hist->Integral(0, nunuZmumuEWK_JESDOWN_hist->GetNbinsX() + 1) 
-//                 << " $\\pm$ " << quadrature( error_nunuZmumu_JESDOWN_hist ) 
+//                 << nunuZmumuQCD_JERBETTER_hist->Integral(0, nunuZmumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                    nunuZmumuEWK_JERBETTER_hist->Integral(0, nunuZmumuEWK_JERBETTER_hist->GetNbinsX() + 1) 
+//                 << " $\\pm$ " << quadrature( error_nunuZmumu_JERBETTER_hist ) << " & "
+//                 << nunuZmumuQCD_JERWORSE_hist->Integral(0, nunuZmumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                    nunuZmumuEWK_JERWORSE_hist->Integral(0, nunuZmumuEWK_JERWORSE_hist->GetNbinsX() + 1) 
+//                 << " $\\pm$ " << quadrature( error_nunuZmumu_JERWORSE_hist ) 
 //                 << "\\\\ " << std::endl;
 // 
 //       std::cout << " N$_\\text{data\\_obs}^\\text{CR}$     &  " 
@@ -1517,12 +1517,12 @@ int JESValidation(){//main
 //                 << mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                    mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) 
 //                 << " $\\pm$ " << quadrature( errorBKG_mumu_hist ) << " & "
-//                 << mumuTOP_JESUP_hist->Integral(0, mumuTOP_JESUP_hist->GetNbinsX() + 1) + 
-//                    mumuVV_JESUP_hist->Integral(0, mumuVV_JESUP_hist->GetNbinsX() + 1) 
-//                 << " $\\pm$ " << quadrature( errorBKG_mumu_JESUP_hist ) << " & "
-//                 << mumuTOP_JESDOWN_hist->Integral(0, mumuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-//                    mumuVV_JESDOWN_hist->Integral(0, mumuVV_JESDOWN_hist->GetNbinsX() + 1) 
-//                 << " $\\pm$ " << quadrature( errorBKG_mumu_JESDOWN_hist ) 
+//                 << mumuTOP_JERBETTER_hist->Integral(0, mumuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+//                    mumuVV_JERBETTER_hist->Integral(0, mumuVV_JERBETTER_hist->GetNbinsX() + 1) 
+//                 << " $\\pm$ " << quadrature( errorBKG_mumu_JERBETTER_hist ) << " & "
+//                 << mumuTOP_JERWORSE_hist->Integral(0, mumuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+//                    mumuVV_JERWORSE_hist->Integral(0, mumuVV_JERWORSE_hist->GetNbinsX() + 1) 
+//                 << " $\\pm$ " << quadrature( errorBKG_mumu_JERWORSE_hist ) 
 //                 << "\\\\ " << std::endl;
 // 
 //       std::cout << " \\hline" << std::endl;
@@ -1535,20 +1535,20 @@ int JESValidation(){//main
 //                        mumuDATAOBS_hist->Integral(0, mumuDATAOBS_hist->GetNbinsX() + 1) - ( 
 //                        mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                        mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) ) ) << "             & "
-//                 << ( ( nunuZmumuQCD_JESUP_hist->Integral(0, nunuZmumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                        nunuZmumuEWK_JESUP_hist->Integral(0, nunuZmumuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-//                        mumuQCD_JESUP_hist->Integral(0, mumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                        mumuEWK_JESUP_hist->Integral(0, mumuEWK_JESUP_hist->GetNbinsX() + 1) ) )*( 
+//                 << ( ( nunuZmumuQCD_JERBETTER_hist->Integral(0, nunuZmumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                        nunuZmumuEWK_JERBETTER_hist->Integral(0, nunuZmumuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+//                        mumuQCD_JERBETTER_hist->Integral(0, mumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                        mumuEWK_JERBETTER_hist->Integral(0, mumuEWK_JERBETTER_hist->GetNbinsX() + 1) ) )*( 
 //                        mumuDATAOBS_hist->Integral(0, mumuDATAOBS_hist->GetNbinsX() + 1) - ( 
-//                        mumuTOP_JESUP_hist->Integral(0, mumuTOP_JESUP_hist->GetNbinsX() + 1) + 
-//                        mumuVV_JESUP_hist->Integral(0, mumuVV_JESUP_hist->GetNbinsX() + 1) ) ) << "             & "
-//                 << ( ( nunuZmumuQCD_JESDOWN_hist->Integral(0, nunuZmumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                        nunuZmumuEWK_JESDOWN_hist->Integral(0, nunuZmumuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-//                        mumuQCD_JESDOWN_hist->Integral(0, mumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                        mumuEWK_JESDOWN_hist->Integral(0, mumuEWK_JESDOWN_hist->GetNbinsX() + 1) ) )*( 
+//                        mumuTOP_JERBETTER_hist->Integral(0, mumuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+//                        mumuVV_JERBETTER_hist->Integral(0, mumuVV_JERBETTER_hist->GetNbinsX() + 1) ) ) << "             & "
+//                 << ( ( nunuZmumuQCD_JERWORSE_hist->Integral(0, nunuZmumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                        nunuZmumuEWK_JERWORSE_hist->Integral(0, nunuZmumuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+//                        mumuQCD_JERWORSE_hist->Integral(0, mumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                        mumuEWK_JERWORSE_hist->Integral(0, mumuEWK_JERWORSE_hist->GetNbinsX() + 1) ) )*( 
 //                        mumuDATAOBS_hist->Integral(0, mumuDATAOBS_hist->GetNbinsX() + 1) - ( 
-//                        mumuTOP_JESDOWN_hist->Integral(0, mumuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-//                        mumuVV_JESDOWN_hist->Integral(0, mumuVV_JESDOWN_hist->GetNbinsX() + 1) ) )
+//                        mumuTOP_JERWORSE_hist->Integral(0, mumuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+//                        mumuVV_JERWORSE_hist->Integral(0, mumuVV_JERWORSE_hist->GetNbinsX() + 1) ) )
 //                 << "\\\\ " << std::endl;
 //       std::cout << std::endl;
 // 
@@ -1556,32 +1556,32 @@ int JESValidation(){//main
 //       std::cout << " *****************************************" << std::endl;
 //       // ****************************************
 // 
-//       std::cout << " \\textbf{Z($\\mu\\mu$)}             &  JESUP\\_Impact (\\%)              &  JESDOWN\\_Impact (\\%)\\\\ " << std::endl;
+//       std::cout << " \\textbf{Z($\\mu\\mu$)}             &  JERBETTER\\_Impact (\\%)              &  JERWORSE\\_Impact (\\%)\\\\ " << std::endl;
 //       std::cout << " \\hline" << std::endl;
 // 
 //       std::cout << " N$_\\text{MC}^\\text{CR}$           &  " 
-//                 << (( mumuQCD_JESUP_hist->Integral(0, mumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                       mumuEWK_JESUP_hist->Integral(0, mumuEWK_JESUP_hist->GetNbinsX() + 1) ) - 
+//                 << (( mumuQCD_JERBETTER_hist->Integral(0, mumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                       mumuEWK_JERBETTER_hist->Integral(0, mumuEWK_JERBETTER_hist->GetNbinsX() + 1) ) - 
 //                     ( mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
 //                       mumuEWK_hist->Integral(0, mumuEWK_hist->GetNbinsX() + 1) ))*100/
 //                     ( mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
 //                       mumuEWK_hist->Integral(0, mumuEWK_hist->GetNbinsX() + 1) ) << " & "
-//                 << (( mumuQCD_JESDOWN_hist->Integral(0, mumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                       mumuEWK_JESDOWN_hist->Integral(0, mumuEWK_JESDOWN_hist->GetNbinsX() + 1) ) - 
+//                 << (( mumuQCD_JERWORSE_hist->Integral(0, mumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                       mumuEWK_JERWORSE_hist->Integral(0, mumuEWK_JERWORSE_hist->GetNbinsX() + 1) ) - 
 //                     ( mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
 //                       mumuEWK_hist->Integral(0, mumuEWK_hist->GetNbinsX() + 1) ))*100/
 //                     ( mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
 //                       mumuEWK_hist->Integral(0, mumuEWK_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
 // 
 //       std::cout << " N$_\\text{MC}^\\text{SR}$           &  " 
-//                 << (( nunuZmumuQCD_JESUP_hist->Integral(0, nunuZmumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                       nunuZmumuEWK_JESUP_hist->Integral(0, nunuZmumuEWK_JESUP_hist->GetNbinsX() + 1) ) - 
+//                 << (( nunuZmumuQCD_JERBETTER_hist->Integral(0, nunuZmumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                       nunuZmumuEWK_JERBETTER_hist->Integral(0, nunuZmumuEWK_JERBETTER_hist->GetNbinsX() + 1) ) - 
 //                     ( nunuZmumuQCD_hist->Integral(0, nunuZmumuQCD_hist->GetNbinsX() + 1) + 
 //                       nunuZmumuEWK_hist->Integral(0, nunuZmumuEWK_hist->GetNbinsX() + 1) ))*100/
 //                     ( nunuZmumuQCD_hist->Integral(0, nunuZmumuQCD_hist->GetNbinsX() + 1) + 
 //                       nunuZmumuEWK_hist->Integral(0, nunuZmumuEWK_hist->GetNbinsX() + 1) ) << " & "
-//                 << (( nunuZmumuQCD_JESDOWN_hist->Integral(0, nunuZmumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                       nunuZmumuEWK_JESDOWN_hist->Integral(0, nunuZmumuEWK_JESDOWN_hist->GetNbinsX() + 1) ) - 
+//                 << (( nunuZmumuQCD_JERWORSE_hist->Integral(0, nunuZmumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                       nunuZmumuEWK_JERWORSE_hist->Integral(0, nunuZmumuEWK_JERWORSE_hist->GetNbinsX() + 1) ) - 
 //                     ( nunuZmumuQCD_hist->Integral(0, nunuZmumuQCD_hist->GetNbinsX() + 1) + 
 //                       nunuZmumuEWK_hist->Integral(0, nunuZmumuEWK_hist->GetNbinsX() + 1) ))*100/
 //                     ( nunuZmumuQCD_hist->Integral(0, nunuZmumuQCD_hist->GetNbinsX() + 1) + 
@@ -1592,14 +1592,14 @@ int JESValidation(){//main
 //                 << " 0 " << "\\\\ " << std::endl;
 // 
 //       std::cout << " N$_\\text{backgrounds}^\\text{CR}$  &  " 
-//                 << (( mumuTOP_JESUP_hist->Integral(0, mumuTOP_JESUP_hist->GetNbinsX() + 1) + 
-//                       mumuVV_JESUP_hist->Integral(0, mumuVV_JESUP_hist->GetNbinsX() + 1) ) - 
+//                 << (( mumuTOP_JERBETTER_hist->Integral(0, mumuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+//                       mumuVV_JERBETTER_hist->Integral(0, mumuVV_JERBETTER_hist->GetNbinsX() + 1) ) - 
 //                     ( mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                       mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) ))*100/
 //                     ( mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                       mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) ) << " & "
-//                 << (( mumuTOP_JESDOWN_hist->Integral(0, mumuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-//                       mumuVV_JESDOWN_hist->Integral(0, mumuVV_JESDOWN_hist->GetNbinsX() + 1) ) - 
+//                 << (( mumuTOP_JERWORSE_hist->Integral(0, mumuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+//                       mumuVV_JERWORSE_hist->Integral(0, mumuVV_JERWORSE_hist->GetNbinsX() + 1) ) - 
 //                     ( mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                       mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) ))*100/
 //                     ( mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
@@ -1608,13 +1608,13 @@ int JESValidation(){//main
 //       std::cout << " \\hline" << std::endl;
 // 
 //       std::cout << " N$_\\text{Z($\\mu\\mu$)}^\\text{SR}$  &  " 
-//                 << (( ( ( nunuZmumuQCD_JESUP_hist->Integral(0, nunuZmumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                           nunuZmumuEWK_JESUP_hist->Integral(0, nunuZmumuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-//                           mumuQCD_JESUP_hist->Integral(0, mumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                           mumuEWK_JESUP_hist->Integral(0, mumuEWK_JESUP_hist->GetNbinsX() + 1) ) )*( 
+//                 << (( ( ( nunuZmumuQCD_JERBETTER_hist->Integral(0, nunuZmumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                           nunuZmumuEWK_JERBETTER_hist->Integral(0, nunuZmumuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+//                           mumuQCD_JERBETTER_hist->Integral(0, mumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                           mumuEWK_JERBETTER_hist->Integral(0, mumuEWK_JERBETTER_hist->GetNbinsX() + 1) ) )*( 
 //                           mumuDATAOBS_hist->Integral(0, mumuDATAOBS_hist->GetNbinsX() + 1) - ( 
-//                           mumuTOP_JESUP_hist->Integral(0, mumuTOP_JESUP_hist->GetNbinsX() + 1) + 
-//                           mumuVV_JESUP_hist->Integral(0, mumuVV_JESUP_hist->GetNbinsX() + 1) ) ) ) - 
+//                           mumuTOP_JERBETTER_hist->Integral(0, mumuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+//                           mumuVV_JERBETTER_hist->Integral(0, mumuVV_JERBETTER_hist->GetNbinsX() + 1) ) ) ) - 
 //                     ( ( ( nunuZmumuQCD_hist->Integral(0, nunuZmumuQCD_hist->GetNbinsX() + 1) + 
 //                           nunuZmumuEWK_hist->Integral(0, nunuZmumuEWK_hist->GetNbinsX() + 1) )/( 
 //                           mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
@@ -1629,13 +1629,13 @@ int JESValidation(){//main
 //                           mumuDATAOBS_hist->Integral(0, mumuDATAOBS_hist->GetNbinsX() + 1) - ( 
 //                           mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                           mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) ) ) ) << " & "
-//                 << (( ( ( nunuZmumuQCD_JESDOWN_hist->Integral(0, nunuZmumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                           nunuZmumuEWK_JESDOWN_hist->Integral(0, nunuZmumuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-//                           mumuQCD_JESDOWN_hist->Integral(0, mumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                           mumuEWK_JESDOWN_hist->Integral(0, mumuEWK_JESDOWN_hist->GetNbinsX() + 1) ) )*( 
+//                 << (( ( ( nunuZmumuQCD_JERWORSE_hist->Integral(0, nunuZmumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                           nunuZmumuEWK_JERWORSE_hist->Integral(0, nunuZmumuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+//                           mumuQCD_JERWORSE_hist->Integral(0, mumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                           mumuEWK_JERWORSE_hist->Integral(0, mumuEWK_JERWORSE_hist->GetNbinsX() + 1) ) )*( 
 //                           mumuDATAOBS_hist->Integral(0, mumuDATAOBS_hist->GetNbinsX() + 1) - ( 
-//                           mumuTOP_JESDOWN_hist->Integral(0, mumuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-//                           mumuVV_JESDOWN_hist->Integral(0, mumuVV_JESDOWN_hist->GetNbinsX() + 1) ) ) ) - 
+//                           mumuTOP_JERWORSE_hist->Integral(0, mumuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+//                           mumuVV_JERWORSE_hist->Integral(0, mumuVV_JERWORSE_hist->GetNbinsX() + 1) ) ) ) - 
 //                     ( ( ( nunuZmumuQCD_hist->Integral(0, nunuZmumuQCD_hist->GetNbinsX() + 1) + 
 //                           nunuZmumuEWK_hist->Integral(0, nunuZmumuEWK_hist->GetNbinsX() + 1) )/( 
 //                           mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
@@ -1654,10 +1654,10 @@ int JESValidation(){//main
 //       std::cout << " \\hline" << std::endl;
 // 
 //       std::cout << " $\\frac{\\text{N}_\\text{MC}^\\text{SR}}{\\text{N}_\\text{MC}^\\text{CR}}$  &  " 
-//                 << (( ( nunuZmumuQCD_JESUP_hist->Integral(0, nunuZmumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                         nunuZmumuEWK_JESUP_hist->Integral(0, nunuZmumuEWK_JESUP_hist->GetNbinsX() + 1) )/( 
-//                         mumuQCD_JESUP_hist->Integral(0, mumuQCD_JESUP_hist->GetNbinsX() + 1) + 
-//                         mumuEWK_JESUP_hist->Integral(0, mumuEWK_JESUP_hist->GetNbinsX() + 1) ) ) - 
+//                 << (( ( nunuZmumuQCD_JERBETTER_hist->Integral(0, nunuZmumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                         nunuZmumuEWK_JERBETTER_hist->Integral(0, nunuZmumuEWK_JERBETTER_hist->GetNbinsX() + 1) )/( 
+//                         mumuQCD_JERBETTER_hist->Integral(0, mumuQCD_JERBETTER_hist->GetNbinsX() + 1) + 
+//                         mumuEWK_JERBETTER_hist->Integral(0, mumuEWK_JERBETTER_hist->GetNbinsX() + 1) ) ) - 
 //                     ( ( nunuZmumuQCD_hist->Integral(0, nunuZmumuQCD_hist->GetNbinsX() + 1) + 
 //                         nunuZmumuEWK_hist->Integral(0, nunuZmumuEWK_hist->GetNbinsX() + 1) )/( 
 //                         mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
@@ -1666,10 +1666,10 @@ int JESValidation(){//main
 //                         nunuZmumuEWK_hist->Integral(0, nunuZmumuEWK_hist->GetNbinsX() + 1) )/( 
 //                         mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
 //                         mumuEWK_hist->Integral(0, mumuEWK_hist->GetNbinsX() + 1) ) ) << " & "
-//                 << (( ( nunuZmumuQCD_JESDOWN_hist->Integral(0, nunuZmumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                         nunuZmumuEWK_JESDOWN_hist->Integral(0, nunuZmumuEWK_JESDOWN_hist->GetNbinsX() + 1) )/( 
-//                         mumuQCD_JESDOWN_hist->Integral(0, mumuQCD_JESDOWN_hist->GetNbinsX() + 1) + 
-//                         mumuEWK_JESDOWN_hist->Integral(0, mumuEWK_JESDOWN_hist->GetNbinsX() + 1) ) ) - 
+//                 << (( ( nunuZmumuQCD_JERWORSE_hist->Integral(0, nunuZmumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                         nunuZmumuEWK_JERWORSE_hist->Integral(0, nunuZmumuEWK_JERWORSE_hist->GetNbinsX() + 1) )/( 
+//                         mumuQCD_JERWORSE_hist->Integral(0, mumuQCD_JERWORSE_hist->GetNbinsX() + 1) + 
+//                         mumuEWK_JERWORSE_hist->Integral(0, mumuEWK_JERWORSE_hist->GetNbinsX() + 1) ) ) - 
 //                     ( ( nunuZmumuQCD_hist->Integral(0, nunuZmumuQCD_hist->GetNbinsX() + 1) + 
 //                         nunuZmumuEWK_hist->Integral(0, nunuZmumuEWK_hist->GetNbinsX() + 1) )/( 
 //                         mumuQCD_hist->Integral(0, mumuQCD_hist->GetNbinsX() + 1) + 
@@ -1682,15 +1682,15 @@ int JESValidation(){//main
 //       std::cout << " ( N$_\\text{data\\_obs}^\\text{CR}$ - N$_\\text{backgrounds}^\\text{CR}$)  &  " 
 //                 << ( mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                      mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) -
-//                    ( mumuTOP_JESUP_hist->Integral(0, mumuTOP_JESUP_hist->GetNbinsX() + 1) + 
-//                      mumuVV_JESUP_hist->Integral(0, mumuVV_JESUP_hist->GetNbinsX() + 1) ) )*100/
+//                    ( mumuTOP_JERBETTER_hist->Integral(0, mumuTOP_JERBETTER_hist->GetNbinsX() + 1) + 
+//                      mumuVV_JERBETTER_hist->Integral(0, mumuVV_JERBETTER_hist->GetNbinsX() + 1) ) )*100/
 //                    ( mumuDATAOBS_hist->Integral(0, mumuDATAOBS_hist->GetNbinsX() + 1) - 
 //                    ( mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                      mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) ) ) << " & "
 //                 << ( mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                      mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) -
-//                    ( mumuTOP_JESDOWN_hist->Integral(0, mumuTOP_JESDOWN_hist->GetNbinsX() + 1) + 
-//                      mumuVV_JESDOWN_hist->Integral(0, mumuVV_JESDOWN_hist->GetNbinsX() + 1) ) )*100/
+//                    ( mumuTOP_JERWORSE_hist->Integral(0, mumuTOP_JERWORSE_hist->GetNbinsX() + 1) + 
+//                      mumuVV_JERWORSE_hist->Integral(0, mumuVV_JERWORSE_hist->GetNbinsX() + 1) ) )*100/
 //                    ( mumuDATAOBS_hist->Integral(0, mumuDATAOBS_hist->GetNbinsX() + 1) - 
 //                    ( mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) + 
 //                      mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) ) ) << "\\\\ " << std::endl;
@@ -1701,25 +1701,25 @@ int JESValidation(){//main
 //       std::cout << " *****************************************" << std::endl;
 //       // ****************************************
 // 
-//       std::cout << " \\textbf{Z($\\mu\\mu$)}     &              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+//       std::cout << " \\textbf{Z($\\mu\\mu$)}     &              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
 //       std::cout << " \\hline" << std::endl;
 //       std::cout << " \\multirow{2}*{TOP}       &  Integral    & " 
 //                 << mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) << "              & " 
-//                 << mumuTOP_JESUP_hist->Integral(0, mumuTOP_JESUP_hist->GetNbinsX() + 1) << "             & "
-//                 << mumuTOP_JESDOWN_hist->Integral(0, mumuTOP_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+//                 << mumuTOP_JERBETTER_hist->Integral(0, mumuTOP_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+//                 << mumuTOP_JERWORSE_hist->Integral(0, mumuTOP_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
 //       std::cout << "                          &  GetEntries  & " 
 //                 << mumuTOP_hist->GetEntries() << "                  & " 
-//                 << mumuTOP_JESUP_hist->GetEntries() << "                 & "
-//                 << mumuTOP_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+//                 << mumuTOP_JERBETTER_hist->GetEntries() << "                 & "
+//                 << mumuTOP_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
 //       std::cout << " \\hline" << std::endl;
 //       std::cout << " \\multirow{2}*{VV}       &  Integral    & " 
 //                 << mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) << "              & " 
-//                 << mumuVV_JESUP_hist->Integral(0, mumuVV_JESUP_hist->GetNbinsX() + 1) << "             & "
-//                 << mumuVV_JESDOWN_hist->Integral(0, mumuVV_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+//                 << mumuVV_JERBETTER_hist->Integral(0, mumuVV_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+//                 << mumuVV_JERWORSE_hist->Integral(0, mumuVV_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
 //       std::cout << "                          &  GetEntries  & " 
 //                 << mumuVV_hist->GetEntries() << "                  & " 
-//                 << mumuVV_JESUP_hist->GetEntries() << "                 & "
-//                 << mumuVV_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+//                 << mumuVV_JERBETTER_hist->GetEntries() << "                 & "
+//                 << mumuVV_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
 
        std::cout << std::endl;
 
@@ -1732,7 +1732,7 @@ int JESValidation(){//main
       // ****************************************
       // ****************************************
       // ****************************************
-      std::cout << " \\textbf{W/Z Ratio}              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+      std::cout << " \\textbf{W/Z Ratio}              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
 
       // ********* Central error *********
@@ -1758,114 +1758,114 @@ int JESValidation(){//main
       error_nunuZ_hist.push_back(Error(nunuZvvEWK_hist));
       error_nunuZ_hist.push_back(Error(nunuZvvQCD_hist));
 
-      // ********* JESUP error *********
-      std::vector<double> error_nunuWEWK_JESUP_hist;
-      error_nunuWEWK_JESUP_hist.push_back(Error(nunuWenuEWK_JESUP_hist));
-      error_nunuWEWK_JESUP_hist.push_back(Error(nunuWmunuEWK_JESUP_hist));
-      error_nunuWEWK_JESUP_hist.push_back(Error(nunuWtaunuEWK_JESUP_hist));
+      // ********* JERBETTER error *********
+      std::vector<double> error_nunuWEWK_JERBETTER_hist;
+      error_nunuWEWK_JERBETTER_hist.push_back(Error(nunuWenuEWK_JERBETTER_hist));
+      error_nunuWEWK_JERBETTER_hist.push_back(Error(nunuWmunuEWK_JERBETTER_hist));
+      error_nunuWEWK_JERBETTER_hist.push_back(Error(nunuWtaunuEWK_JERBETTER_hist));
 
-      std::vector<double> error_nunuWQCD_JESUP_hist;
-      error_nunuWQCD_JESUP_hist.push_back(Error(nunuWenuQCD_JESUP_hist));
-      error_nunuWQCD_JESUP_hist.push_back(Error(nunuWmunuQCD_JESUP_hist));
-      error_nunuWQCD_JESUP_hist.push_back(Error(nunuWtaunuQCD_JESUP_hist));
+      std::vector<double> error_nunuWQCD_JERBETTER_hist;
+      error_nunuWQCD_JERBETTER_hist.push_back(Error(nunuWenuQCD_JERBETTER_hist));
+      error_nunuWQCD_JERBETTER_hist.push_back(Error(nunuWmunuQCD_JERBETTER_hist));
+      error_nunuWQCD_JERBETTER_hist.push_back(Error(nunuWtaunuQCD_JERBETTER_hist));
 
-      std::vector<double> error_nunuW_JESUP_hist;
-      error_nunuW_JESUP_hist.push_back(Error(nunuWenuEWK_JESUP_hist));
-      error_nunuW_JESUP_hist.push_back(Error(nunuWmunuEWK_JESUP_hist));
-      error_nunuW_JESUP_hist.push_back(Error(nunuWtaunuEWK_JESUP_hist));
-      error_nunuW_JESUP_hist.push_back(Error(nunuWenuQCD_JESUP_hist));
-      error_nunuW_JESUP_hist.push_back(Error(nunuWmunuQCD_JESUP_hist));
-      error_nunuW_JESUP_hist.push_back(Error(nunuWtaunuQCD_JESUP_hist));
+      std::vector<double> error_nunuW_JERBETTER_hist;
+      error_nunuW_JERBETTER_hist.push_back(Error(nunuWenuEWK_JERBETTER_hist));
+      error_nunuW_JERBETTER_hist.push_back(Error(nunuWmunuEWK_JERBETTER_hist));
+      error_nunuW_JERBETTER_hist.push_back(Error(nunuWtaunuEWK_JERBETTER_hist));
+      error_nunuW_JERBETTER_hist.push_back(Error(nunuWenuQCD_JERBETTER_hist));
+      error_nunuW_JERBETTER_hist.push_back(Error(nunuWmunuQCD_JERBETTER_hist));
+      error_nunuW_JERBETTER_hist.push_back(Error(nunuWtaunuQCD_JERBETTER_hist));
 
-      std::vector<double> error_nunuZ_JESUP_hist;
-      error_nunuZ_JESUP_hist.push_back(Error(nunuZvvEWK_JESUP_hist));
-      error_nunuZ_JESUP_hist.push_back(Error(nunuZvvQCD_JESUP_hist));
+      std::vector<double> error_nunuZ_JERBETTER_hist;
+      error_nunuZ_JERBETTER_hist.push_back(Error(nunuZvvEWK_JERBETTER_hist));
+      error_nunuZ_JERBETTER_hist.push_back(Error(nunuZvvQCD_JERBETTER_hist));
 
-      // ********* JESDOWN error *********
-      std::vector<double> error_nunuWEWK_JESDOWN_hist;
-      error_nunuWEWK_JESDOWN_hist.push_back(Error(nunuWenuEWK_JESDOWN_hist));
-      error_nunuWEWK_JESDOWN_hist.push_back(Error(nunuWmunuEWK_JESDOWN_hist));
-      error_nunuWEWK_JESDOWN_hist.push_back(Error(nunuWtaunuEWK_JESDOWN_hist));
+      // ********* JERWORSE error *********
+      std::vector<double> error_nunuWEWK_JERWORSE_hist;
+      error_nunuWEWK_JERWORSE_hist.push_back(Error(nunuWenuEWK_JERWORSE_hist));
+      error_nunuWEWK_JERWORSE_hist.push_back(Error(nunuWmunuEWK_JERWORSE_hist));
+      error_nunuWEWK_JERWORSE_hist.push_back(Error(nunuWtaunuEWK_JERWORSE_hist));
 
-      std::vector<double> error_nunuWQCD_JESDOWN_hist;
-      error_nunuWQCD_JESDOWN_hist.push_back(Error(nunuWenuQCD_JESDOWN_hist));
-      error_nunuWQCD_JESDOWN_hist.push_back(Error(nunuWmunuQCD_JESDOWN_hist));
-      error_nunuWQCD_JESDOWN_hist.push_back(Error(nunuWtaunuQCD_JESDOWN_hist));
+      std::vector<double> error_nunuWQCD_JERWORSE_hist;
+      error_nunuWQCD_JERWORSE_hist.push_back(Error(nunuWenuQCD_JERWORSE_hist));
+      error_nunuWQCD_JERWORSE_hist.push_back(Error(nunuWmunuQCD_JERWORSE_hist));
+      error_nunuWQCD_JERWORSE_hist.push_back(Error(nunuWtaunuQCD_JERWORSE_hist));
 
-      std::vector<double> error_nunuW_JESDOWN_hist;
-      error_nunuW_JESDOWN_hist.push_back(Error(nunuWenuEWK_JESDOWN_hist));
-      error_nunuW_JESDOWN_hist.push_back(Error(nunuWmunuEWK_JESDOWN_hist));
-      error_nunuW_JESDOWN_hist.push_back(Error(nunuWtaunuEWK_JESDOWN_hist));
-      error_nunuW_JESDOWN_hist.push_back(Error(nunuWenuQCD_JESDOWN_hist));
-      error_nunuW_JESDOWN_hist.push_back(Error(nunuWmunuQCD_JESDOWN_hist));
-      error_nunuW_JESDOWN_hist.push_back(Error(nunuWtaunuQCD_JESDOWN_hist));
+      std::vector<double> error_nunuW_JERWORSE_hist;
+      error_nunuW_JERWORSE_hist.push_back(Error(nunuWenuEWK_JERWORSE_hist));
+      error_nunuW_JERWORSE_hist.push_back(Error(nunuWmunuEWK_JERWORSE_hist));
+      error_nunuW_JERWORSE_hist.push_back(Error(nunuWtaunuEWK_JERWORSE_hist));
+      error_nunuW_JERWORSE_hist.push_back(Error(nunuWenuQCD_JERWORSE_hist));
+      error_nunuW_JERWORSE_hist.push_back(Error(nunuWmunuQCD_JERWORSE_hist));
+      error_nunuW_JERWORSE_hist.push_back(Error(nunuWtaunuQCD_JERWORSE_hist));
 
-      std::vector<double> error_nunuZ_JESDOWN_hist;
-      error_nunuZ_JESDOWN_hist.push_back(Error(nunuZvvEWK_JESDOWN_hist));
-      error_nunuZ_JESDOWN_hist.push_back(Error(nunuZvvQCD_JESDOWN_hist));
+      std::vector<double> error_nunuZ_JERWORSE_hist;
+      error_nunuZ_JERWORSE_hist.push_back(Error(nunuZvvEWK_JERWORSE_hist));
+      error_nunuZ_JERWORSE_hist.push_back(Error(nunuZvvQCD_JERWORSE_hist));
 
 
       std::cout << " W$(e\\nu)_{\\text{EWK}}^\\text{SR}$               &  " 
                 << nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuEWK_hist) << "     & "
-                << nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuEWK_JESUP_hist) << "     & "
-                << nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuEWK_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuEWK_JERBETTER_hist) << "     & "
+                << nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuEWK_JERWORSE_hist) << "\\\\ " << std::endl;
       std::cout << " W$(e\\nu)_{\\text{QCD}}^\\text{SR}$               &  " 
                 << nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuQCD_hist) << "     & "
-                << nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuQCD_JESUP_hist) << "     & "
-                << nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuQCD_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuQCD_JERBETTER_hist) << "     & "
+                << nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWenuQCD_JERWORSE_hist) << "\\\\ " << std::endl;
       std::cout << " W$(e\\nu)^\\text{SR}$               &  " 
                 << nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) + 
                    nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( error_nunuWenu_hist ) << "     & "
-                << nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) + 
-                   nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWenu_JESUP_hist ) << "     & "
-                << nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) + 
-                   nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWenu_JESDOWN_hist ) << "\\\\ " << std::endl;
+                << nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) + 
+                   nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWenu_JERBETTER_hist ) << "     & "
+                << nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) + 
+                   nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWenu_JERWORSE_hist ) << "\\\\ " << std::endl;
 
       std::cout << " \\hline" << std::endl;
 
       std::cout << " W$(\\mu\\nu)_{\\text{EWK}}^\\text{SR}$               &  " 
                 << nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuEWK_hist) << "     & "
-                << nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuEWK_JESUP_hist) << "     & "
-                << nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuEWK_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuEWK_JERBETTER_hist) << "     & "
+                << nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuEWK_JERWORSE_hist) << "\\\\ " << std::endl;
       std::cout << " W$(\\mu\\nu)_{\\text{QCD}}^\\text{SR}$               &  " 
                 << nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuQCD_hist) << "     & "
-                << nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuQCD_JESUP_hist) << "     & "
-                << nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuQCD_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuQCD_JERBETTER_hist) << "     & "
+                << nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWmunuQCD_JERWORSE_hist) << "\\\\ " << std::endl;
       std::cout << " W$(\\mu\\nu)^\\text{SR}$               &  " 
                 << nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) + 
                    nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( error_nunuWmunu_hist ) << "     & "
-                << nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) + 
-                   nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWmunu_JESUP_hist ) << "     & "
-                << nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) + 
-                   nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWmunu_JESDOWN_hist ) << "\\\\ " << std::endl;
+                << nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) + 
+                   nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWmunu_JERBETTER_hist ) << "     & "
+                << nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) + 
+                   nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWmunu_JERWORSE_hist ) << "\\\\ " << std::endl;
 
       std::cout << " \\hline" << std::endl;
 
 
       std::cout << " W$(\\tau\\nu)_{\\text{EWK}}^\\text{SR}$               &  " 
                 << nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuEWK_hist) << "     & "
-                << nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuEWK_JESUP_hist) << "     & "
-                << nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuEWK_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuEWK_JERBETTER_hist) << "     & "
+                << nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuEWK_JERWORSE_hist) << "\\\\ " << std::endl;
       std::cout << " W$(\\tau\\nu)_{\\text{QCD}}^\\text{SR}$               &  " 
                 << nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuQCD_hist) << "     & "
-                << nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuQCD_JESUP_hist) << "     & "
-                << nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuQCD_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuQCD_JERBETTER_hist) << "     & "
+                << nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuWtaunuQCD_JERWORSE_hist) << "\\\\ " << std::endl;
       std::cout << " W$(\\tau\\nu)^\\text{SR}$               &  " 
                 << nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) + 
                    nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) 
                 << " $\\pm$ " << quadrature( error_nunuWtaunu_hist ) << "     & "
-                << nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) + 
-                   nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWtaunu_JESUP_hist ) << "     & "
-                << nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) + 
-                   nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) 
-                << " $\\pm$ " << quadrature( error_nunuWtaunu_JESDOWN_hist ) << "\\\\ " << std::endl;
+                << nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) + 
+                   nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWtaunu_JERBETTER_hist ) << "     & "
+                << nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) + 
+                   nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) 
+                << " $\\pm$ " << quadrature( error_nunuWtaunu_JERWORSE_hist ) << "\\\\ " << std::endl;
 
       std::cout << " \\hline" << std::endl;
 
@@ -1875,27 +1875,27 @@ int JESValidation(){//main
                    nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) +
                    nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1)
                 << " $\\pm$ " << quadrature(error_nunuWEWK_hist) << "     & "
-                << nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) +
-                   nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) +
-                   nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1)
-                << " $\\pm$ " << quadrature(error_nunuWEWK_JESUP_hist) << "     & "
-                << nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1)
-                << " $\\pm$ " << quadrature(error_nunuWEWK_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1)
+                << " $\\pm$ " << quadrature(error_nunuWEWK_JERBETTER_hist) << "     & "
+                << nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1)
+                << " $\\pm$ " << quadrature(error_nunuWEWK_JERWORSE_hist) << "\\\\ " << std::endl;
       std::cout << " W$_{\\text{QCD}}^\\text{SR}$               &  " 
                 << nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) +
                    nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) +
                    nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1)
                 << " $\\pm$ " << quadrature(error_nunuWQCD_hist) << "     & "
-                << nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) +
-                   nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) +
-                   nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1)
-                << " $\\pm$ " << quadrature(error_nunuWQCD_JESUP_hist) << "     & "
-                << nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1)
-                << " $\\pm$ " << quadrature(error_nunuWQCD_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1)
+                << " $\\pm$ " << quadrature(error_nunuWQCD_JERBETTER_hist) << "     & "
+                << nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1)
+                << " $\\pm$ " << quadrature(error_nunuWQCD_JERWORSE_hist) << "\\\\ " << std::endl;
       std::cout << " W$^\\text{SR}$               &  " 
                 << nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) +
                    nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) +
@@ -1904,43 +1904,43 @@ int JESValidation(){//main
                    nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) +
                    nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1)
                 << " $\\pm$ " << quadrature(error_nunuW_hist) << "     & "
-                << nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) +
-                   nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) +
-                   nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) +
-                   nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) +
-                   nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) +
-                   nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1)
-                << " $\\pm$ " << quadrature(error_nunuW_JESUP_hist) << "     & "
-                << nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1)
-                << " $\\pm$ " << quadrature(error_nunuW_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1)
+                << " $\\pm$ " << quadrature(error_nunuW_JERBETTER_hist) << "     & "
+                << nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1)
+                << " $\\pm$ " << quadrature(error_nunuW_JERWORSE_hist) << "\\\\ " << std::endl;
 
       std::cout << " \\hline" << std::endl;
 
 
       std::cout << " Z$_{\\text{EWK}}^\\text{SR}$               &  " 
                 << nunuZvvEWK_hist->Integral(0, nunuZvvEWK_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvEWK_hist) << "     & "
-                << nunuZvvEWK_JESUP_hist->Integral(0, nunuZvvEWK_JESUP_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvEWK_JESUP_hist) << "     & "
-                << nunuZvvEWK_JESDOWN_hist->Integral(0, nunuZvvEWK_JESDOWN_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvEWK_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuZvvEWK_JERBETTER_hist->Integral(0, nunuZvvEWK_JERBETTER_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvEWK_JERBETTER_hist) << "     & "
+                << nunuZvvEWK_JERWORSE_hist->Integral(0, nunuZvvEWK_JERWORSE_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvEWK_JERWORSE_hist) << "\\\\ " << std::endl;
       std::cout << " Z$_{\\text{QCD}}^\\text{SR}$               &  " 
                 << nunuZvvQCD_hist->Integral(0, nunuZvvQCD_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvQCD_hist) << "     & "
-                << nunuZvvQCD_JESUP_hist->Integral(0, nunuZvvQCD_JESUP_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvQCD_JESUP_hist) << "     & "
-                << nunuZvvQCD_JESDOWN_hist->Integral(0, nunuZvvQCD_JESDOWN_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvQCD_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuZvvQCD_JERBETTER_hist->Integral(0, nunuZvvQCD_JERBETTER_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvQCD_JERBETTER_hist) << "     & "
+                << nunuZvvQCD_JERWORSE_hist->Integral(0, nunuZvvQCD_JERWORSE_hist->GetNbinsX() + 1) << " $\\pm$ " << Error(nunuZvvQCD_JERWORSE_hist) << "\\\\ " << std::endl;
 
       std::cout << " Z$^\\text{SR}$               &  " 
                 << nunuZvvEWK_hist->Integral(0, nunuZvvEWK_hist->GetNbinsX() + 1) +
                    nunuZvvQCD_hist->Integral(0, nunuZvvQCD_hist->GetNbinsX() + 1)
                 << " $\\pm$ " << quadrature(error_nunuZ_hist) << "     & "
-                << nunuZvvEWK_JESUP_hist->Integral(0, nunuZvvEWK_JESUP_hist->GetNbinsX() + 1) +
-                   nunuZvvQCD_JESUP_hist->Integral(0, nunuZvvQCD_JESUP_hist->GetNbinsX() + 1)
-                << " $\\pm$ " << quadrature(error_nunuZ_JESUP_hist) << "     & "
-                << nunuZvvEWK_JESDOWN_hist->Integral(0, nunuZvvEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                   nunuZvvQCD_JESDOWN_hist->Integral(0, nunuZvvQCD_JESDOWN_hist->GetNbinsX() + 1)
-                << " $\\pm$ " << quadrature(error_nunuZ_JESDOWN_hist) << "\\\\ " << std::endl;
+                << nunuZvvEWK_JERBETTER_hist->Integral(0, nunuZvvEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                   nunuZvvQCD_JERBETTER_hist->Integral(0, nunuZvvQCD_JERBETTER_hist->GetNbinsX() + 1)
+                << " $\\pm$ " << quadrature(error_nunuZ_JERBETTER_hist) << "     & "
+                << nunuZvvEWK_JERWORSE_hist->Integral(0, nunuZvvEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                   nunuZvvQCD_JERWORSE_hist->Integral(0, nunuZvvQCD_JERWORSE_hist->GetNbinsX() + 1)
+                << " $\\pm$ " << quadrature(error_nunuZ_JERWORSE_hist) << "\\\\ " << std::endl;
 
       std::cout << " \\hline" << std::endl;
 
@@ -1949,27 +1949,27 @@ int JESValidation(){//main
                      nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) +
                      nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/
                    ( nunuZvvEWK_hist->Integral(0, nunuZvvEWK_hist->GetNbinsX() + 1) ) << "     & "
-                << ( nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) +
-                     nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) +
-                     nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) )/
-                   ( nunuZvvEWK_JESUP_hist->Integral(0, nunuZvvEWK_JESUP_hist->GetNbinsX() + 1) ) << "     & "
-                << ( nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) )/
-                   ( nunuZvvEWK_JESDOWN_hist->Integral(0, nunuZvvEWK_JESDOWN_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
+                << ( nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) )/
+                   ( nunuZvvEWK_JERBETTER_hist->Integral(0, nunuZvvEWK_JERBETTER_hist->GetNbinsX() + 1) ) << "     & "
+                << ( nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) )/
+                   ( nunuZvvEWK_JERWORSE_hist->Integral(0, nunuZvvEWK_JERWORSE_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
       std::cout << " (\\text{W/Z})$_\\text{QCD}$               &  " 
                 << ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) +
                      nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) +
                      nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) )/
                    ( nunuZvvQCD_hist->Integral(0, nunuZvvQCD_hist->GetNbinsX() + 1) ) << "     & "
-                << ( nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) +
-                     nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) +
-                     nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) )/
-                   ( nunuZvvQCD_JESUP_hist->Integral(0, nunuZvvQCD_JESUP_hist->GetNbinsX() + 1) ) << "     & "
-                << ( nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) )/
-                   ( nunuZvvQCD_JESDOWN_hist->Integral(0, nunuZvvQCD_JESDOWN_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
+                << ( nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) )/
+                   ( nunuZvvQCD_JERBETTER_hist->Integral(0, nunuZvvQCD_JERBETTER_hist->GetNbinsX() + 1) ) << "     & "
+                << ( nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) )/
+                   ( nunuZvvQCD_JERWORSE_hist->Integral(0, nunuZvvQCD_JERWORSE_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
 
       std::cout << " \\text{W/Z}               &  " 
                 << ( nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) +
@@ -1980,22 +1980,22 @@ int JESValidation(){//main
                      nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) )/
                    ( nunuZvvEWK_hist->Integral(0, nunuZvvEWK_hist->GetNbinsX() + 1) + 
                      nunuZvvQCD_hist->Integral(0, nunuZvvQCD_hist->GetNbinsX() + 1) ) << "     & "
-                << ( nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) +
-                     nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) +
-                     nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) +
-                     nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) +
-                     nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) +
-                     nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) )/
-                   ( nunuZvvEWK_JESUP_hist->Integral(0, nunuZvvEWK_JESUP_hist->GetNbinsX() + 1) +
-                     nunuZvvQCD_JESUP_hist->Integral(0, nunuZvvQCD_JESUP_hist->GetNbinsX() + 1) ) << "     & "
-                << ( nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) )/
-                   ( nunuZvvEWK_JESDOWN_hist->Integral(0, nunuZvvEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                     nunuZvvQCD_JESDOWN_hist->Integral(0, nunuZvvQCD_JESDOWN_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
+                << ( nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) )/
+                   ( nunuZvvEWK_JERBETTER_hist->Integral(0, nunuZvvEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                     nunuZvvQCD_JERBETTER_hist->Integral(0, nunuZvvQCD_JERBETTER_hist->GetNbinsX() + 1) ) << "     & "
+                << ( nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) )/
+                   ( nunuZvvEWK_JERWORSE_hist->Integral(0, nunuZvvEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                     nunuZvvQCD_JERWORSE_hist->Integral(0, nunuZvvQCD_JERWORSE_hist->GetNbinsX() + 1) ) << "\\\\ " << std::endl;
 
       std::cout << std::endl;
 
@@ -2003,14 +2003,14 @@ int JESValidation(){//main
       std::cout << " *****************************************" << std::endl;
       // ****************************************
 
-      std::cout << " \\textbf{W/Z Ratio}            &  JESUP\\_Impact (\\%)              &  JESDOWN\\_Impact (\\%)\\\\ " << std::endl;
+      std::cout << " \\textbf{W/Z Ratio}            &  JERBETTER\\_Impact (\\%)              &  JERWORSE\\_Impact (\\%)\\\\ " << std::endl;
       std::cout << " \\hline" << std::endl;
 
       std::cout << " (\\text{W/Z})$_\\text{EWK}$           &  " 
-                << ( ( ( nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) +
-                         nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) +
-                         nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) )/
-                       ( nunuZvvEWK_JESUP_hist->Integral(0, nunuZvvEWK_JESUP_hist->GetNbinsX() + 1) ) ) - 
+                << ( ( ( nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) )/
+                       ( nunuZvvEWK_JERBETTER_hist->Integral(0, nunuZvvEWK_JERBETTER_hist->GetNbinsX() + 1) ) ) - 
                      ( ( nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) +
                          nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) +
                          nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/
@@ -2019,10 +2019,10 @@ int JESValidation(){//main
                          nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) +
                          nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/
                        ( nunuZvvEWK_hist->Integral(0, nunuZvvEWK_hist->GetNbinsX() + 1) ) ) << " & "
-                << ( ( ( nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) )/
-                       ( nunuZvvEWK_JESDOWN_hist->Integral(0, nunuZvvEWK_JESDOWN_hist->GetNbinsX() + 1) ) ) - 
+                << ( ( ( nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) )/
+                       ( nunuZvvEWK_JERWORSE_hist->Integral(0, nunuZvvEWK_JERWORSE_hist->GetNbinsX() + 1) ) ) - 
                      ( ( nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) +
                          nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) +
                          nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/
@@ -2032,10 +2032,10 @@ int JESValidation(){//main
                          nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) )/
                        ( nunuZvvEWK_hist->Integral(0, nunuZvvEWK_hist->GetNbinsX() + 1) ) ) << "\\\\ " << std::endl;
       std::cout << " (\\text{W/Z})$_\\text{QCD}$           &  " 
-                << ( ( ( nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) +
-                         nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) +
-                         nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) )/
-                       ( nunuZvvQCD_JESUP_hist->Integral(0, nunuZvvQCD_JESUP_hist->GetNbinsX() + 1) ) ) - 
+                << ( ( ( nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) )/
+                       ( nunuZvvQCD_JERBETTER_hist->Integral(0, nunuZvvQCD_JERBETTER_hist->GetNbinsX() + 1) ) ) - 
                      ( ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) +
                          nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) +
                          nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) )/
@@ -2044,10 +2044,10 @@ int JESValidation(){//main
                          nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) +
                          nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) )/
                        ( nunuZvvQCD_hist->Integral(0, nunuZvvQCD_hist->GetNbinsX() + 1) ) ) << " & "
-                << ( ( ( nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) )/
-                       ( nunuZvvQCD_JESDOWN_hist->Integral(0, nunuZvvQCD_JESDOWN_hist->GetNbinsX() + 1) ) ) - 
+                << ( ( ( nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) )/
+                       ( nunuZvvQCD_JERWORSE_hist->Integral(0, nunuZvvQCD_JERWORSE_hist->GetNbinsX() + 1) ) ) - 
                      ( ( nunuWenuQCD_hist->Integral(0, nunuWenuQCD_hist->GetNbinsX() + 1) +
                          nunuWmunuQCD_hist->Integral(0, nunuWmunuQCD_hist->GetNbinsX() + 1) +
                          nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) )/
@@ -2061,14 +2061,14 @@ int JESValidation(){//main
 
 
       std::cout << " \\text{W/Z}              &  " 
-                << ( ( ( nunuWenuEWK_JESUP_hist->Integral(0, nunuWenuEWK_JESUP_hist->GetNbinsX() + 1) +
-                         nunuWmunuEWK_JESUP_hist->Integral(0, nunuWmunuEWK_JESUP_hist->GetNbinsX() + 1) +
-                         nunuWtaunuEWK_JESUP_hist->Integral(0, nunuWtaunuEWK_JESUP_hist->GetNbinsX() + 1) +
-                         nunuWenuQCD_JESUP_hist->Integral(0, nunuWenuQCD_JESUP_hist->GetNbinsX() + 1) +
-                         nunuWmunuQCD_JESUP_hist->Integral(0, nunuWmunuQCD_JESUP_hist->GetNbinsX() + 1) +
-                         nunuWtaunuQCD_JESUP_hist->Integral(0, nunuWtaunuQCD_JESUP_hist->GetNbinsX() + 1) )/
-                       ( nunuZvvEWK_JESUP_hist->Integral(0, nunuZvvEWK_JESUP_hist->GetNbinsX() + 1) +
-                         nunuZvvQCD_JESUP_hist->Integral(0, nunuZvvQCD_JESUP_hist->GetNbinsX() + 1) ) ) -
+                << ( ( ( nunuWenuEWK_JERBETTER_hist->Integral(0, nunuWenuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuWmunuEWK_JERBETTER_hist->Integral(0, nunuWmunuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuWtaunuEWK_JERBETTER_hist->Integral(0, nunuWtaunuEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuWenuQCD_JERBETTER_hist->Integral(0, nunuWenuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuWmunuQCD_JERBETTER_hist->Integral(0, nunuWmunuQCD_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuWtaunuQCD_JERBETTER_hist->Integral(0, nunuWtaunuQCD_JERBETTER_hist->GetNbinsX() + 1) )/
+                       ( nunuZvvEWK_JERBETTER_hist->Integral(0, nunuZvvEWK_JERBETTER_hist->GetNbinsX() + 1) +
+                         nunuZvvQCD_JERBETTER_hist->Integral(0, nunuZvvQCD_JERBETTER_hist->GetNbinsX() + 1) ) ) -
                      ( ( nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) +
                          nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) +
                          nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) +
@@ -2085,14 +2085,14 @@ int JESValidation(){//main
                          nunuWtaunuQCD_hist->Integral(0, nunuWtaunuQCD_hist->GetNbinsX() + 1) )/
                        ( nunuZvvEWK_hist->Integral(0, nunuZvvEWK_hist->GetNbinsX() + 1) + 
                          nunuZvvQCD_hist->Integral(0, nunuZvvQCD_hist->GetNbinsX() + 1) ) )  << "     & "
-                << ( ( ( nunuWenuEWK_JESDOWN_hist->Integral(0, nunuWenuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuWmunuEWK_JESDOWN_hist->Integral(0, nunuWmunuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuWtaunuEWK_JESDOWN_hist->Integral(0, nunuWtaunuEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuWenuQCD_JESDOWN_hist->Integral(0, nunuWenuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuWmunuQCD_JESDOWN_hist->Integral(0, nunuWmunuQCD_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuWtaunuQCD_JESDOWN_hist->Integral(0, nunuWtaunuQCD_JESDOWN_hist->GetNbinsX() + 1) )/
-                       ( nunuZvvEWK_JESDOWN_hist->Integral(0, nunuZvvEWK_JESDOWN_hist->GetNbinsX() + 1) +
-                         nunuZvvQCD_JESDOWN_hist->Integral(0, nunuZvvQCD_JESDOWN_hist->GetNbinsX() + 1) ) ) -
+                << ( ( ( nunuWenuEWK_JERWORSE_hist->Integral(0, nunuWenuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuWmunuEWK_JERWORSE_hist->Integral(0, nunuWmunuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuWtaunuEWK_JERWORSE_hist->Integral(0, nunuWtaunuEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuWenuQCD_JERWORSE_hist->Integral(0, nunuWenuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuWmunuQCD_JERWORSE_hist->Integral(0, nunuWmunuQCD_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuWtaunuQCD_JERWORSE_hist->Integral(0, nunuWtaunuQCD_JERWORSE_hist->GetNbinsX() + 1) )/
+                       ( nunuZvvEWK_JERWORSE_hist->Integral(0, nunuZvvEWK_JERWORSE_hist->GetNbinsX() + 1) +
+                         nunuZvvQCD_JERWORSE_hist->Integral(0, nunuZvvQCD_JERWORSE_hist->GetNbinsX() + 1) ) ) -
                      ( ( nunuWenuEWK_hist->Integral(0, nunuWenuEWK_hist->GetNbinsX() + 1) +
                          nunuWmunuEWK_hist->Integral(0, nunuWmunuEWK_hist->GetNbinsX() + 1) +
                          nunuWtaunuEWK_hist->Integral(0, nunuWtaunuEWK_hist->GetNbinsX() + 1) +
@@ -2116,25 +2116,25 @@ std::cout << std::endl;
        std::cout << " *****************************************" << std::endl;
        // ****************************************
  
-//       std::cout << " \\textbf{Z($\\mu\\mu$)}     &              &  Central             &  JESUP              &  JESDOWN\\\\ " << std::endl;
+//       std::cout << " \\textbf{Z($\\mu\\mu$)}     &              &  Central             &  JERBETTER              &  JERWORSE\\\\ " << std::endl;
 //       std::cout << " \\hline" << std::endl;
 //       std::cout << " \\multirow{2}*{TOP}       &  Integral    & " 
 //                 << mumuTOP_hist->Integral(0, mumuTOP_hist->GetNbinsX() + 1) << "              & " 
-//                 << mumuTOP_JESUP_hist->Integral(0, mumuTOP_JESUP_hist->GetNbinsX() + 1) << "             & "
-//                 << mumuTOP_JESDOWN_hist->Integral(0, mumuTOP_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+//                 << mumuTOP_JERBETTER_hist->Integral(0, mumuTOP_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+//                 << mumuTOP_JERWORSE_hist->Integral(0, mumuTOP_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
 //       std::cout << "                          &  GetEntries  & " 
 //                 << mumuTOP_hist->GetEntries() << "                  & " 
-//                 << mumuTOP_JESUP_hist->GetEntries() << "                 & "
-//                 << mumuTOP_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+//                 << mumuTOP_JERBETTER_hist->GetEntries() << "                 & "
+//                 << mumuTOP_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
 //       std::cout << " \\hline" << std::endl;
 //       std::cout << " \\multirow{2}*{VV}       &  Integral    & " 
 //                 << mumuVV_hist->Integral(0, mumuVV_hist->GetNbinsX() + 1) << "              & " 
-//                 << mumuVV_JESUP_hist->Integral(0, mumuVV_JESUP_hist->GetNbinsX() + 1) << "             & "
-//                 << mumuVV_JESDOWN_hist->Integral(0, mumuVV_JESDOWN_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
+//                 << mumuVV_JERBETTER_hist->Integral(0, mumuVV_JERBETTER_hist->GetNbinsX() + 1) << "             & "
+//                 << mumuVV_JERWORSE_hist->Integral(0, mumuVV_JERWORSE_hist->GetNbinsX() + 1) << " \\\\ " << std::endl;
 //       std::cout << "                          &  GetEntries  & " 
 //                 << mumuVV_hist->GetEntries() << "                  & " 
-//                 << mumuVV_JESUP_hist->GetEntries() << "                 & "
-//                 << mumuVV_JESDOWN_hist->GetEntries() << " \\\\ " << std::endl;
+//                 << mumuVV_JERBETTER_hist->GetEntries() << "                 & "
+//                 << mumuVV_JERWORSE_hist->GetEntries() << " \\\\ " << std::endl;
 // 
 //       std::cout << std::endl;
 //       
@@ -2148,19 +2148,19 @@ std::cout << std::endl;
     munuQCD_hist->SetFillColor(kOrange);
     munuQCD_hist->SetLineColor(kOrange);
 
-    munuQCD_JESUP_hist->SetFillStyle(3003);
-    munuQCD_JESUP_hist->SetFillColor(kBlue);
-    munuQCD_JESUP_hist->SetLineColor(kBlue);
+    munuQCD_JERBETTER_hist->SetFillStyle(3003);
+    munuQCD_JERBETTER_hist->SetFillColor(kBlue);
+    munuQCD_JERBETTER_hist->SetLineColor(kBlue);
 
-    munuQCD_JESDOWN_hist->SetFillStyle(3003);
-    munuQCD_JESDOWN_hist->SetFillColor(kRed);
-    munuQCD_JESDOWN_hist->SetLineColor(kRed);
+    munuQCD_JERWORSE_hist->SetFillStyle(3003);
+    munuQCD_JERWORSE_hist->SetFillColor(kRed);
+    munuQCD_JERWORSE_hist->SetLineColor(kRed);
 
 
     st[i] = new THStack(variables[i].c_str(),variables[i].c_str());
-    st[i]->Add(munuQCD_JESUP_hist, "hist");
+    st[i]->Add(munuQCD_JERBETTER_hist, "hist");
     st[i]->Add(munuQCD_hist, "hist");
-    st[i]->Add(munuQCD_JESDOWN_hist, "hist");
+    st[i]->Add(munuQCD_JERWORSE_hist, "hist");
     pad1[i]->cd();
     st[i]->Draw("nostack");
     double upperScale = 1.0/0.7;
@@ -2180,8 +2180,8 @@ std::cout << std::endl;
     stRatio[i] = new THStack();
     stRatio[i]->SetMinimum(0.0);
     stRatio[i]->SetMaximum(2.5);
-    stRatio[i]->Add(munuQCD_JESUP_ratio_hist, "hist");
-    stRatio[i]->Add(munuQCD_JESDOWN_ratio_hist, "hist");
+    stRatio[i]->Add(munuQCD_JERBETTER_ratio_hist, "hist");
+    stRatio[i]->Add(munuQCD_JERWORSE_ratio_hist, "hist");
     pad2[i]->cd();
     stRatio[i]->Draw("nostack");
     double lowerScale = 1.0/0.3;
@@ -2195,7 +2195,7 @@ std::cout << std::endl;
     stRatio[i]->GetYaxis()->SetLabelSize(
       stRatio[i]->GetYaxis()->GetLabelSize() * lowerScale
     );
-    stRatio[i]->GetYaxis()->SetTitle("JES / central    ");
+    stRatio[i]->GetYaxis()->SetTitle("JER / central    ");
     stRatio[i]->GetXaxis()->SetTitleOffset(1.1);
     stRatio[i]->GetYaxis()->SetTitleOffset(0.3);
     stRatio[i]->GetYaxis()->SetTitleSize(
@@ -2209,11 +2209,11 @@ std::cout << std::endl;
 
 
     if ( i == 0 ){
-      mycanvas[i]->Print("JESValidation.pdf[");
+      mycanvas[i]->Print("JERValidation.pdf[");
     }
-    mycanvas[i]->Print("JESValidation.pdf");
+    mycanvas[i]->Print("JERValidation.pdf");
     if ( i == nR-1 ){
-      mycanvas[i]->Print("JESValidation.pdf]");
+      mycanvas[i]->Print("JERValidation.pdf]");
     }
 
   }//endof loop over variable of interest

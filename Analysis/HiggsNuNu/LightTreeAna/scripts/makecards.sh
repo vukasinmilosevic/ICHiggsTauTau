@@ -8,9 +8,9 @@ fi
 
 DOSUBMIT=$1
 DO4PARAMS=$2
-infolder=output_run2ana_170223_datacard/
-outfolder=cards_run2ana_170223_datacard/
-do_tau_veto_unc=false
+infolder=output_run2ana_170224_datacard_newbveto/
+outfolder=cards_run2ana_170224_datacard_newbveto/
+do_tau_veto_unc=true
 wzqcd_syst=1.15
 wzewk_syst=1.15
 blind=true

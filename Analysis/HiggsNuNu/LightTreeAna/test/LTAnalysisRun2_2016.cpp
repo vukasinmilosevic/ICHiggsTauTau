@@ -417,7 +417,8 @@ int main(int argc, char* argv[]){
     tauveto="";
   }
   if (do_bveto){
-    bveto="&&n_jets_csv2medium==0";
+//     bveto="&&n_jets_csv2medium==0";
+    bveto="&&( n_jets_30 < 3 || ( n_jets_30>2 && jet3_csv<0.8484 && ( n_jets_30<4 || ( n_jets_30>3 && jet4_csv<0.8484 ) ) ) )";
   } else {
     bveto="";
   }
