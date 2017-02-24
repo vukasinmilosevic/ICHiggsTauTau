@@ -16,13 +16,51 @@ int makeMuonRun2DTxtFiles2016(){//main
   TFile *muIso[2];
   muIso[0] = TFile::Open("Summer16_muonIso_BCDEF.root");
   muIso[1] = TFile::Open("Summer16_muonIso_GH.root");
-
+  TFile *muRatios_ = TFile::Open("Tracking_EfficienciesAndSF_BCDEFGH.root");
 
   double extraIdSyst = 0;//sqrt(pow(0.01,2)+pow(0.005,2)); //On top of the "usual" systematcis for ID (1%) from the tag-and-probe method documented here, due to the known effect of HIPs on tracker efficiency it is recommended to add an additinal 0.5% systematic in quadrature.
   double extraIsoSyst = 0;//0.005;
   double extraIsoSyst_tight = 0;//0.01; //For what concerns isolation, the loose isolation working points are rather well modeled in term of pile-up, hence the standard (0.5%) prescription for systematcis holds, whereas it is suggested to increase that value to 1% for tight PF isolation, due to the difference between the sample used to deliver results and the ICHEP dataset.
 
   TH2F *hist_muon[4][3];
+
+  TGraphAsymmErrors *hist_ratios[1];
+
+  muRatios_->cd();
+  hist_ratios[0] = (TGraphAsymmErrors*)gDirectory->Get("ratio_eff_aeta_dr030e030_corr");
+  
+  const unsigned nPts = hist_ratios[0]->GetN();
+  
+  double etaMin_ratios[nPts];
+  double etaMax_ratios[nPts];
+  double Min_ratios[nPts];
+  double Max_ratios[nPts];
+  
+  double etaVal[nPts];
+  double val[nPts];
+
+  for (unsigned ie(0);ie<nPts;++ie){
+    hist_ratios[0]->GetPoint(ie,etaVal[ie],val[ie]);
+    std::cout << " -- central values " << etaVal[ie] << " " << val[ie] << std::endl;
+    etaMin_ratios[ie] = etaVal[ie]-hist_ratios[0]->GetErrorXlow(ie);
+    etaMax_ratios[ie] = etaVal[ie]+hist_ratios[0]->GetErrorXhigh(ie);
+    std::cout << " -- eta min " << etaMin_ratios[ie] << " max " << etaMax_ratios[ie] << std::endl;
+    Min_ratios[ie] = hist_ratios[0]->GetErrorYlow(ie);
+    Max_ratios[ie] = hist_ratios[0]->GetErrorYhigh(ie);
+    std::cout << " -- SF min " << Min_ratios[ie] << " max " << Max_ratios[ie] << std::endl;
+  }
+  
+  std::ostringstream lName_ratios;
+  lName_ratios.str("");
+  lName_ratios << "Summer16_80X_mu_trackingSF.txt";
+  std::ofstream lOut_ratios(lName_ratios.str().c_str());
+  for (unsigned ibin(0); ibin<nPts; ++ibin){//loop on eta bin
+    lOut_ratios << "10 14000 " << etaMin_ratios[ibin] << " " << etaMax_ratios[ibin] << " " << val[ibin] << " " << Min_ratios[ibin] << " " << Max_ratios[ibin] << std::endl;
+  }//loop on eta bin
+
+  lOut_ratios.close();
+  return 1;
+
 
   double lumi[2] = {20.2,16.6};
   double totlumi = lumi[0]+lumi[1];

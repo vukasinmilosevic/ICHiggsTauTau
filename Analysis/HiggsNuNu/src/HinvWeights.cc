@@ -266,6 +266,7 @@ namespace ic {//namespace
       fillVector("input/scale_factors/Summer16_80X_ele_trig_data_eff.txt",15,6,e_trigDataEff_,e_pttrig_,e_etatrig_,true);
       fillVector("input/scale_factors/Summer16_80X_gsf_id_SF.txt",3,30,e_gsfidSF_,gsf_ptbin_,gsf_etabin_,false);
       fillVector("input/scale_factors/Summer16_80X_mu_tight_id_SF.txt",6,8,muTight_idSF_,mu_ptbin_,mu_etabin_,false);
+      fillVector("input/scale_factors/Summer16_80X_mu_trackingSF.txt",1,12,mu_tkSF_,tk_ptbin_,tk_etabin_,false);
 
       fillVector("input/scale_factors/Summer16_80X_ele_veto_id_data_eff.txt",6,10,eVeto_idisoDataEff_,dummypt,dummyeta,true);
       fillVector("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",6,10,eVeto_idisoMCEff_,dummypt,dummyeta,true);
@@ -553,9 +554,9 @@ namespace ic {//namespace
     double mu_weight[3] = {1.0,1.0,1.0};
     for (unsigned iEle(0); iEle<mus.size();++iEle){
       unsigned lBin = findPtEtaBin(mus[iEle]->pt(),mus[iEle]->eta(),mu_ptbin_,mu_etabin_);
-      //unsigned mBin = findPtEtaBin(mus[iEle]->pt(),mus[iEle]->eta(),tk_ptbin_,tk_etabin_);
+      unsigned mBin = findPtEtaBin(mus[iEle]->pt(),mus[iEle]->eta(),tk_ptbin_,tk_etabin_);
       for (unsigned err(0); err<3;++err){
-	mu_weight[err] *= muTight_idisoSF_[err][lBin];// * mu_tkSF_[mBin];
+	mu_weight[err] *= muTight_idisoSF_[err][lBin]*mu_tkSF_[err][mBin];
       }
     }
 
@@ -565,9 +566,9 @@ namespace ic {//namespace
       //check overlap with tight
       if (isTightMuon(loosemus[iEle],mus)) continue;
       unsigned lBin = findPtEtaBin(loosemus[iEle]->pt(),loosemus[iEle]->eta(),mu_ptbin_,mu_etabin_);
-      //unsigned mBin = findPtEtaBin(loosemus[iEle]->pt(),loosemus[iEle]->eta(),tk_ptbin_,tk_etabin_);
+      unsigned mBin = findPtEtaBin(loosemus[iEle]->pt(),loosemus[iEle]->eta(),tk_ptbin_,tk_etabin_);
       for (unsigned err(0); err<3;++err){
-	mu_weight[err] *= muVeto_idisoDataEff_[err][lBin]/muVeto_idisoMCEff_[err][lBin];// * mu_tkSF_[mBin];
+	mu_weight[err] *= muVeto_idisoDataEff_[err][lBin]/muVeto_idisoMCEff_[err][lBin]*mu_tkSF_[err][mBin];
       }
     }
     eventInfo->set_weight("!muTight_idisoSF",mu_weight[0]);
@@ -625,10 +626,10 @@ namespace ic {//namespace
         else eventsWithGenMuon_++;
         if (genParts[iEle]->pt() > 10 && fabs(genParts[iEle]->eta()) < 2.1) {
           unsigned lBin = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),mu_ptbin_,mu_etabin_);
-          //unsigned lBinTk = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),tk_ptbin_,tk_etabin_);
-          //mu_veto_weight *= (1-(muVeto_idisoDataEff_[lBin]*mu_tkDataEff_[lBinTk]))/(1-muVeto_idisoMCEff_[lBin]);
+          unsigned lBinTk = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),tk_ptbin_,tk_etabin_);
 	  for (unsigned err(0); err<3;++err){
-	    mu_veto_weight[err] *= (1-muVeto_idisoDataEff_[err][lBin])/(1-muVeto_idisoMCEff_[err][lBin]);
+	    //mu_veto_weight[err] *= (1-muVeto_idisoDataEff_[err][lBin])/(1-muVeto_idisoMCEff_[err][lBin]);
+	    mu_veto_weight[err] *= (1-(muVeto_idisoDataEff_[err][lBin]*mu_tkSF_[err][lBinTk]))/(1-muVeto_idisoMCEff_[err][lBin]);
 	  }
           //if(mu_veto_weight<0)std::cout<<"Below zero weight:"<<(1-muVeto_idisoDataEff_[lBin])/(1-muVeto_idisoMCEff_[lBin])<<" "<<muVeto_idisoDataEff_[lBin]<<" "<<muVeto_idisoMCEff_[lBin]<<std::endl;//!!
           //if(mu_veto_weight>10000)std::cout<<"Very high weight:"<<(1-muVeto_idisoDataEff_[lBin])/(1-muVeto_idisoMCEff_[lBin])<<" "<<muVeto_idisoDataEff_[lBin]<<" "<<muVeto_idisoMCEff_[lBin]<<" "<<genParts[iEle]->pt()<<" "<<genParts[iEle]->eta()<<std::endl;//!!

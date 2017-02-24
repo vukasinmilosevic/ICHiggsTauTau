@@ -80,10 +80,10 @@ do
     ## To produce all of the hist for datacard
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
     ## To test for one hist
     #HISTSTRING=";p_{T}^{j2} (GeV);Events"
     #SHAPESTRING="jet2_pt(12,40.,250.)"
