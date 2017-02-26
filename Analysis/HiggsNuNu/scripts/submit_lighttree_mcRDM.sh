@@ -7,7 +7,7 @@ PRODUCTION=170201
 PRODUSER=rdimaria
 JPTCUTVAL=40
 
-DATE=170223
+DATE=170227
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -91,7 +91,7 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN
 
   cp $CONFIG $OUTPUTDIR
 
-  for QUEUEDIR in short medium #long
+  for QUEUEDIR in short medium
     do
     if [ "$DOCERN" = "0" ]
       then
@@ -138,9 +138,6 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN
       INPUTPARAMS="filelists/$PRODUCTION/Params${PRODUCTION}.dat"
 
       echo $PREFIX
-
-
-      #sed "s/filelists\/${PRODUCTION}\/$QUEUEDIR\/${PRODUCTION}_MC_//" tmp.txt > tmp2.txt
 
       JOB=MC_`sed "s/\.dat//" tmp2.txt`
 
