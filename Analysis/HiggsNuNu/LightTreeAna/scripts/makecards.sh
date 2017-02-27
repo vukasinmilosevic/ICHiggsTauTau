@@ -8,8 +8,8 @@ fi
 
 DOSUBMIT=$1
 DO4PARAMS=$2
-infolder=output_run2ana_170227 #_datacard_newbveto/
-outfolder=cards_run2ana_170227 #_datacard_newbveto/
+infolder=output_run2ana_170227_datacard #_newbveto/
+outfolder=cards_run2ana_170227
 do_tau_veto_unc=true
 do_b_veto_unc=true
 wzqcd_syst=1.15

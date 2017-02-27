@@ -223,7 +223,7 @@ int main(int argc, char* argv[]){
   analysis->SetEosFolders(eos_path_data,eos_path_mc);
 
   analysis->AddFiles(filelist);
-  if(syst.find("LEPEFF")==syst.npos&&syst!="PUUP"&&syst!="PUDOWN"&&syst.find("TRIG")==syst.npos&&syst.size()!=0){
+  if(syst.find("BTAG")==syst.npos&&syst.find("LEPEFF")==syst.npos&&syst!="PUUP"&&syst!="PUDOWN"&&syst.find("TRIG")==syst.npos&&syst.size()!=0){
     std::cout<<"Syst, taking input from: "<<inputfolder<<"/"<<syst<<std::endl;
     analysis->SetInFolder(inputfolder+"/"+syst);
   }
@@ -417,9 +417,10 @@ int main(int argc, char* argv[]){
     tauveto="";
   }
   if (do_bveto){
-//     bveto="&&n_jets_csv2medium==0";
+    //bveto="&&n_jets_csv2medium==0";
     //bveto="&&( n_jets_30 < 3 || ( n_jets_30>2 && jet3_csv<0.8484 && ( n_jets_30<4 || ( n_jets_30>3 && jet4_csv<0.8484 ) ) ) )";
     bveto="";
+    dataextrasel+="&&n_jets_csv2medium==0";
     if (syst=="BTAGUP") bvetoweight="*weight_0bup_alljets";
     else if (syst=="BTAGDOWN") bvetoweight="*weight_0bdown_alljets";
     else bvetoweight="*weight_0b_alljets";
