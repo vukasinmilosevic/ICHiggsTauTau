@@ -245,10 +245,10 @@ int main(int argc, char* argv[]){
   //SYSTEMATICS
   std::vector<Syst> systematics;
 
-  //std::vector<std::string> tau_veto_unc_affected;
-  //tau_veto_unc_affected.push_back("wtau");
-  //tau_veto_unc_affected.push_back("wtauqcd");
-  //tau_veto_unc_affected.push_back("wtauewk");
+  std::vector<std::string> tau_veto_unc_affected;
+  tau_veto_unc_affected.push_back("wtau");
+  tau_veto_unc_affected.push_back("wtauqcd");
+  tau_veto_unc_affected.push_back("wtauewk");
 
 
   std::vector<std::string> lumi8tevprocsaffected={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","wg","vv","qcd"};
@@ -293,7 +293,7 @@ int main(int argc, char* argv[]){
   tau_veto_unc.set_name("tau_veto_unc")
     .set_latexname("tau veto uncertainty")
     .set_type("constlnN")
-    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_procsaffected(tau_veto_unc_affected) //do_run2?allprocs:allprocsnotqcd)
     .set_constvalue(1.030);
 
   Syst eleeff;
