@@ -8,9 +8,10 @@ fi
 
 DOSUBMIT=$1
 DO4PARAMS=$2
-infolder=output_run2ana_170224_datacard_newbveto/
-outfolder=cards_run2ana_170224_datacard_newbveto/
+infolder=output_run2ana_170227 #_datacard_newbveto/
+outfolder=cards_run2ana_170227 #_datacard_newbveto/
 do_tau_veto_unc=true
+do_b_veto_unc=true
 wzqcd_syst=1.15
 wzewk_syst=1.15
 blind=true
@@ -38,8 +39,8 @@ for channel in enu munu taunu mumu ee qcd nunu
     OUTNAME=$outfolder/$channel/vbfhinv_${channel}_13TeV_4params.txt
   fi
   if (( "$DOSUBMIT" == "0" )); then
-    echo "./bin/makeCountingCard -i $infolder --blind=$blind -o $OUTNAME -m 125 --channel $channel --do_latex true --do_datatop false --zvvstat 0 --qcdrate 0 --mcBkgOnly=true --do_run2=true --do_4params=$DO4PARAMS --histoToIntegrate=$HistToIntegrate --do_tau_veto_unc=$do_tau_veto_unc --wzqcd_syst=$wzqcd_syst --wzewk_syst=$wzewk_syst $extraoptions | tee $outfolder/$channel/card.log"
+    echo "./bin/makeCountingCard -i $infolder --blind=$blind -o $OUTNAME -m 125 --channel $channel --do_latex true --do_datatop false --zvvstat 0 --qcdrate 0 --mcBkgOnly=true --do_run2=true --do_4params=$DO4PARAMS --histoToIntegrate=$HistToIntegrate --do_b_veto_unc=$do_b_veto_unc --do_tau_veto_unc=$do_tau_veto_unc --wzqcd_syst=$wzqcd_syst --wzewk_syst=$wzewk_syst $extraoptions | tee $outfolder/$channel/card.log"
   else
-    ./bin/makeCountingCard -i $infolder --blind=$blind -o $OUTNAME -m 125 --channel $channel --do_latex true --do_datatop false --zvvstat 0 --qcdrate 0 --mcBkgOnly=true --do_run2=true --do_4params=$DO4PARAMS --histoToIntegrate=$HistToIntegrate --do_tau_veto_unc=$do_tau_veto_unc --wzqcd_syst=$wzqcd_syst --wzewk_syst=$wzewk_syst $extraoptions | tee $outfolder/$channel/card_${channel}.log
+    ./bin/makeCountingCard -i $infolder --blind=$blind -o $OUTNAME -m 125 --channel $channel --do_latex true --do_datatop false --zvvstat 0 --qcdrate 0 --mcBkgOnly=true --do_run2=true --do_4params=$DO4PARAMS --histoToIntegrate=$HistToIntegrate --do_b_veto_unc=$do_b_veto_unc --do_tau_veto_unc=$do_tau_veto_unc --wzqcd_syst=$wzqcd_syst --wzewk_syst=$wzewk_syst $extraoptions | tee $outfolder/$channel/card_${channel}.log
   fi
 done

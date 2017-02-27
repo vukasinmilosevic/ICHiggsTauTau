@@ -1,13 +1,14 @@
+n_jets_csv2medium(5,0,5);n_{bjets};Events
 m_mumu(12,60.,120.)	;m_{#mu#mu};Events
-pt_mumu(15,0.,400.)	;p_{T}^{#mu#mu};Events
+pt_mumu(20,0.,600.)	;p_{T}^{#mu#mu};Events
 mu1_pt(22,20.,360.)	;p_{T}(lead muon) (GeV);Events
 mu1_eta(30,-2.5,2.5)	;#eta(lead muon) (GeV);Events
 mu2_pt(17,20.,275.)	;p_{T}(sublead muon) (GeV);Events
 mu2_eta(30,-2.5,2.5)	;#eta(sublead muon) (GeV);Events 
 n_vertices(20,0,40)	;n_{vtx};Events
-jet1_pt(28,40.,500.)	;p_{T}^{j1} (GeV);Events
+jet1_pt(28,80.,500.)	;p_{T}^{j1} (GeV);Events
 jet2_pt(12,40.,250.)	;p_{T}^{j2} (GeV);Events
-jet1_uncorpt(28,40.,500.)	;uncor p_{T}^{j1} (GeV);Events
+jet1_uncorpt(28,80.,500.)	;uncor p_{T}^{j1} (GeV);Events
 jet2_uncorpt(12,40.,250.)	;uncor p_{T}^{j2} (GeV);Events
 jet1_eta(25,-5,5)	;#eta^{j1} (GeV);Events
 jet2_eta(25,-5,5)	;#eta^{j2} (GeV);Events
@@ -20,7 +21,7 @@ dijet_M(10,800.,3000.)	;M_{jj} (GeV);Events
 dijet_dphi(15,0.,3.1416)	;#Delta#phi_{jj};Events
 dijet_deta(10,3.6,5.5)	;#Delta#eta_{jj};Events
 dijet_sumeta(20,-5,5)	;#eta_{j1}+#eta_{j2};Events
-jetmetnomu_mindphi(8,2.3,3.1416)	;#Delta#phi(E_{T}^{miss},j_{1,2});Events
+jetmetnomu_mindphi(20,0,3.1416)	;#Delta#phi(E_{T}^{miss},j_{1,2});Events
 alljetsmetnomu_mindphi(20,0,3.1416)	;#Delta#phi(E_{T,no-#mu}^{miss},j);Events
 metnomu_significance(20,0.,300.)	;S;Events
 jetunclet_mindphi(22,0,3.1416)	;min #Delta#phi(j,E_{T}^{uncl});Events

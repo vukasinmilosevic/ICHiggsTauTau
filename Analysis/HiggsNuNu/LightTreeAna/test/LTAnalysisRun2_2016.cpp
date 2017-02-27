@@ -406,7 +406,7 @@ int main(int argc, char* argv[]){
   std::string zextrasigcat;
 
   std::string tauveto;
-  std::string bveto;
+  std::string bveto,bvetoweight;
   std::string met_cut;
   std::string lep_mt_cut;
 
@@ -418,9 +418,14 @@ int main(int argc, char* argv[]){
   }
   if (do_bveto){
 //     bveto="&&n_jets_csv2medium==0";
-    bveto="&&( n_jets_30 < 3 || ( n_jets_30>2 && jet3_csv<0.8484 && ( n_jets_30<4 || ( n_jets_30>3 && jet4_csv<0.8484 ) ) ) )";
+    //bveto="&&( n_jets_30 < 3 || ( n_jets_30>2 && jet3_csv<0.8484 && ( n_jets_30<4 || ( n_jets_30>3 && jet4_csv<0.8484 ) ) ) )";
+    bveto="";
+    if (syst=="BTAGUP") bvetoweight="*weight_0bup_alljets";
+    else if (syst=="BTAGDOWN") bvetoweight="*weight_0bdown_alljets";
+    else bvetoweight="*weight_0b_alljets";
   } else {
     bveto="";
+    bvetoweight="";
   }
 
   if (met_cutval>0){
@@ -493,6 +498,7 @@ int main(int argc, char* argv[]){
 
   std::ostringstream mcweightsystfactor;
   mcweightsystfactor << "*" << lumiSF;
+  mcweightsystfactor << bvetoweight;
   if(syst=="PUUP") mcweightsystfactor << "*puweight_up_scale";
   if(syst=="PUDOWN") mcweightsystfactor << "*puweight_down_scale";
   
@@ -506,12 +512,16 @@ int main(int argc, char* argv[]){
   if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd"){
     if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleVeto_up/weight_eleVeto";
     if (syst=="LEPEFF_ELEDOWN") mcweightsystfactor<<"*weight_eleVeto_down/weight_eleVeto";
+    if (syst=="LEPEFF_GSFUP") mcweightsystfactor<<"*weight_eleVeto_gsfup/weight_eleVeto";
+    if (syst=="LEPEFF_GSFDOWN") mcweightsystfactor<<"*weight_eleVeto_gsfdown/weight_eleVeto";
     if (syst=="LEPEFF_MUUP") mcweightsystfactor<<"*weight_muVeto_up/weight_muVeto";
     if (syst=="LEPEFF_MUDOWN") mcweightsystfactor<<"*weight_muVeto_down/weight_muVeto";
   }
   else if (channel=="ee" || channel=="enu") {
     if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleTight_up/weight_eleTight";
     if (syst=="LEPEFF_ELEDOWN") mcweightsystfactor<<"*weight_eleTight_down/weight_eleTight";
+    if (syst=="LEPEFF_GSFUP") mcweightsystfactor<<"*weight_gsfTight_up/weight_gsfTight";
+    if (syst=="LEPEFF_GSFDOWN") mcweightsystfactor<<"*weight_gsfTight_down/weight_gsfTight";
   }
   else if (channel=="mumu" || channel=="munu") {
     if (syst=="LEPEFF_MUUP") mcweightsystfactor<<"*weight_muTight_up/weight_muTight";

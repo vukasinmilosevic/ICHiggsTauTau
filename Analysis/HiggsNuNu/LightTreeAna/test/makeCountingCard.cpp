@@ -25,6 +25,7 @@ Syst::Syst(){
 
 int main(int argc, char* argv[]){
   bool do_tau_veto_unc;
+  bool do_b_veto_unc;
   bool blind=true;
   bool do_datatop;
   bool do_qcdfromshape;
@@ -62,6 +63,7 @@ int main(int argc, char* argv[]){
     ("outname,o",                po::value<std::string>(&outname)->default_value("vbfhinv.txt"))
     ("blind",                    po::value<bool>(&blind)->default_value(true))
     ("do_tau_veto_unc",          po::value<bool>(&do_tau_veto_unc)->default_value(false))
+    ("do_b_veto_unc",            po::value<bool>(&do_b_veto_unc)->default_value(false))
     ("do_qcdfromshape,s",        po::value<bool>(&do_qcdfromshape)->default_value(false))
     ("do_qcdfromnumber,q",       po::value<bool>(&do_qcdfromnumber)->default_value(true))
     ("do_ggh,g",                 po::value<bool>(&do_ggh)->default_value(true))
@@ -220,10 +222,14 @@ int main(int argc, char* argv[]){
   TFile* uesdown=new TFile((indir+"/UESDOWN/"+channel+".root").c_str());
   TFile* eleup=new TFile((indir+"/LEPEFF_ELEUP/"+channel+".root").c_str());
   TFile* eledown=new TFile((indir+"/LEPEFF_ELEDOWN/"+channel+".root").c_str());
+  TFile* gsfup=new TFile((indir+"/LEPEFF_GSFUP/"+channel+".root").c_str());
+  TFile* gsfdown=new TFile((indir+"/LEPEFF_GSFDOWN/"+channel+".root").c_str());
   TFile* muup=new TFile((indir+"/LEPEFF_MUUP/"+channel+".root").c_str());
   TFile* mudown=new TFile((indir+"/LEPEFF_MUDOWN/"+channel+".root").c_str());
   TFile* puup=new TFile((indir+"/PUUP/"+channel+".root").c_str());
   TFile* pudown=new TFile((indir+"/PUDOWN/"+channel+".root").c_str());
+  TFile* btagup=new TFile((indir+"/BTAGUP/"+channel+".root").c_str());
+  TFile* btagdown=new TFile((indir+"/BTAGDOWN/"+channel+".root").c_str());
 
   //trigger
   TFile* trigup=new TFile((indir+"/TRIGUP/"+channel+".root").c_str());
@@ -239,18 +245,11 @@ int main(int argc, char* argv[]){
   //SYSTEMATICS
   std::vector<Syst> systematics;
 
-  std::vector<std::string> tau_veto_unc_affected;
+  //std::vector<std::string> tau_veto_unc_affected;
+  //tau_veto_unc_affected.push_back("wtau");
+  //tau_veto_unc_affected.push_back("wtauqcd");
+  //tau_veto_unc_affected.push_back("wtauewk");
 
-  tau_veto_unc_affected.push_back("wtau");
-  tau_veto_unc_affected.push_back("wtauqcd");
-  tau_veto_unc_affected.push_back("wtauewk");
-
-  Syst tau_veto_unc;
-  tau_veto_unc.set_name("tau_veto_unc")
-  .set_latexname("tau veto uncertainty")
-  .set_type("constlnN")
-  .set_procsaffected(tau_veto_unc_affected)
-  .set_constvalue(1.030);
 
   std::vector<std::string> lumi8tevprocsaffected={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","wg","vv","qcd"};
   if (mcBkgOnly) {
@@ -289,19 +288,35 @@ int main(int argc, char* argv[]){
   std::vector<std::string> allprocsnotqcd={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","wg","vv"};
   std::vector<std::string> ggHprocs={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","ggH"};
   std::vector<std::string> qqHprocs={"qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","qqH"};
+
+  Syst tau_veto_unc;
+  tau_veto_unc.set_name("tau_veto_unc")
+    .set_latexname("tau veto uncertainty")
+    .set_type("constlnN")
+    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_constvalue(1.030);
+
   Syst eleeff;
   eleeff.set_name("CMS_eff_e")
     .set_latexname("Electron efficiency")
     .set_type("fromfilelnN")
-    .set_procsaffected(allprocsnotqcd)
+    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
     .set_uptfile(eleup)
     .set_downtfile(eledown);
+
+  Syst gsfeff;
+  gsfeff.set_name("CMS_eff_gsf")
+    .set_latexname("Electron GSF efficiency")
+    .set_type("fromfilelnN")
+    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_uptfile(gsfup)
+    .set_downtfile(gsfdown);
 
   Syst mueff;
   mueff.set_name("CMS_eff_m")
     .set_latexname("Muon efficiency")
     .set_type("fromfilelnN")
-    .set_procsaffected(allprocsnotqcd)
+    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
     .set_uptfile(muup)
     .set_downtfile(mudown);
 
@@ -320,6 +335,14 @@ int main(int argc, char* argv[]){
     .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
     .set_uptfile(jerbetter)
     .set_downtfile(jerworse);
+
+  Syst btag;
+  btag.set_name("CMS_btag_j")
+    .set_latexname("BTAG SF")
+    .set_type("fromfilelnN")
+    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_uptfile(btagup)
+    .set_downtfile(btagdown);
 
   Syst ues;
   ues.set_name("CMS_scale_met")
@@ -719,10 +742,15 @@ int main(int argc, char* argv[]){
   if (do_tau_veto_unc) {
     systematics.push_back(tau_veto_unc);
   }
+  if (do_b_veto_unc) {
+    systematics.push_back(btag);
+  }
 
   systematics.push_back(lumi8tev);
   systematics.push_back(eleeff);
+  systematics.push_back(gsfeff);
   systematics.push_back(mueff);
+
   //if (!do_run2) 
   systematics.push_back(jes);
   //if (!do_run2) 

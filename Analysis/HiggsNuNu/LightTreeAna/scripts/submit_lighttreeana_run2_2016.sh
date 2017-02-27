@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170224
+DATE=170227
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -28,9 +28,9 @@ CONFIG=scripts/DefaultRun2Config_vetos.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_${DATE}_datacard_newbveto
+JOBDIRPREFIX=jobs_run2ana_${DATE} #_datacard
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE}_datacard_newbveto
+OUTPUTPREFIX=output_run2ana_${DATE} #_datacard
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -65,7 +65,7 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
 echo "JOB name = $JOB"
-for syst in "" JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+for syst in "" #JESUP JESDOWN JERBETTER JERWORSE BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
 #for syst in JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
 do
   mkdir -p $JOBDIR$syst
@@ -75,11 +75,11 @@ do
     JOB=$channels
     #executable expect strings separated by "!"
     ## To produce all of the hist
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
     ## To produce all of the hist for datacard
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
