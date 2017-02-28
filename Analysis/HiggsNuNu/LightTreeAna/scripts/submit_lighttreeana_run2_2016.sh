@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170227
+DATE=170228
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -28,9 +28,9 @@ CONFIG=scripts/DefaultRun2Config_vetos.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_${DATE}_datacard
+JOBDIRPREFIX=jobs_run2ana_${DATE}_nodphicut #_datacard
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE}_datacard
+OUTPUTPREFIX=output_run2ana_${DATE}_nodphicut #_datacard
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -65,13 +65,13 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
 echo "JOB name = $JOB"
-#for syst in " " JESUP JESDOWN JERBETTER JERWORSE BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
-for syst in JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+for syst in "" #JESUP JESDOWN JERBETTER JERWORSE BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+#for syst in JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
 #for syst in JESUP JESDOWN JERBETTER JERWORSE LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in enu munu taunu ee mumu qcd nunu
+  for channels in taunu #enu munu taunu ee mumu qcd nunu
     do
     JOB=$channels
     #executable expect strings separated by "!"
@@ -86,10 +86,10 @@ do
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
     ## To test for one hist
-    HISTSTRING=";p_{T}^{j2} (GeV);Events"
-    SHAPESTRING="jet2_pt(12,40.,250.)"
-    #HISTSTRING=";#Delta#phi_{jj};Events"
-    #SHAPESTRING="dijet_dphi(20,0.,3.1416)"
+    #HISTSTRING=";p_{T}^{j2} (GeV);Events"
+    #SHAPESTRING="jet2_pt(12,40.,250.)"
+    HISTSTRING=";#Delta#phi_{jj};Events"
+    SHAPESTRING="dijet_dphi(20,0.,3.1416)"
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events"
     #SHAPESTRING="metnomuons(25,200.,600.)"
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events!;Forward tag jet #eta;Events"

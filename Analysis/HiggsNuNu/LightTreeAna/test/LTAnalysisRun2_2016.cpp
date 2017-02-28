@@ -1280,23 +1280,23 @@ int main(int argc, char* argv[]){
     if (channel=="gamma"){
       elementvec.push_back(gjetsele);
     }
-    if (channel=="nunu"){
+    if (channel=="nunu"||channel=="qcd"||channel=="mumu"||channel=="ee"){
       elementvec.push_back(qcdwele);
       elementvec.push_back(ewkwele);
     }
-    else if(channel!="mumu" && channel != "ee"){
-      if (channel!="enu" && channel!="taunu"){
+    else { 
+      //if (channel!="enu" && channel!="taunu"){
         elementvec.push_back(qcdwmunuele);
         elementvec.push_back(ewkwmunuele);
-      }
-      if (channel!="munu" && channel!="taunu"){
+	// }
+	//if (channel!="munu" && channel!="taunu"){
         elementvec.push_back(qcdwenuele);
         elementvec.push_back(ewkwenuele);
-      }
-      if (channel!="enu" && channel!="munu"){
+	//}
+	//if (channel!="enu" && channel!="munu"){
         elementvec.push_back(qcdwtaunuele);
         elementvec.push_back(ewkwtaunuele);
-      }
+	//}
     } //else {
     if(channel=="mumu") {
       elementvec.push_back(qcdzmumuele);
@@ -1311,14 +1311,16 @@ int main(int argc, char* argv[]){
     elementvec.push_back(qcdele);
     elementvec.push_back(vvele);
 
-    if(channel=="nunu" || channel=="qcd") {
+    if(channel=="nunu" || channel=="qcd" || channel=="taunu") {
       elementvec.push_back(qcdznunuele);
       elementvec.push_back(ewkznunuele);
     }
-    if(channel=="nunu") {
+    if(channel=="nunu" || channel=="qcd" || channel=="taunu") {
       elementvec.push_back(sigele);
-      elementvec.push_back(qqHele);
-      elementvec.push_back(ggHele);
+      if (channel=="nunu"){
+	elementvec.push_back(qqHele);
+	elementvec.push_back(ggHele);
+      }
     }
   }
 
