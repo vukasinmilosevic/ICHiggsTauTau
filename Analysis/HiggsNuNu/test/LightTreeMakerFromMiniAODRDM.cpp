@@ -105,6 +105,7 @@ int main(int argc, char* argv[]){
   string jesuncfile;              // File to get JES uncertainties from
   bool reapplyJEC;                // Reapply JEC from txt files
   string jecdata;                 // File list to get JEC to reapply offline
+  double nsigmaUnc;               //number of sigma for JES/JER uncertainty
 
   bool doMetFilters;              // apply cleaning MET filters.
   string filters;
@@ -200,6 +201,7 @@ int main(int argc, char* argv[]){
     ("jesuncfile",            po::value<string>(&jesuncfile)->default_value(""))
     ("reapplyJEC",            po::value<bool>(&reapplyJEC)->default_value(false))
     ("jecdata",               po::value<string>(&jecdata)->default_value(""))
+    ("nsigmaUnc",             po::value<double>(&nsigmaUnc)->default_value(1.))
     ("turnoffpuid",           po::value<bool>(&turnoffpuid)->default_value(false))
     ("useOldLT",              po::value<bool>(&useOldLT)->default_value(false))
     ("doTrigLT",              po::value<bool>(&doTrigLT)->default_value(false))
@@ -815,6 +817,7 @@ int main(int argc, char* argv[]){
     .set_jesuncfile(jesuncfile)
     .set_randomseed(randomseed)
     .set_run2(!is2012)
+    .set_nSigma(nsigmaUnc)
     .set_fs(fs);
   std::vector<JetMETModifier::jetmetCor> corVec;
   if (reapplyJEC && is_data) corVec.push_back(JetMETModifier::jetmetCor::jecData);

@@ -71,6 +71,7 @@ namespace ic {
     CLASS_MEMBER(JetMETModifier, std::string, jesuncfile)
     CLASS_MEMBER(JetMETModifier, int, randomseed)
     CLASS_MEMBER(JetMETModifier, bool, run2)
+    CLASS_MEMBER(JetMETModifier, double, nSigma)
 
     std::vector<JetMETModifier::jetmetCor> corVec_;
     JetMETModifier::jetmetSyst syst_;

@@ -32,6 +32,7 @@ namespace ic {
     type1cor_ = false;
 
     nRho_ = 5;
+    nSigma_ = 1;
 
   }
 
@@ -174,6 +175,8 @@ namespace ic {
         type1cor_ = true;
       }
     }
+
+    std::cout << " --- using " << nSigma_ << " sigma for systematics" << std::endl;
 
     std::cout << " -- Applying jetmetSyst: " << syst_ << std::endl;
 
@@ -386,7 +389,7 @@ namespace ic {
       if (syst_ == jetmetSyst::jesUp || syst_ == jetmetSyst::jesDown) jesVal = applyJESuncertainty(syst_ == jetmetSyst::jesUp?true:false,newjet);
 
       prevjet = newjet;
-      newjet = newjet*(1+jesVal);
+      newjet = newjet*(1+nSigma_*jesVal);
 
       JESjetphidiff->Fill(newjet.phi()-prevjet.phi());
       JESjetetadiff->Fill(newjet.eta()-prevjet.eta());
@@ -587,7 +590,7 @@ namespace ic {
       double err[13] = {0.008,0.013,0.013,0.024,0.011,0.035,0.047,0.053,0.041,0.039,0.071,0.022,0.029};
       double etabounds[14] = {0.0,0.5,0.8,1.1,1.3,1.7,1.9,2.1,2.3,2.5,2.8,3.0,3.2,5.0};
       for (unsigned id(0); id<13;++id){
-        if (abseta>=etabounds[id] && abseta<etabounds[id+1]) JERcencorrfac=val[id]+error*err[id];
+        if (abseta>=etabounds[id] && abseta<etabounds[id+1]) JERcencorrfac=val[id]+error*nSigma_*err[id];
       }
     }
     return JERcencorrfac;
