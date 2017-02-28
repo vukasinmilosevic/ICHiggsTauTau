@@ -703,7 +703,7 @@ int main(int argc, char* argv[]){
     .set_latexname("VV cross-section")
     .set_type("constlnN")
     .set_procsaffected({"vv"})
-    .set_constvalue(1.007);
+    .set_constvalue(1.07);
 
   Syst wxsunc;
   wxsunc.set_name("CMS_VBFHinv_W_xsunc")
