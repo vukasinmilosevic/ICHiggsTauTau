@@ -33,21 +33,24 @@ INPUTPARAMS="filelists/$PRODUCTION/Params${PRODUCTION}.dat"
 CONFIG=scripts/DefaultLightTreeConfig_mc.cfg
 
 
-for SYST in central JESUP0d2 JESDOWN0d2 JESUP0d5 JESDOWN0d5 JESUP JESDOWN JESUP2 JESDOWN2 JESUP2d5 JESDOWN2d5  JERBETTER0d2 JERWORSE0d2 JERBETTER0d5 JERWORSE0d5 JERBETTER JERWORSE JERBETTER2 JERWORSE2 JERBETTER2d5 JERWORSE2d5 #UESUP UESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
+#for SYST in central JESUP0d2 JESDOWN0d2 JESUP0d5 JESDOWN0d5 JESUP JESDOWN JESUP2 JESDOWN2 JESUP2d5 JESDOWN2d5  JERBETTER0d2 JERWORSE0d2 JERBETTER0d5 JERWORSE0d5 JERBETTER JERWORSE JERBETTER2 JERWORSE2 JERBETTER2d5 JERWORSE2d5 UESUP UESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
+for SYST in JESUP0d2 JESDOWN0d2 JESUP0d5 JESDOWN0d5 JESUP2 JESDOWN2 JESUP2d5 JESDOWN2d5 JERBETTER0d2 JERWORSE0d2 JERBETTER0d5 JERWORSE0d5 JERBETTER2 JERWORSE2 JERBETTER2d5 JERWORSE2d5
+#for SYST in JESUP0d5 JESDOWN0d5 JESUP2 JESDOWN2
 #for SYST in JESUP0d2 JESDOWN0d2 JESUP2d5 JESDOWN2d5
 #for SYST in JERBETTER0d5 JERWORSE0d5 JERBETTER2 JERWORSE2
 #for SYST in JERBETTER0d2 JERWORSE0d2 JERBETTER2d5 JERWORSE2d5
+#for SYST in central JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 #for SYST in JESUP JESDOWN JERBETTER
 #for SYST in JERWORSE UESUP UESDOWN
 
   do
   SYSTOPTIONS="--dojessyst=false --dojersyst=false"
 
-  #JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_${DATE}
-  JOBDIRPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/jobs_lighttree_${DATE}
+  JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_${DATE}
+  #JOBDIRPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/jobs_lighttree_${DATE}
   JOBDIR=$JOBDIRPREFIX/
-  #OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_${DATE}
-  OUTPUTPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/output_lighttree_${DATE}
+  OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_${DATE}
+  #OUTPUTPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/output_lighttree_${DATE}
 
   OUTPUTDIR=$OUTPUTPREFIX/
 
@@ -66,6 +69,15 @@ for SYST in central JESUP0d2 JESDOWN0d2 JESUP0d5 JESDOWN0d5 JESUP JESDOWN JESUP2
     then
     SYSTOPTIONS="--dojessyst=true --jesupordown=false --dojersyst=false   --nsigmaUnc=1."
   fi
+
+  if [ "$SYST" = "JESUP0d2" ]
+    then
+    SYSTOPTIONS="--dojessyst=true --jesupordown=true --dojersyst=false --nsigmaUnc=0.2"
+  fi
+  if [ "$SYST" = "JESDOWN0d2" ]
+    then
+    SYSTOPTIONS="--dojessyst=true --jesupordown=false --dojersyst=false --nsigmaUnc=0.2"
+  fi
   if [ "$SYST" = "JESUP0d5" ]
     then
     SYSTOPTIONS="--dojessyst=true --jesupordown=true --dojersyst=false --nsigmaUnc=0.5"
@@ -73,14 +85,6 @@ for SYST in central JESUP0d2 JESDOWN0d2 JESUP0d5 JESDOWN0d5 JESUP JESDOWN JESUP2
   if [ "$SYST" = "JESDOWN0d5" ]
     then
     SYSTOPTIONS="--dojessyst=true --jesupordown=false --dojersyst=false --nsigmaUnc=0.5"
-  fi
-  if [ "$SYST" = "JESDOWN0d2" ]
-    then
-    SYSTOPTIONS="--dojessyst=true --jesupordown=false --dojersyst=false --nsigmaUnc=0.2"
-  fi
-  if [ "$SYST" = "JESUP0d2" ]
-    then
-    SYSTOPTIONS="--dojessyst=true --jesupordown=true --dojersyst=false --nsigmaUnc=0.2"
   fi
   if [ "$SYST" = "JESUP2" ]
     then
@@ -189,8 +193,11 @@ for SYST in central JESUP0d2 JESDOWN0d2 JESUP0d5 JESDOWN0d5 JESUP JESDOWN JESUP2
     #PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}_MC
     PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1095//store/user/${PRODUSER}/${PRODUCTION}_MC
 
-    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
-    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJets*ht400*`
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJets*`
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_ZJets*`
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_DYJetsToLL*`
+    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_EWK*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
       do
       echo "Processing files in "$FILELIST

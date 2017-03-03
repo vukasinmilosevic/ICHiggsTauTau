@@ -27,9 +27,9 @@ CONFIG=scripts/DefaultRun2Config_forOpt.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_${DATE}_forOpt
+JOBDIRPREFIX=jobs_run2ana_${DATE}_forOpt_no_dijet_dphi_cut
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE}_forOpt
+OUTPUTPREFIX=output_run2ana_${DATE}_forOpt_no_dijet_dphi_cut
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
