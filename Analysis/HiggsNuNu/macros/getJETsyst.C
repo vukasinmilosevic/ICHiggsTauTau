@@ -32,25 +32,38 @@ int getJETsyst(){//main
 
 //   sample_name = "MC_WJetsToLNu-mg-ht_enu.root";
 //   sample_name_png = "WJetsToLNu_enu";
-//   sample_name = "MC_WJetsToLNu-mg-ht_munu.root";
-//   sample_name_png = "WJetsToLNu_munu";
-  sample_name = "MC_WJetsToLNu-mg-ht_taunu.root";
-  sample_name_png = "WJetsToLNu_taunu";
+  sample_name = "MC_WJetsToLNu-mg-ht_munu.root";
+  sample_name_png = "WJetsToLNu_munu";
+//   sample_name = "MC_WJetsToLNu-mg-ht_taunu.root";
+//   sample_name_png = "WJetsToLNu_taunu";
 //   sample_name = "MC_ZJetsToNuNu.root";
 //   sample_name_png = "ZJetsToNuNu";
+//   sample_name = "MC_DYJetsToLL.root";
+//   sample_name_png = "DYJetsToLL";
+
+//   sample_name = "MC_EWK_ZToNuNu.root";
+//   sample_name_png = "EWK_ZToNuNu";
+//   sample_name = "MC_EWKZ2Jets_ZToLL.root";
+//   sample_name_png = "EWKZ2Jets_ZToLL";
+//   sample_name = "MC_EWK_WToLNu_enu.root";
+//   sample_name_png = "EWK_WToLNu_enu";
+//   sample_name = "MC_EWK_WToLNu_munu.root";
+//   sample_name_png = "EWK_WToLNu_munu";
+//   sample_name = "MC_EWK_WToLNu_taunu.root";
+//   sample_name_png = "EWK_WToLNu_taunu";
 
 //   CR = "enu";
 //   latexCR = "e#nu CR ";
 //   CR = "munu";
 //   latexCR = "#mu#nu CR ";
-  CR = "taunu";
-  latexCR = "#tau#nu CR ";
+//   CR = "taunu";
+//   latexCR = "#tau#nu CR ";
 //   CR = "ee";
 //   latexCR = "ee CR ";
 //   CR = "mumu";
 //   latexCR = "#mu#mu CR ";
-//   CR = "nunu";
-//   latexCR = "Signal Region ";
+  CR = "nunu";
+  latexCR = "Signal Region ";
   TCanvas *myc = new TCanvas("myc","myc",1);
 
   std::string type[4] = {"JESUP","JESDOWN","JERBETTER","JERWORSE"};
@@ -74,7 +87,7 @@ int getJETsyst(){//main
   if (CR=="ee"){
     lcut = "( jet1_eta*jet2_eta<0 && abs(jet1_eta)<4.7 && abs(jet2_eta)<4.7 && dijet_M>1300 && jet1_pt>80 && dijet_deta>4.0 && jet2_pt>40 && metnoelectrons>200 && nloosephotons==0 && dijet_dphi<1.5 && alljetsmetnomu_mindphi>0.5 && nselelectrons>=1&&nvetomuons==0&&nvetoelectrons==2&&m_ee>60&&m_ee<120&&oppsign_ee&&ele1_pt>40&&met>70&&nvetotaus==0)*weight_leptight*weight_nolepnotrig*weight_0b_alljets*v_nlo_Reweight";
   }
-  if (CR=="munu"){
+  if (CR=="mumu"){
     lcut = "( jet1_eta*jet2_eta<0 && abs(jet1_eta)<4.7 && abs(jet2_eta)<4.7 && dijet_M>1300 && jet1_pt>80 && dijet_deta>4.0 && jet2_pt>40 && metnomuons>200 && nloosephotons==0 && dijet_dphi<1.5 && alljetsmetnomu_mindphi>0.5 && nselmuons>=1&&nvetomuons==2&&nvetoelectrons==0&&m_mumu>60&&m_mumu<120&&oppsign_mumu&&met>70&&nvetotaus==0)*total_weight_leptight*weight_0b_alljets*v_nlo_Reweight";
   }
   if (CR=="nunu" || CR=="qcd"){
@@ -94,7 +107,7 @@ int getJETsyst(){//main
   double err[4][nS];
   TGraphErrors *gr[4];
   TGraphErrors *gr_real[4];
-  TLegend *leg = new TLegend(0.1,0.7,0.35,0.9);
+  TLegend *leg = new TLegend(0.1,0.7,0.4,0.9);
   TString legend;
   for (unsigned iT(0); iT<4; ++iT){//loop on type
     for (unsigned iS(0); iS<nS; ++iS){//loop on syst
@@ -127,7 +140,7 @@ int getJETsyst(){//main
     gr[iT] = new TGraphErrors(nS,sys,val[iT],syserr,err[iT]);
     gr[iT]->SetTitle((latexCR+sample_name_png+";nSigma;Variation").c_str());
     gr[iT]->SetMinimum(-0.5);
-    gr[iT]->SetMaximum(1.);
+    gr[iT]->SetMaximum(1.5);
     gr[iT]->SetMarkerStyle(20+iT);
     gr[iT]->SetMarkerColor(1+iT);
     gr[iT]->SetLineColor(1+iT);
@@ -137,7 +150,7 @@ int getJETsyst(){//main
     gr_real[iT] = new TGraphErrors(nS,sys,realval[iT]);
     gr_real[iT]->SetTitle((latexCR+sample_name_png+";nSigma;Variation").c_str());
     gr_real[iT]->SetMinimum(-0.5);
-    gr_real[iT]->SetMaximum(1.);
+    gr_real[iT]->SetMaximum(1.5);
     gr_real[iT]->SetLineStyle(2);
     gr_real[iT]->SetLineColor(1+iT);
     gr_real[iT]->Draw("PL");
