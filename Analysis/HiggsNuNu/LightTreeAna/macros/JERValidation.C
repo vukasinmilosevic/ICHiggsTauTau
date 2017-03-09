@@ -275,6 +275,15 @@ int JERValidation(){//main
     TH1F * enuVV_JERWORSE_hist  = (TH1F*)enu_JERWORSE_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
     TH1F * enuTOP_JERWORSE_hist = (TH1F*)enu_JERWORSE_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
+    // ********* Ratio_Hits *********
+    TH1F * enuQCD_JERBETTER_ratio_hist   = (TH1F*)enuQCD_JERBETTER_hist->Clone();
+    TH1F * enuQCD_JERWORSE_ratio_hist = (TH1F*)enuQCD_JERWORSE_hist->Clone();
+
+    enuQCD_JERBETTER_ratio_hist->Divide(enuQCD_hist);
+    enuQCD_JERBETTER_ratio_hist->SetLineColor(kOrange);
+    enuQCD_JERWORSE_ratio_hist->Divide(enuQCD_hist);
+    enuQCD_JERWORSE_ratio_hist->SetLineColor(kGreen);
+
 
     // ****************************************
     // ********* Hists for W(munu) CR *********
@@ -2146,7 +2155,6 @@ std::cout << std::endl;
 
 
 
-    //histDOWN->SetTitle(variables[i].c_str());
     munuQCD_hist->SetFillStyle(3003);
     munuQCD_hist->SetFillColor(kRed);
     munuQCD_hist->SetLineColor(kRed);
@@ -2158,6 +2166,18 @@ std::cout << std::endl;
     munuQCD_JERWORSE_hist->SetFillStyle(3003);
     munuQCD_JERWORSE_hist->SetFillColor(kGreen);
     munuQCD_JERWORSE_hist->SetLineColor(kGreen);
+
+    enuQCD_hist->SetFillStyle(3003);
+    enuQCD_hist->SetFillColor(kRed);
+    enuQCD_hist->SetLineColor(kRed);
+
+    enuQCD_JERBETTER_hist->SetFillStyle(3003);
+    enuQCD_JERBETTER_hist->SetFillColor(kOrange);
+    enuQCD_JERBETTER_hist->SetLineColor(kOrange);
+
+    enuQCD_JERWORSE_hist->SetFillStyle(3003);
+    enuQCD_JERWORSE_hist->SetFillColor(kGreen);
+    enuQCD_JERWORSE_hist->SetLineColor(kGreen);
 
 
     gStyle->SetOptStat(1111111);
@@ -2173,10 +2193,25 @@ std::cout << std::endl;
     munuQCD_hist                 ->SetTitle("munuQCD_hist");
     munuQCD_JERWORSE_hist        ->SetTitle("munuQCD_JERWORSE_hist");
 
-    st[i]->Add(munuQCD_JERWORSE_hist, "hist,E0");
-    st[i]->Add(munuQCD_hist, "hist,E0");
-    st[i]->Add(munuQCD_hist, "AXIS");
-    st[i]->Add(munuQCD_JERBETTER_hist, "hist,E0");
+    enuQCD_JERBETTER_hist       ->SetName("enuQCD_JERBETTER_hist");
+    enuQCD_hist                 ->SetName("Single Electron Control Region: QCD We#nu process");
+    enuQCD_JERWORSE_hist        ->SetName("enuQCD_JERWORSE_hist");
+
+    enuQCD_JERBETTER_hist       ->SetTitle("enuQCD_JERBETTER_hist");
+    enuQCD_hist                 ->SetTitle("enuQCD_hist");
+    enuQCD_JERWORSE_hist        ->SetTitle("enuQCD_JERWORSE_hist");
+
+    //munu study
+//     st[i]->Add(munuQCD_JERWORSE_hist, "hist,E0");
+//     st[i]->Add(munuQCD_hist, "hist,E0");
+//     st[i]->Add(munuQCD_hist, "AXIS");
+//     st[i]->Add(munuQCD_JERBETTER_hist, "hist,E0");
+
+    //enu study
+    st[i]->Add(enuQCD_JERWORSE_hist, "hist,E0");
+    st[i]->Add(enuQCD_hist, "hist,E0");
+    st[i]->Add(enuQCD_hist, "AXIS");
+    st[i]->Add(enuQCD_JERBETTER_hist, "hist,E0");
 
     pad1[i]->cd();
     st[i]->Draw("nostack");
@@ -2197,8 +2232,15 @@ std::cout << std::endl;
     stRatio[i] = new THStack();
     stRatio[i]->SetMinimum(0.5);
     stRatio[i]->SetMaximum(1.5);
-    stRatio[i]->Add(munuQCD_JERBETTER_ratio_hist, "histE");
-    stRatio[i]->Add(munuQCD_JERWORSE_ratio_hist, "histE");
+
+    //munu study
+//     stRatio[i]->Add(munuQCD_JERBETTER_ratio_hist, "histE");
+//     stRatio[i]->Add(munuQCD_JERWORSE_ratio_hist, "histE");
+
+    //enu study
+    stRatio[i]->Add(enuQCD_JERBETTER_ratio_hist, "histE");
+    stRatio[i]->Add(enuQCD_JERWORSE_ratio_hist, "histE");
+
     pad2[i]->cd();
     stRatio[i]->Draw("nostack");
     double lowerScale = 1.0/0.3;
@@ -2227,20 +2269,40 @@ std::cout << std::endl;
 
     TLine * line = new TLine();
     line->SetLineStyle(2);
-    double xmin = munuQCD_hist->GetXaxis()->GetBinLowEdge(1);
-    double xmax = munuQCD_hist->GetXaxis()->GetBinLowEdge(munuQCD_hist->GetNbinsX() +1);
+
+    //munu study
+//     double xmin = munuQCD_hist->GetXaxis()->GetBinLowEdge(1);
+//     double xmax = munuQCD_hist->GetXaxis()->GetBinLowEdge(munuQCD_hist->GetNbinsX() +1);
+
+    //enu study
+    double xmin = enuQCD_hist->GetXaxis()->GetBinLowEdge(1);
+    double xmax = enuQCD_hist->GetXaxis()->GetBinLowEdge(enuQCD_hist->GetNbinsX() +1);
+
     line->DrawLine( xmin, 1.0, xmax, 1.0 );
 
 
     TLegend *leg = new TLegend(0.8,0.8,0.9,1.);
-    leg->AddEntry(munuQCD_JERBETTER_ratio_hist,"JERBETTER","l");
-    leg->AddEntry(munuQCD_JERWORSE_ratio_hist,"JERWORSE","l");
+
+    //munu study
+//     leg->AddEntry(munuQCD_JERBETTER_ratio_hist,"JERBETTER","l");
+//     leg->AddEntry(munuQCD_JERWORSE_ratio_hist,"JERWORSE","l");
+
+    //enu study
+    leg->AddEntry(enuQCD_JERBETTER_ratio_hist,"JERBETTER","l");
+    leg->AddEntry(enuQCD_JERWORSE_ratio_hist,"JERWORSE","l");
+
     leg->Draw();
     pad1[i]->cd();
 
     mycanvas[i]->Modified();
     mycanvas[i]->Update();
-    TPaveStats *pave1 = (TPaveStats*)munuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
+    //munu study
+//     TPaveStats *pave1 = (TPaveStats*)munuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
+    //enu study
+    TPaveStats *pave1 = (TPaveStats*)enuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
     pave1->SetName("pave1");
     pave1->SetTextColor(2);
     pave1->SetX1NDC(0.78);
@@ -2249,13 +2311,13 @@ std::cout << std::endl;
     mycanvas[i]->Update();
 
 
-    if ( i == 0 ){
-      mycanvas[i]->Print("JERValidation.pdf[");
-    }
-    mycanvas[i]->Print("JERValidation.pdf");
-    if ( i == nR-1 ){
-      mycanvas[i]->Print("JERValidation.pdf]");
-    }
+//     if ( i == 0 ){
+//       mycanvas[i]->Print("JERValidation.pdf[");
+//     }
+//     mycanvas[i]->Print("JERValidation.pdf");
+//     if ( i == nR-1 ){
+//       mycanvas[i]->Print("JERValidation.pdf]");
+//     }
 
   }//endof loop over variable of interest
 

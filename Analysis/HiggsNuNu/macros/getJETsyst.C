@@ -30,10 +30,10 @@ int getJETsyst(){//main
 
 //   sample_name = "MC_Powheg-VBFHtoinv-mH125.root";
 
-//   sample_name = "MC_WJetsToLNu-mg-ht_enu.root";
-//   sample_name_png = "WJetsToLNu_enu";
-  sample_name = "MC_WJetsToLNu-mg-ht_munu.root";
-  sample_name_png = "WJetsToLNu_munu";
+  sample_name = "MC_WJetsToLNu-mg-ht_enu.root";
+  sample_name_png = "WJetsToLNu_enu";
+//   sample_name = "MC_WJetsToLNu-mg-ht_munu.root";
+//   sample_name_png = "WJetsToLNu_munu";
 //   sample_name = "MC_WJetsToLNu-mg-ht_taunu.root";
 //   sample_name_png = "WJetsToLNu_taunu";
 //   sample_name = "MC_ZJetsToNuNu.root";
@@ -52,8 +52,8 @@ int getJETsyst(){//main
 //   sample_name = "MC_EWK_WToLNu_taunu.root";
 //   sample_name_png = "EWK_WToLNu_taunu";
 
-//   CR = "enu";
-//   latexCR = "e#nu CR ";
+  CR = "enu";
+  latexCR = "e#nu CR ";
 //   CR = "munu";
 //   latexCR = "#mu#nu CR ";
 //   CR = "taunu";
@@ -62,8 +62,8 @@ int getJETsyst(){//main
 //   latexCR = "ee CR ";
 //   CR = "mumu";
 //   latexCR = "#mu#mu CR ";
-  CR = "nunu";
-  latexCR = "Signal Region ";
+//   CR = "nunu";
+//   latexCR = "Signal Region ";
   TCanvas *myc = new TCanvas("myc","myc",1);
 
   std::string type[4] = {"JESUP","JESDOWN","JERBETTER","JERWORSE"};
@@ -140,7 +140,7 @@ int getJETsyst(){//main
     gr[iT] = new TGraphErrors(nS,sys,val[iT],syserr,err[iT]);
     gr[iT]->SetTitle((latexCR+sample_name_png+";nSigma;Variation").c_str());
     gr[iT]->SetMinimum(-0.5);
-    gr[iT]->SetMaximum(1.5);
+    gr[iT]->SetMaximum(1.);
     gr[iT]->SetMarkerStyle(20+iT);
     gr[iT]->SetMarkerColor(1+iT);
     gr[iT]->SetLineColor(1+iT);
@@ -150,7 +150,7 @@ int getJETsyst(){//main
     gr_real[iT] = new TGraphErrors(nS,sys,realval[iT]);
     gr_real[iT]->SetTitle((latexCR+sample_name_png+";nSigma;Variation").c_str());
     gr_real[iT]->SetMinimum(-0.5);
-    gr_real[iT]->SetMaximum(1.5);
+    gr_real[iT]->SetMaximum(1.);
     gr_real[iT]->SetLineStyle(2);
     gr_real[iT]->SetLineColor(1+iT);
     gr_real[iT]->Draw("PL");
@@ -159,7 +159,7 @@ int getJETsyst(){//main
   }//loop on type
   leg->Draw();
   myc->Update();
-  myc->Print(("effectOfJESJER_"+CR+"_"+sample_name_png+".png").c_str());
+  myc->Print(("effectOfJESJER_"+CR+"_"+sample_name_png+"_gridComparison.png").c_str());
 
   return 0;
 }//main

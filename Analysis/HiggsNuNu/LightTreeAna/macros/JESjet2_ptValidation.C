@@ -376,16 +376,19 @@ int JESjet2_ptValidation(){//main
     TH1F * eeEWK_JESDOWN_hist = (TH1F*)ee_JESDOWN_Tfile->Get( Form("zeeewk/%s", variables[i].c_str()) );
     TH1F * eeVV_JESDOWN_hist  = (TH1F*)ee_JESDOWN_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
     TH1F * eeTOP_JESDOWN_hist = (TH1F*)ee_JESDOWN_Tfile->Get( Form("top/%s", variables[i].c_str()) );
+
+//********************************************************************************************************************************************************
     munuQCD_hist                 ->Rebin(4);
-    nunuWmunuQCD_hist            ->Rebin(4);
     munuQCD_JESUP_hist           ->Rebin(4);
-    nunuWmunuQCD_JESUP_hist      ->Rebin(4);
     munuQCD_JESDOWN_hist         ->Rebin(4);
+    nunuWmunuQCD_hist            ->Rebin(4);
+    nunuWmunuQCD_JESUP_hist      ->Rebin(4);
     nunuWmunuQCD_JESDOWN_hist    ->Rebin(4);
+
     // ********* Ratio_Hits *********
     TH1F * nunuWmunuQCD_JESUP_ratio_hist   = (TH1F*)nunuWmunuQCD_JESUP_hist->Clone();
     TH1F * nunuWmunuQCD_JESDOWN_ratio_hist = (TH1F*)nunuWmunuQCD_JESDOWN_hist->Clone();
-    
+
     nunuWmunuQCD_JESUP_ratio_hist->Divide(nunuWmunuQCD_hist);
     nunuWmunuQCD_JESUP_ratio_hist->SetLineColor(kBlue);
     nunuWmunuQCD_JESDOWN_ratio_hist->Divide(nunuWmunuQCD_hist);
@@ -393,12 +396,12 @@ int JESjet2_ptValidation(){//main
     // ********* Ratio_Hits *********
     TH1F * munuQCD_JESUP_ratio_hist   = (TH1F*)munuQCD_JESUP_hist->Clone();
     TH1F * munuQCD_JESDOWN_ratio_hist = (TH1F*)munuQCD_JESDOWN_hist->Clone();
-    
+
     munuQCD_JESUP_ratio_hist->Divide(munuQCD_hist);
     munuQCD_JESUP_ratio_hist->SetLineColor(kBlue);
     munuQCD_JESDOWN_ratio_hist->Divide(munuQCD_hist);
     munuQCD_JESDOWN_ratio_hist->SetLineColor(kRed);
-    
+
 
 
     // ********* Ratio_Hits for ratio plot *********
@@ -410,16 +413,63 @@ int JESjet2_ptValidation(){//main
     munu_nunu_QCD_JESDOWN_ratio_hist->SetLineColor(kGreen);
 
 
+//     enuQCD_hist                 ->Rebin(4);
+//     enuQCD_JESUP_hist           ->Rebin(4);
+//     enuQCD_JESDOWN_hist         ->Rebin(4);
+//     nunuWenuQCD_hist            ->Rebin(4);
+//     nunuWenuQCD_JESUP_hist      ->Rebin(4);
+//     nunuWenuQCD_JESDOWN_hist    ->Rebin(4);
+
+    // ********* Ratio_Hits *********
+    TH1F * nunuWenuQCD_JESUP_ratio_hist   = (TH1F*)nunuWenuQCD_JESUP_hist->Clone();
+    TH1F * nunuWenuQCD_JESDOWN_ratio_hist = (TH1F*)nunuWenuQCD_JESDOWN_hist->Clone();
+
+    nunuWenuQCD_JESUP_ratio_hist->Divide(nunuWenuQCD_hist);
+    nunuWenuQCD_JESUP_ratio_hist->SetLineColor(kBlue);
+    nunuWenuQCD_JESDOWN_ratio_hist->Divide(nunuWenuQCD_hist);
+    nunuWenuQCD_JESDOWN_ratio_hist->SetLineColor(kRed);
+    // ********* Ratio_Hits *********
+    TH1F * enuQCD_JESUP_ratio_hist   = (TH1F*)enuQCD_JESUP_hist->Clone();
+    TH1F * enuQCD_JESDOWN_ratio_hist = (TH1F*)enuQCD_JESDOWN_hist->Clone();
+
+    enuQCD_JESUP_ratio_hist->Divide(enuQCD_hist);
+    enuQCD_JESUP_ratio_hist->SetLineColor(kBlue);
+    enuQCD_JESDOWN_ratio_hist->Divide(enuQCD_hist);
+    enuQCD_JESDOWN_ratio_hist->SetLineColor(kRed);
+
+
+
+    // ********* Ratio_Hits for ratio plot *********
+    TH1F * enu_nunu_QCD_JESUP_ratio_hist   = (TH1F*)enuQCD_JESUP_ratio_hist->Clone();
+    TH1F * enu_nunu_QCD_JESDOWN_ratio_hist   = (TH1F*)enuQCD_JESDOWN_ratio_hist->Clone();
+    enu_nunu_QCD_JESUP_ratio_hist->Divide(nunuWenuQCD_JESUP_ratio_hist);
+    enu_nunu_QCD_JESUP_ratio_hist->SetLineColor(kOrange);
+    enu_nunu_QCD_JESDOWN_ratio_hist->Divide(nunuWenuQCD_JESDOWN_ratio_hist);
+    enu_nunu_QCD_JESDOWN_ratio_hist->SetLineColor(kGreen);
+
+
+
+
+
     munuQCD_hist->SetLineColor(kRed);
-    nunuWmunuQCD_hist->SetLineColor(kBlue);
-
-
     munuQCD_hist                 ->Scale(1./munuQCD_hist             ->Integral());
-    nunuWmunuQCD_hist            ->Scale(1./nunuWmunuQCD_hist        ->Integral());
     munuQCD_JESUP_hist           ->Scale(1./munuQCD_JESUP_hist       ->Integral());
-    nunuWmunuQCD_JESUP_hist      ->Scale(1./nunuWmunuQCD_JESUP_hist  ->Integral());
     munuQCD_JESDOWN_hist         ->Scale(1./munuQCD_JESDOWN_hist     ->Integral());
+
+    nunuWmunuQCD_hist->SetLineColor(kBlue);
+    nunuWmunuQCD_hist            ->Scale(1./nunuWmunuQCD_hist        ->Integral());
+    nunuWmunuQCD_JESUP_hist      ->Scale(1./nunuWmunuQCD_JESUP_hist  ->Integral());
     nunuWmunuQCD_JESDOWN_hist    ->Scale(1./nunuWmunuQCD_JESDOWN_hist->Integral());
+
+    enuQCD_hist->SetLineColor(kRed);
+//     enuQCD_hist                 ->Scale(1./enuQCD_hist             ->Integral());
+//     enuQCD_JESUP_hist           ->Scale(1./enuQCD_JESUP_hist       ->Integral());
+//     enuQCD_JESDOWN_hist         ->Scale(1./enuQCD_JESDOWN_hist     ->Integral());
+
+    nunuWenuQCD_hist->SetLineColor(kBlue);
+//     nunuWenuQCD_hist            ->Scale(1./nunuWenuQCD_hist        ->Integral());
+//     nunuWenuQCD_JESUP_hist      ->Scale(1./nunuWenuQCD_JESUP_hist  ->Integral());
+//     nunuWenuQCD_JESDOWN_hist    ->Scale(1./nunuWenuQCD_JESDOWN_hist->Integral());
 
 
     unsigned nbins_munuQCD_hist = munuQCD_hist->GetXaxis()->GetNbins();
@@ -492,6 +542,75 @@ int JESjet2_ptValidation(){//main
 
 
 
+    unsigned nbins_enuQCD_hist = enuQCD_hist->GetXaxis()->GetNbins();
+    unsigned nbins_nunuWenuQCD_hist = nunuWenuQCD_hist->GetXaxis()->GetNbins();
+
+    double x_enuQCD_hist[nbins_enuQCD_hist], y_enuQCD_hist[nbins_enuQCD_hist], xue_enuQCD_hist[nbins_enuQCD_hist], xde_enuQCD_hist[nbins_enuQCD_hist], yue_enuQCD_hist[nbins_enuQCD_hist], yde_enuQCD_hist[nbins_enuQCD_hist];
+    double x_nunuWenuQCD_hist[nbins_nunuWenuQCD_hist], y_nunuWenuQCD_hist[nbins_nunuWenuQCD_hist], xue_nunuWenuQCD_hist[nbins_nunuWenuQCD_hist], xde_nunuWenuQCD_hist[nbins_nunuWenuQCD_hist], yue_nunuWenuQCD_hist[nbins_nunuWenuQCD_hist], yde_nunuWenuQCD_hist[nbins_nunuWenuQCD_hist];
+    unsigned iter_enuQCD_hist=0;
+    unsigned iter_nunuWenuQCD_hist=0;
+
+    for( unsigned ibin_enuQCD_hist=1; ibin_enuQCD_hist<=nbins_enuQCD_hist; ibin_enuQCD_hist++, iter_enuQCD_hist++){
+      double enuQCD_hist_binC = enuQCD_hist->GetBinContent(ibin_enuQCD_hist);
+      double enuQCD_JESUP_hist_binC = enuQCD_JESUP_hist->GetBinContent(ibin_enuQCD_hist);
+      double enuQCD_JESDOWN_hist_binC = enuQCD_JESDOWN_hist->GetBinContent(ibin_enuQCD_hist);
+
+      double enuQCD_hist_C = enuQCD_hist->GetBinCenter(ibin_enuQCD_hist);
+      double enuQCD_hist_W = enuQCD_hist->GetBinWidth(ibin_enuQCD_hist);
+
+      x_enuQCD_hist[iter_enuQCD_hist] = enuQCD_hist_C;
+      y_enuQCD_hist[iter_enuQCD_hist] = enuQCD_hist_binC;
+
+      xue_enuQCD_hist[iter_enuQCD_hist] = enuQCD_hist_W/2;
+      xde_enuQCD_hist[iter_enuQCD_hist] = enuQCD_hist_W/2;
+
+      if ( enuQCD_JESUP_hist_binC > enuQCD_JESDOWN_hist_binC ){
+        yue_enuQCD_hist[iter_enuQCD_hist] = enuQCD_JESUP_hist_binC - enuQCD_hist_binC ;
+        yde_enuQCD_hist[iter_enuQCD_hist] = enuQCD_hist_binC - enuQCD_JESDOWN_hist_binC ;
+      } else if ( enuQCD_JESUP_hist_binC < enuQCD_JESDOWN_hist_binC ){
+        yue_enuQCD_hist[iter_enuQCD_hist] = enuQCD_JESDOWN_hist_binC - enuQCD_hist_binC ;
+        yde_enuQCD_hist[iter_enuQCD_hist] = enuQCD_hist_binC - enuQCD_JESUP_hist_binC ;
+      } else std::cout << " -- ERROR: something is going on ... ";
+
+    }
+    for( unsigned ibin_nunuWenuQCD_hist=1; ibin_nunuWenuQCD_hist<=nbins_nunuWenuQCD_hist; ibin_nunuWenuQCD_hist++, iter_nunuWenuQCD_hist++){
+      double nunuWenuQCD_hist_binC = nunuWenuQCD_hist->GetBinContent(ibin_nunuWenuQCD_hist);
+      double nunuWenuQCD_JESUP_hist_binC = nunuWenuQCD_JESUP_hist->GetBinContent(ibin_nunuWenuQCD_hist);
+      double nunuWenuQCD_JESDOWN_hist_binC = nunuWenuQCD_JESDOWN_hist->GetBinContent(ibin_nunuWenuQCD_hist);
+
+      //       cout << " nunuWenuQCD_hist_binC         " << nunuWenuQCD_hist_binC          << endl;
+      //       cout << " nunuWenuQCD_JESUP_hist_binC   " << nunuWenuQCD_JESUP_hist_binC    << endl;
+      //       cout << " nunuWenuQCD_JESDOWN_hist_binC " << nunuWenuQCD_JESDOWN_hist_binC  << endl;
+      double nunuWenuQCD_hist_C = nunuWenuQCD_hist->GetBinCenter(ibin_nunuWenuQCD_hist);
+      double nunuWenuQCD_hist_W = nunuWenuQCD_hist->GetBinWidth(ibin_nunuWenuQCD_hist);
+
+      x_nunuWenuQCD_hist[iter_nunuWenuQCD_hist] = nunuWenuQCD_hist_C;
+      y_nunuWenuQCD_hist[iter_nunuWenuQCD_hist] = nunuWenuQCD_hist_binC;
+
+      xue_nunuWenuQCD_hist[iter_nunuWenuQCD_hist] = nunuWenuQCD_hist_W/2;
+      xde_nunuWenuQCD_hist[iter_nunuWenuQCD_hist] = nunuWenuQCD_hist_W/2;
+
+      if ( nunuWenuQCD_JESUP_hist_binC > nunuWenuQCD_JESDOWN_hist_binC ){
+        yue_nunuWenuQCD_hist[iter_nunuWenuQCD_hist] = nunuWenuQCD_JESUP_hist_binC - nunuWenuQCD_hist_binC ;
+        yde_nunuWenuQCD_hist[iter_nunuWenuQCD_hist] = nunuWenuQCD_hist_binC - nunuWenuQCD_JESDOWN_hist_binC ;
+      } else if ( nunuWenuQCD_JESUP_hist_binC < nunuWenuQCD_JESDOWN_hist_binC ){
+        yue_nunuWenuQCD_hist[iter_nunuWenuQCD_hist] = nunuWenuQCD_JESDOWN_hist_binC - nunuWenuQCD_hist_binC ;
+        yde_nunuWenuQCD_hist[iter_nunuWenuQCD_hist] = nunuWenuQCD_hist_binC - nunuWenuQCD_JESUP_hist_binC ;
+      } else std::cout << " -- ERROR: something is going on ... ";
+    }
+    TGraphAsymmErrors *g_enuQCD_hist = new TGraphAsymmErrors(nbins_enuQCD_hist, x_enuQCD_hist, y_enuQCD_hist, xde_enuQCD_hist, xue_enuQCD_hist, yde_enuQCD_hist, yue_enuQCD_hist );
+
+    gStyle->SetOptStat(1111111);
+    g_enuQCD_hist->SetFillColor(2);
+    g_enuQCD_hist->SetFillStyle(3001);
+
+    TGraphAsymmErrors *g_nunuWenuQCD_hist = new TGraphAsymmErrors(nbins_nunuWenuQCD_hist, x_nunuWenuQCD_hist, y_nunuWenuQCD_hist, xde_nunuWenuQCD_hist, xue_nunuWenuQCD_hist, yde_nunuWenuQCD_hist, yue_nunuWenuQCD_hist );
+
+    gStyle->SetOptStat(1111111);
+    g_nunuWenuQCD_hist->SetFillColor(4);
+    g_nunuWenuQCD_hist->SetFillStyle(3001);
+
+
     st[i] = new THStack(variables[i].c_str(),variables[i].c_str());
 
     munuQCD_JESUP_hist           ->SetName("munuQCD_JESUP_hist");
@@ -508,26 +627,61 @@ int JESjet2_ptValidation(){//main
     nunuWmunuQCD_hist            ->SetTitle("nunuWmunuQCD_hist");
     nunuWmunuQCD_JESDOWN_hist    ->SetTitle("nunuWmunuQCD_JESDOWN_hist");
 
-    st[i]->Add(munuQCD_hist, "hist,E0");
-    st[i]->Add(munuQCD_hist, "AXIS");
-    st[i]->Add(nunuWmunuQCD_hist, "hist,E0");
-    st[i]->Add(nunuWmunuQCD_hist, "AXIS");
+    enuQCD_JESUP_hist           ->SetName("enuQCD_JESUP_hist");
+    enuQCD_hist                 ->SetName("Single Electron Control Region: QCD We#nu process");
+    enuQCD_JESDOWN_hist         ->SetName("enuQCD_JESDOWN_hist");
+    nunuWenuQCD_JESUP_hist      ->SetName("nunuWenuQCD_JESUP_hist");
+    nunuWenuQCD_hist            ->SetName("Signal Region: QCD We#nu process");
+    nunuWenuQCD_JESDOWN_hist    ->SetName("nunuWenuQCD_JESDOWN_hist");
+
+    enuQCD_JESUP_hist           ->SetTitle("enuQCD_JESUP_hist");
+    enuQCD_hist                 ->SetTitle("enuQCD_hist");
+    enuQCD_JESDOWN_hist         ->SetTitle("enuQCD_JESDOWN_hist");
+    nunuWenuQCD_JESUP_hist      ->SetTitle("nunuWenuQCD_JESUP_hist");
+    nunuWenuQCD_hist            ->SetTitle("nunuWenuQCD_hist");
+    nunuWenuQCD_JESDOWN_hist    ->SetTitle("nunuWenuQCD_JESDOWN_hist");
+
+    //munu study
+//     st[i]->Add(munuQCD_hist, "hist,E0");
+//     st[i]->Add(munuQCD_hist, "AXIS");
+//     st[i]->Add(nunuWmunuQCD_hist, "hist,E0");
+//     st[i]->Add(nunuWmunuQCD_hist, "AXIS");
+
+    //enu study
+    st[i]->Add(enuQCD_hist, "hist,E0");
+    st[i]->Add(enuQCD_hist, "AXIS");
+    st[i]->Add(nunuWenuQCD_hist, "hist,E0");
+    st[i]->Add(nunuWenuQCD_hist, "AXIS");
 
     pad1[i]->cd();
 
-
-    //for scaled one
-    g_nunuWmunuQCD_hist->GetXaxis()->SetRangeUser( nunuWmunuQCD_hist->GetXaxis()->GetXmin(), 
-                                                   nunuWmunuQCD_hist->GetXaxis()->GetXmax() 
-    );
-    g_nunuWmunuQCD_hist->Draw("a2");
-    g_munuQCD_hist->Draw("same, 2");
-    //for not scaled one
-//     g_munuQCD_hist->GetXaxis()->SetRangeUser( nunuWmunuQCD_hist->GetXaxis()->GetXmin(), 
+    //munu study
+//     //for scaled one
+//     g_nunuWmunuQCD_hist->GetXaxis()->SetRangeUser( nunuWmunuQCD_hist->GetXaxis()->GetXmin(), 
 //                                                    nunuWmunuQCD_hist->GetXaxis()->GetXmax() 
 //     );
-//     g_munuQCD_hist->Draw("a2");
-//     g_nunuWmunuQCD_hist->Draw("same, 2");
+//     g_nunuWmunuQCD_hist->Draw("a2");
+//     g_munuQCD_hist->Draw("same, 2");
+//     //for not scaled one
+// //     g_munuQCD_hist->GetXaxis()->SetRangeUser( nunuWmunuQCD_hist->GetXaxis()->GetXmin(), 
+// //                                               nunuWmunuQCD_hist->GetXaxis()->GetXmax() 
+// //     );
+// //     g_munuQCD_hist->Draw("a2");
+// //     g_nunuWmunuQCD_hist->Draw("same, 2");
+
+    //enu study
+    //for scaled one
+//     g_nunuWenuQCD_hist->GetXaxis()->SetRangeUser( nunuWenuQCD_hist->GetXaxis()->GetXmin(), 
+//                                                   nunuWenuQCD_hist->GetXaxis()->GetXmax() 
+//     );
+//     g_nunuWenuQCD_hist->Draw("a2");
+//     g_enuQCD_hist->Draw("same, 2");
+    //for not scaled one
+    g_enuQCD_hist->GetXaxis()->SetRangeUser( nunuWenuQCD_hist->GetXaxis()->GetXmin(), 
+                                              nunuWenuQCD_hist->GetXaxis()->GetXmax() 
+    );
+    g_enuQCD_hist->Draw("a2");
+    g_nunuWenuQCD_hist->Draw("same, 2");
 
     st[i]->Draw("nostack,same");
 
@@ -549,8 +703,15 @@ int JESjet2_ptValidation(){//main
     stRatio[i] = new THStack();
     stRatio[i]->SetMinimum(0.5);
     stRatio[i]->SetMaximum(1.5);
-    stRatio[i]->Add(munu_nunu_QCD_JESUP_ratio_hist, "histE");
-    stRatio[i]->Add(munu_nunu_QCD_JESDOWN_ratio_hist, "histE");
+
+    //munu study
+//     stRatio[i]->Add(munu_nunu_QCD_JESUP_ratio_hist, "histE");
+//     stRatio[i]->Add(munu_nunu_QCD_JESDOWN_ratio_hist, "histE");
+
+    //enu study
+    stRatio[i]->Add(enu_nunu_QCD_JESUP_ratio_hist, "histE");
+    stRatio[i]->Add(enu_nunu_QCD_JESDOWN_ratio_hist, "histE");
+
     pad2[i]->cd();
     stRatio[i]->Draw("nostack");
     double lowerScale = 1.0/0.3;
@@ -565,8 +726,14 @@ int JESjet2_ptValidation(){//main
       stRatio[i]->GetYaxis()->GetLabelSize() * lowerScale
     );
 
-//     stRatio[i]->GetYaxis()->SetTitle("JES / central    ");
-    stRatio[i]->GetYaxis()->SetTitle("#frac{(JES/central)_{#mu#nu CR}}{(JES/central)_{ SR    }}    ");
+
+    //munu study
+//     stRatio[i]->GetYaxis()->SetTitle("#frac{(JES/central)_{#mu#nu CR}}{(JES/central)_{ SR    }}    ");
+
+    //enu study
+    stRatio[i]->GetYaxis()->SetTitle("#frac{(JES/central)_{e#nu CR}}{(JES/central)_{ SR    }}    ");
+
+
     stRatio[i]->GetXaxis()->SetTitle(" p_{T}^{jet2} (GeV) ");
     stRatio[i]->GetXaxis()->SetTitleOffset(0.8);
     stRatio[i]->GetYaxis()->SetTitleOffset(0.35);
@@ -578,21 +745,41 @@ int JESjet2_ptValidation(){//main
     );
     TLine * line = new TLine();
     line->SetLineStyle(2);
-    double xmin = munuQCD_hist->GetXaxis()->GetBinLowEdge(1);
-    double xmax = munuQCD_hist->GetXaxis()->GetBinLowEdge(munuQCD_hist->GetNbinsX() +1);
+
+    //munu study
+//     double xmin = munuQCD_hist->GetXaxis()->GetBinLowEdge(1);
+//     double xmax = munuQCD_hist->GetXaxis()->GetBinLowEdge(munuQCD_hist->GetNbinsX() +1);
+
+    //enu study
+    double xmin = enuQCD_hist->GetXaxis()->GetBinLowEdge(1);
+    double xmax = enuQCD_hist->GetXaxis()->GetBinLowEdge(enuQCD_hist->GetNbinsX() +1);
+
     line->DrawLine( xmin, 1.0, xmax, 1.0 );
 
 
 
     TLegend *leg = new TLegend(0.8,0.8,0.9,1.);
-    leg->AddEntry(munu_nunu_QCD_JESUP_ratio_hist,"JESUP","l");
-    leg->AddEntry(munu_nunu_QCD_JESDOWN_ratio_hist,"JESDOWN","l");
+
+    //munu study
+//     leg->AddEntry(munu_nunu_QCD_JESUP_ratio_hist,"JESUP","l");
+//     leg->AddEntry(munu_nunu_QCD_JESDOWN_ratio_hist,"JESDOWN","l");
+
+    //enu study
+    leg->AddEntry(enu_nunu_QCD_JESUP_ratio_hist,"JESUP","l");
+    leg->AddEntry(enu_nunu_QCD_JESDOWN_ratio_hist,"JESDOWN","l");
+
     leg->Draw();
     pad1[i]->cd();
 
     mycanvas[i]->Modified();
     mycanvas[i]->Update();
-    TPaveStats *pave1 = (TPaveStats*)munuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
+    //munu study
+//     TPaveStats *pave1 = (TPaveStats*)munuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
+    //enu study
+    TPaveStats *pave1 = (TPaveStats*)enuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
     pave1->SetName("pave1");
     pave1->SetTextColor(2);
     pave1->SetX1NDC(0.78);
@@ -600,7 +787,12 @@ int JESjet2_ptValidation(){//main
     mycanvas[i]->Modified();
     mycanvas[i]->Update();
 
-    TPaveStats *pave2 = (TPaveStats*)nunuWmunuQCD_hist->GetListOfFunctions()->FindObject("stats");
+    //munu study
+//     TPaveStats *pave2 = (TPaveStats*)nunuWmunuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
+    //enu study
+    TPaveStats *pave2 = (TPaveStats*)nunuWenuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
     pave2->SetName("pave2");
     pave2->SetTextColor(4);
     pave2->SetX1NDC(0.58);
@@ -610,13 +802,13 @@ int JESjet2_ptValidation(){//main
 
 
 
-    if ( i == 0 ){
-      mycanvas[i]->Print("test.pdf[");
-    }
-    mycanvas[i]->Print("test.pdf");
-    if ( i == nR-1 ){
-      mycanvas[i]->Print("test.pdf]");
-    }
+//     if ( i == 0 ){
+//       mycanvas[i]->Print("test.pdf[");
+//     }
+//     mycanvas[i]->Print("test.pdf");
+//     if ( i == nR-1 ){
+//       mycanvas[i]->Print("test.pdf]");
+//     }
 
   }//endof loop over variable of interest
 
