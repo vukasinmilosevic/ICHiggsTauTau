@@ -60,9 +60,7 @@ namespace ic{
     for(unsigned iShape=0;iShape<shape_.size();iShape++){
       std::string histname;
       if(shapename_.size()==0){
-	std::vector<std::string> strs;
-	boost::split(strs, shape_[iShape], boost::is_any_of("("));
-	histname=strs[0];
+	histname=extractShapeName(shape_[iShape]);
       }
       else{
 	histname=shapename_[iShape];
@@ -73,6 +71,7 @@ namespace ic{
       bool is2D = false;
       bool is3D = false;
       size_t n = std::count(histname.begin(), histname.end(), ':');
+      if (histname.find("::")!=histname.npos) n-=2;
       if (n==1) {
 	datashape2D=filemanager->GetSetsShape2D(dataset_,shape_[iShape],basesel_,cat_,dataweight_,false);
 	is2D=true;

@@ -15,6 +15,28 @@
 #include "TLatex.h"
 
 namespace ic{
+  std::string extractShapeName(std::string & ashape){
+    std::vector<std::string> strs;
+    boost::split(strs, ashape, boost::is_any_of("("));
+    //if more than one parenthesis, consider only last one...
+    if (strs.size()>2){
+      for (unsigned i=1; i<strs.size()-1;++i){
+    	strs[0] += strs[i];
+      }
+      std::cout << " Checking shape name with more (: " << strs[0] << std::endl;
+    }
+    //clean other special characters:
+    std::vector<std::string> strstmp;
+    boost::split(strstmp,strs[0], boost::is_any_of("/)-*+:"));
+    if (strstmp.size()>1) {
+      strs[0]=strstmp[0];
+      for (unsigned i=1; i<strstmp.size();++i){
+	strs[0] += strstmp[i];
+      }
+      std::cout << " Checking shape name with more ( and / characters: " << strs[0] << std::endl;
+    }
+    return strs[0];
+  }
 
   void DrawCMSLogoTest(TPad* pad, TString cmsText, TString extraText, int iPosX,float relPosX, float relPosY, float relExtraDY) {
     TVirtualPad *pad_backup = gPad;

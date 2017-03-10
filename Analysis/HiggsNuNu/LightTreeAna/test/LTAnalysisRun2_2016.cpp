@@ -956,25 +956,26 @@ int main(int argc, char* argv[]){
   //std::vector<std::string> shapevec;
   std::vector<LTShapeElement> shapevec;
   for(unsigned ishape=0;ishape<shape.size();ishape++){
-    std::vector<std::string> strs;
-    boost::split(strs, shape[ishape], boost::is_any_of("("));
+    //do not plot 2D hists....
+    if (shape[ishape].find(":")!=shape[ishape].npos && shape[ishape].find("::")==shape[ishape].npos) continue;
+
+    std::string strs = extractShapeName(shape[ishape]);
+
     LTShapeElement thisshape;
-    thisshape.set_name(strs[0]);
+    thisshape.set_name(strs);
     thisshape.set_legleft(0.6);
     thisshape.set_legright(0.89);
 
-    //do not plot 2D hists....
-    if (strs[0].find(":")!=strs[0].npos) continue;
 
-    if (strs[0]=="forward_tag_eta"){
+    if (strs=="forward_tag_eta"){
       thisshape.set_legleft(0.39);
       thisshape.set_legright(0.61);
     }
-    if (strs[0].find("alljetsmetnomu")!=strs[0].npos) thisshape.set_axisrangemultiplier((channel=="mumu"||channel=="nunu")?2.2:1.6);
-    if (strs[0].find("dijet_deta")!=strs[0].npos && channel=="nunu") thisshape.set_axisrangemultiplier(1.7);
+    if (strs.find("alljetsmetnomu")!=strs.npos) thisshape.set_axisrangemultiplier((channel=="mumu"||channel=="nunu")?2.2:1.6);
+    if (strs.find("dijet_deta")!=strs.npos && channel=="nunu") thisshape.set_axisrangemultiplier(1.7);
 
     thisshape.set_histtitle(histTitle[ishape]);
-    //    shapevec.push_back(strs[0]);
+    //    shapevec.push_back(strs);
     if(do_logy) thisshape.set_dology(true);
     shapevec.push_back(thisshape);
   }
@@ -1307,14 +1308,14 @@ int main(int argc, char* argv[]){
       elementvec.push_back(ewkzeeele);
     }
     //}
-    elementvec.push_back(topele);
-    elementvec.push_back(qcdele);
-    elementvec.push_back(vvele);
 
     if(channel=="nunu" || channel=="qcd" || channel=="taunu") {
       elementvec.push_back(qcdznunuele);
       elementvec.push_back(ewkznunuele);
     }
+    elementvec.push_back(vvele);
+    elementvec.push_back(topele);
+    elementvec.push_back(qcdele);
     if(channel=="nunu" || channel=="qcd" || channel=="taunu") {
       elementvec.push_back(sigele);
       if (channel=="nunu"){
@@ -1322,6 +1323,7 @@ int main(int argc, char* argv[]){
 	elementvec.push_back(ggHele);
       }
     }
+
   }
 
   if (debug){

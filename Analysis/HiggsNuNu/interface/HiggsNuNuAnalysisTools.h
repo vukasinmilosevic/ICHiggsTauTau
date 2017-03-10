@@ -19,6 +19,7 @@
 
   
 namespace ic {
+  std::string extractShapeName(std::string & ashape);
   void DrawCMSLogoTest(TPad* pad, TString cmsText, TString extraText, int iPosX,float relPosX, float relPosY, float relExtraDY);
   void DrawCMSLogoTest(TPad* pad, TString cmsText, TString extraText, int iPosX);
   double Integral(TH1F const* hist);
