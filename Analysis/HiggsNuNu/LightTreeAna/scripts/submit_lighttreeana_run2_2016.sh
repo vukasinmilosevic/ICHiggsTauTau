@@ -28,9 +28,9 @@ CONFIG=scripts/DefaultRun2Config_vetos.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_${DATE} #_nodphicut #_datacard
+JOBDIRPREFIX=jobs_run2ana_${DATE}_calometcut
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE} #_nodphicut #_datacard
+OUTPUTPREFIX=output_run2ana_${DATE}_calometcut
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -76,8 +76,8 @@ do
     JOB=$channels
     #executable expect strings separated by "!"
     ## To produce all of the hist
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
     ## To produce all of the hist for datacard
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
@@ -86,8 +86,8 @@ do
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
     ## To test for one hist
-    HISTSTRING=";(calo-pf)/recoil;Events!;(calo-pf)/recoil;Events"
-    SHAPESTRING="TMath::Abs(calomet-met)/metnomuons(40,0,2)!TMath::Abs(calomet-met)/metnoelectrons(40,0,2)"
+    #HISTSTRING=";(calo-pf)/recoil;Events!;(calo-pf)/recoil;Events"
+    #SHAPESTRING="TMath::Abs(calomet-met)/metnomuons(40,0,2)!TMath::Abs(calomet-met)/metnoelectrons(40,0,2)"
     #HISTSTRING=";p_{T}^{j2} (GeV);Events"
     #SHAPESTRING="jet2_pt(12,40.,250.)"
     #HISTSTRING=";#Delta#phi_{jj};Events"

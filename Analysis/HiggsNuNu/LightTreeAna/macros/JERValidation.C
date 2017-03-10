@@ -20,7 +20,8 @@
 #include "TString.h"
 #include "TLatex.h"
 #include "TGaxis.h"
-
+#include "TPaveStats.h"
+#include "TPaveText.h"
 
 double quadrature( const std::vector< double > & input )
 {
@@ -53,44 +54,44 @@ int JERValidation(){//main
   // *************************************
   // ********* Open files for SR *********
   // *************************************
-  std::string nunu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/nunu.root";
-  std::string nunu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/nunu.root";
-  std::string nunu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/nunu.root";
+  std::string nunu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/nunu.root";
+  std::string nunu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERBETTER/nunu.root";
+  std::string nunu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERWORSE/nunu.root";
 
   // ********************************************
   // ********* Open files for W(enu) CR *********
   // ********************************************
-  std::string enu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/enu.root";
-  std::string enu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/enu.root";
-  std::string enu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/enu.root";
+  std::string enu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/enu.root";
+  std::string enu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERBETTER/enu.root";
+  std::string enu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERWORSE/enu.root";
 
   // *********************************************
   // ********* Open files for W(munu) CR *********
   // *********************************************
-  std::string munu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/munu.root";
-  std::string munu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/munu.root";
-  std::string munu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/munu.root";
+  std::string munu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/munu.root";
+  std::string munu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERBETTER/munu.root";
+  std::string munu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERWORSE/munu.root";
 
   // **********************************************
   // ********* Open files for W(taunu) CR *********
   // **********************************************
-  std::string taunu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/taunu.root";
-  std::string taunu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/taunu.root";
-  std::string taunu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/taunu.root";
+  std::string taunu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/taunu.root";
+  std::string taunu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERBETTER/taunu.root";
+  std::string taunu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERWORSE/taunu.root";
 
   // **********************************************
   // ********* Open files for Z(mumu) CR *********
   // **********************************************
-  std::string mumu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/mumu.root";
-  std::string mumu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/mumu.root";
-  std::string mumu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/mumu.root";
+  std::string mumu_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/mumu.root";
+  std::string mumu_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERBETTER/mumu.root";
+  std::string mumu_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERWORSE/mumu.root";
 
   // **********************************************
   // ********* Open files for Z(ee) CR *********
   // **********************************************
-  std::string ee_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/ee.root";
-  std::string ee_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERBETTER/ee.root";
-  std::string ee_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170223_datacard/JERWORSE/ee.root";
+  std::string ee_file         = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/ee.root";
+  std::string ee_JERBETTER_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERBETTER/ee.root";
+  std::string ee_JERWORSE_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170308/JERWORSE/ee.root";
 
   // ********* Variables of interest for plots *********
   const unsigned nR = 1;
@@ -207,6 +208,7 @@ int JERValidation(){//main
     pad2[i]->Draw();
     pad1[i]->SetBottomMargin(0);
     pad2[i]->SetTopMargin(0);
+    pad2[i]->SetBottomMargin(0.25);
 
 
     // ********************************
@@ -273,6 +275,15 @@ int JERValidation(){//main
     TH1F * enuVV_JERWORSE_hist  = (TH1F*)enu_JERWORSE_Tfile->Get( Form("vv/%s", variables[i].c_str()) );
     TH1F * enuTOP_JERWORSE_hist = (TH1F*)enu_JERWORSE_Tfile->Get( Form("top/%s", variables[i].c_str()) );
 
+    // ********* Ratio_Hits *********
+    TH1F * enuQCD_JERBETTER_ratio_hist   = (TH1F*)enuQCD_JERBETTER_hist->Clone();
+    TH1F * enuQCD_JERWORSE_ratio_hist = (TH1F*)enuQCD_JERWORSE_hist->Clone();
+
+    enuQCD_JERBETTER_ratio_hist->Divide(enuQCD_hist);
+    enuQCD_JERBETTER_ratio_hist->SetLineColor(kOrange);
+    enuQCD_JERWORSE_ratio_hist->Divide(enuQCD_hist);
+    enuQCD_JERWORSE_ratio_hist->SetLineColor(kGreen);
+
 
     // ****************************************
     // ********* Hists for W(munu) CR *********
@@ -305,9 +316,9 @@ int JERValidation(){//main
     TH1F * munuQCD_JERWORSE_ratio_hist = (TH1F*)munuQCD_JERWORSE_hist->Clone();
 
     munuQCD_JERBETTER_ratio_hist->Divide(munuQCD_hist);
-    munuQCD_JERBETTER_ratio_hist->SetLineColor(kBlue);
+    munuQCD_JERBETTER_ratio_hist->SetLineColor(kOrange);
     munuQCD_JERWORSE_ratio_hist->Divide(munuQCD_hist);
-    munuQCD_JERWORSE_ratio_hist->SetLineColor(kRed);
+    munuQCD_JERWORSE_ratio_hist->SetLineColor(kGreen);
 
 
     // *****************************************
@@ -2143,45 +2154,93 @@ std::cout << std::endl;
     }
 
 
-    //histDOWN->SetTitle(variables[i].c_str());
+
     munuQCD_hist->SetFillStyle(3003);
-    munuQCD_hist->SetFillColor(kOrange);
-    munuQCD_hist->SetLineColor(kOrange);
+    munuQCD_hist->SetFillColor(kRed);
+    munuQCD_hist->SetLineColor(kRed);
 
     munuQCD_JERBETTER_hist->SetFillStyle(3003);
-    munuQCD_JERBETTER_hist->SetFillColor(kBlue);
-    munuQCD_JERBETTER_hist->SetLineColor(kBlue);
+    munuQCD_JERBETTER_hist->SetFillColor(kOrange);
+    munuQCD_JERBETTER_hist->SetLineColor(kOrange);
 
     munuQCD_JERWORSE_hist->SetFillStyle(3003);
-    munuQCD_JERWORSE_hist->SetFillColor(kRed);
-    munuQCD_JERWORSE_hist->SetLineColor(kRed);
+    munuQCD_JERWORSE_hist->SetFillColor(kGreen);
+    munuQCD_JERWORSE_hist->SetLineColor(kGreen);
+
+    enuQCD_hist->SetFillStyle(3003);
+    enuQCD_hist->SetFillColor(kRed);
+    enuQCD_hist->SetLineColor(kRed);
+
+    enuQCD_JERBETTER_hist->SetFillStyle(3003);
+    enuQCD_JERBETTER_hist->SetFillColor(kOrange);
+    enuQCD_JERBETTER_hist->SetLineColor(kOrange);
+
+    enuQCD_JERWORSE_hist->SetFillStyle(3003);
+    enuQCD_JERWORSE_hist->SetFillColor(kGreen);
+    enuQCD_JERWORSE_hist->SetLineColor(kGreen);
+
+
+    gStyle->SetOptStat(1111111);
 
 
     st[i] = new THStack(variables[i].c_str(),variables[i].c_str());
-    st[i]->Add(munuQCD_JERBETTER_hist, "hist");
-    st[i]->Add(munuQCD_hist, "hist");
-    st[i]->Add(munuQCD_JERWORSE_hist, "hist");
+
+    munuQCD_JERBETTER_hist       ->SetName("munuQCD_JERBETTER_hist");
+    munuQCD_hist                 ->SetName("Single Muon Control Region: QCD W#mu#nu process");
+    munuQCD_JERWORSE_hist        ->SetName("munuQCD_JERWORSE_hist");
+
+    munuQCD_JERBETTER_hist       ->SetTitle("munuQCD_JERBETTER_hist");
+    munuQCD_hist                 ->SetTitle("munuQCD_hist");
+    munuQCD_JERWORSE_hist        ->SetTitle("munuQCD_JERWORSE_hist");
+
+    enuQCD_JERBETTER_hist       ->SetName("enuQCD_JERBETTER_hist");
+    enuQCD_hist                 ->SetName("Single Electron Control Region: QCD We#nu process");
+    enuQCD_JERWORSE_hist        ->SetName("enuQCD_JERWORSE_hist");
+
+    enuQCD_JERBETTER_hist       ->SetTitle("enuQCD_JERBETTER_hist");
+    enuQCD_hist                 ->SetTitle("enuQCD_hist");
+    enuQCD_JERWORSE_hist        ->SetTitle("enuQCD_JERWORSE_hist");
+
+    //munu study
+//     st[i]->Add(munuQCD_JERWORSE_hist, "hist,E0");
+//     st[i]->Add(munuQCD_hist, "hist,E0");
+//     st[i]->Add(munuQCD_hist, "AXIS");
+//     st[i]->Add(munuQCD_JERBETTER_hist, "hist,E0");
+
+    //enu study
+    st[i]->Add(enuQCD_JERWORSE_hist, "hist,E0");
+    st[i]->Add(enuQCD_hist, "hist,E0");
+    st[i]->Add(enuQCD_hist, "AXIS");
+    st[i]->Add(enuQCD_JERBETTER_hist, "hist,E0");
+
     pad1[i]->cd();
     st[i]->Draw("nostack");
     double upperScale = 1.0/0.7;
     st[i]->GetXaxis()->SetLabelSize(
       st[i]->GetXaxis()->GetLabelSize() * upperScale
     );
-    st[i]->GetXaxis()->SetTitleSize(
-      st[i]->GetXaxis()->GetTitleSize() * upperScale
-    );
+//     st[i]->GetXaxis()->SetTitleSize(
+//       st[i]->GetXaxis()->GetTitleSize() * upperScale
+//     );
     st[i]->GetYaxis()->SetLabelSize(
       st[i]->GetYaxis()->GetLabelSize() * upperScale
     );
-    st[i]->GetYaxis()->SetTitleSize(
-      st[i]->GetYaxis()->GetTitleSize() * upperScale
-    );
+//     st[i]->GetYaxis()->SetTitleSize(
+//       st[i]->GetYaxis()->GetTitleSize() * upperScale
+//     );
 
     stRatio[i] = new THStack();
-    stRatio[i]->SetMinimum(0.0);
-    stRatio[i]->SetMaximum(2.5);
-    stRatio[i]->Add(munuQCD_JERBETTER_ratio_hist, "hist");
-    stRatio[i]->Add(munuQCD_JERWORSE_ratio_hist, "hist");
+    stRatio[i]->SetMinimum(0.5);
+    stRatio[i]->SetMaximum(1.5);
+
+    //munu study
+//     stRatio[i]->Add(munuQCD_JERBETTER_ratio_hist, "histE");
+//     stRatio[i]->Add(munuQCD_JERWORSE_ratio_hist, "histE");
+
+    //enu study
+    stRatio[i]->Add(enuQCD_JERBETTER_ratio_hist, "histE");
+    stRatio[i]->Add(enuQCD_JERWORSE_ratio_hist, "histE");
+
     pad2[i]->cd();
     stRatio[i]->Draw("nostack");
     double lowerScale = 1.0/0.3;
@@ -2189,14 +2248,15 @@ std::cout << std::endl;
     stRatio[i]->GetXaxis()->SetLabelSize(
       stRatio[i]->GetXaxis()->GetLabelSize() * lowerScale
     );
-    stRatio[i]->GetXaxis()->SetTitleSize(
-      stRatio[i]->GetXaxis()->GetTitleSize() * lowerScale
-    );
+//     stRatio[i]->GetXaxis()->SetTitleSize(
+//       stRatio[i]->GetXaxis()->GetTitleSize() * lowerScale
+//     );
     stRatio[i]->GetYaxis()->SetLabelSize(
       stRatio[i]->GetYaxis()->GetLabelSize() * lowerScale
     );
     stRatio[i]->GetYaxis()->SetTitle("JER / central    ");
-    stRatio[i]->GetXaxis()->SetTitleOffset(1.1);
+    stRatio[i]->GetXaxis()->SetTitle(" p_{T}^{jet2} (GeV) ");
+    stRatio[i]->GetXaxis()->SetTitleOffset(0.8);
     stRatio[i]->GetYaxis()->SetTitleOffset(0.3);
     stRatio[i]->GetYaxis()->SetTitleSize(
       stRatio[i]->GetYaxis()->GetTitleSize() * lowerScale
@@ -2207,14 +2267,57 @@ std::cout << std::endl;
 
 
 
+    TLine * line = new TLine();
+    line->SetLineStyle(2);
 
-    if ( i == 0 ){
-      mycanvas[i]->Print("JERValidation.pdf[");
-    }
-    mycanvas[i]->Print("JERValidation.pdf");
-    if ( i == nR-1 ){
-      mycanvas[i]->Print("JERValidation.pdf]");
-    }
+    //munu study
+//     double xmin = munuQCD_hist->GetXaxis()->GetBinLowEdge(1);
+//     double xmax = munuQCD_hist->GetXaxis()->GetBinLowEdge(munuQCD_hist->GetNbinsX() +1);
+
+    //enu study
+    double xmin = enuQCD_hist->GetXaxis()->GetBinLowEdge(1);
+    double xmax = enuQCD_hist->GetXaxis()->GetBinLowEdge(enuQCD_hist->GetNbinsX() +1);
+
+    line->DrawLine( xmin, 1.0, xmax, 1.0 );
+
+
+    TLegend *leg = new TLegend(0.8,0.8,0.9,1.);
+
+    //munu study
+//     leg->AddEntry(munuQCD_JERBETTER_ratio_hist,"JERBETTER","l");
+//     leg->AddEntry(munuQCD_JERWORSE_ratio_hist,"JERWORSE","l");
+
+    //enu study
+    leg->AddEntry(enuQCD_JERBETTER_ratio_hist,"JERBETTER","l");
+    leg->AddEntry(enuQCD_JERWORSE_ratio_hist,"JERWORSE","l");
+
+    leg->Draw();
+    pad1[i]->cd();
+
+    mycanvas[i]->Modified();
+    mycanvas[i]->Update();
+
+    //munu study
+//     TPaveStats *pave1 = (TPaveStats*)munuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
+    //enu study
+    TPaveStats *pave1 = (TPaveStats*)enuQCD_hist->GetListOfFunctions()->FindObject("stats");
+
+    pave1->SetName("pave1");
+    pave1->SetTextColor(2);
+    pave1->SetX1NDC(0.78);
+    pave1->SetX2NDC(0.98);
+    mycanvas[i]->Modified();
+    mycanvas[i]->Update();
+
+
+//     if ( i == 0 ){
+//       mycanvas[i]->Print("JERValidation.pdf[");
+//     }
+//     mycanvas[i]->Print("JERValidation.pdf");
+//     if ( i == nR-1 ){
+//       mycanvas[i]->Print("JERValidation.pdf]");
+//     }
 
   }//endof loop over variable of interest
 
