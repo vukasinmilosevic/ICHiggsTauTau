@@ -223,7 +223,7 @@ int main(int argc, char* argv[]){
   analysis->SetEosFolders(eos_path_data,eos_path_mc);
 
   analysis->AddFiles(filelist);
-  if(syst.find("BTAG")==syst.npos&&syst.find("LEPEFF")==syst.npos&&syst!="PUUP"&&syst!="PUDOWN"&&syst.find("TRIG")==syst.npos&&syst.size()!=0){
+  if(syst.find("TAU")==syst.npos&&syst.find("BTAG")==syst.npos&&syst.find("LEPEFF")==syst.npos&&syst!="PUUP"&&syst!="PUDOWN"&&syst.find("TRIG")==syst.npos&&syst.size()!=0){
     std::cout<<"Syst, taking input from: "<<inputfolder<<"/"<<syst<<std::endl;
     analysis->SetInFolder(inputfolder+"/"+syst);
   }
@@ -405,16 +405,22 @@ int main(int argc, char* argv[]){
   std::string sigcat;
   std::string zextrasigcat;
 
-  std::string tauveto;
+  std::string tauveto,tauvetoweight;
   std::string bveto,bvetoweight;
   std::string met_cut;
   std::string lep_mt_cut;
 
 
   if (do_tauveto){
-    tauveto="&&nvetotaus==0";
+    //tauveto="&&nvetotaus==0";
+    tauveto="";
+    dataextrasel += "&&nvetotaus==0";
+    if (syst=="TAUUP") tauvetoweight="*TMath::Power(1-0.97,nvetotaus)";
+    else if (syst=="TAUDOWN") tauvetoweight="*TMath::Power(1-0.91,nvetotaus)";
+    else tauvetoweight="*TMath::Power(1-0.94,nvetotaus)";
   } else {
     tauveto="";
+    tauvetoweight="";
   }
   if (do_bveto){
     //bveto="&&n_jets_csv2medium==0";
@@ -500,6 +506,7 @@ int main(int argc, char* argv[]){
   std::ostringstream mcweightsystfactor;
   mcweightsystfactor << "*" << lumiSF;
   mcweightsystfactor << bvetoweight;
+  mcweightsystfactor << tauvetoweight;
   if(syst=="PUUP") mcweightsystfactor << "*puweight_up_scale";
   if(syst=="PUDOWN") mcweightsystfactor << "*puweight_down_scale";
   

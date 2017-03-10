@@ -711,7 +711,7 @@ int main(int argc, char* argv[]){
     tau_id_discr          = "decayModeFinding";
     tau_iso_discr         = "byMediumIsolationMVArun2v1DBoldDMwLT";
     //tau_iso_discr         = "byLooseCombinedIsolationDeltaBetaCorr3Hits";
-    vetotau_iso_discr         = "byCombinedIsolationDeltaBetaCorrRaw3Hits";
+    vetotau_iso_discr     = "byVLooseIsolationMVArun2v1DBoldDMwLT";//"byCombinedIsolationDeltaBetaCorrRaw3Hits";
     tau_anti_muon_discr   = "againstMuonLoose3";
     tau_anti_elec_discr_1 = "againstElectronVLooseMVA6";
     tau_anti_elec_discr_2 = "againstElectronVLooseMVA6";
@@ -760,7 +760,7 @@ int main(int argc, char* argv[]){
   
   SimpleFilter<Tau> vetotauIsoFilter = SimpleFilter<Tau>("VetoTauIsoFilter")
     .set_input_label("vetoTaus")
-    .set_predicate((bind(&Tau::GetTauID, _1, vetotau_iso_discr) < 5) && (bind(&Tau::GetTauID, _1, tau_id_discr) > 0.5))
+    .set_predicate((bind(&Tau::GetTauID, _1, vetotau_iso_discr) > 0.5) && (bind(&Tau::GetTauID, _1, tau_id_discr) > 0.5))
     .set_min(0);
 
   SimpleFilter<Tau> tauElRejectFilter = SimpleFilter<Tau>("TauElRejectFilter")
