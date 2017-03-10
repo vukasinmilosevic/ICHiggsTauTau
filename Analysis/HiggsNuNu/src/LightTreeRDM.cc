@@ -1131,13 +1131,13 @@ namespace ic {
 
       if(jets[i]->pt()>15) n_jets_15_++;
       if(jets[i]->pt()>30) n_jets_30_++;
-      if (fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484) {
+      if (jets[i]->pt()>20 && fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484) {
 	n_jets_csv2medium_++;
         weight_0b_alljets_ *= (1-reader_comb->eval_auto_bounds("central",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
         weight_0bup_alljets_ *= (1-reader_comb->eval_auto_bounds("up",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
         weight_0bdown_alljets_ *= (1-reader_comb->eval_auto_bounds("down",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
       }
-      if (i>1 && fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484){
+      if (i>1 && jets[i]->pt()>20 && fabs(jets[i]->eta())<2.4 && jets[i]->GetBDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags")>0.8484){
 	n_extrajets_csv2medium_++;
         weight_0b_extrajets_ *= (1-reader_comb->eval_auto_bounds("central",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
         weight_0bup_extrajets_ *= (1-reader_comb->eval_auto_bounds("up",BTagEntry::FLAV_B, jets[i]->eta(), jets[i]->pt()));
