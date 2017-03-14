@@ -59,6 +59,11 @@ namespace ic{
 
     for(unsigned iShape=0;iShape<shape_.size();iShape++){
       std::string histname;
+      histname=shape_[iShape];
+      //access original special characters to recognise 2D hists
+      size_t n = std::count(histname.begin(), histname.end(), ':');
+      if (histname.find("::")!=histname.npos) n-=2;
+      //replace special characters for root to store hist properly
       if(shapename_.size()==0){
 	histname=extractShapeName(shape_[iShape]);
       }
@@ -70,8 +75,7 @@ namespace ic{
       TH3F datashape3D;
       bool is2D = false;
       bool is3D = false;
-      size_t n = std::count(histname.begin(), histname.end(), ':');
-      if (histname.find("::")!=histname.npos) n-=2;
+      std::cout << " Idientifying 2D histos: " << histname << " " << n << std::endl;
       if (n==1) {
 	datashape2D=filemanager->GetSetsShape2D(dataset_,shape_[iShape],basesel_,cat_,dataweight_,false);
 	is2D=true;
