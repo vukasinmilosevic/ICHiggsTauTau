@@ -414,7 +414,7 @@ int main(int argc, char* argv[]){
   if (do_tauveto){
     //tauveto="&&nvetotaus==0";
     tauveto="";
-    dataextrasel += "&&nvetotaus==0";
+    if (channel!="taunu") dataextrasel += "&&nvetotaus==0";
     if (syst=="TAUUP") tauvetoweight="*TMath::Power(1-0.97,nvetotaus)";
     else if (syst=="TAUDOWN") tauvetoweight="*TMath::Power(1-0.91,nvetotaus)";
     else tauvetoweight="*TMath::Power(1-0.94,nvetotaus)";
@@ -506,7 +506,7 @@ int main(int argc, char* argv[]){
   std::ostringstream mcweightsystfactor;
   mcweightsystfactor << "*" << lumiSF;
   mcweightsystfactor << bvetoweight;
-  mcweightsystfactor << tauvetoweight;
+  if (channel!="taunu") mcweightsystfactor << tauvetoweight;
   if(syst=="PUUP") mcweightsystfactor << "*puweight_up_scale";
   if(syst=="PUDOWN") mcweightsystfactor << "*puweight_down_scale";
   
