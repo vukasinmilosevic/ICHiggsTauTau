@@ -168,7 +168,7 @@ int main(int argc, char* argv[]){
   bkgprocesses.push_back("top");
   if( do_run2 || (do_qcdfromshape && channel=="nunu")) bkgprocesses.push_back("qcd");
   bkgprocesses.push_back("vv");
-  
+
   std::vector<std::string> bkgprocesslatex;
   if (channel=="nunu" || channel=="qcd"){
     if (!do_separate_qcdewk) bkgprocesslatex.push_back("$Z\\rightarrow\\nu\\nu$");
@@ -207,7 +207,7 @@ int main(int argc, char* argv[]){
   bkgprocesslatex.push_back("top");
   if( do_run2 || (do_qcdfromshape && channel=="nunu")) bkgprocesslatex.push_back("QCD multijet");
   bkgprocesslatex.push_back("VV");
-  
+
   //CENTRAL ROOT FILE
   std::cout<<"IMPORTANT NOTE: GMN UNCERTAINTY MUST BE PUT IN MANUALLY!!"<<std::endl;
   std::cout<<"Processing indir: "<<indir<<std::endl;
@@ -230,6 +230,8 @@ int main(int argc, char* argv[]){
   TFile* pudown=new TFile((indir+"/PUDOWN/"+channel+".root").c_str());
   TFile* btagup=new TFile((indir+"/BTAGUP/"+channel+".root").c_str());
   TFile* btagdown=new TFile((indir+"/BTAGDOWN/"+channel+".root").c_str());
+  TFile* tauvetoup=new TFile((indir+"/TAUUP/"+channel+".root").c_str());
+  TFile* tauvetodown=new TFile((indir+"/TAUDOWN/"+channel+".root").c_str());
 
   //trigger
   TFile* trigup=new TFile((indir+"/TRIGUP/"+channel+".root").c_str());
@@ -245,10 +247,10 @@ int main(int argc, char* argv[]){
   //SYSTEMATICS
   std::vector<Syst> systematics;
 
-  std::vector<std::string> tau_veto_unc_affected;
-  tau_veto_unc_affected.push_back("wtau");
-  tau_veto_unc_affected.push_back("wtauqcd");
-  tau_veto_unc_affected.push_back("wtauewk");
+  std::vector<std::string> tauveto_procsaffected;
+  tauveto_procsaffected.push_back("wtau");
+  tauveto_procsaffected.push_back("wtauqcd");
+  tauveto_procsaffected.push_back("wtauewk");
 
 
   std::vector<std::string> lumi8tevprocsaffected={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","wg","vv","qcd"};
@@ -289,12 +291,13 @@ int main(int argc, char* argv[]){
   std::vector<std::string> ggHprocs={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","ggH"};
   std::vector<std::string> qqHprocs={"qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","qqH"};
 
-  Syst tau_veto_unc;
-  tau_veto_unc.set_name("tau_veto_unc")
-    .set_latexname("tau veto uncertainty")
-    .set_type("constlnN")
-    .set_procsaffected(tau_veto_unc_affected) //do_run2?allprocs:allprocsnotqcd)
-    .set_constvalue(1.030);
+  Syst tauveto;
+  tauveto.set_name("CMS_tauveto_unc")
+    .set_latexname("TAU veto SF")
+    .set_type("fromfilelnN")
+    .set_procsaffected(tauveto_procsaffected)
+    .set_uptfile(tauvetoup)
+    .set_downtfile(tauvetodown);
 
   Syst eleeff;
   eleeff.set_name("CMS_eff_e")
@@ -740,7 +743,7 @@ int main(int argc, char* argv[]){
     .set_constvalue(1.2);
 
   if (do_tau_veto_unc) {
-    systematics.push_back(tau_veto_unc);
+    systematics.push_back(tauveto);
   }
   if (do_b_veto_unc) {
     systematics.push_back(btag);
