@@ -78,6 +78,7 @@ int corrHist(){//main
     }
     std::cout << corrHist->GetXaxis()->GetBinLabel(i) << "    &   " << corrHist->GetBinContent(i,2) << "   &    " << corrHist->GetBinContent(i,6) << "  \\\\  " << std::endl;
   }
+  corrHist->Draw("colz");
   return 1;
 
 }//main
