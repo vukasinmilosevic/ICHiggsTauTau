@@ -58,7 +58,7 @@ int JESunc(){//main
   std::string nunu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESUP/nunu.root";
   std::string nunu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESDOWN/nunu.root";
 
-  std::string nunu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_forOpt_no_dijet_dphi_cut/nunu.root";
+  std::string nunu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170328_loosencuts/nunu.root";
 
   // ********************************************
   // ********* Open files for W(enu) CR *********
@@ -67,7 +67,7 @@ int JESunc(){//main
   std::string enu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESUP/enu.root";
   std::string enu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESDOWN/enu.root";
 
-  std::string enu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_forOpt_no_dijet_dphi_cut/enu.root";
+  std::string enu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170328_loosencuts/enu.root";
 
   // *********************************************
   // ********* Open files for W(munu) CR *********
@@ -76,7 +76,7 @@ int JESunc(){//main
   std::string munu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESUP/munu.root";
   std::string munu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESDOWN/munu.root";
 
-  std::string munu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_forOpt_no_dijet_dphi_cut/munu.root";
+  std::string munu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170328_loosencuts/munu.root";
 
   // **********************************************
   // ********* Open files for W(taunu) CR *********
@@ -85,7 +85,7 @@ int JESunc(){//main
   std::string taunu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESUP/taunu.root";
   std::string taunu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESDOWN/taunu.root";
 
-  std::string taunu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_forOpt_no_dijet_dphi_cut/taunu.root";
+  std::string taunu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170328_loosencuts/taunu.root";
 
   // **********************************************
   // ********* Open files for Z(mumu) CR *********
@@ -94,7 +94,7 @@ int JESunc(){//main
   std::string mumu_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESUP/mumu.root";
   std::string mumu_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESDOWN/mumu.root";
 
-  std::string mumu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_forOpt_no_dijet_dphi_cut/mumu.root";
+  std::string mumu_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170328_loosencuts/mumu.root";
 
   // **********************************************
   // ********* Open files for Z(ee) CR *********
@@ -103,7 +103,7 @@ int JESunc(){//main
   std::string ee_JESUP_file   = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESUP/ee.root";
   std::string ee_JESDOWN_file = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_datacard/JESDOWN/ee.root";
 
-  std::string ee_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170321_forOpt_no_dijet_dphi_cut/ee.root";
+  std::string ee_loosen_file  = "/home/hep/rd1715/CMSSW_8_0_25/src/UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/LightTreeAna/output_run2ana_170328_loosencuts/ee.root";
 
   // ********* Variables of interest for plots *********
   const unsigned nR = 1;
@@ -227,6 +227,11 @@ int JESunc(){//main
   TPad *pad1[nR];
   TPad *pad2[nR];
 
+
+
+  TFile*weights_minorBkg_unc = new TFile("weights_minorBkg_unc.root","RECREATE");
+
+
   for(unsigned i=0; i<nR; ++i){//loop over variable of interest
 
     mycanvas[i] = new TCanvas(variables[i].c_str(),variables[i].c_str(),200,10,700,500);
@@ -341,6 +346,13 @@ int JESunc(){//main
     topFROMwenu_JESUP->Multiply(topOVERwenuOpt);
     topFROMwenu_JESDOWN->Multiply(topOVERwenuOpt);
 
+    TDirectory *wenuCR_top = weights_minorBkg_unc->mkdir("wenuCR_top");
+    TDirectory *wenuCR_vv  = weights_minorBkg_unc->mkdir("wenuCR_vv");
+
+    wenuCR_top->cd();
+    topOVERwenuOpt->Write();
+    wenuCR_vv->cd();
+    vvOVERwenuOpt->Write();
 
     // ****************************************
     // ********* Hists for W(munu) CR *********
@@ -404,6 +416,13 @@ int JESunc(){//main
     topFROMwmunu_JESUP->Multiply(topOVERwmunuOpt);
     topFROMwmunu_JESDOWN->Multiply(topOVERwmunuOpt);
 
+    TDirectory *wmunuCR_top = weights_minorBkg_unc->mkdir("wmunuCR_top");
+    TDirectory *wmunuCR_vv  = weights_minorBkg_unc->mkdir("wmunuCR_vv");
+
+    wmunuCR_top->cd();
+    topOVERwmunuOpt->Write();
+    wmunuCR_vv->cd();
+    vvOVERwmunuOpt->Write();
 
     // *****************************************
     // ********* Hists for W(taunu) CR *********
@@ -458,6 +477,13 @@ int JESunc(){//main
     topFROMwtaunu_JESUP->Multiply(topOVERwtaunuOpt);
     topFROMwtaunu_JESDOWN->Multiply(topOVERwtaunuOpt);
 
+    TDirectory *wtaunuCR_top = weights_minorBkg_unc->mkdir("wtaunuCR_top");
+    TDirectory *wtaunuCR_vv  = weights_minorBkg_unc->mkdir("wtaunuCR_vv");
+
+    wtaunuCR_top->cd();
+    topOVERwtaunuOpt->Write();
+    wtaunuCR_vv->cd();
+    vvOVERwtaunuOpt->Write();
 
     // ***************************************
     // ********* Hists for Z(mumu) CR *********
@@ -509,6 +535,14 @@ int JESunc(){//main
     topFROMzmumu_JESUP->Multiply(topOVERzmumuOpt);
     topFROMzmumu_JESDOWN->Multiply(topOVERzmumuOpt);
 
+    TDirectory *mumuCR_top = weights_minorBkg_unc->mkdir("mumuCR_top");
+    TDirectory *mumuCR_vv  = weights_minorBkg_unc->mkdir("mumuCR_vv");
+
+    mumuCR_top->cd();
+    topOVERzmumuOpt->Write();
+    mumuCR_vv->cd();
+    vvOVERzmumuOpt->Write();
+
     // ***************************************
     // ********* Hists for Z(ee) CR *********
     // ***************************************
@@ -543,7 +577,6 @@ int JESunc(){//main
     TH1F *vvFROMzee_JESDOWN = (TH1F*)eeQCD_JESDOWN_hist->Clone();
 
     vvOVERzeeOpt->Divide(eeQCD_loosen_hist);
-
     vvFROMzee->Multiply(vvOVERzeeOpt);
     vvFROMzee_JESUP->Multiply(vvOVERzeeOpt);
     vvFROMzee_JESDOWN->Multiply(vvOVERzeeOpt);
@@ -558,6 +591,14 @@ int JESunc(){//main
     topFROMzee->Multiply(topOVERzeeOpt);
     topFROMzee_JESUP->Multiply(topOVERzeeOpt);
     topFROMzee_JESDOWN->Multiply(topOVERzeeOpt);
+
+    TDirectory *eeCR_top = weights_minorBkg_unc->mkdir("eeCR_top");
+    TDirectory *eeCR_vv  = weights_minorBkg_unc->mkdir("eeCR_vv");
+
+    eeCR_top->cd();
+    topOVERzeeOpt->Write();
+    eeCR_vv->cd();
+    vvOVERzeeOpt->Write();
 
     if (i==0) {
 
@@ -871,160 +912,160 @@ int JESunc(){//main
 
 
 
-    munuQCD_hist->SetFillStyle(3003);
-    munuQCD_hist->SetFillColor(kRed);
-    munuQCD_hist->SetLineColor(kRed);
-
-    munuQCD_JESUP_hist->SetFillStyle(3003);
-    munuQCD_JESUP_hist->SetFillColor(kOrange);
-    munuQCD_JESUP_hist->SetLineColor(kOrange);
-
-    munuQCD_JESDOWN_hist->SetFillStyle(3003);
-    munuQCD_JESDOWN_hist->SetFillColor(kGreen);
-    munuQCD_JESDOWN_hist->SetLineColor(kGreen);
-
-    enuQCD_hist->SetFillStyle(3003);
-    enuQCD_hist->SetFillColor(kRed);
-    enuQCD_hist->SetLineColor(kRed);
-
-    enuQCD_JESUP_hist->SetFillStyle(3003);
-    enuQCD_JESUP_hist->SetFillColor(kOrange);
-    enuQCD_JESUP_hist->SetLineColor(kOrange);
-
-    enuQCD_JESDOWN_hist->SetFillStyle(3003);
-    enuQCD_JESDOWN_hist->SetFillColor(kGreen);
-    enuQCD_JESDOWN_hist->SetLineColor(kGreen);
-
-
-    gStyle->SetOptStat(1111111);
-
-
-    st[i] = new THStack(variables[i].c_str(),variables[i].c_str());
-
-    munuQCD_JESUP_hist           ->SetName("munuQCD_JESUP_hist");
-    munuQCD_hist                 ->SetName("Single Muon Control Region: QCD W#mu#nu process");
-    munuQCD_JESDOWN_hist         ->SetName("munuQCD_JESDOWN_hist");
-
-    munuQCD_JESUP_hist           ->SetTitle("munuQCD_JESUP_hist");
-    munuQCD_hist                 ->SetTitle("munuQCD_hist");
-    munuQCD_JESDOWN_hist         ->SetTitle("munuQCD_JESDOWN_hist");
-
-    enuQCD_JESUP_hist           ->SetName("enuQCD_JESUP_hist");
-    enuQCD_hist                 ->SetName("Single Electron Control Region: QCD We#nu process");
-    enuQCD_JESDOWN_hist         ->SetName("enuQCD_JESDOWN_hist");
-
-    enuQCD_JESUP_hist           ->SetTitle("enuQCD_JESUP_hist");
-    enuQCD_hist                 ->SetTitle("enuQCD_hist");
-    enuQCD_JESDOWN_hist         ->SetTitle("enuQCD_JESDOWN_hist");
-
-    //munu study
-//     st[i]->Add(munuQCD_JESUP_hist, "hist,E0");
-//     st[i]->Add(munuQCD_hist, "hist,E0");
-//     st[i]->Add(munuQCD_hist, "AXIS");
-//     st[i]->Add(munuQCD_JESDOWN_hist, "hist,E0");
-
-    //enu study
-    st[i]->Add(enuQCD_JESUP_hist, "hist,E0");
-    st[i]->Add(enuQCD_hist, "hist,E0");
-    st[i]->Add(enuQCD_hist, "AXIS");
-    st[i]->Add(enuQCD_JESDOWN_hist, "hist,E0");
-
-    pad1[i]->cd();
-    st[i]->Draw("nostack");
-    double upperScale = 1.0/0.7;
-    st[i]->GetXaxis()->SetLabelSize(
-      st[i]->GetXaxis()->GetLabelSize() * upperScale
-    );
-//     st[i]->GetXaxis()->SetTitleSize(
-//       st[i]->GetXaxis()->GetTitleSize() * upperScale
-//     );
-    st[i]->GetYaxis()->SetLabelSize(
-      st[i]->GetYaxis()->GetLabelSize() * upperScale
-    );
-//     st[i]->GetYaxis()->SetTitleSize(
-//       st[i]->GetYaxis()->GetTitleSize() * upperScale
-//     );
-
-    stRatio[i] = new THStack();
-    stRatio[i]->SetMinimum(0.0);
-    stRatio[i]->SetMaximum(2.5);
-
-    //munu study
-//     stRatio[i]->Add(munuQCD_JESUP_ratio_hist, "histE");
-//     stRatio[i]->Add(munuQCD_JESDOWN_ratio_hist, "histE");
-
-    //enu study
-    stRatio[i]->Add(enuQCD_JESUP_ratio_hist, "histE");
-    stRatio[i]->Add(enuQCD_JESDOWN_ratio_hist, "histE");
-
-    pad2[i]->cd();
-    stRatio[i]->Draw("nostack");
-    double lowerScale = 1.0/0.3;
-    //stRatio[i]->GetYaxis()->SetNdivisions(5,3,0);
-    stRatio[i]->GetXaxis()->SetLabelSize(
-      stRatio[i]->GetXaxis()->GetLabelSize() * lowerScale
-    );
-//     stRatio[i]->GetXaxis()->SetTitleSize(
-//       stRatio[i]->GetXaxis()->GetTitleSize() * lowerScale
-//     );
-    stRatio[i]->GetYaxis()->SetLabelSize(
-      stRatio[i]->GetYaxis()->GetLabelSize() * lowerScale
-    );
-    stRatio[i]->GetYaxis()->SetTitle("JES / central    ");
-    stRatio[i]->GetXaxis()->SetTitle(" p_{T}^{jet2} (GeV) ");
-    stRatio[i]->GetXaxis()->SetTitleOffset(0.8);
-    stRatio[i]->GetYaxis()->SetTitleOffset(0.3);
-    stRatio[i]->GetYaxis()->SetTitleSize(
-      stRatio[i]->GetYaxis()->GetTitleSize() * lowerScale
-    );
-    stRatio[i]->GetXaxis()->SetTitleSize(
-      stRatio[i]->GetXaxis()->GetTitleSize() * lowerScale
-    );
-
-
-
-    TLine * line = new TLine();
-    line->SetLineStyle(2);
-
-    //munu study
-//     double xmin = munuQCD_hist->GetXaxis()->GetBinLowEdge(1);
-//     double xmax = munuQCD_hist->GetXaxis()->GetBinLowEdge(munuQCD_hist->GetNbinsX() +1);
-
-    //enu study
-    double xmin = enuQCD_hist->GetXaxis()->GetBinLowEdge(1);
-    double xmax = enuQCD_hist->GetXaxis()->GetBinLowEdge(enuQCD_hist->GetNbinsX() +1);
-
-    line->DrawLine( xmin, 1.0, xmax, 1.0 );
-
-
-    TLegend *leg = new TLegend(0.8,0.8,0.9,1.);
-
-    //munu study
-//     leg->AddEntry(munuQCD_JESUP_ratio_hist,"JESUP","l");
-//     leg->AddEntry(munuQCD_JESDOWN_ratio_hist,"JESDOWN","l");
-
-    //enu study
-    leg->AddEntry(enuQCD_JESUP_ratio_hist,"JESUP","l");
-    leg->AddEntry(enuQCD_JESDOWN_ratio_hist,"JESDOWN","l");
-
-    leg->Draw();
-    pad1[i]->cd();
-
-    mycanvas[i]->Modified();
-    mycanvas[i]->Update();
-
-    //munu study
-//     TPaveStats *pave1 = (TPaveStats*)munuQCD_hist->GetListOfFunctions()->FindObject("stats");
-
-    //enu study
-    TPaveStats *pave1 = (TPaveStats*)enuQCD_hist->GetListOfFunctions()->FindObject("stats");
-
-    pave1->SetName("pave1");
-    pave1->SetTextColor(2);
-    pave1->SetX1NDC(0.78);
-    pave1->SetX2NDC(0.98);
-    mycanvas[i]->Modified();
-    mycanvas[i]->Update();
+// //     munuQCD_hist->SetFillStyle(3003);
+// //     munuQCD_hist->SetFillColor(kRed);
+// //     munuQCD_hist->SetLineColor(kRed);
+// // 
+// //     munuQCD_JESUP_hist->SetFillStyle(3003);
+// //     munuQCD_JESUP_hist->SetFillColor(kOrange);
+// //     munuQCD_JESUP_hist->SetLineColor(kOrange);
+// // 
+// //     munuQCD_JESDOWN_hist->SetFillStyle(3003);
+// //     munuQCD_JESDOWN_hist->SetFillColor(kGreen);
+// //     munuQCD_JESDOWN_hist->SetLineColor(kGreen);
+// // 
+// //     enuQCD_hist->SetFillStyle(3003);
+// //     enuQCD_hist->SetFillColor(kRed);
+// //     enuQCD_hist->SetLineColor(kRed);
+// // 
+// //     enuQCD_JESUP_hist->SetFillStyle(3003);
+// //     enuQCD_JESUP_hist->SetFillColor(kOrange);
+// //     enuQCD_JESUP_hist->SetLineColor(kOrange);
+// // 
+// //     enuQCD_JESDOWN_hist->SetFillStyle(3003);
+// //     enuQCD_JESDOWN_hist->SetFillColor(kGreen);
+// //     enuQCD_JESDOWN_hist->SetLineColor(kGreen);
+// // 
+// // 
+// //     gStyle->SetOptStat(1111111);
+// // 
+// // 
+// //     st[i] = new THStack(variables[i].c_str(),variables[i].c_str());
+// // 
+// //     munuQCD_JESUP_hist           ->SetName("munuQCD_JESUP_hist");
+// //     munuQCD_hist                 ->SetName("Single Muon Control Region: QCD W#mu#nu process");
+// //     munuQCD_JESDOWN_hist         ->SetName("munuQCD_JESDOWN_hist");
+// // 
+// //     munuQCD_JESUP_hist           ->SetTitle("munuQCD_JESUP_hist");
+// //     munuQCD_hist                 ->SetTitle("munuQCD_hist");
+// //     munuQCD_JESDOWN_hist         ->SetTitle("munuQCD_JESDOWN_hist");
+// // 
+// //     enuQCD_JESUP_hist           ->SetName("enuQCD_JESUP_hist");
+// //     enuQCD_hist                 ->SetName("Single Electron Control Region: QCD We#nu process");
+// //     enuQCD_JESDOWN_hist         ->SetName("enuQCD_JESDOWN_hist");
+// // 
+// //     enuQCD_JESUP_hist           ->SetTitle("enuQCD_JESUP_hist");
+// //     enuQCD_hist                 ->SetTitle("enuQCD_hist");
+// //     enuQCD_JESDOWN_hist         ->SetTitle("enuQCD_JESDOWN_hist");
+// // 
+// //     //munu study
+// // //     st[i]->Add(munuQCD_JESUP_hist, "hist,E0");
+// // //     st[i]->Add(munuQCD_hist, "hist,E0");
+// // //     st[i]->Add(munuQCD_hist, "AXIS");
+// // //     st[i]->Add(munuQCD_JESDOWN_hist, "hist,E0");
+// // 
+// //     //enu study
+// //     st[i]->Add(enuQCD_JESUP_hist, "hist,E0");
+// //     st[i]->Add(enuQCD_hist, "hist,E0");
+// //     st[i]->Add(enuQCD_hist, "AXIS");
+// //     st[i]->Add(enuQCD_JESDOWN_hist, "hist,E0");
+// // 
+// //     pad1[i]->cd();
+// //     st[i]->Draw("nostack");
+// //     double upperScale = 1.0/0.7;
+// //     st[i]->GetXaxis()->SetLabelSize(
+// //       st[i]->GetXaxis()->GetLabelSize() * upperScale
+// //     );
+// // //     st[i]->GetXaxis()->SetTitleSize(
+// // //       st[i]->GetXaxis()->GetTitleSize() * upperScale
+// // //     );
+// //     st[i]->GetYaxis()->SetLabelSize(
+// //       st[i]->GetYaxis()->GetLabelSize() * upperScale
+// //     );
+// // //     st[i]->GetYaxis()->SetTitleSize(
+// // //       st[i]->GetYaxis()->GetTitleSize() * upperScale
+// // //     );
+// // 
+// //     stRatio[i] = new THStack();
+// //     stRatio[i]->SetMinimum(0.0);
+// //     stRatio[i]->SetMaximum(2.5);
+// // 
+// //     //munu study
+// // //     stRatio[i]->Add(munuQCD_JESUP_ratio_hist, "histE");
+// // //     stRatio[i]->Add(munuQCD_JESDOWN_ratio_hist, "histE");
+// // 
+// //     //enu study
+// //     stRatio[i]->Add(enuQCD_JESUP_ratio_hist, "histE");
+// //     stRatio[i]->Add(enuQCD_JESDOWN_ratio_hist, "histE");
+// // 
+// //     pad2[i]->cd();
+// //     stRatio[i]->Draw("nostack");
+// //     double lowerScale = 1.0/0.3;
+// //     //stRatio[i]->GetYaxis()->SetNdivisions(5,3,0);
+// //     stRatio[i]->GetXaxis()->SetLabelSize(
+// //       stRatio[i]->GetXaxis()->GetLabelSize() * lowerScale
+// //     );
+// // //     stRatio[i]->GetXaxis()->SetTitleSize(
+// // //       stRatio[i]->GetXaxis()->GetTitleSize() * lowerScale
+// // //     );
+// //     stRatio[i]->GetYaxis()->SetLabelSize(
+// //       stRatio[i]->GetYaxis()->GetLabelSize() * lowerScale
+// //     );
+// //     stRatio[i]->GetYaxis()->SetTitle("JES / central    ");
+// //     stRatio[i]->GetXaxis()->SetTitle(" p_{T}^{jet2} (GeV) ");
+// //     stRatio[i]->GetXaxis()->SetTitleOffset(0.8);
+// //     stRatio[i]->GetYaxis()->SetTitleOffset(0.3);
+// //     stRatio[i]->GetYaxis()->SetTitleSize(
+// //       stRatio[i]->GetYaxis()->GetTitleSize() * lowerScale
+// //     );
+// //     stRatio[i]->GetXaxis()->SetTitleSize(
+// //       stRatio[i]->GetXaxis()->GetTitleSize() * lowerScale
+// //     );
+// // 
+// // 
+// // 
+// //     TLine * line = new TLine();
+// //     line->SetLineStyle(2);
+// // 
+// //     //munu study
+// // //     double xmin = munuQCD_hist->GetXaxis()->GetBinLowEdge(1);
+// // //     double xmax = munuQCD_hist->GetXaxis()->GetBinLowEdge(munuQCD_hist->GetNbinsX() +1);
+// // 
+// //     //enu study
+// //     double xmin = enuQCD_hist->GetXaxis()->GetBinLowEdge(1);
+// //     double xmax = enuQCD_hist->GetXaxis()->GetBinLowEdge(enuQCD_hist->GetNbinsX() +1);
+// // 
+// //     line->DrawLine( xmin, 1.0, xmax, 1.0 );
+// // 
+// // 
+// //     TLegend *leg = new TLegend(0.8,0.8,0.9,1.);
+// // 
+// //     //munu study
+// // //     leg->AddEntry(munuQCD_JESUP_ratio_hist,"JESUP","l");
+// // //     leg->AddEntry(munuQCD_JESDOWN_ratio_hist,"JESDOWN","l");
+// // 
+// //     //enu study
+// //     leg->AddEntry(enuQCD_JESUP_ratio_hist,"JESUP","l");
+// //     leg->AddEntry(enuQCD_JESDOWN_ratio_hist,"JESDOWN","l");
+// // 
+// //     leg->Draw();
+// //     pad1[i]->cd();
+// // 
+// //     mycanvas[i]->Modified();
+// //     mycanvas[i]->Update();
+// // 
+// //     //munu study
+// // //     TPaveStats *pave1 = (TPaveStats*)munuQCD_hist->GetListOfFunctions()->FindObject("stats");
+// // 
+// //     //enu study
+// //     TPaveStats *pave1 = (TPaveStats*)enuQCD_hist->GetListOfFunctions()->FindObject("stats");
+// // 
+// //     pave1->SetName("pave1");
+// //     pave1->SetTextColor(2);
+// //     pave1->SetX1NDC(0.78);
+// //     pave1->SetX2NDC(0.98);
+// //     mycanvas[i]->Modified();
+// //     mycanvas[i]->Update();
 
 
 //     if ( i == 0 ){
