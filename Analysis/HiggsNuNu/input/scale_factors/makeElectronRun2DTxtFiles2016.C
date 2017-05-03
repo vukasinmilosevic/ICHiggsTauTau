@@ -24,6 +24,7 @@ int makeElectronRun2DTxtFiles2016(){//main
 
   //double extraIdSyst = 0;
   double extraGsfSyst = 0.01;//for pT<20 GeV due to gsfID
+  double extraTrigSyst = 0.01;
 
   TH2F *hist_elec[nP][3];
   for (unsigned iWP(0);iWP<nP;++iWP){//loop on WP
@@ -114,8 +115,8 @@ int makeElectronRun2DTxtFiles2016(){//main
 	    int bin = myeff->GetGlobalBin(iEta+1,iPt+1);
 	    std::cout << "Check " << iEta << " " << iPt << " " << val << " " << myeff->GetEfficiency(bin) << std::endl;
 	    val = myeff->GetEfficiency(bin);
-	    errmin = myeff->GetEfficiencyErrorLow(bin);
-	    errmax = myeff->GetEfficiencyErrorUp(bin);
+	    errmin = sqrt(pow(myeff->GetEfficiencyErrorLow(bin),2)+pow(extraTrigSyst,2));
+	    errmax = sqrt(pow(myeff->GetEfficiencyErrorUp(bin),2)+pow(extraTrigSyst,2));
 	  }
 	  else errmax = errmin;
 
