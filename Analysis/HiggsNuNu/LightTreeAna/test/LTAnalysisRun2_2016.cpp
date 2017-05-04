@@ -415,9 +415,9 @@ int main(int argc, char* argv[]){
     //tauveto="&&nvetotaus==0";
     tauveto="";
     if (channel!="taunu") dataextrasel += "&&nvetotaus==0";
-    if (syst=="TAUUP") tauvetoweight="*TMath::Power(1-0.97,nvetotaus)";
-    else if (syst=="TAUDOWN") tauvetoweight="*TMath::Power(1-0.91,nvetotaus)";
-    else tauvetoweight="*TMath::Power(1-0.94,nvetotaus)";
+    if (syst=="TAUUP") tauvetoweight="*1.";//TMath::Power(1-0.97,nvetotaus)";
+    else if (syst=="TAUDOWN") tauvetoweight="*TMath::Power(1-0.9,nvetotaus)";
+    else tauvetoweight="*TMath::Power(1-0.95,nvetotaus)";
   } else {
     tauveto="";
     tauvetoweight="";
