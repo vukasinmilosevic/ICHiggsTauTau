@@ -16,6 +16,8 @@ class Syst{
   CLASS_MEMBER(Syst,TFile*,downtfile)
   CLASS_MEMBER(Syst,std::vector<std::string>,procsaffected)
   CLASS_MEMBER(Syst,double,constvalue)
+  CLASS_MEMBER(Syst,double,upconstvalue)
+  CLASS_MEMBER(Syst,double,downconstvalue)
   CLASS_MEMBER(Syst,bool,is_datastat)
   Syst();
 };
@@ -81,8 +83,8 @@ int main(int argc, char* argv[]){
     ("do_run2",                  po::value<bool>(&do_run2)->default_value(false))
     ("do_4params",               po::value<bool>(&do_4params)->default_value(false))
     ("do_1param",                po::value<bool>(&do_1param)->default_value(true))
-    ("wzqcd_syst",               po::value<double>(&wzqcd_syst)->default_value(1.30))
-    ("wzewk_syst",               po::value<double>(&wzewk_syst)->default_value(1.30))
+    ("wzqcd_syst",               po::value<double>(&wzqcd_syst)->default_value(1.125))
+    ("wzewk_syst",               po::value<double>(&wzewk_syst)->default_value(1.125))
     ("minvarXcut",               po::value<double>(&minvarXcut)->default_value(0))
     ("minvarYcut",               po::value<double>(&minvarYcut)->default_value(0))
     ("minvarZcut",               po::value<double>(&minvarZcut)->default_value(0))
@@ -138,6 +140,10 @@ int main(int argc, char* argv[]){
       bkgprocesses.push_back("zvvewk");
     }
   }
+  if (channel=="nunu") {
+    bkgprocesses.push_back("zllqcd");
+    bkgprocesses.push_back("zllewk");
+  }
   if (channel=="mumu") {
     if (!do_separate_qcdewk) bkgprocesses.push_back("zmumuqcd");
     else {
@@ -176,6 +182,10 @@ int main(int argc, char* argv[]){
       bkgprocesslatex.push_back("$qcdZ\\rightarrow\\nu\\nu$");
       bkgprocesslatex.push_back("$ewkZ\\rightarrow\\nu\\nu$");
     }
+  }
+  if (channel=="nunu") {
+    bkgprocesslatex.push_back("$qcdZ\\rightarrow ll$");
+    bkgprocesslatex.push_back("$ewkZ\\rightarrow ll");
   }
   if (channel=="mumu") {
     if (!do_separate_qcdewk) bkgprocesslatex.push_back("$Z\\rightarrow\\mu\\mu$");
@@ -260,6 +270,8 @@ int main(int argc, char* argv[]){
     lumi8tevprocsaffected.push_back("zvv");
     lumi8tevprocsaffected.push_back("zvvewk");
     lumi8tevprocsaffected.push_back("zvvqcd");
+    lumi8tevprocsaffected.push_back("zllewk");
+    lumi8tevprocsaffected.push_back("zllqcd");
       //}
     lumi8tevprocsaffected.push_back("zmumu");
     lumi8tevprocsaffected.push_back("zee");
@@ -286,8 +298,9 @@ int main(int argc, char* argv[]){
     .set_procsaffected(lumi8tevprocsaffected)
     .set_constvalue(1.026);
 
-  std::vector<std::string> allprocs={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH1C50","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","qcd","wg","vv"};
-  std::vector<std::string> allprocsnotqcd={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","wg","vv"};
+    std::vector<std::string> allprocs={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH1C50","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zllewk","zllqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","qcd","wg","vv"};
+    std::vector<std::string> allprocsnotz={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH1C50","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","wmuewk","welewk","wtauewk","top","qcd","wg","vv"};
+    std::vector<std::string> allprocsnotqcd={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zllewk","zllqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","wg","vv"};
   std::vector<std::string> ggHprocs={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","ggH"};
   std::vector<std::string> qqHprocs={"qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","qqH"};
 
@@ -327,7 +340,7 @@ int main(int argc, char* argv[]){
   jes.set_name("CMS_scale_j")
     .set_latexname("Jet energy scale")
     .set_type("fromfilelnN")
-    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_procsaffected(do_run2?allprocsnotz:allprocsnotqcd)
     .set_uptfile(jesup)
     .set_downtfile(jesdown);
 
@@ -335,7 +348,7 @@ int main(int argc, char* argv[]){
   jer.set_name("CMS_res_j")
     .set_latexname("Jet energy resolution")
     .set_type("fromfilelnN")
-    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_procsaffected(do_run2?allprocsnotz:allprocsnotqcd)
     .set_uptfile(jerbetter)
     .set_downtfile(jerworse);
 
@@ -408,7 +421,6 @@ int main(int argc, char* argv[]){
     .set_latexname("$Z\\rightarrow\\nu\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"zvvqcd"});
-
   if (mcBkgOnly) zvvmcstat.set_type("fromMCstatlnN");
 
   Syst wzratioqcd;
@@ -430,7 +442,6 @@ int main(int argc, char* argv[]){
     .set_latexname("$ewkZ\\rightarrow\\nu\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"zvvewk"});
-
   if (mcBkgOnly) zvvewkmcstat.set_type("fromMCstatlnN");
 
   Syst zvvqcdmcstat;
@@ -438,7 +449,6 @@ int main(int argc, char* argv[]){
     .set_latexname("$qcdZ\\rightarrow\\nu\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"zvvqcd"});
-
   if (mcBkgOnly) zvvqcdmcstat.set_type("fromMCstatlnN");
 
   Syst zmumumcstat;
@@ -446,11 +456,13 @@ int main(int argc, char* argv[]){
     .set_latexname("$Z\\rightarrow\\mu\\mu$ MC stat.")
     .set_type("fromMCstatlnN")
     .set_procsaffected({"zmumu"});
+
   Syst zmumuqcdmcstat;
   zmumuqcdmcstat.set_name("CMS_VBFHinv_zmumu_qcd_norm")
     .set_latexname("$qcdZ\\rightarrow\\mu\\mu$ MC stat.")
     .set_type("fromMCstatlnN")
     .set_procsaffected({"zmumuqcd"});
+
   Syst zmumuewkmcstat;
   zmumuewkmcstat.set_name("CMS_VBFHinv_zmumu_ewk_norm")
     .set_latexname("ewk$Z\\rightarrow\\mu\\mu$ MC stat.")
@@ -462,11 +474,13 @@ int main(int argc, char* argv[]){
     .set_latexname("$Z\\rightarrow ee$ MC stat.")
     .set_type("fromMCstatlnN")
     .set_procsaffected({"zee"});
+
   Syst zeeqcdmcstat;
   zeeqcdmcstat.set_name("CMS_VBFHinv_zee_qcd_norm")
     .set_latexname("$qcdZ\\rightarrow ee$ MC stat.")
     .set_type("fromMCstatlnN")
     .set_procsaffected({"zeeqcd"});
+
   Syst zeeewkmcstat;
   zeeewkmcstat.set_name("CMS_VBFHinv_zee_ewk_norm")
     .set_latexname("ewk$Z\\rightarrow ee$ MC stat.")
@@ -494,12 +508,14 @@ int main(int argc, char* argv[]){
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"welqcd"});
   if (mcBkgOnly) welmcstat.set_type("fromMCstatlnN");
+
   Syst welqcdmcstat;
   welqcdmcstat.set_name("CMS_VBFHinv_wel_qcd_norm")
     .set_latexname("qcd$W\\rightarrow e\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"welqcd"});
   if (mcBkgOnly) welqcdmcstat.set_type("fromMCstatlnN");
+
   Syst welewkmcstat;
   welewkmcstat.set_name("CMS_VBFHinv_wel_ewk_norm")
     .set_latexname("ewk$W\\rightarrow e\\nu$ MC stat.")
@@ -520,12 +536,14 @@ int main(int argc, char* argv[]){
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wmuqcd"});
   if (mcBkgOnly) wmumcstat.set_type("fromMCstatlnN");
+
   Syst wmuqcdmcstat;
   wmuqcdmcstat.set_name("CMS_VBFHinv_wmu_qcd_norm")
     .set_latexname("qcd$W\\rightarrow \\mu\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wmuqcd"});
   if (mcBkgOnly) wmuqcdmcstat.set_type("fromMCstatlnN");
+
   Syst wmuewkmcstat;
   wmuewkmcstat.set_name("CMS_VBFHinv_wmu_ewk_norm")
     .set_latexname("ewk$W\\rightarrow \\mu\\nu$ MC stat.")
@@ -560,12 +578,14 @@ int main(int argc, char* argv[]){
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wtauqcd"});
   if (mcBkgOnly) wtaumcstat.set_type("fromMCstatlnN");
+
   Syst wtauqcdmcstat;
   wtauqcdmcstat.set_name("CMS_VBFHinv_wtau_qcd_norm")
     .set_latexname("qcd$W\\rightarrow \\tau\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wtauqcd"});
   if (mcBkgOnly) wtauqcdmcstat.set_type("fromMCstatlnN");
+
   Syst wtauewkmcstat;
   wtauewkmcstat.set_name("CMS_VBFHinv_wtau_ewk_norm")
     .set_latexname("ewk$W\\rightarrow \\tau\\nu$ MC stat.")
@@ -619,12 +639,20 @@ int main(int argc, char* argv[]){
     .set_type("fromMCstatlnN")
     .set_procsaffected(ggHprocs);
 
-  Syst ggHqcdscale;
-  ggHqcdscale.set_name("QCDscale_ggH2in")
-    .set_latexname("ggH QCD scale")
+  Syst ggH2inqcdscale;
+  ggH2inqcdscale.set_name("QCDscale_ggH2in")
+    .set_latexname("ggH2in QCD scale")
     .set_type("constlnN")
     .set_procsaffected(ggHprocs)
-    .set_constvalue(1.553);
+    .set_constvalue(1.45);
+
+  Syst ggHqcdscale;
+  ggHqcdscale.set_name("QCDscale_ggH")
+    .set_latexname("ggH QCD scale")
+    .set_type("updownconstlnN")
+    .set_procsaffected(ggHprocs)
+    .set_upconstvalue(0.046)
+    .set_downconstvalue(0.067);
 
   //UPDATE TO BE MASS DEPENDENT
   Syst ggHpdf;
@@ -632,7 +660,7 @@ int main(int argc, char* argv[]){
     .set_latexname("ggH pdf")
     .set_type("constlnN")
     .set_procsaffected(ggHprocs)
-    .set_constvalue(1.031);
+    .set_constvalue(1.032);
 
   Syst ggHUEPS;
   ggHUEPS.set_name("UEPS")
@@ -666,18 +694,64 @@ int main(int argc, char* argv[]){
   Syst qqHqcdscale;
   qqHqcdscale.set_name("QCDscale_qqH")
     .set_latexname("VBF QCD scale")
-    .set_type("constlnN")
+    .set_type("updownconstlnN")
     .set_procsaffected(qqHprocs);
-  if(mass=="110")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="125")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="150")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="200")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="300")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="400")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="500")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="600")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="800")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="1000")qqHqcdscale.set_constvalue(1.004);
+  if(mass=="110"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="125"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="150"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="200"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="300"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="400"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="500"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="600"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="800"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="1000"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+
+  Syst qqHqcdscaleaccept;
+  qqHqcdscaleaccept.set_name("QCDscale_qqH_accept")
+  .set_latexname("VBF QCD scale acceptance")
+  .set_type("constlnN")
+  .set_procsaffected(qqHprocs);
+  if(mass=="110")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="125")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="150")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="200")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="300")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="400")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="500")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="600")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="800")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="1000")qqHqcdscaleaccept.set_constvalue(1.02);
 
   Syst qqHpdf;
   qqHpdf.set_name("pdf_qqbar")
@@ -694,6 +768,22 @@ int main(int argc, char* argv[]){
   if(mass=="600")qqHpdf.set_constvalue(1.021);
   if(mass=="800")qqHpdf.set_constvalue(1.021);
   if(mass=="1000")qqHpdf.set_constvalue(1.021);
+
+  Syst qqHpdfaccept;
+  qqHpdfaccept.set_name("pdf_qqbar_accept")
+  .set_latexname("VBF pdf acceptance")
+  .set_type("constlnN")
+  .set_procsaffected(qqHprocs);
+  if(mass=="110")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="125")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="150")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="200")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="300")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="400")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="500")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="600")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="800")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="1000")qqHpdfaccept.set_constvalue(1.01);
 
   Syst vvmcstat;
   vvmcstat.set_name("CMS_VBFHinv_vv_norm")
@@ -722,6 +812,13 @@ int main(int argc, char* argv[]){
     .set_procsaffected({"zvv","zmumu","zee"})
     .set_constvalue(1.1);
 
+  Syst topreweight;
+  topreweight.set_name("CMS_VBFHinv_top_reweight")
+    .set_latexname("top pT reweight")
+    .set_type("constlnN")
+    .set_procsaffected({"top"})
+    .set_constvalue(1.1);
+
   Syst topxsunc;
   topxsunc.set_name("CMS_VBFHinv_top_xsunc")
     .set_latexname("top cross-section")
@@ -740,6 +837,14 @@ int main(int argc, char* argv[]){
     .set_latexname("$Z/\\gamma^{*}\\rightarrow\\mu\\mu$ to $Z\\rightarrow\\nu\\nu$ extrapolation")
     .set_type("constlnN")
     .set_procsaffected({"zvv"})
+    .set_constvalue(1.2);
+
+
+  Syst zjets_SR_norm;
+  zjets_SR_norm.set_name("ZJets_SR_norm")
+    .set_latexname("DY+jets QCD and Zll EWK in SR normalisation")
+    .set_procsaffected({"zllqcd","zllewk"})
+    .set_type("constlnN")
     .set_constvalue(1.2);
 
   if (do_tau_veto_unc) {
@@ -831,7 +936,10 @@ int main(int argc, char* argv[]){
     systematics.push_back(mctopmcstat);
     if (!mcBkgOnly) systematics.push_back(topmcsfunc);
   }
-  if (mcBkgOnly) systematics.push_back(topxsunc);
+  if (mcBkgOnly) {
+    systematics.push_back(topxsunc);
+    systematics.push_back(topreweight);
+  }
   if(do_run2 || do_qcdfromshape){
     systematics.push_back(qcdmcstat);
     if (channel=="nunu") systematics.push_back(qcdextrap);
@@ -843,9 +951,13 @@ int main(int argc, char* argv[]){
   if (channel=="nunu"){
     systematics.push_back(qqHmcstat);
     systematics.push_back(qqHqcdscale);
+    systematics.push_back(qqHqcdscaleaccept);
     systematics.push_back(qqHpdf);
+    systematics.push_back(qqHpdfaccept);
+    systematics.push_back(zjets_SR_norm);
     if(do_ggh){
       systematics.push_back(ggHmcstat);
+      systematics.push_back(ggH2inqcdscale);
       systematics.push_back(ggHqcdscale);
       systematics.push_back(ggHpdf);
       systematics.push_back(ggHUEPS);
@@ -1080,6 +1192,34 @@ int main(int argc, char* argv[]){
 	  datacard<<"\t"<<systematics[iSyst].constvalue();
 	  //store for total error calculation
 	  double error=systematics[iSyst].constvalue()-1;
+
+	  double abserror=0;
+	  if(iProc<sigprocesses.size()){
+	    abserror=error*sigcentralrates[iProc];
+	    if(systematics[iSyst].is_datastat())thissystsigstat+=abserror;
+	    else thissystsigsyst+=abserror;
+	  }
+	  else{
+	    abserror=error*bkgcentralrates[iProc-sigprocesses.size()];
+	    if(systematics[iSyst].is_datastat())thissystbkgstat+=abserror;
+	    else thissystbkgsyst+=abserror;
+	  }
+
+	  if(systematics[iSyst].is_datastat()){
+	    if(procstattotal.find(dirname)==procstattotal.end()) procstattotal[dirname]=error;
+	    else procstattotal[dirname]=sqrt(pow(procstattotal[dirname],2)+pow(error,2));
+	  }
+	  else{
+	    if(procsysttotal.find(dirname)==procsysttotal.end()) procsysttotal[dirname]=error;
+	    else procsysttotal[dirname]=sqrt(pow(procsysttotal[dirname],2)+pow(error,2));
+	  }
+	  if(verbose)std::cout<<"    "<<dirname<<" "<<procsysttotal[dirname]<<" "<<procstattotal[dirname]<<std::endl;
+	}
+
+	if(systematics[iSyst].type()=="updownconstlnN"){
+    datacard<<"\t"<<1-systematics[iSyst].downconstvalue()<<"/"<<1+systematics[iSyst].upconstvalue();
+	  //store for total error calculation
+    double error=(systematics[iSyst].upconstvalue()>systematics[iSyst].downconstvalue())?systematics[iSyst].upconstvalue():systematics[iSyst].downconstvalue();
 
 	  double abserror=0;
 	  if(iProc<sigprocesses.size()){
@@ -1527,6 +1667,10 @@ datacard<<std::endl;
     if (channel=="nunu" || channel=="qcd"){
       datacard<<"WZ_xsection rateParam ch1 zvvewk 1"<<std::endl;
       datacard<<"WZ_xsection rateParam ch1 zvvqcd 1"<<std::endl;
+    }
+    if (channel=="nunu"){
+      datacard<<"WZ_xsection rateParam ch1 zllewk 1"<<std::endl;
+      datacard<<"WZ_xsection rateParam ch1 zllqcd 1"<<std::endl;
     }
   }
 

@@ -10,18 +10,18 @@ DATE=170321
 DOSUBMIT=$1
 DO4PARAMS=$2
 infolder=output_run2ana_${DATE}_datacard
-outfolder=cards_run2ana_${DATE}_datacard
+outfolder=cards_run2ana_${DATE}_datacardTEST
 do_tau_veto_unc=true
 do_b_veto_unc=true
-wzqcd_syst=1.15
-wzewk_syst=1.15
+wzqcd_syst=1.125
+wzewk_syst=1.125
 blind=true
 #zvvstat=18
 mkdir -p $outfolder
 
 extraoptions="--do_ues=false" #--do_ggh=false --do_separate_qcdewk=false"
 
-for channel in enu munu taunu mumu ee qcd nunu
+for channel in nunu #enu munu taunu mumu ee qcd nunu
   do
   echo " ********************************"
   echo " *** Processing channel $channel"

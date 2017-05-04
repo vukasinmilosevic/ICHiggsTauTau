@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170405
+DATE=170504
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -28,9 +28,9 @@ CONFIG=scripts/DefaultRun2Config_vetos.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_${DATE} #_datacard_forLoosenCuts
+JOBDIRPREFIX=jobs_run2ana_${DATE}_forPreApproval #_datacard_forLoosenCuts
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE} #_datacard_forLoosenCuts
+OUTPUTPREFIX=output_run2ana_${DATE}_forPreApproval #_datacard_forLoosenCuts
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -70,7 +70,7 @@ for syst in "" #JESUP JESDOWN JERBETTER JERWORSE TAUUP TAUDOWN BTAGUP BTAGDOWN L
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in nunu #enu munu taunu ee mumu qcd nunu
+  for channels in enu munu taunu ee mumu qcd nunu
     do
     JOB=$channels
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/weights.hists`
