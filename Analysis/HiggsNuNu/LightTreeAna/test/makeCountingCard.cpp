@@ -140,7 +140,7 @@ int main(int argc, char* argv[]){
       bkgprocesses.push_back("zvvewk");
     }
   }
-  if (channel=="nunu") {
+  if (channel=="nunu"||channel=="enu"||channel=="munu"||channel=="taunu") {
     bkgprocesses.push_back("zllqcd");
     bkgprocesses.push_back("zllewk");
   }
@@ -183,7 +183,7 @@ int main(int argc, char* argv[]){
       bkgprocesslatex.push_back("$ewkZ\\rightarrow\\nu\\nu$");
     }
   }
-  if (channel=="nunu") {
+  if (channel=="nunu"||channel=="enu"||channel=="munu"||channel=="taunu") {
     bkgprocesslatex.push_back("$qcdZ\\rightarrow ll$");
     bkgprocesslatex.push_back("$ewkZ\\rightarrow ll");
   }
@@ -796,7 +796,7 @@ int main(int argc, char* argv[]){
     .set_latexname("VV cross-section")
     .set_type("constlnN")
     .set_procsaffected({"vv"})
-    .set_constvalue(1.07);
+    .set_constvalue(1.15);
 
   Syst wxsunc;
   wxsunc.set_name("CMS_VBFHinv_W_xsunc")

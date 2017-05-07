@@ -5,12 +5,12 @@ if [ "$#" -ne "2" ]; then
   exit 0
 fi
 
-DATE=170321
+DATE=170508
 
 DOSUBMIT=$1
 DO4PARAMS=$2
-infolder=output_run2ana_${DATE}_datacard
-outfolder=cards_run2ana_${DATE}_datacardTEST
+infolder=output_run2ana_${DATE}_datacard_forPreApproval
+outfolder=cards_run2ana_${DATE}_datacard_forPreApproval
 do_tau_veto_unc=true
 do_b_veto_unc=true
 wzqcd_syst=1.125
@@ -21,7 +21,7 @@ mkdir -p $outfolder
 
 extraoptions="--do_ues=false" #--do_ggh=false --do_separate_qcdewk=false"
 
-for channel in nunu #enu munu taunu mumu ee qcd nunu
+for channel in enu munu taunu mumu ee qcd nunu
   do
   echo " ********************************"
   echo " *** Processing channel $channel"
