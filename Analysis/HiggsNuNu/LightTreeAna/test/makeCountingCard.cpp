@@ -814,7 +814,7 @@ int main(int argc, char* argv[]){
 
   Syst topreweight;
   topreweight.set_name("CMS_VBFHinv_top_reweight")
-    .set_latexname("top pT reweight")
+    .set_latexname("Top pT reweight")
     .set_type("constlnN")
     .set_procsaffected({"top"})
     .set_constvalue(1.1);
@@ -1668,7 +1668,7 @@ datacard<<std::endl;
       datacard<<"WZ_xsection rateParam ch1 zvvewk 1"<<std::endl;
       datacard<<"WZ_xsection rateParam ch1 zvvqcd 1"<<std::endl;
     }
-    if (channel=="nunu"){
+    if (channel=="nunu"||channel=="enu"||channel=="munu"||channel=="taunu"){
       datacard<<"WZ_xsection rateParam ch1 zllewk 1"<<std::endl;
       datacard<<"WZ_xsection rateParam ch1 zllqcd 1"<<std::endl;
     }
