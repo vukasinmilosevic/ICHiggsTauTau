@@ -184,7 +184,8 @@ int makeMuonRun2DTxtFiles2016(){//main
 	for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
 	  double val = hist_muon[iWP][iData]->GetBinContent(iEta,iPt+1);
 	  double err = hist_muon[iWP][iData]->GetBinError(iEta,iPt+1);
-          err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
+	  //apply extra syst only on SF or data
+          if (iData!=1) err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
 	  std::ostringstream lstr;
 	  lstr << ptMin[iPt] << " " << ptMax[iPt] << " " << -etaMax[iEta-1] << " " << -etaMin[iEta-1] << " " << val << " " << err << " " << err << std::endl;
 	  lOut << lstr.str();
@@ -199,7 +200,8 @@ int makeMuonRun2DTxtFiles2016(){//main
 	  double val = hist_muon[iWP][iData]->GetBinContent(iEta+1,iPt+1);
 	  //valcheck[iData][iEta][iPt] = val;
 	  double err = hist_muon[iWP][iData]->GetBinError(iEta+1,iPt+1);
-          err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
+	  //apply extra syst only on SF or data
+          if (iData!=1) err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
 	  lOut << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " " << val << " " << err << " " << err << std::endl;
 	}//loop on pT bins
 	

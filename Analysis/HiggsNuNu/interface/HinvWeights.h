@@ -90,9 +90,6 @@ class HinvWeights : public ModuleBase {
   std::vector<double> muVeto_isoDataEff_[3];
   std::vector<double> muVeto_idMCEff_[3];
   std::vector<double> muVeto_isoMCEff_[3];
-  std::vector<double> muTight_idisoSF_[3];
-  std::vector<double> muVeto_idisoDataEff_[3];
-  std::vector<double> muVeto_idisoMCEff_[3];
   std::vector<double> mu_tkSF_[3];
 
   std::vector<double> gsf_etabin_;
