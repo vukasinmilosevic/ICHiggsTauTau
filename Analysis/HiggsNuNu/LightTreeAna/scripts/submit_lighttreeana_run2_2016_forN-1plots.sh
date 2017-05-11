@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170228
+DATE=170405
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -68,21 +68,21 @@ for syst in ""
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in enu munu taunu ee mumu qcd nunu
+  for channels in nunu
     do
     JOB=$channels
     #executable expect strings separated by "!"
 
     ## no_METno_cut
 #     HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events"
-#     SHAPESTRING="metnomuons(50,0.,500.)"
+#     SHAPESTRING="metnomuons(80,0.,800.)"
 #     if [ "$channels" = "ee" ]; then
 #       HISTSTRING=";E_{T,no-el}^{miss} (GeV);Events"
-#       SHAPESTRING="metnoelectrons(50,0.,500.)"
+#       SHAPESTRING="metnoelectrons(80,0.,800.)"
 #     fi
 #     if [ "$channels" = "enu" ]; then
 #       HISTSTRING=";E_{T,no-el}^{miss} (GeV);Events"
-#       SHAPESTRING="metnoelectrons(50,0.,500.)"
+#       SHAPESTRING="metnoelectrons(80,0.,800.)"
 #     fi
 
     ## no_dijet_dphi_cut
@@ -91,7 +91,7 @@ do
 
     ## no_dijet_deta_cut
 #     HISTSTRING=";#Delta#eta_{jj};Events"
-#     SHAPESTRING="dijet_deta(45,0.,6.5)"
+#     SHAPESTRING="dijet_deta(30,2.,8.)"
 
     ## no_alljetsmetnomu_mindphi_cut
 #     HISTSTRING=";#Delta#phi(E_{T,no-#mu}^{miss},j);Events"
@@ -107,7 +107,7 @@ do
 
     ## no_dijet_M_cut
     HISTSTRING=";M_{jj} (GeV);Events"
-    SHAPESTRING="dijet_M(22,600.,3500.)"
+    SHAPESTRING="dijet_M(35,600.,4500.)"
 
     echo "Making histograms: " $SHAPESTRING
     OUTPUTNAME="$channels.root"

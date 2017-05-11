@@ -433,8 +433,8 @@ int main(int argc, char* argv[]){
     //tauveto="&&nvetotaus==0";
     tauveto="";
     if (channel!="taunu") dataextrasel += "&&nvetotaus==0";
-    if (syst=="TAUUP") tauvetoweight="*1.";//TMath::Power(1-0.97,nvetotaus)";
-    else if (syst=="TAUDOWN") tauvetoweight="*TMath::Power(1-0.9,nvetotaus)";
+    if (syst=="TAUUP") tauvetoweight="*TMath::Power(1-0.95,nvetotaus)*(1+nvetotaus)";//"*1.";"*TMath::Power(1-0.97,nvetotaus)";
+    else if (syst=="TAUDOWN") tauvetoweight="*TMath::Power(1-0.95,nvetotaus)*(1-nvetotaus)";//"*TMath::Power(1-0.9,nvetotaus)";
     else tauvetoweight="*TMath::Power(1-0.95,nvetotaus)";
   } else {
     tauveto="";
@@ -602,8 +602,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
-
+    .set_cat(sigcat+mcextrasel);
 
   DataShape qqH125("qqH125");
   qqH125.set_dataset("VBFH125")
@@ -611,7 +610,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape qqH150("qqH150");
   qqH150.set_dataset("VBFH150")
@@ -619,7 +618,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape qqH200("qqH200");
   qqH200.set_dataset("VBFH200")
@@ -627,7 +626,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape qqH300("qqH300");
   qqH300.set_dataset("VBFH300")
@@ -635,7 +634,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape qqH400("qqH400");
   qqH400.set_dataset("VBFH400")
@@ -643,7 +642,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape qqH500("qqH500");
   qqH500.set_dataset("VBFH500")
@@ -683,7 +682,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape ggH125("ggH125");
   ggH125.set_dataset("GluGluH125")
@@ -691,7 +690,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape ggH150("ggH150");
   ggH150.set_dataset("GluGluH150")
@@ -699,7 +698,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape ggH200("ggH200");
   ggH200.set_dataset("GluGluH200")
@@ -707,7 +706,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape ggH300("ggH300");
   ggH300.set_dataset("GluGluH300")
@@ -715,7 +714,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape ggH400("ggH400");
   ggH400.set_dataset("GluGluH400")
@@ -723,7 +722,7 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);  
+    .set_cat(sigcat+mcextrasel);
 
   DataShape ggH500("ggH500");
   ggH500.set_dataset("GluGluH500")
@@ -768,7 +767,7 @@ int main(int argc, char* argv[]){
   DataShape topraw("topraw");
   topraw.set_dataset("Top")
     .set_dirname("top")
-    .set_shape(shape)    
+    .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
@@ -806,18 +805,7 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
   if (use_nlo)  zmumuraw.set_dataset("ZJets_ll_nlo");
-
-  DataShape zeeraw("zeeraw");
-  zeeraw.set_dataset("ZJets_ll")
-    .set_dirname("zee")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  if (use_nlo)  zeeraw.set_dataset("ZJets_ll_nlo");
 
   DataShape qcdzmumuraw("qcdzmumuraw");
   qcdzmumuraw.set_dataset("ZJets_ll")
@@ -826,7 +814,6 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
   if (use_nlo)  qcdzmumuraw.set_dataset("ZJets_ll_nlo");
 
   DataShape ewkzmumuraw("ewkzmumuraw");
@@ -837,6 +824,15 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
+  DataShape zeeraw("zeeraw");
+  zeeraw.set_dataset("ZJets_ll")
+    .set_dirname("zee")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+  if (use_nlo)  zeeraw.set_dataset("ZJets_ll_nlo");
+
   DataShape qcdzeeraw("qcdzeeraw");
   qcdzeeraw.set_dataset("ZJets_ll")
     .set_dirname("zeeqcd")
@@ -844,12 +840,54 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
   if (use_nlo)  qcdzeeraw.set_dataset("ZJets_ll_nlo");
 
   DataShape ewkzeeraw("ewkzeeraw");
   ewkzeeraw.set_dataset("EWK_ZJets_ll")
     .set_dirname("zeeewk")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape zllraw("zllraw");
+  zllraw.set_dataset("ZJets_ll")
+    .set_dirname("zll")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+    if (use_nlo)  zllraw.set_dataset("ZJets_ll_nlo");
+
+  DataShape qcdzllraw("qcdzllraw");
+  qcdzllraw.set_dataset("ZJets_ll")
+    .set_dirname("zllqcd")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+    if (use_nlo)  qcdzllraw.set_dataset("ZJets_ll_nlo");
+
+  DataShape ewkzllraw("ewkzllraw");
+  ewkzllraw.set_dataset("EWK_ZJets_ll")
+    .set_dirname("zllewk")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape qcdwraw("qcdwraw");
+  qcdwraw.set_dataset("QCDWJets")
+    .set_dirname("wqcd")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+  if (use_nlo)  qcdwraw.set_dataset("QCDWJets_nlo");
+
+  DataShape ewkwraw("ewkwraw");
+  ewkwraw.set_dataset("EWKWJets")
+    .set_dirname("wewk")
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
@@ -862,26 +900,7 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
   if (use_nlo)  wmunuraw.set_dataset("WJets_nlo_munu");
-
-  DataShape qcdwraw("qcdwraw");
-  qcdwraw.set_dataset("QCDWJets")
-    .set_dirname("wqcd")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  if (use_nlo)  qcdwraw.set_dataset("QCDWJets_nlo");
-
-  DataShape ewkwraw("ewkwraw");
-  ewkwraw.set_dataset("EWKWJets")
-    .set_dirname("wewk")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
 
   DataShape qcdwmunuraw("qcdwmunuraw");
   qcdwmunuraw.set_dataset("WJets_munu")
@@ -890,7 +909,6 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
   if (use_nlo)  qcdwmunuraw.set_dataset("WJets_nlo_munu");
 
   DataShape ewkwmunuraw("ewkwmunuraw");
@@ -908,7 +926,6 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
   if (use_nlo)  wenuraw.set_dataset("WJets_nlo_enu");
 
   DataShape qcdwenuraw("qcdwenuraw");
@@ -918,7 +935,6 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
   if (use_nlo)  qcdwenuraw.set_dataset("WJets_nlo_enu");
 
   DataShape ewkwenuraw("ewkwenuraw");
@@ -929,7 +945,6 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-
   DataShape wtaunuraw("wtaunuraw");
   wtaunuraw.set_dataset("WJets_taunu")
     .set_dirname("wtau")
@@ -937,7 +952,6 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
   if (use_nlo) wtaunuraw.set_dataset("WJets_nlo_taunu");
 
   DataShape qcdwtaunuraw("qcdwtaunuraw");
@@ -947,7 +961,6 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
   if (use_nlo) qcdwtaunuraw.set_dataset("WJets_nlo_taunu");
 
   DataShape ewkwtaunuraw("ewkwtaunuraw");
@@ -957,7 +970,6 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
-
 
   DataShape qcdraw("qcdraw");
   qcdraw.set_dataset("QCD")
@@ -1054,6 +1066,7 @@ int main(int argc, char* argv[]){
     .set_legname("QCD W#rightarrow l#nu")
     .set_sample("wqcd");
   if(!do_mcbkg)qcdwele.set_has_dderrors(1);
+
   LTPlotElement ewkwele;
   ewkwele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wewk"))
@@ -1084,6 +1097,7 @@ int main(int argc, char* argv[]){
     .set_legname("QCD W#rightarrow#mu#nu")
     .set_sample("wmuqcd");
   if(!do_mcbkg)qcdwmunuele.set_has_dderrors(1);
+
   LTPlotElement ewkwmunuele;
   ewkwmunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wewk"))
@@ -1103,6 +1117,7 @@ int main(int argc, char* argv[]){
     .set_legname("W#rightarrow e#nu")
     .set_sample("wel");
   if(!do_mcbkg)wenuele.set_has_dderrors(1);
+
   LTPlotElement qcdwenuele;
   qcdwenuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wqcd"))
@@ -1112,6 +1127,7 @@ int main(int argc, char* argv[]){
     .set_legname("QCD W#rightarrow e#nu")
     .set_sample("welqcd");
   if(!do_mcbkg)qcdwenuele.set_has_dderrors(1);
+
   LTPlotElement ewkwenuele;
   ewkwenuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wewk"))
@@ -1122,7 +1138,6 @@ int main(int argc, char* argv[]){
     .set_sample("welewk");
   if(!do_mcbkg)ewkwenuele.set_has_dderrors(1);
 
-
   LTPlotElement wtaunuele;
   wtaunuele.set_is_data(false)
     .set_scale(1)
@@ -1132,6 +1147,7 @@ int main(int argc, char* argv[]){
     .set_legname("W#rightarrow#tau#nu")
     .set_sample("wtau");
   if(!do_mcbkg)wtaunuele.set_has_dderrors(1);
+
   LTPlotElement qcdwtaunuele;
   qcdwtaunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wqcd"))
@@ -1141,6 +1157,7 @@ int main(int argc, char* argv[]){
     .set_legname("QCD W#rightarrow#tau#nu")
     .set_sample("wtauqcd");
   if(!do_mcbkg)qcdwtaunuele.set_has_dderrors(1);
+
   LTPlotElement ewkwtaunuele;
   ewkwtaunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wewk"))
@@ -1151,7 +1168,7 @@ int main(int argc, char* argv[]){
     .set_sample("wtauewk");
   if(!do_mcbkg)ewkwtaunuele.set_has_dderrors(1);
 
-
+  //separate Z
   LTPlotElement zmumuele;
   zmumuele.set_is_data(false)
     .set_scale(1)
@@ -1161,6 +1178,7 @@ int main(int argc, char* argv[]){
     .set_legname("Z#rightarrow#mu#mu")
     .set_sample("zmumu");
   if(!do_mcbkg)zmumuele.set_has_dderrors(1);
+
   LTPlotElement qcdzmumuele;
   qcdzmumuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zqcd"))
@@ -1170,6 +1188,7 @@ int main(int argc, char* argv[]){
     .set_legname("QCD Z#rightarrow#mu#mu")
     .set_sample("zmumuqcd");
   if(!do_mcbkg)qcdzmumuele.set_has_dderrors(1);
+
   LTPlotElement ewkzmumuele;
   ewkzmumuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zewk"))
@@ -1189,6 +1208,7 @@ int main(int argc, char* argv[]){
     .set_legname("Z#rightarrow ee")
     .set_sample("zee");
   if(!do_mcbkg)zeeele.set_has_dderrors(1);
+
   LTPlotElement qcdzeeele;
   qcdzeeele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zqcd"))
@@ -1198,6 +1218,7 @@ int main(int argc, char* argv[]){
     .set_legname("QCD Z#rightarrow ee")
     .set_sample("zeeqcd");
   if(!do_mcbkg)qcdzeeele.set_has_dderrors(1);
+
   LTPlotElement ewkzeeele;
   ewkzeeele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zewk"))
@@ -1208,6 +1229,38 @@ int main(int argc, char* argv[]){
     .set_sample("zeeewk");
   if(!do_mcbkg)ewkzeeele.set_has_dderrors(1);
 
+  //Zll for SR
+  LTPlotElement zllele;
+  zllele.set_is_data(false)
+  .set_scale(1)
+  .set_color(kAzure  + 6)
+  .set_in_stack(true)
+  .set_is_inratioden(true)
+  .set_legname("Z#rightarrow ll")
+  .set_sample("zll");
+  if(!do_mcbkg)zllele.set_has_dderrors(1);
+
+  LTPlotElement qcdzllele;
+  qcdzllele.set_is_data(false)
+  .set_scale(1)
+  .set_color(kAzure  + 6)
+  .set_in_stack(true)
+  .set_is_inratioden(true)
+  .set_legname("QCD Z#rightarrow ll")
+  .set_sample("zllqcd");
+  if(!do_mcbkg)qcdzllele.set_has_dderrors(1);
+
+  LTPlotElement ewkzllele;
+  ewkzllele.set_is_data(false)
+  .set_scale(1)
+  .set_color(kAzure  + 8)
+  .set_in_stack(true)
+  .set_is_inratioden(true)
+  .set_legname("EWK Z#rightarrow ll")
+  .set_sample("zllewk");
+  if(!do_mcbkg)ewkzllele.set_has_dderrors(1);
+
+  //Znunu
   LTPlotElement znunuele;
   znunuele.set_is_data(false)
     .set_scale(1)
@@ -1217,6 +1270,7 @@ int main(int argc, char* argv[]){
     .set_legname("Z#rightarrow#nu#nu")
     .set_sample("zvv");
   if(!do_mcbkg)znunuele.set_has_dderrors(1);
+
   LTPlotElement qcdznunuele;
   qcdznunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zqcd"))
@@ -1226,6 +1280,7 @@ int main(int argc, char* argv[]){
     .set_legname("QCD Z#rightarrow#nu#nu")
     .set_sample("zvvqcd");
   if(!do_mcbkg)qcdznunuele.set_has_dderrors(1);
+
   LTPlotElement ewkznunuele;
   ewkznunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zewk"))
@@ -1332,6 +1387,11 @@ int main(int argc, char* argv[]){
       elementvec.push_back(qcdzeeele);
       elementvec.push_back(ewkzeeele);
     }
+
+    if (channel=="nunu" || channel=="enu" || channel=="munu"|| channel=="taunu"){
+      elementvec.push_back(qcdzllele);
+      elementvec.push_back(ewkzllele);
+    }
     //}
 
     if(channel=="nunu" || channel=="qcd" || channel=="taunu") {
@@ -1384,6 +1444,8 @@ int main(int argc, char* argv[]){
     dirvec.push_back("zmumuewk");
     dirvec.push_back("zeeqcd");
     dirvec.push_back("zeeewk");
+    dirvec.push_back("zllqcd");
+    dirvec.push_back("zllewk");
     dirvec.push_back("wqcd");
     dirvec.push_back("wewk");
     dirvec.push_back("zvvqcd");
@@ -1427,6 +1489,8 @@ int main(int argc, char* argv[]){
       analysis->AddModule(&ewkzmumuraw);
       analysis->AddModule(&qcdzeeraw);
       analysis->AddModule(&ewkzeeraw);
+      analysis->AddModule(&qcdzllraw);
+      analysis->AddModule(&ewkzllraw);
       analysis->AddModule(&qcdznunuraw);
       analysis->AddModule(&ewkznunuraw);
     }

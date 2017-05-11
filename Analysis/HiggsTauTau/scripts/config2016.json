@@ -1,10 +1,10 @@
 {
   "job": {
-    "filelist" : "filelists/Aug11_MC_80X_SUSYGluGluToHToTauTau_M-3200.dat",
-    "file_prefix" : "root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/user/rlane/Aug11_MC_80X/",
+    "filelist" : "filelists/Mar11_MC_80X_SUSYGluGluToHToTauTau_M-3200.dat",
+    "file_prefix" : "root://gfe02.grid.hep.ph.ic.ac.uk:1097/store/user/dwinterb/Apr05_MC_80X/",
     "max_events":   -1,
     "timings":      true,
-    "channels":     ["tt","et","mt"],
+    "channels":     ["em", "et", "mt", "tt", "zmm", "zee"],
     "sequences": {
       "all":  ["default"]
 //,"scale_met_high,""scale_met_lo","res_met_high","res_met_lo"]
@@ -17,9 +17,9 @@
     "sample": "VBF_HToTauTau_M-125"
   },
   "sequence": {
-    "mc"            : "spring16_80X",
+    "mc"            : "summer16_80X",
     "era"           : "data_2016",
-    "strategy"      : "mssmspring16",
+    "strategy"      : "mssmsummer16",
     "is_data"       : false,
     "is_embedded"   : false,
     "save_output_jsons": false,
@@ -31,9 +31,11 @@
     "add_Hhh_variables" : false,
     "get_effective" : false,
     "do_btag_eff":false,
-    "trg_in_mc" : false,
+    "trg_in_mc" : true,
+    "filter_trg" : false,
     "do_leptonplustau" : false,
     "do_singlelepton" :true,
+    "do_singletau"    :true,
     "store_trigobjpt" :true,
     "tt_trg_iso_mode" : 0,
     "moriond_tau_scale" : true,
@@ -44,12 +46,15 @@
     "muons"         : "muons",
     "taus"          : "taus",
     "jets"          : "ak4PFJetsCHS",
-    "met"           : "pfMVAMet",
+    "met"           : "pfMET",
     "genTaus"       : "genParticles",
     "genJets"       : "genJets",
     "do_iso_eff"    : false,
     "do_tau_eff"    : false,
-    "output_folder" : "/vols/cms/amd12/CMSSW_7_6_3/src/UserCode/ICHiggsTauTau/Analysis/HiggsTauTau/output/Aug11-1309-presel/",
+    "do_ff_weights" : false,
+    "do_ff_systematics": false,
+    "ff_categories" :"inclusive,btag,nobtag",
+    "output_folder" : "/vols/cms/dw515/Offline/output/MSSM/May03/",
     //"output_folder" :/output/July27_NewGolden/",
     "output_name"   : "SUSYGluGluToHToTauTau_M-3200",
     //"output_name"   : "SUSYGluGluToHToTauTau_M-160",
@@ -63,14 +68,14 @@
     "bjet_regr_correction" : false,
     "new_svfit_mode" : 0,
     "kinfit_mode"   : 0,
-    "mva_met_mode"  : 1,
+    "mva_met_mode"  : 0,
     "do_met_filters" : 1,
     "faked_tau_selector" : 0,
     "hadronic_tau_selector" : 0,
     "run_gen_info"  : false,
     "do_pu_wt"      : true,
-    "data_pu_file"  : "input/pileup/Data_Pileup_2016_69p2mb_Cert_271036-276811.root",
-    "mc_pu_file"    : "input/pileup/MC_Spring16_PU25ns_V1.root",
+    "data_pu_file"  : "input/pileup/Data_Pileup_2016_271036-284044_80bins.root",
+    "mc_pu_file"    : "input/pileup/MC_Moriond17_PU25ns_V1.root",
     "run_trg_filter": false,
     "baseline": {
       "tau_scale_mode"    : false,
@@ -109,7 +114,11 @@
         "max_extra_elecs": 1,
         "max_extra_muons": 0,
         "do_tau_anti_muon": true,
-        "do_tau_anti_elec":true
+        "do_tau_anti_elec":true,
+        "do_ff_weights" : true,
+        "do_ff_systematics": true,
+        "ff_categories" :"btag_loosemt,btag_tight,inclusive,nobtag_loosemt,nobtag_tight",
+        "ff_file" : "20170502_medium"
           }
     },
  "tt": {
@@ -119,7 +128,11 @@
         "extra_elec_veto" : true,
         "extra_muon_veto" : true,
         "do_tau_anti_muon": true,
-        "do_tau_anti_elec":true
+        "do_tau_anti_elec":true,
+        "do_ff_weights" : true,
+        "do_ff_systematics": true,
+        "ff_categories" :"btag,inclusive,nobtag",
+        "ff_file" : "20170423_tight"
       }
     },
 
@@ -132,7 +145,11 @@
         "max_extra_elecs": 0,
         "max_extra_muons": 1,
         "do_tau_anti_muon": true,
-        "do_tau_anti_elec":true
+        "do_tau_anti_elec":true,
+        "do_ff_weights" : true,
+        "do_ff_systematics": true,
+        "ff_categories" :"btag_loosemt,btag_tight,inclusive,nobtag_loosemt,nobtag_tight",
+        "ff_file" : "20170502_medium"
       }
     },
     "em": {
@@ -142,6 +159,24 @@
         "extra_muon_veto":true,
         "max_extra_elecs": 1,
         "max_extra_muons": 1
+      }
+    },
+    "zmm": {
+      "baseline": {
+        "pair_dr": 0.3,
+        "extra_elec_veto":true,
+        "extra_muon_veto":true,
+        "max_extra_elecs": 0,
+        "max_extra_muons": 2
+      }
+    },
+    "zee": {
+      "baseline": {
+        "pair_dr": 0.5,
+        "extra_elec_veto":true,
+        "extra_muon_veto":true,
+        "max_extra_elecs": 2,
+        "max_extra_muons": 0
       }
     }
   },

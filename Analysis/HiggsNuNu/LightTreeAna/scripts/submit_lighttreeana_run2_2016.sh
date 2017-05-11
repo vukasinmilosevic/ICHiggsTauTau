@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170321
+DATE=170508
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -28,9 +28,9 @@ CONFIG=scripts/DefaultRun2Config_vetos.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_${DATE}_datacard
+JOBDIRPREFIX=jobs_run2ana_${DATE}_datacard_forPreApproval
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE}_datacard
+OUTPUTPREFIX=output_run2ana_${DATE}_datacard_forPreApproval
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -65,14 +65,17 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
 echo "JOB name = $JOB"
-for syst in "" JESUP JESDOWN JERBETTER JERWORSE TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+#for syst in "" JESUP JESDOWN JERBETTER JERWORSE TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
 #for syst in JESUP JESDOWN JERBETTER JERWORSE TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+for syst in TAUUP TAUDOWN
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
   for channels in enu munu taunu ee mumu qcd nunu
     do
     JOB=$channels
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/weights.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/weights.hists`
     #executable expect strings separated by "!"
     ## To produce all of the hist
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`

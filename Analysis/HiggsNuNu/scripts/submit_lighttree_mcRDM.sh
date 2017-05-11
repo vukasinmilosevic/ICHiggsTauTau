@@ -7,7 +7,7 @@ PRODUCTION=170201
 PRODUSER=rdimaria
 JPTCUTVAL=40
 
-DATE=170313
+DATE=170508
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -189,13 +189,9 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN
     echo "Using job-submission: " $JOBSUBMIT
 
     #PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}_MC
-    PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1095//store/user/${PRODUSER}/${PRODUCTION}_MC
+    PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/${PRODUSER}/${PRODUCTION}_MC
 
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
-    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJets*`
-    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_ZJets*`
-    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_DYJetsToLL*`
-    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_EWK*`
     for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
       do
       echo "Processing files in "$FILELIST
@@ -206,7 +202,7 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN
 
       MCOPTION="--mc=summer16_80X"
       #PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}_MC
-      PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1095//store/user/${PRODUSER}/${PRODUCTION}_MC
+      PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/${PRODUSER}/${PRODUCTION}_MC
       sed "s/filelists\/${PRODUCTION}\/$QUEUEDIR\/${PRODUCTION}_MC_//" tmp.txt > tmp2.txt
       INPUTPARAMS="filelists/$PRODUCTION/Params${PRODUCTION}.dat"
 

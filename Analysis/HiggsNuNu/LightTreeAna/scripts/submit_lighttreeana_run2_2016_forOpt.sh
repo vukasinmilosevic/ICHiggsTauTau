@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170321
+DATE=170328
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -26,10 +26,10 @@ echo "Using job-submission: " $JOBSUBMIT
 CONFIG=scripts/DefaultRun2Config_forOpt.cfg
 
 QUEUEDIR=short #medium long
-
-JOBDIRPREFIX=jobs_run2ana_${DATE}_forOpt_no_dijet_dphi_cut
+#_forOpt_no_dijet_dphi_cut
+JOBDIRPREFIX=jobs_run2ana_${DATE}_loosencuts
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE}_forOpt_no_dijet_dphi_cut
+OUTPUTPREFIX=output_run2ana_${DATE}_loosencuts
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -71,6 +71,8 @@ do
   for channels in enu munu taunu ee mumu qcd nunu
     do
     JOB=$channels
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/weights.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/weights.hists`
     #executable expect strings separated by "!"
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_nomindphi.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_nomindphi.hists`
@@ -78,8 +80,8 @@ do
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
     ## To produce all of the hist for datacard
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     ## To test for one hist

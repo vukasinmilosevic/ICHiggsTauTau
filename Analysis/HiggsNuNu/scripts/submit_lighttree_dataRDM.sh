@@ -6,7 +6,7 @@ PRODUCTION=170201
 PRODUSER=rdimaria
 JPTCUTVAL=40
 
-DATE=170313
+DATE=170508
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -84,7 +84,7 @@ for SYST in central
     echo "Using job-submission: " $JOBSUBMIT
 
     #PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}_DATA
-    PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1095//store/user/${PRODUSER}/${PRODUCTION}_DATA
+    PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/${PRODUSER}/${PRODUCTION}_DATA
 
 
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_SingleMuon*`

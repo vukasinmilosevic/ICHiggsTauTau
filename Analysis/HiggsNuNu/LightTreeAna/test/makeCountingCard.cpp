@@ -16,6 +16,8 @@ class Syst{
   CLASS_MEMBER(Syst,TFile*,downtfile)
   CLASS_MEMBER(Syst,std::vector<std::string>,procsaffected)
   CLASS_MEMBER(Syst,double,constvalue)
+  CLASS_MEMBER(Syst,double,upconstvalue)
+  CLASS_MEMBER(Syst,double,downconstvalue)
   CLASS_MEMBER(Syst,bool,is_datastat)
   Syst();
 };
@@ -24,6 +26,7 @@ Syst::Syst(){
 };
 
 int main(int argc, char* argv[]){
+  bool do_MIT_trigweight;
   bool do_tau_veto_unc;
   bool do_b_veto_unc;
   bool blind=true;
@@ -62,6 +65,7 @@ int main(int argc, char* argv[]){
     ("input_folder,i",           po::value<std::string>(&indir)->default_value(""))
     ("outname,o",                po::value<std::string>(&outname)->default_value("vbfhinv.txt"))
     ("blind",                    po::value<bool>(&blind)->default_value(true))
+    ("do_MIT_trigweight",          po::value<bool>(&do_MIT_trigweight)->default_value(false))
     ("do_tau_veto_unc",          po::value<bool>(&do_tau_veto_unc)->default_value(false))
     ("do_b_veto_unc",            po::value<bool>(&do_b_veto_unc)->default_value(false))
     ("do_qcdfromshape,s",        po::value<bool>(&do_qcdfromshape)->default_value(false))
@@ -81,8 +85,8 @@ int main(int argc, char* argv[]){
     ("do_run2",                  po::value<bool>(&do_run2)->default_value(false))
     ("do_4params",               po::value<bool>(&do_4params)->default_value(false))
     ("do_1param",                po::value<bool>(&do_1param)->default_value(true))
-    ("wzqcd_syst",               po::value<double>(&wzqcd_syst)->default_value(1.30))
-    ("wzewk_syst",               po::value<double>(&wzewk_syst)->default_value(1.30))
+    ("wzqcd_syst",               po::value<double>(&wzqcd_syst)->default_value(1.125))
+    ("wzewk_syst",               po::value<double>(&wzewk_syst)->default_value(1.125))
     ("minvarXcut",               po::value<double>(&minvarXcut)->default_value(0))
     ("minvarYcut",               po::value<double>(&minvarYcut)->default_value(0))
     ("minvarZcut",               po::value<double>(&minvarZcut)->default_value(0))
@@ -138,6 +142,10 @@ int main(int argc, char* argv[]){
       bkgprocesses.push_back("zvvewk");
     }
   }
+  if (channel=="nunu"||channel=="enu"||channel=="munu"||channel=="taunu") {
+    bkgprocesses.push_back("zllqcd");
+    bkgprocesses.push_back("zllewk");
+  }
   if (channel=="mumu") {
     if (!do_separate_qcdewk) bkgprocesses.push_back("zmumuqcd");
     else {
@@ -176,6 +184,10 @@ int main(int argc, char* argv[]){
       bkgprocesslatex.push_back("$qcdZ\\rightarrow\\nu\\nu$");
       bkgprocesslatex.push_back("$ewkZ\\rightarrow\\nu\\nu$");
     }
+  }
+  if (channel=="nunu"||channel=="enu"||channel=="munu"||channel=="taunu") {
+    bkgprocesslatex.push_back("$qcdZ\\rightarrow ll$");
+    bkgprocesslatex.push_back("$ewkZ\\rightarrow ll$");
   }
   if (channel=="mumu") {
     if (!do_separate_qcdewk) bkgprocesslatex.push_back("$Z\\rightarrow\\mu\\mu$");
@@ -260,6 +272,8 @@ int main(int argc, char* argv[]){
     lumi8tevprocsaffected.push_back("zvv");
     lumi8tevprocsaffected.push_back("zvvewk");
     lumi8tevprocsaffected.push_back("zvvqcd");
+    lumi8tevprocsaffected.push_back("zllewk");
+    lumi8tevprocsaffected.push_back("zllqcd");
       //}
     lumi8tevprocsaffected.push_back("zmumu");
     lumi8tevprocsaffected.push_back("zee");
@@ -286,8 +300,9 @@ int main(int argc, char* argv[]){
     .set_procsaffected(lumi8tevprocsaffected)
     .set_constvalue(1.026);
 
-  std::vector<std::string> allprocs={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH1C50","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","qcd","wg","vv"};
-  std::vector<std::string> allprocsnotqcd={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","wg","vv"};
+  std::vector<std::string> allprocs={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zllewk","zllqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","qcd","wg","vv"};
+  std::vector<std::string> allprocsnotz={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","wmuewk","welewk","wtauewk","top","qcd","wg","vv"};
+  std::vector<std::string> allprocsnotqcd={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zllewk","zllqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","wg","vv"};
   std::vector<std::string> ggHprocs={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","ggH"};
   std::vector<std::string> qqHprocs={"qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","qqH"};
 
@@ -327,17 +342,31 @@ int main(int argc, char* argv[]){
   jes.set_name("CMS_scale_j")
     .set_latexname("Jet energy scale")
     .set_type("fromfilelnN")
-    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_procsaffected(do_run2?allprocsnotz:allprocsnotqcd)
     .set_uptfile(jesup)
     .set_downtfile(jesdown);
+  //HACK
+  if (channel=="ee"||channel=="mumu"){
+    jes.set_procsaffected({"top","qcd","vv"});
+  } else if (channel=="enu"){
+    jes.set_procsaffected({"welqcd","welewk","wtauqcd","wtauewk","top","vv"});
+  }
 
   Syst jer;
   jer.set_name("CMS_res_j")
     .set_latexname("Jet energy resolution")
     .set_type("fromfilelnN")
-    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_procsaffected(do_run2?allprocsnotz:allprocsnotqcd)
     .set_uptfile(jerbetter)
     .set_downtfile(jerworse);
+  //HACK
+  if (channel=="ee"||channel=="mumu"){
+    jer.set_procsaffected({"top","qcd","vv"});
+  } else if (channel=="enu"){
+    jer.set_procsaffected({"welqcd","welewk","wtauqcd","wtauewk","top","vv"});
+  } else if (channel=="nunu"){//removing qcd for now
+    jer.set_procsaffected({"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","wmuewk","welewk","wtauewk","top","wg","vv"});
+  }
 
   Syst btag;
   btag.set_name("CMS_btag_j")
@@ -370,6 +399,11 @@ int main(int argc, char* argv[]){
     .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
     .set_uptfile(trigup)
     .set_downtfile(trigdown);
+    //HACK
+    if (do_MIT_trigweight){
+      trig.set_type("constlnN")
+          .set_constvalue(1.015);
+    }
 
   Syst eletrig;
   eletrig.set_name("CMS_VBFHinv_eletrigweight")
@@ -408,7 +442,6 @@ int main(int argc, char* argv[]){
     .set_latexname("$Z\\rightarrow\\nu\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"zvvqcd"});
-
   if (mcBkgOnly) zvvmcstat.set_type("fromMCstatlnN");
 
   Syst wzratioqcd;
@@ -430,7 +463,6 @@ int main(int argc, char* argv[]){
     .set_latexname("$ewkZ\\rightarrow\\nu\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"zvvewk"});
-
   if (mcBkgOnly) zvvewkmcstat.set_type("fromMCstatlnN");
 
   Syst zvvqcdmcstat;
@@ -438,7 +470,6 @@ int main(int argc, char* argv[]){
     .set_latexname("$qcdZ\\rightarrow\\nu\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"zvvqcd"});
-
   if (mcBkgOnly) zvvqcdmcstat.set_type("fromMCstatlnN");
 
   Syst zmumumcstat;
@@ -446,11 +477,13 @@ int main(int argc, char* argv[]){
     .set_latexname("$Z\\rightarrow\\mu\\mu$ MC stat.")
     .set_type("fromMCstatlnN")
     .set_procsaffected({"zmumu"});
+
   Syst zmumuqcdmcstat;
   zmumuqcdmcstat.set_name("CMS_VBFHinv_zmumu_qcd_norm")
     .set_latexname("$qcdZ\\rightarrow\\mu\\mu$ MC stat.")
     .set_type("fromMCstatlnN")
     .set_procsaffected({"zmumuqcd"});
+
   Syst zmumuewkmcstat;
   zmumuewkmcstat.set_name("CMS_VBFHinv_zmumu_ewk_norm")
     .set_latexname("ewk$Z\\rightarrow\\mu\\mu$ MC stat.")
@@ -462,11 +495,13 @@ int main(int argc, char* argv[]){
     .set_latexname("$Z\\rightarrow ee$ MC stat.")
     .set_type("fromMCstatlnN")
     .set_procsaffected({"zee"});
+
   Syst zeeqcdmcstat;
   zeeqcdmcstat.set_name("CMS_VBFHinv_zee_qcd_norm")
     .set_latexname("$qcdZ\\rightarrow ee$ MC stat.")
     .set_type("fromMCstatlnN")
     .set_procsaffected({"zeeqcd"});
+
   Syst zeeewkmcstat;
   zeeewkmcstat.set_name("CMS_VBFHinv_zee_ewk_norm")
     .set_latexname("ewk$Z\\rightarrow ee$ MC stat.")
@@ -494,18 +529,44 @@ int main(int argc, char* argv[]){
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"welqcd"});
   if (mcBkgOnly) welmcstat.set_type("fromMCstatlnN");
+
   Syst welqcdmcstat;
   welqcdmcstat.set_name("CMS_VBFHinv_wel_qcd_norm")
     .set_latexname("qcd$W\\rightarrow e\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"welqcd"});
   if (mcBkgOnly) welqcdmcstat.set_type("fromMCstatlnN");
+  //HACK
+  if (channel=="enu"){
+    welqcdmcstat.set_name("CMS_VBFHinv_WECR_wel_qcd_norm");
+  } else if (channel=="munu"){
+    welqcdmcstat.set_name("CMS_VBFHinv_WMCR_wel_qcd_norm");
+  } else if (channel=="ee"){
+    welqcdmcstat.set_name("CMS_VBFHinv_ZEECR_wel_qcd_norm");
+  } else if (channel=="mumu"){
+    welqcdmcstat.set_name("CMS_VBFHinv_ZMMCR_wel_qcd_norm");
+  } else if (channel=="nunu"){
+    welqcdmcstat.set_name("CMS_VBFHinv_SR_wel_qcd_norm");
+  }
+
   Syst welewkmcstat;
   welewkmcstat.set_name("CMS_VBFHinv_wel_ewk_norm")
     .set_latexname("ewk$W\\rightarrow e\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"welewk"});
   if (mcBkgOnly) welewkmcstat.set_type("fromMCstatlnN");
+  //HACK
+  if (channel=="enu"){
+    welewkmcstat.set_name("CMS_VBFHinv_WECR_wel_ewk_norm");
+  } else if (channel=="munu"){
+    welewkmcstat.set_name("CMS_VBFHinv_WMCR_wel_ewk_norm");
+  } else if (channel=="ee"){
+    welewkmcstat.set_name("CMS_VBFHinv_ZEECR_wel_ewk_norm");
+  } else if (channel=="mumu"){
+    welewkmcstat.set_name("CMS_VBFHinv_ZMMCR_wel_ewk_norm");
+  } else if (channel=="nunu"){
+    welewkmcstat.set_name("CMS_VBFHinv_SR_wel_ewk_norm");
+  }
 
   Syst weldatastat;
   weldatastat.set_name("CMS_VBFHinv_wel_stat")
@@ -520,18 +581,44 @@ int main(int argc, char* argv[]){
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wmuqcd"});
   if (mcBkgOnly) wmumcstat.set_type("fromMCstatlnN");
+
   Syst wmuqcdmcstat;
   wmuqcdmcstat.set_name("CMS_VBFHinv_wmu_qcd_norm")
     .set_latexname("qcd$W\\rightarrow \\mu\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wmuqcd"});
   if (mcBkgOnly) wmuqcdmcstat.set_type("fromMCstatlnN");
+  //HACK
+  if (channel=="enu"){
+    wmuqcdmcstat.set_name("CMS_VBFHinv_WECR_wmu_qcd_norm");
+  } else if (channel=="munu"){
+    wmuqcdmcstat.set_name("CMS_VBFHinv_WMCR_wmu_qcd_norm");
+  } else if (channel=="ee"){
+    wmuqcdmcstat.set_name("CMS_VBFHinv_ZEECR_wmu_qcd_norm");
+  } else if (channel=="mumu"){
+    wmuqcdmcstat.set_name("CMS_VBFHinv_ZMMCR_wmu_qcd_norm");
+  } else if (channel=="nunu"){
+    wmuqcdmcstat.set_name("CMS_VBFHinv_SR_wmu_qcd_norm");
+  }
+
   Syst wmuewkmcstat;
   wmuewkmcstat.set_name("CMS_VBFHinv_wmu_ewk_norm")
     .set_latexname("ewk$W\\rightarrow \\mu\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wmuewk"});
   if (mcBkgOnly) wmuewkmcstat.set_type("fromMCstatlnN");
+  //HACK
+  if (channel=="enu"){
+    wmuewkmcstat.set_name("CMS_VBFHinv_WECR_wmu_ewk_norm");
+  } else if (channel=="munu"){
+    wmuewkmcstat.set_name("CMS_VBFHinv_WMCR_wmu_ewk_norm");
+  } else if (channel=="ee"){
+    wmuewkmcstat.set_name("CMS_VBFHinv_ZEECR_wmu_ewk_norm");
+  } else if (channel=="mumu"){
+    wmuewkmcstat.set_name("CMS_VBFHinv_ZMMCR_wmu_ewk_norm");
+  } else if (channel=="nunu"){
+    wmuewkmcstat.set_name("CMS_VBFHinv_SR_wmu_ewk_norm");
+  }
 
   Syst wmudatastat;
   wmudatastat.set_name("CMS_VBFHinv_wmu_stat")
@@ -560,18 +647,44 @@ int main(int argc, char* argv[]){
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wtauqcd"});
   if (mcBkgOnly) wtaumcstat.set_type("fromMCstatlnN");
+
   Syst wtauqcdmcstat;
   wtauqcdmcstat.set_name("CMS_VBFHinv_wtau_qcd_norm")
     .set_latexname("qcd$W\\rightarrow \\tau\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wtauqcd"});
   if (mcBkgOnly) wtauqcdmcstat.set_type("fromMCstatlnN");
+  //HACK
+  if (channel=="enu"){
+    wtauqcdmcstat.set_name("CMS_VBFHinv_WECR_wtau_qcd_norm");
+  } else if (channel=="munu"){
+    wtauqcdmcstat.set_name("CMS_VBFHinv_WMCR_wtau_qcd_norm");
+  } else if (channel=="ee"){
+    wtauqcdmcstat.set_name("CMS_VBFHinv_ZEECR_wtau_qcd_norm");
+  } else if (channel=="mumu"){
+    wtauqcdmcstat.set_name("CMS_VBFHinv_ZMMCR_wtau_qcd_norm");
+  } else if (channel=="nunu"){
+    wtauqcdmcstat.set_name("CMS_VBFHinv_SR_wtau_qcd_norm");
+  }
+
   Syst wtauewkmcstat;
   wtauewkmcstat.set_name("CMS_VBFHinv_wtau_ewk_norm")
     .set_latexname("ewk$W\\rightarrow \\tau\\nu$ MC stat.")
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"wtauewk"});
   if (mcBkgOnly) wtauewkmcstat.set_type("fromMCstatlnN");
+  //HACK
+  if (channel=="enu"){
+    wtauewkmcstat.set_name("CMS_VBFHinv_WECR_wtau_ewk_norm");
+  } else if (channel=="munu"){
+    wtauewkmcstat.set_name("CMS_VBFHinv_WMCR_wtau_ewk_norm");
+  } else if (channel=="ee"){
+    wtauewkmcstat.set_name("CMS_VBFHinv_ZEECR_wtau_ewk_norm");
+  } else if (channel=="mumu"){
+    wtauewkmcstat.set_name("CMS_VBFHinv_ZMMCR_wtau_ewk_norm");
+  } else if (channel=="nunu"){
+    wtauewkmcstat.set_name("CMS_VBFHinv_SR_wtau_ewk_norm");
+  }
 
   Syst wtaudatastat;
   wtaudatastat.set_name("CMS_VBFHinv_wtau_stat")
@@ -586,6 +699,18 @@ int main(int argc, char* argv[]){
     .set_type("datadrivenMCstatlnN")
     .set_procsaffected({"top"});
   if (mcBkgOnly) topmcstat.set_type("fromMCstatlnN");
+  //HACK
+  if (channel=="enu"){
+    topmcstat.set_name("CMS_VBFHinv_WECR_top_norm");
+  } else if (channel=="munu"){
+    topmcstat.set_name("CMS_VBFHinv_WMCR_top_norm");
+  } else if (channel=="ee"){
+    topmcstat.set_name("CMS_VBFHinv_ZEECR_top_norm");
+  } else if (channel=="mumu"){
+    topmcstat.set_name("CMS_VBFHinv_ZMMCR_top_norm");
+  } else if (channel=="nunu"){
+    topmcstat.set_name("CMS_VBFHinv_SR_top_norm");
+  }
 
   Syst topmcsfunc;
   topmcsfunc.set_name("CMS_VBFHinv_top_extrapfacunc")
@@ -605,7 +730,19 @@ int main(int argc, char* argv[]){
   mctopmcstat.set_name("CMS_VBFHinv_top_norm")
     .set_latexname("TOP FROM MC SHOULD NOT APPEAR IN FINAL RESULT")
     .set_type("fromMCstatlnN")
-    .set_procsaffected({"top"});  
+    .set_procsaffected({"top"});
+  //HACK
+  if (channel=="enu"){
+    mctopmcstat.set_name("CMS_VBFHinv_WECR_top_norm");
+  } else if (channel=="munu"){
+    mctopmcstat.set_name("CMS_VBFHinv_WMCR_top_norm");
+  } else if (channel=="ee"){
+    mctopmcstat.set_name("CMS_VBFHinv_ZEECR_top_norm");
+  } else if (channel=="mumu"){
+    mctopmcstat.set_name("CMS_VBFHinv_ZMMCR_top_norm");
+  } else if (channel=="nunu"){
+    mctopmcstat.set_name("CMS_VBFHinv_SR_top_norm");
+  }
 
   Syst qqHmcstat;
   qqHmcstat.set_name("CMS_VBFHinv_qqH_norm")
@@ -619,12 +756,20 @@ int main(int argc, char* argv[]){
     .set_type("fromMCstatlnN")
     .set_procsaffected(ggHprocs);
 
-  Syst ggHqcdscale;
-  ggHqcdscale.set_name("QCDscale_ggH2in")
-    .set_latexname("ggH QCD scale")
+  Syst ggH2inqcdscale;
+  ggH2inqcdscale.set_name("QCDscale_ggH2in")
+    .set_latexname("ggH2in QCD scale")
     .set_type("constlnN")
     .set_procsaffected(ggHprocs)
-    .set_constvalue(1.553);
+    .set_constvalue(1.45);
+
+  Syst ggHqcdscale;
+  ggHqcdscale.set_name("QCDscale_YR4_ggH")
+    .set_latexname("ggH QCD scale")
+    .set_type("updownconstlnN")
+    .set_procsaffected(ggHprocs)
+    .set_upconstvalue(0.046)
+    .set_downconstvalue(0.067);
 
   //UPDATE TO BE MASS DEPENDENT
   Syst ggHpdf;
@@ -632,7 +777,7 @@ int main(int argc, char* argv[]){
     .set_latexname("ggH pdf")
     .set_type("constlnN")
     .set_procsaffected(ggHprocs)
-    .set_constvalue(1.031);
+    .set_constvalue(1.032);
 
   Syst ggHUEPS;
   ggHUEPS.set_name("UEPS")
@@ -646,6 +791,14 @@ int main(int argc, char* argv[]){
     .set_latexname(do_run2?"QCD MC stat.":"QCD FROM MC SHOULD NOT APPEAR IN FINAL RESULT")
     .set_type("fromMCstatlnN")
     .set_procsaffected({"qcd"});
+  //HACK
+  if (channel=="enu"){
+    qcdmcstat.set_name("CMS_VBFHinv_WECR_qcd_norm");
+  } else if (channel=="munu"){
+    qcdmcstat.set_name("CMS_VBFHinv_WMCR_qcd_norm");
+  } else if (channel=="nunu"){
+    qcdmcstat.set_name("CMS_VBFHinv_SR_qcd_norm");
+  }
 
 
   Syst qcdextrap;
@@ -661,23 +814,77 @@ int main(int argc, char* argv[]){
   qcdfromnumerr.set_name("CMS_VBFHinv_qcd_norm")
     .set_latexname("QCD normalisation")
     .set_type("qcdfromnumberlnN")
-    .set_procsaffected({"qcd"});  
+    .set_procsaffected({"qcd"});
+  //HACK
+  if (channel=="enu"){
+    qcdfromnumerr.set_name("CMS_VBFHinv_WECR_qcd_norm");
+  } else if (channel=="munu"){
+    qcdfromnumerr.set_name("CMS_VBFHinv_WMCR_qcd_norm");
+  } else if (channel=="nunu"){
+    qcdfromnumerr.set_name("CMS_VBFHinv_SR_qcd_norm");
+  }
 
   Syst qqHqcdscale;
   qqHqcdscale.set_name("QCDscale_qqH")
     .set_latexname("VBF QCD scale")
-    .set_type("constlnN")
+    .set_type("updownconstlnN")
     .set_procsaffected(qqHprocs);
-  if(mass=="110")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="125")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="150")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="200")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="300")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="400")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="500")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="600")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="800")qqHqcdscale.set_constvalue(1.004);
-  if(mass=="1000")qqHqcdscale.set_constvalue(1.004);
+  if(mass=="110"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="125"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="150"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="200"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="300"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="400"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="500"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="600"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="800"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+  if(mass=="1000"){
+    qqHqcdscale.set_upconstvalue(0.004);
+    qqHqcdscale.set_downconstvalue(0.003);
+  }
+
+  Syst qqHqcdscaleaccept;
+  qqHqcdscaleaccept.set_name("QCDscale_accept_qqH")
+  .set_latexname("VBF QCD scale acceptance")
+  .set_type("constlnN")
+  .set_procsaffected(qqHprocs);
+  if(mass=="110")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="125")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="150")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="200")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="300")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="400")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="500")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="600")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="800")qqHqcdscaleaccept.set_constvalue(1.02);
+  if(mass=="1000")qqHqcdscaleaccept.set_constvalue(1.02);
 
   Syst qqHpdf;
   qqHpdf.set_name("pdf_qqbar")
@@ -695,18 +902,46 @@ int main(int argc, char* argv[]){
   if(mass=="800")qqHpdf.set_constvalue(1.021);
   if(mass=="1000")qqHpdf.set_constvalue(1.021);
 
+  Syst qqHpdfaccept;
+  qqHpdfaccept.set_name("pdf_accept_qqbar")
+  .set_latexname("VBF pdf acceptance")
+  .set_type("constlnN")
+  .set_procsaffected(qqHprocs);
+  if(mass=="110")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="125")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="150")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="200")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="300")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="400")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="500")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="600")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="800")qqHpdfaccept.set_constvalue(1.01);
+  if(mass=="1000")qqHpdfaccept.set_constvalue(1.01);
+
   Syst vvmcstat;
   vvmcstat.set_name("CMS_VBFHinv_vv_norm")
     .set_latexname("VV MC stat.")
     .set_type("fromMCstatlnN")
-    .set_procsaffected({"vv"});  
+    .set_procsaffected({"vv"});
+  //HACK
+  if (channel=="enu"){
+    vvmcstat.set_name("CMS_VBFHinv_WECR_vv_norm");
+  } else if (channel=="munu"){
+    vvmcstat.set_name("CMS_VBFHinv_WMCR_vv_norm");
+  } else if (channel=="ee"){
+    vvmcstat.set_name("CMS_VBFHinv_ZEECR_vv_norm");
+  } else if (channel=="mumu"){
+    vvmcstat.set_name("CMS_VBFHinv_ZMMCR_vv_norm");
+  } else if (channel=="nunu"){
+    vvmcstat.set_name("CMS_VBFHinv_SR_vv_norm");
+  }
 
   Syst vvxsunc;
   vvxsunc.set_name("CMS_VBFHinv_vv_xsunc")
     .set_latexname("VV cross-section")
     .set_type("constlnN")
     .set_procsaffected({"vv"})
-    .set_constvalue(1.07);
+    .set_constvalue(1.15);
 
   Syst wxsunc;
   wxsunc.set_name("CMS_VBFHinv_W_xsunc")
@@ -720,6 +955,13 @@ int main(int argc, char* argv[]){
     .set_latexname("Z cross-section")
     .set_type("constlnN")
     .set_procsaffected({"zvv","zmumu","zee"})
+    .set_constvalue(1.1);
+
+  Syst topreweight;
+  topreweight.set_name("CMS_VBFHinv_top_reweight")
+    .set_latexname("Top pT reweight")
+    .set_type("constlnN")
+    .set_procsaffected({"top"})
     .set_constvalue(1.1);
 
   Syst topxsunc;
@@ -742,6 +984,14 @@ int main(int argc, char* argv[]){
     .set_procsaffected({"zvv"})
     .set_constvalue(1.2);
 
+
+  Syst zjets_SR_norm;
+  zjets_SR_norm.set_name("ZJets_SR_norm")
+    .set_latexname("DY+jets QCD and Zll EWK in SR normalisation")
+    .set_procsaffected({"zllqcd","zllewk"})
+    .set_type("constlnN")
+    .set_constvalue(1.2);
+
   if (do_tau_veto_unc) {
     systematics.push_back(tauveto);
   }
@@ -750,9 +1000,15 @@ int main(int argc, char* argv[]){
   }
 
   systematics.push_back(lumi8tev);
-  systematics.push_back(eleeff);
-  systematics.push_back(gsfeff);
-  systematics.push_back(mueff);
+  //HACK
+  if (channel!="munu" && channel!="mumu"){
+    systematics.push_back(eleeff);
+    systematics.push_back(gsfeff);
+  }
+  //HACK
+  if (channel!="enu" && channel!="ee"){
+    systematics.push_back(mueff);
+  }
 
   //if (!do_run2) 
   systematics.push_back(jes);
@@ -764,8 +1020,14 @@ int main(int argc, char* argv[]){
   }
   //if (!do_run2) 
   systematics.push_back(pu);
-  if (channel!="ee" && channel != "enu") systematics.push_back(trig);
-  else systematics.push_back(eletrig);
+  //HACK
+  if (do_MIT_trigweight){
+    if (channel=="nunu") systematics.push_back(trig);
+    else if (channel=="ee" || channel=="enu") systematics.push_back(eletrig);
+  } else {
+    if (channel!="ee" && channel != "enu") systematics.push_back(trig);
+    else systematics.push_back(eletrig);
+  }
   //systematics.push_back(trig0);
   //systematics.push_back(trig1);
   //systematics.push_back(trig2);
@@ -807,12 +1069,18 @@ int main(int argc, char* argv[]){
     systematics.push_back(wtaumcstat);
   }
   else {
-    systematics.push_back(wmuqcdmcstat);
-    systematics.push_back(wmuewkmcstat);
-    systematics.push_back(welqcdmcstat);
-    systematics.push_back(welewkmcstat);
-    systematics.push_back(wtauqcdmcstat);
-    systematics.push_back(wtauewkmcstat);
+    //HACK
+    if (channel!="enu"){
+      systematics.push_back(wmuqcdmcstat);
+      systematics.push_back(wmuewkmcstat);
+    }
+    //HACK
+    if (channel!="munu"){
+      systematics.push_back(welqcdmcstat);
+      systematics.push_back(welewkmcstat);
+      systematics.push_back(wtauqcdmcstat);
+      systematics.push_back(wtauewkmcstat);
+    }
   }
   if (channel=="taunu") {
     systematics.push_back(wtauideff);
@@ -831,9 +1099,15 @@ int main(int argc, char* argv[]){
     systematics.push_back(mctopmcstat);
     if (!mcBkgOnly) systematics.push_back(topmcsfunc);
   }
-  if (mcBkgOnly) systematics.push_back(topxsunc);
+  if (mcBkgOnly) {
+    systematics.push_back(topxsunc);
+    systematics.push_back(topreweight);
+  }
   if(do_run2 || do_qcdfromshape){
-    systematics.push_back(qcdmcstat);
+    //HACK
+    if (channel!="ee" && channel!="mumu"){
+      systematics.push_back(qcdmcstat);
+    }
     if (channel=="nunu") systematics.push_back(qcdextrap);
   }
   if(!do_run2 && do_qcdfromnumber)systematics.push_back(qcdfromnumerr);
@@ -843,9 +1117,13 @@ int main(int argc, char* argv[]){
   if (channel=="nunu"){
     systematics.push_back(qqHmcstat);
     systematics.push_back(qqHqcdscale);
+    systematics.push_back(qqHqcdscaleaccept);
     systematics.push_back(qqHpdf);
+    systematics.push_back(qqHpdfaccept);
+    systematics.push_back(zjets_SR_norm);
     if(do_ggh){
       systematics.push_back(ggHmcstat);
+      systematics.push_back(ggH2inqcdscale);
       systematics.push_back(ggHqcdscale);
       systematics.push_back(ggHpdf);
       systematics.push_back(ggHUEPS);
@@ -1080,6 +1358,34 @@ int main(int argc, char* argv[]){
 	  datacard<<"\t"<<systematics[iSyst].constvalue();
 	  //store for total error calculation
 	  double error=systematics[iSyst].constvalue()-1;
+
+	  double abserror=0;
+	  if(iProc<sigprocesses.size()){
+	    abserror=error*sigcentralrates[iProc];
+	    if(systematics[iSyst].is_datastat())thissystsigstat+=abserror;
+	    else thissystsigsyst+=abserror;
+	  }
+	  else{
+	    abserror=error*bkgcentralrates[iProc-sigprocesses.size()];
+	    if(systematics[iSyst].is_datastat())thissystbkgstat+=abserror;
+	    else thissystbkgsyst+=abserror;
+	  }
+
+	  if(systematics[iSyst].is_datastat()){
+	    if(procstattotal.find(dirname)==procstattotal.end()) procstattotal[dirname]=error;
+	    else procstattotal[dirname]=sqrt(pow(procstattotal[dirname],2)+pow(error,2));
+	  }
+	  else{
+	    if(procsysttotal.find(dirname)==procsysttotal.end()) procsysttotal[dirname]=error;
+	    else procsysttotal[dirname]=sqrt(pow(procsysttotal[dirname],2)+pow(error,2));
+	  }
+	  if(verbose)std::cout<<"    "<<dirname<<" "<<procsysttotal[dirname]<<" "<<procstattotal[dirname]<<std::endl;
+	}
+
+	if(systematics[iSyst].type()=="updownconstlnN"){
+    datacard<<"\t"<<1-systematics[iSyst].downconstvalue()<<"/"<<1+systematics[iSyst].upconstvalue();
+	  //store for total error calculation
+    double error=(systematics[iSyst].upconstvalue()>systematics[iSyst].downconstvalue())?systematics[iSyst].upconstvalue():systematics[iSyst].downconstvalue();
 
 	  double abserror=0;
 	  if(iProc<sigprocesses.size()){
@@ -1527,6 +1833,10 @@ datacard<<std::endl;
     if (channel=="nunu" || channel=="qcd"){
       datacard<<"WZ_xsection rateParam ch1 zvvewk 1"<<std::endl;
       datacard<<"WZ_xsection rateParam ch1 zvvqcd 1"<<std::endl;
+    }
+    if (channel=="nunu"||channel=="enu"||channel=="munu"||channel=="taunu"){
+      datacard<<"WZ_xsection rateParam ch1 zllewk 1"<<std::endl;
+      datacard<<"WZ_xsection rateParam ch1 zllqcd 1"<<std::endl;
     }
   }
 
