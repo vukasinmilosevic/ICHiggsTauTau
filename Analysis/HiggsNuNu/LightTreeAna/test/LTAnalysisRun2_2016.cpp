@@ -209,6 +209,24 @@ int main(int argc, char* argv[]){
   }
 
 
+  /*  //trigger systematics
+  TFile *mettrigsyst = TFile::Open("../input/scale_factors/mettrigger.root");
+  if (!mettrigsyst) {
+    std::cout << " -- Error, file for met trigger systematics not found." << std::endl;
+    return 1;
+  }
+  mettrigsyst->cd();
+  TH1D *hmm = (TH1D*)gDirectory->Get("zmm_sys");
+  TH1D *hvv = (TH1D*)gDirectory->Get("zvv_sys");
+  TH1D *htrigsyst = (TH1D*)hvv->Clone("htrigsyst");
+  for(int iBin = 0; iBin < htrigsyst->GetNbinsX()+1; iBin++){
+    if(htrigsyst->GetBinCenter(iBin+1) < 500)
+      htrigsyst->SetBinContent(iBin+1,1-hmm->GetBinContent(hmm->FindBin(htrigsyst->GetBinCenter(iBin+1)))/hvv->GetBinContent(iBin+1));
+    else
+      htrigsyst->SetBinContent(iBin+1,0.);
+  }
+  */
+
   /*##########################################
   #                                          #
   #          INSTANTIATE ANALYSER            #
