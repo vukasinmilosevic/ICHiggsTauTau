@@ -26,7 +26,6 @@ Syst::Syst(){
 };
 
 int main(int argc, char* argv[]){
-  bool do_MIT_trigweight;
   bool do_tau_veto_unc;
   bool do_b_veto_unc;
   bool blind=true;
@@ -49,8 +48,6 @@ int main(int argc, char* argv[]){
   bool do_run2;
   bool do_4params;
   bool do_1param;
-  double wzqcd_syst;
-  double wzewk_syst;
   double minvarXcut;
   double minvarYcut;
   double minvarZcut;
@@ -65,7 +62,6 @@ int main(int argc, char* argv[]){
     ("input_folder,i",           po::value<std::string>(&indir)->default_value(""))
     ("outname,o",                po::value<std::string>(&outname)->default_value("vbfhinv.txt"))
     ("blind",                    po::value<bool>(&blind)->default_value(true))
-    ("do_MIT_trigweight",          po::value<bool>(&do_MIT_trigweight)->default_value(false))
     ("do_tau_veto_unc",          po::value<bool>(&do_tau_veto_unc)->default_value(false))
     ("do_b_veto_unc",            po::value<bool>(&do_b_veto_unc)->default_value(false))
     ("do_qcdfromshape,s",        po::value<bool>(&do_qcdfromshape)->default_value(false))
@@ -85,8 +81,6 @@ int main(int argc, char* argv[]){
     ("do_run2",                  po::value<bool>(&do_run2)->default_value(false))
     ("do_4params",               po::value<bool>(&do_4params)->default_value(false))
     ("do_1param",                po::value<bool>(&do_1param)->default_value(true))
-    ("wzqcd_syst",               po::value<double>(&wzqcd_syst)->default_value(1.125))
-    ("wzewk_syst",               po::value<double>(&wzewk_syst)->default_value(1.125))
     ("minvarXcut",               po::value<double>(&minvarXcut)->default_value(0))
     ("minvarYcut",               po::value<double>(&minvarYcut)->default_value(0))
     ("minvarZcut",               po::value<double>(&minvarZcut)->default_value(0))
@@ -392,18 +386,16 @@ int main(int argc, char* argv[]){
     .set_uptfile(puup)
     .set_downtfile(pudown);
 
+  //HACK
   Syst trig;
   trig.set_name("CMS_VBFHinv_trigweight")
     .set_latexname("Trig weight")
-    .set_type("fromfilelnN")
+    .set_type("constlnN")
+//     .set_type("fromfilelnN")
     .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
-    .set_uptfile(trigup)
-    .set_downtfile(trigdown);
-    //HACK
-    if (do_MIT_trigweight){
-      trig.set_type("constlnN")
-          .set_constvalue(1.015);
-    }
+    .set_constvalue(1.015);
+//     .set_uptfile(trigup)
+//     .set_downtfile(trigdown);
 
   Syst eletrig;
   eletrig.set_name("CMS_VBFHinv_eletrigweight")
@@ -448,14 +440,14 @@ int main(int argc, char* argv[]){
   wzratioqcd.set_name("CMS_WZQCD_ratio_from_theory")
     .set_latexname("W/Z from theory")
     .set_type("constlnN")
-    .set_constvalue(wzqcd_syst)
+    .set_constvalue(1.125)
     .set_procsaffected({"zeeqcd","zmumuqcd","zvvqcd"});
 
   Syst wzratioewk;
   wzratioewk.set_name("CMS_WZEWK_ratio_from_theory")
     .set_latexname("W/Z from theory")
     .set_type("constlnN")
-    .set_constvalue(wzewk_syst)
+    .set_constvalue(1.125)
     .set_procsaffected({"zeeewk","zmumuewk","zvvewk"});
 
   Syst zvvewkmcstat;
@@ -1020,17 +1012,16 @@ int main(int argc, char* argv[]){
   }
   //if (!do_run2) 
   systematics.push_back(pu);
+
   //HACK
-  if (do_MIT_trigweight){
-    if (channel=="nunu") systematics.push_back(trig);
-    else if (channel=="ee" || channel=="enu") systematics.push_back(eletrig);
-  } else {
-    if (channel!="ee" && channel != "enu") systematics.push_back(trig);
-    else systematics.push_back(eletrig);
-  }
+  if (channel=="nunu") systematics.push_back(trig);
+  else if (channel=="ee" || channel=="enu") systematics.push_back(eletrig);
+//   if (channel!="ee" && channel != "enu") systematics.push_back(trig);
+//   else systematics.push_back(eletrig);
   //systematics.push_back(trig0);
   //systematics.push_back(trig1);
   //systematics.push_back(trig2);
+
   if (channel=="nunu" || channel=="mumu" || channel=="ee" || channel=="qcd") {
     //if (mcBkgOnly) systematics.push_back(zxsunc);
     if (channel=="nunu" || channel=="qcd") {
