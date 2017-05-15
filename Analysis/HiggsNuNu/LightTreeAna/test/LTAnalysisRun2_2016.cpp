@@ -540,8 +540,12 @@ int main(int argc, char* argv[]){
     if (syst=="LEPEFF_ELEDOWN") mcweightsystfactor<<"*weight_eleVeto_down/weight_eleVeto";
     if (syst=="LEPEFF_GSFUP") mcweightsystfactor<<"*weight_eleVeto_gsfup/weight_eleVeto";
     if (syst=="LEPEFF_GSFDOWN") mcweightsystfactor<<"*weight_eleVeto_gsfdown/weight_eleVeto";
-    if (syst=="LEPEFF_MUUP") mcweightsystfactor<<"*weight_muVeto_up/weight_muVeto";
-    if (syst=="LEPEFF_MUDOWN") mcweightsystfactor<<"*weight_muVeto_down/weight_muVeto";
+    if (syst=="LEPEFF_MUIDUP") mcweightsystfactor<<"*weight_muVeto_idup/weight_muVeto";
+    if (syst=="LEPEFF_MUIDDOWN") mcweightsystfactor<<"*weight_muVeto_iddown/weight_muVeto";
+    if (syst=="LEPEFF_MUISOUP") mcweightsystfactor<<"*weight_muVeto_isoup/weight_muVeto";
+    if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_muVeto_isodown/weight_muVeto";
+    if (syst=="LEPEFF_MUTKUP") mcweightsystfactor<<"*weight_muVeto_tkup/weight_muVeto";
+    if (syst=="LEPEFF_MUTKDOWN") mcweightsystfactor<<"*weight_muVeto_tkdown/weight_muVeto";
   }
   else if (channel=="ee" || channel=="enu") {
     if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleTight_up/weight_eleTight";
@@ -550,8 +554,12 @@ int main(int argc, char* argv[]){
     if (syst=="LEPEFF_GSFDOWN") mcweightsystfactor<<"*weight_gsfTight_down/weight_gsfTight";
   }
   else if (channel=="mumu" || channel=="munu") {
-    if (syst=="LEPEFF_MUUP") mcweightsystfactor<<"*weight_muTight_up/weight_muTight";
-    if (syst=="LEPEFF_MUDOWN") mcweightsystfactor<<"*weight_muTight_down/weight_muTight";
+    if (syst=="LEPEFF_MUIDUP") mcweightsystfactor<<"*weight_muidTight_up/weight_muidTight";
+    if (syst=="LEPEFF_MUIDDOWN") mcweightsystfactor<<"*weight_muidTight_down/weight_muidTight";
+    if (syst=="LEPEFF_MUISOUP") mcweightsystfactor<<"*weight_muisoTight_up/weight_muisoTight";
+    if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_muisoTight_down/weight_muisoTight";
+    if (syst=="LEPEFF_MUTKUP") mcweightsystfactor<<"*weight_mutkTight_up/weight_mutkTight";
+    if (syst=="LEPEFF_MUTKDOWN") mcweightsystfactor<<"*weight_mutkTight_down/weight_mutkTight";
   }
 
   //if (syst=="TRIG0UP") mcweightsystfactor<<"*weight_trig_1/weight_trig_0";

@@ -230,8 +230,12 @@ int main(int argc, char* argv[]){
   TFile* eledown=new TFile((indir+"/LEPEFF_ELEDOWN/"+channel+".root").c_str());
   TFile* gsfup=new TFile((indir+"/LEPEFF_GSFUP/"+channel+".root").c_str());
   TFile* gsfdown=new TFile((indir+"/LEPEFF_GSFDOWN/"+channel+".root").c_str());
-  TFile* muup=new TFile((indir+"/LEPEFF_MUUP/"+channel+".root").c_str());
-  TFile* mudown=new TFile((indir+"/LEPEFF_MUDOWN/"+channel+".root").c_str());
+  TFile* muidup=new TFile((indir+"/LEPEFF_MUIDUP/"+channel+".root").c_str());
+  TFile* muiddown=new TFile((indir+"/LEPEFF_MUIDDOWN/"+channel+".root").c_str());
+  TFile* muisoup=new TFile((indir+"/LEPEFF_MUISOUP/"+channel+".root").c_str());
+  TFile* muisodown=new TFile((indir+"/LEPEFF_MUISODOWN/"+channel+".root").c_str());
+  TFile* mutkup=new TFile((indir+"/LEPEFF_MUTKUP/"+channel+".root").c_str());
+  TFile* mutkdown=new TFile((indir+"/LEPEFF_MUTKDOWN/"+channel+".root").c_str());
   TFile* puup=new TFile((indir+"/PUUP/"+channel+".root").c_str());
   TFile* pudown=new TFile((indir+"/PUDOWN/"+channel+".root").c_str());
   TFile* btagup=new TFile((indir+"/BTAGUP/"+channel+".root").c_str());
@@ -315,6 +319,11 @@ int main(int argc, char* argv[]){
     .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
     .set_uptfile(eleup)
     .set_downtfile(eledown);
+  //HACK
+  if (channel=="nunu"){ 
+    eleeff.set_name("CMS_SR_eff_e")
+          .set_latexname("Veto Electron efficiency");
+  }
 
   Syst gsfeff;
   gsfeff.set_name("CMS_eff_gsf")
@@ -323,14 +332,50 @@ int main(int argc, char* argv[]){
     .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
     .set_uptfile(gsfup)
     .set_downtfile(gsfdown);
+  //HACK
+  if (channel=="nunu"){ 
+    gsfeff.set_name("CMS_SR_eff_gsf")
+          .set_latexname("Veto Electron GSF efficiency");
+  }
 
-  Syst mueff;
-  mueff.set_name("CMS_eff_m")
-    .set_latexname("Muon efficiency")
+  Syst muideff;
+  muideff.set_name("CMS_eff_id_m")
+    .set_latexname("Muon ID efficiency")
     .set_type("fromfilelnN")
     .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
-    .set_uptfile(muup)
-    .set_downtfile(mudown);
+    .set_uptfile(muidup)
+    .set_downtfile(muiddown);
+  //HACK
+  if (channel=="nunu"){ 
+    muideff.set_name("CMS_SR_eff_id_m")
+           .set_latexname("Veto Muon ID efficiency");
+  }
+
+  Syst muisoeff;
+  muisoeff.set_name("CMS_eff_iso_m")
+    .set_latexname("Muon ISO efficiency")
+    .set_type("fromfilelnN")
+    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_uptfile(muisoup)
+    .set_downtfile(muisodown);
+  //HACK
+  if (channel=="nunu"){ 
+    muisoeff.set_name("CMS_SR_eff_iso_m")
+            .set_latexname("Veto Muon ISO efficiency");
+  }
+
+  Syst mutkeff;
+  mutkeff.set_name("CMS_eff_tk_m")
+    .set_latexname("Muon TK efficiency")
+    .set_type("fromfilelnN")
+    .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
+    .set_uptfile(mutkup)
+    .set_downtfile(mutkdown);
+  //HACK
+  if (channel=="nunu"){ 
+    mutkeff.set_name("CMS_SR_eff_tk_m")
+           .set_latexname("Veto Muon TK efficiency");
+  }
 
   Syst jes;
   jes.set_name("CMS_scale_j")
@@ -999,7 +1044,9 @@ int main(int argc, char* argv[]){
   }
   //HACK
   if (channel!="enu" && channel!="ee"){
-    systematics.push_back(mueff);
+    systematics.push_back(muideff);
+    systematics.push_back(muisoeff);
+    systematics.push_back(mutkeff);
   }
 
   //if (!do_run2) 
