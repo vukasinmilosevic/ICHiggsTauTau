@@ -55,12 +55,16 @@ int makeMuonRun2DTxtFiles2016(){//main
   lName_ratios.str("");
   lName_ratios << "Summer16_80X_mu_trackingSF.txt";
   std::ofstream lOut_ratios(lName_ratios.str().c_str());
+  //make negative eta bins
+  for (unsigned ibin(nPts-1); ibin>0; --ibin){//loop on eta bin
+    lOut_ratios << "10 14000 " << -etaMax_ratios[ibin] << " " << -etaMin_ratios[ibin] << " " << val[ibin] << " " << Min_ratios[ibin] << " " << Max_ratios[ibin] << std::endl;
+  }//loop on eta bin
   for (unsigned ibin(0); ibin<nPts; ++ibin){//loop on eta bin
     lOut_ratios << "10 14000 " << etaMin_ratios[ibin] << " " << etaMax_ratios[ibin] << " " << val[ibin] << " " << Min_ratios[ibin] << " " << Max_ratios[ibin] << std::endl;
   }//loop on eta bin
 
   lOut_ratios.close();
-  //return 1;
+  return 1;
 
 
   double lumi[2] = {20.2,16.6};
