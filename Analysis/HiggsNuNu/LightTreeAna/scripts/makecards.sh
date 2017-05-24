@@ -5,7 +5,7 @@ if [ "$#" -ne "2" ]; then
   exit 0
 fi
 
-DATE=170515
+DATE=170522
 
 DOSUBMIT=$1
 DO4PARAMS=$2
