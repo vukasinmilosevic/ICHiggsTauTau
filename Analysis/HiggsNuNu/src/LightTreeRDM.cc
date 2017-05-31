@@ -200,10 +200,26 @@ namespace ic {
     metnomuunclet_dphi_ = 0;
     metnoelunclet_dphi_ = 0;
 
+    threejetsmetnomu_mindphi_ = 0;
+    threejetsnotaumetnomu_mindphi_ = 0;
+    fourjetsmetnomu_mindphi_ = 0;
+    fourjetsnotaumetnomu_mindphi_ = 0;
+    fivejetsmetnomu_mindphi_ = 0;
+    fivejetsnotaumetnomu_mindphi_ = 0;
+    sixjetsmetnomu_mindphi_ = 0;
+    sixjetsnotaumetnomu_mindphi_ = 0;
     alljetsmetnomu_mindphi_ = 0;
     alljetsnotaumetnomu_mindphi_ = 0;
     jetmetnomu_mindphi_ = 0;
 
+    threejetsmetnoel_mindphi_ = 0;
+    threejetsnotaumetnoel_mindphi_ = 0;
+    fourjetsmetnoel_mindphi_ = 0;
+    fourjetsnotaumetnoel_mindphi_ = 0;
+    fivejetsmetnoel_mindphi_ = 0;
+    fivejetsnotaumetnoel_mindphi_ = 0;
+    sixjetsmetnoel_mindphi_ = 0;
+    sixjetsnotaumetnoel_mindphi_ = 0;
     alljetsmetnoel_mindphi_ = 0;
     alljetsnotaumetnoel_mindphi_ = 0;
     jetmetnoel_mindphi_ = 0;
@@ -494,6 +510,14 @@ namespace ic {
     outputTree_->Branch("metnoelunclet_dphi",&metnoelunclet_dphi_);
 
     outputTree_->Branch("jetmetnomu_mindphi",&jetmetnomu_mindphi_);
+    outputTree_->Branch("threejetsmetnomu_mindphi",&threejetsmetnomu_mindphi_);
+    outputTree_->Branch("threejetsnotaumetnomu_mindphi",&threejetsnotaumetnomu_mindphi_);
+    outputTree_->Branch("fourjetsmetnomu_mindphi",&fourjetsmetnomu_mindphi_);
+    outputTree_->Branch("fourjetsnotaumetnomu_mindphi",&fourjetsnotaumetnomu_mindphi_);
+    outputTree_->Branch("fivejetsmetnomu_mindphi",&fivejetsmetnomu_mindphi_);
+    outputTree_->Branch("fivejetsnotaumetnomu_mindphi",&fivejetsnotaumetnomu_mindphi_);
+    outputTree_->Branch("sixjetsmetnomu_mindphi",&sixjetsmetnomu_mindphi_);
+    outputTree_->Branch("sixjetsnotaumetnomu_mindphi",&sixjetsnotaumetnomu_mindphi_);
     outputTree_->Branch("alljetsmetnomu_mindphi",&alljetsmetnomu_mindphi_);
     outputTree_->Branch("alljetsnotaumetnomu_mindphi",&alljetsnotaumetnomu_mindphi_);
     outputTree_->Branch("dijetmetnomu_scalarSum_pt",&dijetmetnomu_scalarSum_pt_);
@@ -503,6 +527,14 @@ namespace ic {
     outputTree_->Branch("jet2metnomu_scalarprod",&jet2metnomu_scalarprod_);
 
     outputTree_->Branch("jetmetnoel_mindphi",&jetmetnoel_mindphi_);
+    outputTree_->Branch("threejetsmetnoel_mindphi",&threejetsmetnoel_mindphi_);
+    outputTree_->Branch("threejetsnotaumetnoel_mindphi",&threejetsnotaumetnoel_mindphi_);
+    outputTree_->Branch("fourjetsmetnoel_mindphi",&fourjetsmetnoel_mindphi_);
+    outputTree_->Branch("fourjetsnotaumetnoel_mindphi",&fourjetsnotaumetnoel_mindphi_);
+    outputTree_->Branch("fivejetsmetnoel_mindphi",&fivejetsmetnoel_mindphi_);
+    outputTree_->Branch("fivejetsnotaumetnoel_mindphi",&fivejetsnotaumetnoel_mindphi_);
+    outputTree_->Branch("sixjetsmetnoel_mindphi",&sixjetsmetnoel_mindphi_);
+    outputTree_->Branch("sixjetsnotaumetnoel_mindphi",&sixjetsnotaumetnoel_mindphi_);
     outputTree_->Branch("alljetsmetnoel_mindphi",&alljetsmetnoel_mindphi_);
     outputTree_->Branch("alljetsnotaumetnoel_mindphi",&alljetsnotaumetnoel_mindphi_);
     outputTree_->Branch("dijetmetnoel_scalarSum_pt",&dijetmetnoel_scalarSum_pt_);
@@ -1090,9 +1122,28 @@ namespace ic {
     if (!is_data_) getGenRecoMatches<PFJet,GenJet>(jets,genvec,recotogenmatch);
 
     ROOT::Math::PtEtaPhiEVector mhtVec(0,0,0,0);
+    threejetsmetnomu_mindphi_=jetmetnomu_mindphi_;
+    threejetsnotaumetnomu_mindphi_=1000;
+    threejetsmetnoel_mindphi_=jetmetnoel_mindphi_;
+    threejetsnotaumetnoel_mindphi_=1000;
+
+    fourjetsmetnomu_mindphi_=jetmetnomu_mindphi_;
+    fourjetsnotaumetnomu_mindphi_=1000;
+    fourjetsmetnoel_mindphi_=jetmetnoel_mindphi_;
+    fourjetsnotaumetnoel_mindphi_=1000;
+
+    fivejetsmetnomu_mindphi_=jetmetnomu_mindphi_;
+    fivejetsnotaumetnomu_mindphi_=1000;
+    fivejetsmetnoel_mindphi_=jetmetnoel_mindphi_;
+    fivejetsnotaumetnoel_mindphi_=1000;
+
+    sixjetsmetnomu_mindphi_=jetmetnomu_mindphi_;
+    sixjetsnotaumetnomu_mindphi_=1000;
+    sixjetsmetnoel_mindphi_=jetmetnoel_mindphi_;
+    sixjetsnotaumetnoel_mindphi_=1000;
+
     alljetsmetnomu_mindphi_=jetmetnomu_mindphi_;
     alljetsnotaumetnomu_mindphi_=1000;
-
     alljetsmetnoel_mindphi_=jetmetnoel_mindphi_;
     alljetsnotaumetnoel_mindphi_=1000;
 
@@ -1194,7 +1245,75 @@ namespace ic {
             isInCentralGap){
           ++n_jets_cjv_20EB_30EE_;
         }
+        if(jets[i]->pt()>30.0 && n_jets_30_<=3){
+          double thisjetmetnomudphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(jetvec,metnomuvec));
+          if(thisjetmetnomudphi<threejetsmetnomu_mindphi_)threejetsmetnomu_mindphi_=thisjetmetnomudphi;
+          //check matching with taus
+          double thisjetmetnoeldphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(jetvec,metnoelvec));
+          if(thisjetmetnoeldphi<threejetsmetnoel_mindphi_)threejetsmetnoel_mindphi_=thisjetmetnoeldphi;
+          bool noTauMatch=true;
+          for (unsigned itau = 0; itau < ntaus_; ++itau) {//loop on taus
+            ROOT::Math::PtEtaPhiEVector tauvec = taus[itau]->vector();
+            if (ROOT::Math::VectorUtil::DeltaR(tauvec,jetvec)<0.4){
+              noTauMatch=false;
+              break;
+            }
+          }//loop on taus
+          if(noTauMatch && thisjetmetnomudphi<threejetsnotaumetnomu_mindphi_)threejetsnotaumetnomu_mindphi_=thisjetmetnomudphi;
+          if(noTauMatch && thisjetmetnoeldphi<threejetsnotaumetnoel_mindphi_)threejetsnotaumetnoel_mindphi_=thisjetmetnoeldphi;
+        }
+        if(jets[i]->pt()>30.0 && n_jets_30_<=4){
+          double thisjetmetnomudphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(jetvec,metnomuvec));
+          if(thisjetmetnomudphi<fourjetsmetnomu_mindphi_)fourjetsmetnomu_mindphi_=thisjetmetnomudphi;
+          //check matching with taus
+          double thisjetmetnoeldphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(jetvec,metnoelvec));
+          if(thisjetmetnoeldphi<fourjetsmetnoel_mindphi_)fourjetsmetnoel_mindphi_=thisjetmetnoeldphi;
+          bool noTauMatch=true;
+          for (unsigned itau = 0; itau < ntaus_; ++itau) {//loop on taus
+            ROOT::Math::PtEtaPhiEVector tauvec = taus[itau]->vector();
+            if (ROOT::Math::VectorUtil::DeltaR(tauvec,jetvec)<0.4){
+              noTauMatch=false;
+              break;
+            }
+          }//loop on taus
+          if(noTauMatch && thisjetmetnomudphi<fourjetsnotaumetnomu_mindphi_)fourjetsnotaumetnomu_mindphi_=thisjetmetnomudphi;
+          if(noTauMatch && thisjetmetnoeldphi<fourjetsnotaumetnoel_mindphi_)fourjetsnotaumetnoel_mindphi_=thisjetmetnoeldphi;
+        }
         if(jets[i]->pt()>30.0 && n_jets_30_<=5){
+          double thisjetmetnomudphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(jetvec,metnomuvec));
+          if(thisjetmetnomudphi<fivejetsmetnomu_mindphi_)fivejetsmetnomu_mindphi_=thisjetmetnomudphi;
+          //check matching with taus
+          double thisjetmetnoeldphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(jetvec,metnoelvec));
+          if(thisjetmetnoeldphi<fivejetsmetnoel_mindphi_)fivejetsmetnoel_mindphi_=thisjetmetnoeldphi;
+          bool noTauMatch=true;
+          for (unsigned itau = 0; itau < ntaus_; ++itau) {//loop on taus
+            ROOT::Math::PtEtaPhiEVector tauvec = taus[itau]->vector();
+            if (ROOT::Math::VectorUtil::DeltaR(tauvec,jetvec)<0.4){
+              noTauMatch=false;
+              break;
+            }
+          }//loop on taus
+          if(noTauMatch && thisjetmetnomudphi<fivejetsnotaumetnomu_mindphi_)fivejetsnotaumetnomu_mindphi_=thisjetmetnomudphi;
+          if(noTauMatch && thisjetmetnoeldphi<fivejetsnotaumetnoel_mindphi_)fivejetsnotaumetnoel_mindphi_=thisjetmetnoeldphi;
+        }
+        if(jets[i]->pt()>30.0 && n_jets_30_<=6){
+          double thisjetmetnomudphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(jetvec,metnomuvec));
+          if(thisjetmetnomudphi<sixjetsmetnomu_mindphi_)sixjetsmetnomu_mindphi_=thisjetmetnomudphi;
+          //check matching with taus
+          double thisjetmetnoeldphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(jetvec,metnoelvec));
+          if(thisjetmetnoeldphi<sixjetsmetnoel_mindphi_)sixjetsmetnoel_mindphi_=thisjetmetnoeldphi;
+          bool noTauMatch=true;
+          for (unsigned itau = 0; itau < ntaus_; ++itau) {//loop on taus
+            ROOT::Math::PtEtaPhiEVector tauvec = taus[itau]->vector();
+            if (ROOT::Math::VectorUtil::DeltaR(tauvec,jetvec)<0.4){
+              noTauMatch=false;
+              break;
+            }
+          }//loop on taus
+          if(noTauMatch && thisjetmetnomudphi<sixjetsnotaumetnomu_mindphi_)sixjetsnotaumetnomu_mindphi_=thisjetmetnomudphi;
+          if(noTauMatch && thisjetmetnoeldphi<sixjetsnotaumetnoel_mindphi_)sixjetsnotaumetnoel_mindphi_=thisjetmetnoeldphi;
+        }
+        if(jets[i]->pt()>30.0){
           double thisjetmetnomudphi = fabs(ROOT::Math::VectorUtil::DeltaPhi(jetvec,metnomuvec));
           if(thisjetmetnomudphi<alljetsmetnomu_mindphi_)alljetsmetnomu_mindphi_=thisjetmetnomudphi;
           //check matching with taus

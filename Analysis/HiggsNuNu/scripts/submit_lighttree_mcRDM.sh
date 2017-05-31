@@ -7,7 +7,7 @@ PRODUCTION=170201
 PRODUSER=rdimaria
 JPTCUTVAL=40
 
-DATE=170518
+DATE=170601
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -44,10 +44,10 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN
   do
   SYSTOPTIONS="--dojessyst=false --dojersyst=false"
 
-  JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_${DATE}
+  JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_${DATE}_test
   #JOBDIRPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/jobs_lighttree_${DATE}
   JOBDIR=$JOBDIRPREFIX/
-  OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_${DATE}
+  OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_${DATE}_test
   #OUTPUTPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/output_lighttree_${DATE}
 
   OUTPUTDIR=$OUTPUTPREFIX/
@@ -191,9 +191,9 @@ for SYST in central #JESUP JESDOWN JERBETTER JERWORSE UESUP UESDOWN #NOTE TO RUN
     #PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}_MC
     PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/${PRODUSER}/${PRODUCTION}_MC
 
-    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
+    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJetsToLNu*.dat`
-    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
       do
       echo "Processing files in "$FILELIST
 

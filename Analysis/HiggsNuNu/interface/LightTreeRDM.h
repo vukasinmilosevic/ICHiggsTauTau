@@ -174,10 +174,26 @@ namespace ic {
     double metnomuunclet_dphi_;
     double metnoelunclet_dphi_;
 
+    double threejetsmetnomu_mindphi_;
+    double threejetsnotaumetnomu_mindphi_;
+    double fourjetsmetnomu_mindphi_;
+    double fourjetsnotaumetnomu_mindphi_;
+    double fivejetsmetnomu_mindphi_;
+    double fivejetsnotaumetnomu_mindphi_;
+    double sixjetsmetnomu_mindphi_;
+    double sixjetsnotaumetnomu_mindphi_;
     double alljetsmetnomu_mindphi_;
     double alljetsnotaumetnomu_mindphi_;
     double jetmetnomu_mindphi_;
 
+    double threejetsmetnoel_mindphi_;
+    double threejetsnotaumetnoel_mindphi_;
+    double fourjetsmetnoel_mindphi_;
+    double fourjetsnotaumetnoel_mindphi_;
+    double fivejetsmetnoel_mindphi_;
+    double fivejetsnotaumetnoel_mindphi_;
+    double sixjetsmetnoel_mindphi_;
+    double sixjetsnotaumetnoel_mindphi_;
     double alljetsmetnoel_mindphi_;
     double alljetsnotaumetnoel_mindphi_;
     double jetmetnoel_mindphi_;
