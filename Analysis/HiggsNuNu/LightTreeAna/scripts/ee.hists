@@ -22,7 +22,7 @@ dijet_dphi(15,0.,3.1416)	;#Delta#phi_{jj};Events
 dijet_deta(10,3.6,5.5)	;#Delta#eta_{jj};Events
 dijet_sumeta(20,-5,5)	;#eta_{j1}+#eta_{j2};Events
 jetmetnoel_mindphi(20,0,3.1416)	;#Delta#phi(E_{T}^{miss},j_{1,2});Events
-alljetsmetnoel_mindphi(20,0,3.1416)	;#Delta#phi(E_{T,no-el}^{miss},j);Events
+fourjetsmetnoel_mindphi(20,0,3.1416)	;#Delta#phi(E_{T,no-el}^{miss},j);Events
 n_jets_cjv_30(5,0,5)	;CJV jets (30 GeV);Events
 jet1_csv(21,0.,1.)	;Jet 1 CSV;Events
 jet2_csv(21,0.,1.)	;Jet 2 CSV;Events
@@ -31,4 +31,4 @@ n_jets_30(10,0.,10.)	;N jets pt>30 GeV;Events
 n_jets_15(15,0.,15.)	;N jets pt>15 GeV;Events
 central_tag_eta(25,-5.,5.)	;Central tag jet #eta;Events
 forward_tag_eta(25,-5.,5.)	;Forward tag jet #eta;Events
-alljetsmetnoel_mindphi:dijet_M(24,800.,2000.,20,1.,3.)	;M_{jj} (GeV);#Delta#phi(E_{T}^{miss},j);Events
+fourjetsmetnoel_mindphi:dijet_M(24,800.,2000.,20,1.,3.)	;M_{jj} (GeV);#Delta#phi(E_{T}^{miss},j);Events

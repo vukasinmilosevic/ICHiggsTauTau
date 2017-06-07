@@ -37,13 +37,13 @@ do
     fi
     echo "channel $channel, mindphicut: $mindphicut"
 
-    HistToIntegrate="alljetsmetnomu_mindphi:dijet_M"
+    HistToIntegrate="fourjetsmetnomu_mindphi:dijet_M"
     if [ "$channel" == "ee" ]; then
-      HistToIntegrate="alljetsmetnoel_mindphi:dijet_M"
+      HistToIntegrate="fourjetsmetnoel_mindphi:dijet_M"
     elif [ "$channel" == "enu" ]; then
-      HistToIntegrate="alljetsmetnoel_mindphi:dijet_M"
+      HistToIntegrate="fourjetsmetnoel_mindphi:dijet_M"
     else
-      HistToIntegrate="alljetsmetnomu_mindphi:dijet_M"
+      HistToIntegrate="fourjetsmetnomu_mindphi:dijet_M"
     fi
     echo "channel $channel, HistToIntegrate: $HistToIntegrate"
 	

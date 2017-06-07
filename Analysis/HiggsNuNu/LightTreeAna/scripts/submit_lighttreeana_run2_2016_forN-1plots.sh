@@ -26,7 +26,7 @@ echo "Using job-submission: " $JOBSUBMIT
 CONFIG=scripts/DefaultRun2Config_vetos_forN-1plots.cfg
 
 QUEUEDIR=short #medium long
-# no_METno_cut no_dijet_dphi_cut no_dijet_deta_cut no_alljetsmetno_mindphi_cut no_dijet_M_cut
+# no_METno_cut no_dijet_dphi_cut no_dijet_deta_cut no_fourjetsmetno_mindphi_cut no_dijet_M_cut
 JOBDIRPREFIX=jobs_run2ana_${DATE}_forN-1plots/no_dijet_M_cut
 JOBDIR=$JOBDIRPREFIX/
 OUTPUTPREFIX=output_run2ana_${DATE}_forN-1plots/no_dijet_M_cut
@@ -93,16 +93,16 @@ do
 #     HISTSTRING=";#Delta#eta_{jj};Events"
 #     SHAPESTRING="dijet_deta(30,2.,8.)"
 
-    ## no_alljetsmetnomu_mindphi_cut
+    ## no_fourjetsmetnomu_mindphi_cut
 #     HISTSTRING=";#Delta#phi(E_{T,no-#mu}^{miss},j);Events"
-#     SHAPESTRING="alljetsmetnomu_mindphi(60,0.,3.1416)"
+#     SHAPESTRING="fourjetsmetnomu_mindphi(60,0.,3.1416)"
 #     if [ "$channels" = "ee" ]; then
 #       HISTSTRING=";#Delta#phi(E_{T,no-el}^{miss},j);Events"
-#       SHAPESTRING="alljetsmetnoel_mindphi(60,0.,3.1416)"
+#       SHAPESTRING="fourjetsmetnoel_mindphi(60,0.,3.1416)"
 #     fi
 #     if [ "$channels" = "enu" ]; then
 #       HISTSTRING=";#Delta#phi(E_{T,no-el}^{miss},j);Events"
-#       SHAPESTRING="alljetsmetnoel_mindphi(60,0.,3.1416)"
+#       SHAPESTRING="fourjetsmetnoel_mindphi(60,0.,3.1416)"
 #     fi
 
     ## no_dijet_M_cut
@@ -111,20 +111,20 @@ do
 
     echo "Making histograms: " $SHAPESTRING
     OUTPUTNAME="$channels.root"
-    MINDPHICUT="alljetsmetnomu_mindphi\>=0.5"
+    MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"
     if [ "$channels" = "taunu" ]; then
-	############MINDPHICUT="jetmetnomu_mindphi\>=1.0" #\&\&alljetsmetnomu_mindphi\<2.3"
-	#MINDPHICUT="jetmetnomu_mindphi\>=1.0\&\&alljetsmetnomu_mindphi\<2.3"
-      MINDPHICUT="alljetsmetnomu_mindphi\>=0.5"
+	############MINDPHICUT="jetmetnomu_mindphi\>=1.0" #\&\&fourjetsmetnomu_mindphi\<2.3"
+	#MINDPHICUT="jetmetnomu_mindphi\>=1.0\&\&fourjetsmetnomu_mindphi\<2.3"
+      MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"
     fi
     if [ "$channels" = "qcd" ]; then
-      MINDPHICUT="alljetsmetnomu_mindphi\<0.5"
+      MINDPHICUT="fourjetsmetnomu_mindphi\<0.5"
     fi
     if [ "$channels" = "ee" ]; then
-      MINDPHICUT="alljetsmetnoel_mindphi\>=0.5"
+      MINDPHICUT="fourjetsmetnoel_mindphi\>=0.5"
     fi
     if [ "$channels" = "enu" ]; then
-      MINDPHICUT="alljetsmetnoel_mindphi\>=0.5"
+      MINDPHICUT="fourjetsmetnoel_mindphi\>=0.5"
     fi
     if [ "$syst" = "" ]
       then

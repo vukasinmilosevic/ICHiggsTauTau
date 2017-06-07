@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170522
+DATE=170605
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -28,9 +28,9 @@ CONFIG=scripts/DefaultRun2Config_vetos.cfg
 
 QUEUEDIR=short #medium long
 
-JOBDIRPREFIX=jobs_run2ana_${DATE}_datacard_forPreApproval
+JOBDIRPREFIX=jobs_run2ana_${DATE}_datacard
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE}_datacard_forPreApproval
+OUTPUTPREFIX=output_run2ana_${DATE}_datacard
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -77,11 +77,11 @@ do
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/weights.hists`
     #executable expect strings separated by "!"
     ## To produce all of the hist
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
     ## To produce all of the hist for datacard
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
@@ -98,23 +98,23 @@ do
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events!;Forward tag jet #eta;Events"
     #SHAPESTRING="metnomuons(25,200.,600.)!forward_tag_eta(25,-5.,5.)"
     #HISTSTRING=";#Delta#phi(E_{T,no-#mu}^{miss},j);Events"
-    #SHAPESTRING="alljetsmetnomu_mindphi(14,2.3,3.1416)"
+    #SHAPESTRING="fourjetsmetnomu_mindphi(14,2.3,3.1416)"
     echo "Making histograms: " $SHAPESTRING
     OUTPUTNAME="$channels.root"
-    MINDPHICUT="alljetsmetnomu_mindphi\>=0.5"
+    MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"
     if [ "$channels" = "taunu" ]; then
-	############MINDPHICUT="jetmetnomu_mindphi\>=1.0" #\&\&alljetsmetnomu_mindphi\<2.3"
-	#MINDPHICUT="jetmetnomu_mindphi\>=1.0\&\&alljetsmetnomu_mindphi\<2.3"
-      MINDPHICUT="alljetsmetnomu_mindphi\>=0.5"
+	############MINDPHICUT="jetmetnomu_mindphi\>=1.0" #\&\&fourjetsmetnomu_mindphi\<2.3"
+	#MINDPHICUT="jetmetnomu_mindphi\>=1.0\&\&fourjetsmetnomu_mindphi\<2.3"
+      MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"
     fi
     if [ "$channels" = "qcd" ]; then
-      MINDPHICUT="alljetsmetnomu_mindphi\<0.5"
+      MINDPHICUT="fourjetsmetnomu_mindphi\<0.5"
     fi
     if [ "$channels" = "ee" ]; then
-      MINDPHICUT="alljetsmetnoel_mindphi\>=0.5"
+      MINDPHICUT="fourjetsmetnoel_mindphi\>=0.5"
     fi
     if [ "$channels" = "enu" ]; then
-      MINDPHICUT="alljetsmetnoel_mindphi\>=0.5"
+      MINDPHICUT="fourjetsmetnoel_mindphi\>=0.5"
     fi
     if [ "$syst" = "" ]
       then

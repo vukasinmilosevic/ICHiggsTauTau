@@ -33,9 +33,9 @@ do
 		OUTNAME=$outfolder/$mass/vbfhinv_${mass}_13TeV_${mindphicut}_${minjjcut}_4params.txt
 	    fi
 	    if (( "$DOSUBMIT" == "0" )); then
-		echo "./bin/makeCountingCard -i $infolder --blind=$blind -o $OUTNAME -m $mass --do_latex true --do_datatop false --zvvstat $zvvstat --mcBkgOnly=true --do_run2=true --do_4params=$DO4PARAMS --minvarXcut=$minjjcut --minvarYcut=$mindphicut --histoToIntegrate=alljetsmetnomu_mindphi:dijet_M $extraoptions | tee $outfolder/$mass/card_${mindphicut}_${minjjcut}.log"
+		echo "./bin/makeCountingCard -i $infolder --blind=$blind -o $OUTNAME -m $mass --do_latex true --do_datatop false --zvvstat $zvvstat --mcBkgOnly=true --do_run2=true --do_4params=$DO4PARAMS --minvarXcut=$minjjcut --minvarYcut=$mindphicut --histoToIntegrate=fourjetsmetnomu_mindphi:dijet_M $extraoptions | tee $outfolder/$mass/card_${mindphicut}_${minjjcut}.log"
 	    else
-		./bin/makeCountingCard -i $infolder --blind=$blind -o $OUTNAME -m $mass --do_latex true --do_datatop false --zvvstat $zvvstat --mcBkgOnly=true --do_run2=true --do_4params=$DO4PARAMS --minvarXcut=$minjjcut --minvarYcut=$mindphicut --histoToIntegrate=alljetsmetnomu_mindphi:dijet_M $extraoptions  | tee $outfolder/$mass/card_${mindphicut}_${minjjcut}.log
+		./bin/makeCountingCard -i $infolder --blind=$blind -o $OUTNAME -m $mass --do_latex true --do_datatop false --zvvstat $zvvstat --mcBkgOnly=true --do_run2=true --do_4params=$DO4PARAMS --minvarXcut=$minjjcut --minvarYcut=$mindphicut --histoToIntegrate=fourjetsmetnomu_mindphi:dijet_M $extraoptions  | tee $outfolder/$mass/card_${mindphicut}_${minjjcut}.log
 	    fi
 	done
     done

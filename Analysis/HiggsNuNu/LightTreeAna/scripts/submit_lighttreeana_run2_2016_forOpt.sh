@@ -92,23 +92,23 @@ do
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events!;Forward tag jet #eta;Events"
     #SHAPESTRING="metnomuons(25,200.,600.)!forward_tag_eta(25,-5.,5.)"
     #HISTSTRING=";#Delta#phi(E_{T,no-#mu}^{miss},j);Events"
-    #SHAPESTRING="alljetsmetnomu_mindphi(14,2.3,3.1416)"
+    #SHAPESTRING="fourjetsmetnomu_mindphi(14,2.3,3.1416)"
     echo "Making histograms: " $SHAPESTRING
     OUTPUTNAME="$channels.root"
-    MINDPHICUT="alljetsmetnomu_mindphi\>=0.5"
+    MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"
     if [ "$channels" = "taunu" ]; then
-	############MINDPHICUT="jetmetnomu_mindphi\>=1.0" #\&\&alljetsmetnomu_mindphi\<2.3"
-	#MINDPHICUT="jetmetnomu_mindphi\>=1.0\&\&alljetsmetnomu_mindphi\<2.3"
-      MINDPHICUT="alljetsmetnomu_mindphi\>=0.5"
+	############MINDPHICUT="jetmetnomu_mindphi\>=1.0" #\&\&fourjetsmetnomu_mindphi\<2.3"
+	#MINDPHICUT="jetmetnomu_mindphi\>=1.0\&\&fourjetsmetnomu_mindphi\<2.3"
+      MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"
     fi
     if [ "$channels" = "qcd" ]; then
-      MINDPHICUT="alljetsmetnomu_mindphi\<0.5"
+      MINDPHICUT="fourjetsmetnomu_mindphi\<0.5"
     fi
     if [ "$channels" = "ee" ]; then
-      MINDPHICUT="alljetsmetnoel_mindphi\>=0.5"
+      MINDPHICUT="fourjetsmetnoel_mindphi\>=0.5"
     fi
     if [ "$channels" = "enu" ]; then
-      MINDPHICUT="alljetsmetnoel_mindphi\>=0.5"
+      MINDPHICUT="fourjetsmetnoel_mindphi\>=0.5"
     fi
     if [ "$syst" = "" ]
       then

@@ -131,6 +131,7 @@ int main(int argc, char* argv[]){
   bool do_bveto;
   double met_cutval;
   bool do_lep_mt_cut;
+  bool do_MIT_UCSD_sync;
 
   std::string jetmetdphicut;
   std::string metsigcut;
@@ -182,12 +183,13 @@ int main(int argc, char* argv[]){
     ("jetmetdphicut",            po::value<std::string>(&jetmetdphicut)->default_value(""))
     ("metsigcut",                po::value<std::string>(&metsigcut)->default_value(""))
     ("histTitlePar",             po::value<std::string>(&histTitlePar)->default_value(";#Delta#phi(E_{T}^{miss},j);Events"))
-    ("shapePar",                 po::value<std::string>(&shapePar)->default_value("alljetsmetnomu_mindphi(32,0.,3.1416)"))
+    ("shapePar",                 po::value<std::string>(&shapePar)->default_value("fourjetsmetnomu_mindphi(32,0.,3.1416)"))
     ("lumiSF",                   po::value<double>(&lumiSF)->default_value(1.0))
     ("do_tauveto",               po::value<bool>(&do_tauveto)->default_value(false))
     ("do_bveto",                 po::value<bool>(&do_bveto)->default_value(false))
     ("met_cutval",               po::value<double>(&met_cutval)->default_value(0))
     ("do_lep_mt_cut",            po::value<bool>(&do_lep_mt_cut)->default_value(false))
+    ("do_MIT_UCSD_sync",         po::value<bool>(&do_MIT_UCSD_sync)->default_value(false))
     ;
 
   po::store(po::command_line_parser(argc, argv).options(config).allow_unregistered().run(), vm);
@@ -407,12 +409,14 @@ int main(int argc, char* argv[]){
   else if (channel!="gamma"){
     //if(!do_mettrig) dataextrasel="&&(pass_sigtrigger==1)";
     //for metmht trigger
-    if(!do_mettrig){
-      dataextrasel="&&(pass_metmht90trigger==1 || pass_metmht100trigger==1 || pass_metmht110trigger==1 || pass_metmht120trigger==1)";
-    }
-    else {
-      dataextrasel="&&(pass_mettrigger==1)";
-    }
+    //HACK
+    dataextrasel="&&(pass_metmht90trigger==1 || pass_metmht100trigger==1 || pass_metmht110trigger==1 || pass_metmht120trigger==1 || pass_mettrigger==1)";
+//     if(!do_mettrig){
+//       dataextrasel="&&(pass_metmht90trigger==1 || pass_metmht100trigger==1 || pass_metmht110trigger==1 || pass_metmht120trigger==1)";
+//     }
+//     else {
+//       dataextrasel="&&(pass_mettrigger==1)";
+//     }
   }
   else {
     dataextrasel="&&(pass_photontrigger==1)";
@@ -427,6 +431,7 @@ int main(int argc, char* argv[]){
   std::string bveto,bvetoweight;
   std::string met_cut;
   std::string lep_mt_cut;
+  std::string jet1_ID;
 
 
   if (do_tauveto){
@@ -465,24 +470,29 @@ int main(int argc, char* argv[]){
   } else {
     lep_mt_cut="";
   }
+  if (do_MIT_UCSD_sync){
+    jet1_ID="&&( !( abs(jet1_eta) < 2.4 && !(jet1_chargedhadfrac>0.1 && jet1_neutralhadfrac<0.8) ) )";
+  } else {
+    jet1_ID="";
+  }
 
   //AMM uncomment for QCD mindphi plot in signal region!
-  std::string nunucat  = "nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+tauveto+bveto;
+  std::string nunucat  = "nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+tauveto+bveto+jet1_ID;
   //std::string nunuqcdcat=nunucat;
   //AMM uncomment for QCD plot in signal region! except mindphi.
   //std::string nunuqcdcat="nvetomuons==0&&nvetoelectrons==0&&alljetsmetnomu_mindphi>1";
   //std::string nunuqcdcat="nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut;
 
-  std::string enucat   = "nselelectrons==1&&nvetomuons==0&&nvetoelectrons==1&&ele1_pt>40&&"+jetmetdphicut+tauveto+bveto+lep_mt_cut+met_cut;
-  std::string munucat  = "nselmuons==1&&nvetomuons==1&&nvetoelectrons==0&&lep_mt>=0&&"+jetmetdphicut+tauveto+bveto+lep_mt_cut;
-  std::string taunucat = "ntaus==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+lep_mt_cut;
+  std::string enucat   = "nselelectrons==1&&nvetomuons==0&&nvetoelectrons==1&&ele1_pt>40&&"+jetmetdphicut+tauveto+bveto+lep_mt_cut+met_cut+jet1_ID;
+  std::string munucat  = "nselmuons==1&&nvetomuons==1&&nvetoelectrons==0&&lep_mt>=0&&"+jetmetdphicut+tauveto+bveto+lep_mt_cut+jet1_ID;
+  std::string taunucat = "ntaus==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+lep_mt_cut+jet1_ID;
 
-  std::string eecat    = "nselelectrons>=1&&nvetoelectrons==2&&nvetomuons==0&&m_ee>60&&m_ee<120&&oppsign_ee&&ele1_pt>40&&"+jetmetdphicut+tauveto+bveto;
-  std::string mumucat  = "nselmuons>=1&&nvetomuons==2&&nvetoelectrons==0&&m_mumu>60&&m_mumu<120&&oppsign_mumu&&"+jetmetdphicut+tauveto+bveto;
+  std::string eecat    = "nselelectrons>=1&&nvetoelectrons==2&&nvetomuons==0&&m_ee>60&&m_ee<120&&oppsign_ee&&ele1_pt>40&&"+jetmetdphicut+tauveto+bveto+jet1_ID;
+  std::string mumucat  = "nselmuons>=1&&nvetomuons==2&&nvetoelectrons==0&&m_mumu>60&&m_mumu<120&&oppsign_mumu&&"+jetmetdphicut+tauveto+bveto+jet1_ID;
 
-  std::string gammacat = "ntightphotons==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+tauveto+bveto;
-  std::string toplcat  = "nvetomuons==1&&nvetoelectrons==1&&nselmuons==1&&nselelectrons==1"+tauveto+bveto;
-  std::string topbcat  = "(nselmuons>=1 || nselelectrons>=1)&&(jet1_csv>0.679||jet2_csv>0.679)&&(forward_tag_eta>2.8||forward_tag_eta<-2.8)"+tauveto+bveto;
+  std::string gammacat = "ntightphotons==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+tauveto+bveto+jet1_ID;
+  std::string toplcat  = "nvetomuons==1&&nvetoelectrons==1&&nselmuons==1&&nselelectrons==1"+tauveto+bveto+jet1_ID;
+  std::string topbcat  = "(nselmuons>=1 || nselelectrons>=1)&&(jet1_csv>0.679||jet2_csv>0.679)&&(forward_tag_eta>2.8||forward_tag_eta<-2.8)"+tauveto+bveto+jet1_ID;
 
   if(channel=="nunu" || channel=="qcd"){//nunu
     sigcat=nunucat;
@@ -1016,7 +1026,7 @@ int main(int argc, char* argv[]){
       thisshape.set_legleft(0.39);
       thisshape.set_legright(0.61);
     }
-    if (strs.find("alljetsmetnomu")!=strs.npos) thisshape.set_axisrangemultiplier((channel=="mumu"||channel=="nunu")?2.2:1.6);
+    if (strs.find("fourjetsmetnomu")!=strs.npos) thisshape.set_axisrangemultiplier((channel=="mumu"||channel=="nunu")?2.2:1.6);
     if (strs.find("dijet_deta")!=strs.npos && channel=="nunu") thisshape.set_axisrangemultiplier(1.7);
 
     thisshape.set_histtitle(histTitle[ishape]);
@@ -1036,7 +1046,7 @@ int main(int argc, char* argv[]){
   if(runblindreg&&channel=="nunu"){
     std::vector<std::string> blindvars;
     std::vector<std::pair<double,double> > blindrange;
-    blindvars.push_back("alljetsmetnomu_mindphi");
+    blindvars.push_back("fourjetsmetnomu_mindphi");
     blindvars.push_back("metnomu_significance");
     blindvars.push_back("metnomuons");
     blindvars.push_back("dijet_deta");
