@@ -9,6 +9,7 @@
 #include "PhysicsTools/FWLite/interface/TFileService.h"
 #include "RooWorkspace.h"
 #include "RooFunctor.h"
+#include "Utilities/interface/FnRootTools.h"
 
 #include <string>
 
@@ -28,6 +29,7 @@ class HTTWeights : public ModuleBase {
   CLASS_MEMBER(HTTWeights, bool, do_tau_mode_scale)
   CLASS_MEMBER(HTTWeights, bool, do_etau_fakerate)
   CLASS_MEMBER(HTTWeights, bool, do_mtau_fakerate)
+  CLASS_MEMBER(HTTWeights, bool, do_jlepton_fake)
   CLASS_MEMBER(HTTWeights, bool, do_idiso_weights)
   CLASS_MEMBER(HTTWeights, bool, do_id_weights)
   CLASS_MEMBER(HTTWeights, bool, do_emu_e_fakerates)
@@ -111,8 +113,6 @@ class HTTWeights : public ModuleBase {
   BTagWeight btag_weight;
   TF1 *tau_fake_weights_;
   std::map<std::string, std::shared_ptr<RooFunctor>> fns_;
-
-
 
 
  public:

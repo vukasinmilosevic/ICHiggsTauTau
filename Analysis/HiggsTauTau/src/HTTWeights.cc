@@ -26,6 +26,7 @@ namespace ic {
     do_singlemu_trg_weights_  = false;
     do_etau_fakerate_         = false;
     do_mtau_fakerate_         = false;
+    do_jlepton_fake_           = false;
     do_idiso_weights_         = false;
     do_id_weights_            = false;
     do_emu_e_fakerates_       = false;
@@ -115,6 +116,7 @@ namespace ic {
     std::cout << boost::format(param_fmt()) % "do_tau_mode_scale"   % do_tau_mode_scale_;
     std::cout << boost::format(param_fmt()) % "do_etau_fakerate"    % do_etau_fakerate_;
     std::cout << boost::format(param_fmt()) % "do_mtau_fakerate"    % do_mtau_fakerate_;
+    std::cout << boost::format(param_fmt()) % "do_jlepton_fake"    % do_jlepton_fake_;
     std::cout << boost::format(param_fmt()) % "do_emu_e_fakerates"  % do_emu_e_fakerates_;
     std::cout << boost::format(param_fmt()) % "do_emu_m_fakerates"  % do_emu_m_fakerates_;
     std::cout << boost::format(param_fmt()) % "do_top_factors"      % do_top_factors_;
@@ -264,14 +266,14 @@ namespace ic {
                w_->function("e_trgEle12leg_desy_mc")->functor(w_->argSet("e_pt,e_eta")));
           }
           if(mc_ == mc::summer16_80X){
-            fns_["t_fake_TightIso_tt_mc"] = std::shared_ptr<RooFunctor>(
-                w_->function("t_fake_TightIso_tt_mc")->functor(w_->argSet("t_pt,t_dm")));
-            fns_["t_genuine_TightIso_tt_mc"] = std::shared_ptr<RooFunctor>(
-                w_->function("t_genuine_TightIso_tt_mc")->functor(w_->argSet("t_pt,t_dm")));
-            fns_["t_fake_TightIso_tt_data"] = std::shared_ptr<RooFunctor>(
-                w_->function("t_fake_TightIso_tt_data")->functor(w_->argSet("t_pt,t_dm")));
-            fns_["t_genuine_TightIso_tt_data"] = std::shared_ptr<RooFunctor>(
-                w_->function("t_genuine_TightIso_tt_data")->functor(w_->argSet("t_pt,t_dm")));
+            fns_["t_fake_MediumIso_tt_mc"] = std::shared_ptr<RooFunctor>(
+                w_->function("t_fake_MediumIso_tt_mc")->functor(w_->argSet("t_pt,t_dm")));
+            fns_["t_genuine_MediumIso_tt_mc"] = std::shared_ptr<RooFunctor>(
+                w_->function("t_genuine_MediumIso_tt_mc")->functor(w_->argSet("t_pt,t_dm")));
+            fns_["t_fake_MediumIso_tt_data"] = std::shared_ptr<RooFunctor>(
+                w_->function("t_fake_MediumIso_tt_data")->functor(w_->argSet("t_pt,t_dm")));
+            fns_["t_genuine_MediumIso_tt_data"] = std::shared_ptr<RooFunctor>(
+                w_->function("t_genuine_MediumIso_tt_data")->functor(w_->argSet("t_pt,t_dm")));
           } else{
             fns_["t_trgLooseIso_data"] = std::shared_ptr<RooFunctor>(
                w_->function("t_trgLooseIso_data")->functor(w_->argSet("t_pt")));
@@ -303,6 +305,30 @@ namespace ic {
           fns_["e_trk_ratio"] = std::shared_ptr<RooFunctor>(
               w_->function("e_trk_ratio")->functor(w_->argSet("e_pt,e_eta")));
         }
+    }
+    if (do_zpt_weight_ && mc_ == mc::summer16_80X){
+      fns_["zpt_weight_nom"] = std::shared_ptr<RooFunctor>( 
+              w_->function("zpt_weight_nom")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_esup"] = std::shared_ptr<RooFunctor>(
+              w_->function("zpt_weight_esup")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_esdown"] = std::shared_ptr<RooFunctor>(
+              w_->function("zpt_weight_esdown")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_ttup"] = std::shared_ptr<RooFunctor>( 
+              w_->function("zpt_weight_ttup")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_ttdown"] = std::shared_ptr<RooFunctor>( 
+              w_->function("zpt_weight_ttdown")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_statpt0up"] = std::shared_ptr<RooFunctor>( 
+              w_->function("zpt_weight_statpt0up")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_statpt0down"] = std::shared_ptr<RooFunctor>(
+              w_->function("zpt_weight_statpt0down")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_statpt40up"] = std::shared_ptr<RooFunctor>(
+              w_->function("zpt_weight_statpt40up")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_statpt40down"] = std::shared_ptr<RooFunctor>(
+              w_->function("zpt_weight_statpt40down")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_statpt80up"] = std::shared_ptr<RooFunctor>(
+              w_->function("zpt_weight_statpt80up")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
+      fns_["zpt_weight_statpt80down"] = std::shared_ptr<RooFunctor>(
+              w_->function("zpt_weight_statpt80down")->functor(w_->argSet("z_gen_mass,z_gen_pt"))); 
     }
 
     return 0;
@@ -364,10 +390,13 @@ namespace ic {
           std::vector<bool> status_flags = parts[i]->statusFlags();
           unsigned id = abs(parts[i]->pdgid());
           if(id == 6 && status_flags[FromHardProcess] && status_flags[IsLastCopy]){
-          double pt = parts[i]->pt();
-          pt = std::min(pt, 400.);
-          if (mc_ == mc::fall15_76X || mc_ == mc::spring16_80X || channel_==channel::em) top_wt *= std::exp(0.156-0.00137*pt);
-          if (mc_ == mc::summer16_80X && channel_!=channel::em) top_wt *= std::exp(0.0615-0.0005*pt);
+            double pt = parts[i]->pt();
+            pt = std::min(pt, 400.);
+            if (mc_ == mc::fall15_76X || mc_ == mc::spring16_80X || channel_==channel::em) top_wt *= std::exp(0.156-0.00137*pt);
+            if (mc_ == mc::summer16_80X && channel_!=channel::em){
+              //top_wt *= std::exp(0.0615-0.0005*pt); //13TeV
+              top_wt *= std::exp(0.156-0.00137 *pt); //8TeV
+            }
           }
         }
       }
@@ -477,10 +506,10 @@ namespace ic {
         auto args_2 = std::vector<double>{pt_2,eta_2,decay_mode_2};
         double tau_sf_2_old = (gen_match_2 == 5) ? fns_["t_iso_mva_m_pt30_sf"]->eval(args_2.data()) : 1.0;
         if(mc_ == mc::summer16_80X){
-            tau_sf_2  = (gen_match_2 == 5) ? 0.99 : 1.0;
-            double tight_tau_sf_2 = (gen_match_2 == 5) ? 0.95 : 1.0;
+            tau_sf_2  = (gen_match_2 == 5) ? 0.95 : 1.0;
+            double loose_tau_sf_2 = (gen_match_2 == 5) ? 0.99 : 1.0;
             double medium_tau_sf_2 = (gen_match_2 == 5) ? 0.97 : 1.0;
-            event->Add("wt_tau_id_tight",tight_tau_sf_2/(tau_sf_2));
+            event->Add("wt_tau_id_loose",loose_tau_sf_2/(tau_sf_2));
             event->Add("wt_tau_id_medium",medium_tau_sf_2/(tau_sf_2));
         }
         else tau_sf_2 = tau_sf_2_old;
@@ -500,15 +529,35 @@ namespace ic {
         auto args_2 = std::vector<double>{pt_2,eta_2,decay_mode_2};
         double tau_sf_1_old = (gen_match_1==5) ? fns_["t_iso_mva_t_pt40_eta2p1_sf"]->eval(args_1.data()) : 1.0;
         double tau_sf_2_old = (gen_match_2==5) ? fns_["t_iso_mva_t_pt40_eta2p1_sf"]->eval(args_2.data()) : 1.0;
-        if(mc_ == mc::summer16_80X) tau_sf_1  = (gen_match_1 == 5) ? 0.95 : 1.0;
+        if(mc_ == mc::summer16_80X) tau_sf_1  = (gen_match_1 == 5) ? 0.97 : 1.0;
         else tau_sf_1 = tau_sf_1_old;
-        if(mc_ == mc::summer16_80X) tau_sf_2  = (gen_match_2 == 5) ? 0.95 : 1.0;
+        if(mc_ == mc::summer16_80X) tau_sf_2  = (gen_match_2 == 5) ? 0.97 : 1.0;
         else tau_sf_2 = tau_sf_2_old;
         event->Add("wt_tau_id_binned",tau_sf_1_old*tau_sf_2_old/(tau_sf_1*tau_sf_2));
         
         double loose_tau_sf_1 = (gen_match_1 == 5) ? 0.99 : 1.0;
         double loose_tau_sf_2 = (gen_match_2 == 5) ? 0.99 : 1.0;
-        event->Add("wt_tau_id_loose",loose_tau_sf_1*loose_tau_sf_2/(tau_sf_2*tau_sf_1));
+        double medium_tau_sf_1 = (gen_match_1 == 5) ? 0.97 : 1.0;
+        double medium_tau_sf_2 = (gen_match_2 == 5) ? 0.97 : 1.0;
+        double tight_tau_sf_1 = (gen_match_1 == 5) ? 0.95 : 1.0;
+        double tight_tau_sf_2 = (gen_match_2 == 5) ? 0.95 : 1.0;
+        double vtight_tau_sf_1 = (gen_match_1 == 5) ? 0.93 : 1.0;
+        double vtight_tau_sf_2 = (gen_match_2 == 5) ? 0.93 : 1.0;
+
+        event->Add("wt_tau_id_loose",loose_tau_sf_1*loose_tau_sf_2/(tau_sf_1*tau_sf_2));
+        event->Add("wt_tau_id_medium",medium_tau_sf_1*medium_tau_sf_2/(tau_sf_1*tau_sf_2));
+        event->Add("wt_tau_id_tight",tight_tau_sf_1*tight_tau_sf_2/(tau_sf_1*tau_sf_2));
+        event->Add("wt_tau_id_vtight",vtight_tau_sf_1*vtight_tau_sf_2/(tau_sf_1*tau_sf_2));
+        
+        event->Add("wt_tau1_id_loose",loose_tau_sf_1/(tau_sf_1));
+        event->Add("wt_tau1_id_medium",medium_tau_sf_1/(tau_sf_1));
+        event->Add("wt_tau1_id_tight",tight_tau_sf_1/(tau_sf_1));
+        event->Add("wt_tau1_id_vtight",vtight_tau_sf_1/(tau_sf_1));
+        
+        event->Add("wt_tau2_id_loose",loose_tau_sf_2/(tau_sf_2));
+        event->Add("wt_tau2_id_medium",medium_tau_sf_2/(tau_sf_2));
+        event->Add("wt_tau2_id_tight",tight_tau_sf_2/(tau_sf_2));
+        event->Add("wt_tau2_id_vtight",vtight_tau_sf_2/(tau_sf_2));
       }
      eventInfo->set_weight("wt_tau_id_sf",tau_sf_1*tau_sf_2);
     }
@@ -636,14 +685,45 @@ namespace ic {
      } 
 
     if (do_zpt_weight_){
-      double zpt = event->Exists("genpT") ? event->Get<double>("genpT") : 0;
-      double zmass = event->Exists("genM") ? event->Get<double>("genM") : 0;
-      double wtzpt = z_pt_mass_hist_->GetBinContent(z_pt_mass_hist_->GetXaxis()->FindBin(zmass),z_pt_mass_hist_->GetYaxis()->FindBin(zpt));
-      double wtzpt_down=1.0;
-      double wtzpt_up = wtzpt*wtzpt;
-      eventInfo->set_weight("wt_zpt",wtzpt);
-      event->Add("wt_zpt_up",wtzpt_up/wtzpt);
-      event->Add("wt_zpt_down",wtzpt_down/wtzpt);
+          double zpt = event->Exists("genpT") ? event->Get<double>("genpT") : 0;
+          double zmass = event->Exists("genM") ? event->Get<double>("genM") : 0;
+      if(mc_ != mc::summer16_80X){
+          double wtzpt = z_pt_mass_hist_->GetBinContent(z_pt_mass_hist_->FindBin(zmass,zpt));
+          double wtzpt_down=1.0;
+          double wtzpt_up = wtzpt*wtzpt;
+          eventInfo->set_weight("wt_zpt",wtzpt);
+          event->Add("wt_zpt_up",wtzpt_up/wtzpt);
+          event->Add("wt_zpt_down",wtzpt_down/wtzpt);
+      } else if(mc_ == mc::summer16_80X){
+        auto args = std::vector<double>{zmass,zpt};      
+        double wtzpt         = fns_["zpt_weight_nom"]->eval(args.data());
+        double wtzpt_esup    = fns_["zpt_weight_esup"]->eval(args.data());
+        double wtzpt_esdown  = fns_["zpt_weight_esdown"]->eval(args.data());
+        double wtzpt_ttup    = fns_["zpt_weight_ttup"]->eval(args.data()); 
+        double wtzpt_ttdown  = fns_["zpt_weight_ttdown"]->eval(args.data()); 
+        double m400pt0_up    = fns_["zpt_weight_statpt0up"]->eval(args.data()); 
+        double m400pt0_down  = fns_["zpt_weight_statpt0down"]->eval(args.data()); 
+        double m400pt40_up   = fns_["zpt_weight_statpt40up"]->eval(args.data()); 
+        double m400pt40_down = fns_["zpt_weight_statpt40down"]->eval(args.data()); 
+        double m400pt80_up   = fns_["zpt_weight_statpt80up"]->eval(args.data());  
+        double m400pt80_down = fns_["zpt_weight_statpt80down"]->eval(args.data());
+        
+        double wtzpt_down=1.0;
+        double wtzpt_up = wtzpt*wtzpt;
+        eventInfo->set_weight("wt_zpt",wtzpt);
+        event->Add("wt_zpt_up",wtzpt_up/wtzpt);
+        event->Add("wt_zpt_down",wtzpt_down/wtzpt);
+        event->Add("wt_zpt_stat_m400pt0_up"    , m400pt0_up  /wtzpt);
+        event->Add("wt_zpt_stat_m400pt40_up"   , m400pt40_up /wtzpt);
+        event->Add("wt_zpt_stat_m400pt80_up"   , m400pt80_up /wtzpt);
+        event->Add("wt_zpt_stat_m400pt0_down"   , m400pt0_down  /wtzpt);
+        event->Add("wt_zpt_stat_m400pt40_down"  , m400pt40_down /wtzpt);
+        event->Add("wt_zpt_stat_m400pt80_down"  , m400pt80_down /wtzpt);
+        event->Add("wt_zpt_esup"                ,   wtzpt_esup   /wtzpt);
+        event->Add("wt_zpt_esdown"              , wtzpt_esdown /wtzpt);
+        event->Add("wt_zpt_ttup"                ,   wtzpt_ttup   /wtzpt);
+        event->Add("wt_zpt_ttdown"              , wtzpt_ttdown /wtzpt);
+      }
     }
 
    if (do_tracking_eff_){
@@ -1484,18 +1564,18 @@ namespace ic {
                 auto args_2 = std::vector<double>{pt_2,decay_mode_2};
 
                 if(gm1_ == 5){ 
-                  tau1_trg = fns_["t_genuine_TightIso_tt_data"]->eval(args_1.data());
-                  tau1_trg_mc = fns_["t_genuine_TightIso_tt_mc"]->eval(args_1.data());
+                  tau1_trg = fns_["t_genuine_MediumIso_tt_data"]->eval(args_1.data());
+                  tau1_trg_mc = fns_["t_genuine_MediumIso_tt_mc"]->eval(args_1.data());
                 } else {
-                  tau1_trg = fns_["t_fake_TightIso_tt_data"]->eval(args_1.data());
-                  tau1_trg_mc = fns_["t_fake_TightIso_tt_mc"]->eval(args_1.data());
+                  tau1_trg = fns_["t_fake_MediumIso_tt_data"]->eval(args_1.data());
+                  tau1_trg_mc = fns_["t_fake_MediumIso_tt_mc"]->eval(args_1.data());
                 } 
                 if(gm2_ == 5){ 
-                  tau2_trg = fns_["t_genuine_TightIso_tt_data"]->eval(args_2.data());
-                  tau2_trg_mc = fns_["t_genuine_TightIso_tt_mc"]->eval(args_2.data());
+                  tau2_trg = fns_["t_genuine_MediumIso_tt_data"]->eval(args_2.data());
+                  tau2_trg_mc = fns_["t_genuine_MediumIso_tt_mc"]->eval(args_2.data());
                 } else {
-                  tau2_trg = fns_["t_fake_TightIso_tt_data"]->eval(args_2.data());
-                  tau2_trg_mc = fns_["t_fake_TightIso_tt_mc"]->eval(args_2.data());
+                  tau2_trg = fns_["t_fake_MediumIso_tt_data"]->eval(args_2.data());
+                  tau2_trg_mc = fns_["t_fake_MediumIso_tt_mc"]->eval(args_2.data());
                 }
               } else{ 
                 if(gm1_ == 5){ 
@@ -1915,6 +1995,9 @@ namespace ic {
       } else if (channel_ == channel::em) {
         Electron const* elec = dynamic_cast<Electron const*>(dilepton[0]->GetCandidate("lepton1"));
         Muon const* muon = dynamic_cast<Muon const*>(dilepton[0]->GetCandidate("lepton2"));
+
+        unsigned gm1_ = MCOrigin2UInt(event->Get<ic::mcorigin>("gen_match_1"));
+        unsigned gm2_ = MCOrigin2UInt(event->Get<ic::mcorigin>("gen_match_2"));
         double e_pt = elec->pt();
         double e_eta = fabs(elec->sc_eta());
         double e_signed_eta = elec->eta();
@@ -1923,7 +2006,11 @@ namespace ic {
         double m_eta = fabs(muon->eta());
         double m_signed_eta = muon->eta();
         double m_idiso = 1.0;
+        double m_idiso_up = 1.0;
+        double m_idiso_down = 1.0;
         double e_idiso = 1.0;
+        double e_idiso_up = 1.0;
+        double e_idiso_down = 1.0;
         double m_idiso_mc = 1.0;
         double m_idiso_data = 1.0;
         double e_idiso_mc = 1.0;
@@ -2038,16 +2125,44 @@ namespace ic {
          } else if(mc_ == mc::summer16_80X){
             double m_iso = PF04IsolationVal(muon, 0.5, 0); 
             double e_iso = PF03IsolationVal(elec, 0.5, 0);             
-            auto args_1_2 = std::vector<double>{m_pt,m_signed_eta};
-            auto args_2_2 = std::vector<double>{m_pt,m_signed_eta,m_iso};
-            //m_idiso = fns_["m_id_ratio"]->eval(args_1_2.data()) * fns_["m_iso_binned_ratio"]->eval(args_2_2.data());
-            m_idiso=fns_["m_idiso0p20_desy_ratio"]->eval(args_1_2.data());
+            std::vector<PFJet*> uncleaned_jets = event->GetPtrVec<PFJet>("ak4PFJetsCHSUnFiltered");
+            if(gm2_!=6 || !do_jlepton_fake_){
+              auto args_1_2 = std::vector<double>{m_pt,m_signed_eta};
+              auto args_2_2 = std::vector<double>{m_pt,m_signed_eta,m_iso};
+              m_idiso=fns_["m_idiso0p20_desy_ratio"]->eval(args_1_2.data());
+              m_idiso_up = 1.0;
+              m_idiso_down = 1.0;
+            } else {
+              std::vector<Candidate *> muon_vec;
+              muon_vec.push_back(dilepton[0]->GetCandidate("lepton2"));
+              std::vector<std::pair<Candidate*, PFJet*> > muon_match = MatchByDR(muon_vec,uncleaned_jets,0.2,true,true);
+              double jpt_m = 1.0;
+              if(muon_match.size()>0) jpt_m = muon_match.at(0).second->pt();
+              else jpt_m = m_pt;
+              m_idiso = 0.0025*jpt_m+0.902;
+              m_idiso_up = (0.0050*jpt_m+0.992)/m_idiso;
+              m_idiso_down = 0.812/m_idiso;
+           }
+           if(gm1_!=6 || !do_jlepton_fake_){
             auto args_1_1 = std::vector<double>{e_pt,e_signed_eta};
             auto args_2_1 = std::vector<double>{e_pt,e_signed_eta,e_iso};
-           // e_idiso = fns_["e_id_ratio"]->eval(args_1_1.data()) * fns_["e_iso_binned_ratio"]->eval(args_2_1.data()); 
-           e_idiso=fns_["e_idiso0p15_desy_ratio"]->eval(args_1_1.data());
+            e_idiso=fns_["e_idiso0p15_desy_ratio"]->eval(args_1_1.data());
+            e_idiso_down=1.0;
+            e_idiso_up=1.0;
+           } else {
+            std::vector<Candidate *> elec_vec;
+            elec_vec.push_back(dilepton[0]->GetCandidate("lepton1"));
+            std::vector<std::pair<Candidate*, PFJet*> > elec_match = MatchByDR(elec_vec,uncleaned_jets,0.2,true,true);
+            double jpt_e = 1.0;
+            if(elec_match.size()>0) jpt_e = elec_match.at(0).second->pt();
+            else jpt_e = e_pt;
+            e_idiso = 0.0015*jpt_e+0.794;
+            e_idiso_up = (0.0030*jpt_e+0.883)/e_idiso;
+            e_idiso_down = 0.702/e_idiso;
+           }
          }
         // if (do_id_weights_) mu_iso = 1.0;
+
         weight *= (e_idiso * m_idiso);
         if(mc_!=mc::fall15_76X && mc_!=mc::spring15_74X && mc_!=mc::spring16_80X && mc_ != mc::summer16_80X){
           event->Add("idweight_1", e_idiso);
@@ -2055,6 +2170,10 @@ namespace ic {
         } else { 
           event->Add("idisoweight_1", e_idiso);
           event->Add("idisoweight_2", m_idiso);
+          event->Add("idisoweight_up_1", e_idiso_up);
+          event->Add("idisoweight_up_2", m_idiso_up);
+          event->Add("idisoweight_down_1", e_idiso_down);
+          event->Add("idisoweight_down_2", m_idiso_down);
         }
         event->Add("isoweight_1", double(1.0));
         event->Add("isoweight_2", double(1.0));
@@ -2325,14 +2444,14 @@ namespace ic {
         if(channel_ == channel::et){
           if(gm2_==1||gm2_==3){
             if(fabs(tau->eta()) < 1.5){
-               etau_fakerate_2 = 1.87;
-            } else etau_fakerate_2=1.46;
+               etau_fakerate_2 = 1.40;
+            } else etau_fakerate_2=1.90;
           }
         } else {
           if(gm2_==1||gm2_==3){
             if(fabs(tau->eta()) < 1.5){
-               etau_fakerate_2=1.0;
-            } else etau_fakerate_2=1.37;
+               etau_fakerate_2=1.21;
+            } else etau_fakerate_2=1.38;
           }
         }
         if(channel_ == channel::tt){
@@ -2340,8 +2459,8 @@ namespace ic {
           Tau const* tau1 = dynamic_cast<Tau const*>(dilepton[0]->GetCandidate("lepton1"));
           if(gm1_==1||gm1_==3){
             if(fabs(tau1->eta()) < 1.5){
-               etau_fakerate_1=1.0;
-            } else etau_fakerate_1=1.37;
+               etau_fakerate_1=1.21;
+            } else etau_fakerate_1=1.38;
           }
         }  
       } else {
@@ -2394,29 +2513,29 @@ namespace ic {
         if(channel_ == channel::mt){
           if(gm2_==2||gm2_==4){
             if(fabs(tau->eta()) < 0.4){
-              mtau_fakerate_2 = 1.263;
+              mtau_fakerate_2 = 1.47;
             } else if(fabs(tau->eta()) < 0.8){
-              mtau_fakerate_2 = 1.364;
+              mtau_fakerate_2 = 1.55;
             } else if(fabs(tau->eta()) < 1.2){
-              mtau_fakerate_2 = 0.854;
+              mtau_fakerate_2 = 1.33;
             } else if(fabs(tau->eta()) < 1.7){
-              mtau_fakerate_2=1.712;
+              mtau_fakerate_2=1.72;
             } else if(fabs(tau->eta()) < 2.3){
-              mtau_fakerate_2=2.324;
+              mtau_fakerate_2=2.5;
             }
           }
         } else {
           if(gm2_==2||gm2_==4){
             if(fabs(tau->eta()) < 0.4){
-              mtau_fakerate_2=1.012;
+              mtau_fakerate_2=1.22;
             } else if(fabs(tau->eta()) < 0.8){
-              mtau_fakerate_2=1.007;
+              mtau_fakerate_2=1.12;
             } else if(fabs(tau->eta()) < 1.2){
-              mtau_fakerate_2=0.87;
+              mtau_fakerate_2=1.26;
             } else if(fabs(tau->eta()) < 1.7){
-              mtau_fakerate_2=1.154;
+              mtau_fakerate_2=1.22;
             } else if(fabs(tau->eta()) < 2.3){
-              mtau_fakerate_2=2.281;
+              mtau_fakerate_2=2.39;
             }
           }
         }
@@ -2425,15 +2544,15 @@ namespace ic {
         Tau const* tau1 = dynamic_cast<Tau const*>(dilepton[0]->GetCandidate("lepton1"));
           if(gm1_==2||gm1_==4){
             if(fabs(tau1->eta()) < 0.4){
-              mtau_fakerate_1=1.012;
+              mtau_fakerate_1=1.22;
             } else if(fabs(tau1->eta()) < 0.8){
-              mtau_fakerate_1=1.007;
+              mtau_fakerate_1=1.12;
             } else if(fabs(tau1->eta()) < 1.2){
-              mtau_fakerate_1=0.87;
+              mtau_fakerate_1=1.26;
             } else if(fabs(tau1->eta()) < 1.7){
-              mtau_fakerate_1=1.154;
+              mtau_fakerate_1=1.22;
             } else if(fabs(tau1->eta()) < 2.3){
-              mtau_fakerate_1=2.281;
+              mtau_fakerate_1=2.39;
             }
           }
         }  

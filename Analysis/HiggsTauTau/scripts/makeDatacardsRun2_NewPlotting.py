@@ -131,10 +131,10 @@ if options.add_sm:
 #### Apply these options for specific channels
 
 extra_channel = {
-    "et" : ' --syst_tau_scale="CMS_scale_t_et_13TeV" --syst_eff_t="CMS_eff_t_mssmHigh_et_13TeV" --syst_tquark="CMS_htt_ttbarShape_13TeV" --syst_zwt="CMS_htt_dyShape_13TeV" --syst_w_fake_rate="CMS_htt_wFakeShape_13TeV" ', 
-    "mt" : ' --syst_tau_scale="CMS_scale_t_mt_13TeV" --syst_eff_t="CMS_eff_t_mssmHigh_mt_13TeV" --syst_tquark="CMS_htt_ttbarShape_13TeV" --syst_zwt="CMS_htt_dyShape_13TeV" --syst_w_fake_rate="CMS_htt_wFakeShape_13TeV" ',
-    "tt" : ' --syst_tau_scale="CMS_scale_t_tt_13TeV" --syst_eff_t="CMS_eff_t_mssmHigh_tt_13TeV" --syst_tquark="CMS_htt_ttbarShape_13TeV" --syst_zwt="CMS_htt_dyShape_13TeV" ',
-    "em" : ' --syst_tau_scale="CMS_scale_e_em_13TeV" --syst_tquark="CMS_htt_ttbarShape_13TeV" --syst_zwt="CMS_htt_dyShape_13TeV" ',
+    "et" : ' --syst_eff_t="CMS_eff_t_mssmHigh_et_13TeV" --syst_tquark="CMS_htt_ttbarShape_13TeV" --syst_zwt="CMS_htt_dyShape_13TeV" --syst_w_fake_rate="CMS_htt_wFakeShape_13TeV" --syst_efake_0pi_scale="CMS_scale_t_efake_1prong0pi0_13TeV" --syst_efake_1pi_scale="CMS_scale_t_efake_1prong1pi0_13TeV" --syst_tau_scale_0pi=CMS_scale_t_1prong0pi0_13TeV --syst_tau_scale_1pi=CMS_scale_t_1prong1pi0_13TeV --syst_tau_scale_3prong=CMS_scale_t_3prong0pi0_13TeV --syst_zpt_es=CMS_htt_dyShape_scale_m_13TeV --syst_zpt_tt=CMS_htt_dyShape_tjXsec_13TeV --syst_zpt_statpt0=CMS_htt_dyShape_stat_m400pt0_13TeV --syst_zpt_statpt40=CMS_htt_dyShape_stat_m400pt40_13TeV --syst_zpt_statpt80=CMS_htt_dyShape_stat_m400pt80_13TeV', 
+    "mt" : ' --syst_eff_t="CMS_eff_t_mssmHigh_mt_13TeV" --syst_tquark="CMS_htt_ttbarShape_13TeV" --syst_zwt="CMS_htt_dyShape_13TeV" --syst_w_fake_rate="CMS_htt_wFakeShape_13TeV" --syst_tau_scale_0pi=CMS_scale_t_1prong0pi0_13TeV --syst_tau_scale_1pi=CMS_scale_t_1prong1pi0_13TeV --syst_tau_scale_3prong=CMS_scale_t_3prong0pi0_13TeV  --syst_zpt_es=CMS_htt_dyShape_scale_m_13TeV --syst_zpt_tt=CMS_htt_dyShape_tjXsec_13TeV --syst_zpt_statpt0=CMS_htt_dyShape_stat_m400pt0_13TeV --syst_zpt_statpt40=CMS_htt_dyShape_stat_m400pt40_13TeV --syst_zpt_statpt80=CMS_htt_dyShape_stat_m400pt80_13TeV ',
+    "tt" : ' --syst_eff_t="CMS_eff_t_mssmHigh_tt_13TeV" --syst_tquark="CMS_htt_ttbarShape_13TeV" --syst_zwt="CMS_htt_dyShape_13TeV" --syst_tau_scale_0pi=CMS_scale_t_1prong0pi0_13TeV --syst_tau_scale_1pi=CMS_scale_t_1prong1pi0_13TeV --syst_tau_scale_3prong=CMS_scale_t_3prong0pi0_13TeV --syst_zpt_es=CMS_htt_dyShape_scale_m_13TeV --syst_zpt_tt=CMS_htt_dyShape_tjXsec_13TeV --syst_zpt_statpt0=CMS_htt_dyShape_stat_m400pt0_13TeV --syst_zpt_statpt40=CMS_htt_dyShape_stat_m400pt40_13TeV --syst_zpt_statpt80=CMS_htt_dyShape_stat_m400pt80_13TeV ',
+    "em" : ' --syst_tau_scale="CMS_scale_e_em_13TeV" --syst_tquark="CMS_htt_ttbarShape_13TeV" --syst_zwt="CMS_htt_dyShape_13TeV" --syst_zpt_es=CMS_htt_dyShape_scale_m_13TeV --syst_zpt_tt=CMS_htt_dyShape_tjXsec_13TeV --syst_zpt_statpt0=CMS_htt_dyShape_stat_m400pt0_13TeV --syst_zpt_statpt40=CMS_htt_dyShape_stat_m400pt40_13TeV --syst_zpt_statpt80=CMS_htt_dyShape_stat_m400pt80_13TeV --syst_jfake_e="CMS_htt_em_eFake_13TeV" --syst_jfake_m="CMS_htt_em_muFake_13TeV" ',
 }
 
 if options.no_shape_systs:
@@ -254,76 +254,243 @@ if SCHEME == 'run2_mssm_summer2016':
     BINS="(98,0,3920)"
 
   scheme_et = [
-    ("12",   "inclusive",  "inclusive",  BINS_FINE, ''),
-    ("12",   "nobtag",    "nobtag",  BINS_FINE, '--sel="(mt_1<50)" --set_alias="baseline:({ichep_baseline})" '),
+    #("12",   "inclusive",  "inclusive",  BINS_FINE, ''),
     ("12",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, ''),
-    
-    ("12",   "nobtag",    "nobtag_wjets_cr",  BINS_FINE, '--sel="(mt_1>70)" --set_alias="baseline:({ichep_baseline})" '),
-    ("12",   "nobtag",    "nobtag_wjets_ss_cr",  BINS_FINE, '--sel="(mt_1>70)" --set_alias="baseline:({ichep_baseline})" --do_ss'),
-    ("12",   "nobtag",    "nobtag_qcd_cr",  BINS_FINE, '--sel="(mt_1<50)" --set_alias="baseline:({ichep_baseline})" --do_ss'),
-    
-    ("12",   "nobtag_tight",    "nobtag_tight_wjets_cr",  BINS_FINE, '--set_alias="set_alias:(mt_1>70)"  '),
+    ("12",   "nobtag_tight",    "nobtag_tight_wjets_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)"  '),
     ("12",   "nobtag_tight",    "nobtag_tight_wjets_ss_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" --do_ss '),
     ("12",   "nobtag_tight",    "nobtag_tight_qcd_cr",  BINS_FINE, '--do_ss'),
     ("12",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, ''),
     ("12",   "nobtag_loosemt",    "nobtag_loosemt_qcd_cr",  BINS_FINE, '--do_ss'),
-    ("12",   "nobtag_looseiso",    "nobtag_looseiso",  BINS_FINE, ''),
-    ("12",   "nobtag_looseiso",    "nobtag_looseiso_wjets_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" '),
-    ("12",   "nobtag_looseiso",    "nobtag_looseiso_wjets_ss_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" --do_ss '), 
-    ("12",   "nobtag_looseiso",    "nobtag_looseiso_qcd_cr",  BINS_FINE, ' --do_ss '),
-    ("16",   "btag",    "btag",  BINS, '--sel="(mt_1<50)"  --set_alias="baseline:({ichep_baseline})"'),
-    
-    ("16",   "btag",    "btag_wjets_cr",  BINS_FINE, '--sel="(mt_1>70)" --set_alias="baseline:({ichep_baseline})" '),
-    ("16",   "btag",    "btag_wjets_ss_cr",  BINS_FINE, '--sel="(mt_1>70)" --set_alias="baseline:({ichep_baseline})" --do_ss'),
-    ("16",   "btag",    "btag_qcd_cr",  BINS_FINE, '--sel="(mt_1<50)" --set_alias="baseline:({ichep_baseline})" --do_ss'),
-    
     ("16",   "btag_tight",    "btag_tight",  BINS, ''),
     ("16",   "btag_tight",    "btag_tight_wjets_cr",  BINS, '--set_alias="sel:(mt_1>70)"  '),
     ("16",   "btag_tight",    "btag_tight_wjets_ss_cr",  BINS, '--set_alias="sel:(mt_1>70)" --do_ss '),
     ("16",   "btag_tight",    "btag_tight_qcd_cr",  BINS, '--do_ss'),
     ("16",   "btag_loosemt",    "btag_loosemt",  BINS, ''),
-    ("16",   "btag_loosemt",    "btag_loosemt_qcd_cr",  BINS, '--do_ss'),
-    ("16",   "btag_looseiso",    "btag_looseiso",  BINS, ''),
-    ("16",   "btag_looseiso",    "btag_looseiso_wjets_cr",  BINS, '--set_alias="sel:(mt_1>70)"  '),
-    ("16",   "btag_looseiso",    "btag_looseiso_wjets_ss_cr",  BINS, '--set_alias="sel:(mt_1>70)" --do_ss '), 
-    ("16",   "btag_looseiso",    "btag_looseiso_qcd_cr",  BINS, '--do_ss')
+    ("16",   "btag_loosemt",    "btag_loosemt_qcd_cr",  BINS, '--do_ss')
   ]
   scheme_mt = [
-    ("12",   "inclusive",  "inclusive",  BINS_FINE, ''),
-    ("12",   "nobtag",    "nobtag",  BINS_FINE, '--sel="(mt_1<40)" --set_alias="baseline:({ichep_baseline})" '),
-    
-    ("12",   "nobtag",    "nobtag_wjets_cr",  BINS_FINE, '--sel="(mt_1>70)" --set_alias="baseline:({ichep_baseline})" '),
-    ("12",   "nobtag",    "nobtag_wjets_ss_cr",  BINS_FINE, '--sel="(mt_1>70)" --set_alias="baseline:({ichep_baseline})" --do_ss'),
-    ("12",   "nobtag",    "nobtag_qcd_cr",  BINS_FINE, '--sel="(mt_1<40)" --set_alias="baseline:({ichep_baseline})" --do_ss'),
-    
+    #("12",   "inclusive",  "inclusive",  BINS_FINE, ''),
     ("12",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, ''),
-    ("12",   "nobtag_tight",    "nobtag_tight_wjets_cr",  BINS_FINE, '--set_alias="set_alias:(mt_1>70)"  '),
+    ("12",   "nobtag_tight",    "nobtag_tight_wjets_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)"  '),
     ("12",   "nobtag_tight",    "nobtag_tight_wjets_ss_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" --do_ss '),
     ("12",   "nobtag_tight",    "nobtag_tight_qcd_cr",  BINS_FINE, '--do_ss'),
     ("12",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, ''),
     ("12",   "nobtag_loosemt",    "nobtag_loosemt_qcd_cr",  BINS_FINE, '--do_ss'),
-    ("12",   "nobtag_looseiso",    "nobtag_looseiso",  BINS_FINE, ''),
-    ("12",   "nobtag_looseiso",    "nobtag_looseiso_wjets_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" '),
-    ("12",   "nobtag_looseiso",    "nobtag_looseiso_wjets_ss_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" --do_ss '), 
-    ("12",   "nobtag_looseiso",    "nobtag_looseiso_qcd_cr",  BINS_FINE, ' --do_ss '),
-    ("16",   "btag",    "btag",  BINS, '--sel="(mt_1<40)"  --set_alias="baseline:({ichep_baseline})"'),
-    
-    ("16",   "btag",    "btag_wjets_cr",  BINS_FINE, '--sel="(mt_1>70)" --set_alias="baseline:({ichep_baseline})" '),
-    ("16",   "btag",    "btag_wjets_ss_cr",  BINS_FINE, '--sel="(mt_1>70)" --set_alias="baseline:({ichep_baseline})" --do_ss'),
-    ("16",   "btag",    "btag_qcd_cr",  BINS_FINE, '--sel="(mt_1<40)" --set_alias="baseline:({ichep_baseline})" --do_ss'),
-    
     ("16",   "btag_tight",    "btag_tight",  BINS, ''),
     ("16",   "btag_tight",    "btag_tight_wjets_cr",  BINS, '--set_alias="sel:(mt_1>70)"  '),
     ("16",   "btag_tight",    "btag_tight_wjets_ss_cr",  BINS, '--set_alias="sel:(mt_1>70)" --do_ss '),
     ("16",   "btag_tight",    "btag_tight_qcd_cr",  BINS, '--do_ss'),
     ("16",   "btag_loosemt",    "btag_loosemt",  BINS, ''),
-    ("16",   "btag_loosemt",    "btag_loosemt_qcd_cr",  BINS, '--do_ss'),
-    ("16",   "btag_looseiso",    "btag_looseiso",  BINS, ''),
-    ("16",   "btag_looseiso",    "btag_looseiso_wjets_cr",  BINS, '--set_alias="sel:(mt_1>70)"  '),
-    ("16",   "btag_looseiso",    "btag_looseiso_wjets_ss_cr",  BINS, '--set_alias="sel:(mt_1>70)" --do_ss '), 
-    ("16",   "btag_looseiso",    "btag_looseiso_qcd_cr",  BINS, '--do_ss'),
+    ("16",   "btag_loosemt",    "btag_loosemt_qcd_cr",  BINS, '--do_ss')
+  ]
+  scheme_tt = [
+    #("8",   "inclusive",    "inclusive",  BINS_FINE,  ''),
+    ("8",   "nobtag",    "nobtag",  BINS_FINE, ''),
+    ("8",   "btag",    "btag",  BINS, '')
 
+  ]
 
+  scheme_em = [
+    ("19",   "inclusive",    "inclusive",  BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-50"'),
+    ("19",   "nobtag",    "nobtag",  BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-50"'),
+    ("19",   "btag",    "btag",  BINS_EM_BTAG, '--set_alias="sel:pzeta>-50" --qcd_os_ss_ratio=0.6 '),
+    ("19",   "inclusive", "inclusive_lowPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-50&&pzeta<=-10"'), 
+    ("19",   "nobtag", "nobtag_lowPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-50&&pzeta<=-10" --qcd_os_ss_ratio=1.026 '), 
+    ("19",   "btag", "btag_lowPzeta", BINS_EM_BTAG, '--set_alias="sel:pzeta>-50&&pzeta<=-10" --qcd_os_ss_ratio=0.588 '), 
+    ("19",   "inclusive", "inclusive_mediumPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-10&&pzeta<=30"'), 
+    ("19",   "nobtag", "nobtag_mediumPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-10&&pzeta<=30" --qcd_os_ss_ratio=1.021 '), 
+    ("19",   "btag", "btag_mediumPzeta", BINS_EM_BTAG, '--set_alias="sel:pzeta>-10&&pzeta<=30" --qcd_os_ss_ratio=0.6 '), 
+    ("19",   "inclusive", "inclusive_highPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-10&&pzeta<=30"'), 
+    ("19",   "nobtag", "nobtag_highPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>30" --qcd_os_ss_ratio=1.137 '), 
+    ("19",   "btag", "btag_highPzeta", BINS_EM_BTAG, '--set_alias="sel:pzeta>30" --qcd_os_ss_ratio=0.686 '), 
+    ("19",   "inclusive", "ttbar_cr", BINS_EM_NOBTAG, '--set_alias="sel:pzeta<-50 &&met>80" '), 
+  ]
+  bkg_schemes = {
+    'et' : 'et_default',
+    'mt' : 'mt_with_zmm',
+    'em' : 'em_default',
+    'tt' : 'tt_default'
+  }
+  sig_scheme = 'run2_mssm'
+  ANA = 'mssm'
+  
+if SCHEME == 'run2_mssm_summer2016_ff':
+  BINS_FINE="[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,225,250,275,300,325,350,400,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500,3700,3900]"
+  BINS="[0,20,40,60,80,100,120,140,160,180,200,250,300,350,400,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500,3700,3900]"
+  if options.const:
+    BINS_FINE="(98,0,3920)"
+    BINS="(98,0,3920)"
+
+  scheme_et = [
+    ("17",   "inclusive",  "inclusive",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
+    ("17",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
+    ("17",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
+    ("17",   "btag_tight",    "btag_tight",  BINS, '--sel="(mt_1<70)" --do_ff_systs'),
+    ("17",   "btag_loosemt",    "btag_loosemt",  BINS, '--sel="(mt_1<70)" --do_ff_systs'),
+  ]
+  scheme_mt = [
+    ("17",   "inclusive",  "inclusive",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
+    ("17",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs '),
+    ("17",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
+    ("17",   "btag_tight",    "btag_tight",  BINS, '--sel="(mt_1<70)" --do_ff_systs'),
+    ("17",   "btag_loosemt",    "btag_loosemt",  BINS, '--sel="(mt_1<70)" --do_ff_systs'),
+
+  ]
+  scheme_tt = [
+    ("17",   "inclusive",    "inclusive",  BINS_FINE,  '--do_ff_systs'),
+    ("17",   "nobtag",    "nobtag",  BINS_FINE, '--do_ff_systs'),
+    ("17",   "btag",    "btag",  BINS, '--do_ff_systs')
+  ]
+  scheme_em = [
+    ("15",   "inclusive",    "inclusive",  BINS_FINE, '--set_alias="sel:pzeta>-20"'),
+    ("15",   "nobtag",    "nobtag",  BINS_FINE, '--set_alias="sel:pzeta>-20"'),
+    ("15",   "btag",    "btag",  BINS, '--set_alias="sel:pzeta>-20"')
+  ]
+  bkg_schemes = {
+    'et' : 'et_default',
+    'mt' : 'mt_with_zmm',
+    'em' : 'em_default',
+    'tt' : 'tt_default'
+  }
+  sig_scheme = 'run2_mssm'
+  ANA = 'mssm'
+  
+
+if SCHEME == 'run2_mssm_summer2016_ffplusdef':
+  BINS_FINE="[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,225,250,275,300,325,350,400,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500,3700,3900]"
+  BINS="[0,20,40,60,80,100,120,140,160,180,200,250,300,350,400,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500,3700,3900]"
+  BINS_ZMM="(40,50,130)"
+  BINS_EM_NOBTAG="[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,225,250,275,300,325,350,400,500,700,900,4000]"
+  BINS_EM_BTAG="[0,20,40,60,80,100,120,140,160,180,200,250,300,350,400,500,700,4000]"
+  if options.const:
+    BINS_FINE="(98,0,3920)"
+    BINS="(98,0,3920)"
+
+  scheme_et = [
+    ("18",   "inclusive",  "inclusive",  BINS_FINE, '--do_ff_systs'),
+    ("18",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, '--do_ff_systs'),
+    ("18",   "nobtag_tight",    "nobtag_tight_wjets_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)"  '),
+    ("18",   "nobtag_tight",    "nobtag_tight_wjets_ss_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" --do_ss '),
+    ("18",   "nobtag_tight",    "nobtag_tight_qcd_cr",  BINS_FINE, '--do_ss'),
+    ("18",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, '--do_ff_systs'),
+    ("18",   "nobtag_loosemt",    "nobtag_loosemt_qcd_cr",  BINS_FINE, '--do_ss'),
+    ("18",   "btag_tight",    "btag_tight",  BINS, '--do_ff_systs'),
+    ("18",   "btag_tight",    "btag_tight_wjets_cr",  BINS, '--set_alias="sel:(mt_1>70)"  '),
+    ("18",   "btag_tight",    "btag_tight_wjets_ss_cr",  BINS, '--set_alias="sel:(mt_1>70)" --do_ss '),
+    ("18",   "btag_tight",    "btag_tight_qcd_cr",  BINS, '--do_ss'),
+    ("18",   "btag_loosemt",    "btag_loosemt",  BINS, '--do_ff_systs'),
+    ("18",   "btag_loosemt",    "btag_loosemt_qcd_cr",  BINS, '--do_ss')
+  ]
+  scheme_mt = [
+    ("18",   "inclusive",  "inclusive",  BINS_FINE, '--do_ff_systs'),
+    ("18",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, '--do_ff_systs'),
+    ("18",   "nobtag_tight",    "nobtag_tight_wjets_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)"  '),
+    ("18",   "nobtag_tight",    "nobtag_tight_wjets_ss_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" --do_ss '),
+    ("18",   "nobtag_tight",    "nobtag_tight_qcd_cr",  BINS_FINE, '--do_ss'),
+    ("18",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, '--do_ff_systs'),
+    ("18",   "nobtag_loosemt",    "nobtag_loosemt_qcd_cr",  BINS_FINE, '--do_ss'),
+    ("18",   "btag_tight",    "btag_tight",  BINS, '--do_ff_systs'),
+    ("18",   "btag_tight",    "btag_tight_wjets_cr",  BINS, '--set_alias="sel:(mt_1>70)"  '),
+    ("18",   "btag_tight",    "btag_tight_wjets_ss_cr",  BINS, '--set_alias="sel:(mt_1>70)" --do_ss '),
+    ("18",   "btag_tight",    "btag_tight_qcd_cr",  BINS, '--do_ss'),
+    ("18",   "btag_loosemt",    "btag_loosemt",  BINS, '--do_ff_systs'),
+    ("18",   "btag_loosemt",    "btag_loosemt_qcd_cr",  BINS, '--do_ss')
+  ]
+  scheme_tt = [
+    ("18",   "inclusive",    "inclusive",  BINS_FINE,  '--do_ff_systs'),
+    ("18",   "nobtag",    "nobtag",  BINS_FINE, '--do_ff_systs'),
+    ("18",   "btag",    "btag",  BINS, '--do_ff_systs')
+
+  ]
+  scheme_em = [
+    ("19",   "inclusive",    "inclusive",  BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-50"'),
+    ("19",   "nobtag",    "nobtag",  BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-50"'),
+    ("19",   "btag",    "btag",  BINS_EM_BTAG, '--set_alias="sel:pzeta>-50" --qcd_os_ss_ratio=0.6 '),
+    ("19",   "inclusive", "inclusive_lowPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-50&&pzeta<=-10"'), 
+    ("19",   "nobtag", "nobtag_lowPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-50&&pzeta<=-10"'), 
+    ("19",   "btag", "btag_lowPzeta", BINS_EM_BTAG, '--set_alias="sel:pzeta>-50&&pzeta<=-10" --qcd_os_ss_ratio=0.6 '), 
+    ("19",   "inclusive", "inclusive_mediumPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-10&&pzeta<=30"'), 
+    ("19",   "nobtag", "nobtag_mediumPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-10&&pzeta<=30"'), 
+    ("19",   "btag", "btag_mediumPzeta", BINS_EM_BTAG, '--set_alias="sel:pzeta>-10&&pzeta<=30" --qcd_os_ss_ratio=0.6 '), 
+    ("19",   "inclusive", "inclusive_highPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>-10&&pzeta<=30"'), 
+    ("19",   "nobtag", "nobtag_highPzeta", BINS_EM_NOBTAG, '--set_alias="sel:pzeta>30"'), 
+    ("19",   "btag", "btag_highPzeta", BINS_EM_BTAG, '--set_alias="sel:pzeta>30" --qcd_os_ss_ratio=0.6 '), 
+    ("19",   "inclusive", "ttbar", BINS_EM_NOBTAG, '--set_alias="sel:pzeta<-50 &&met>80" '), 
+  ]
+  scheme_em = [
+    ("8",   "inclusive",    "inclusive",  BINS_ZMM,  '--sel=(m_vis>50 && m_vis<130)'),
+    ("8",   "nobtag",    "nobtag",  BINS_ZMM, '--sel=(m_vis>50 && m_vis<130)'),
+    ("8",   "btag",    "btag",  BINS_ZMM, '--sel=(m_vis>50 && m_vis<130)') 
+   
+  ]
+  bkg_schemes = {
+    'et' : 'et_default',
+    'mt' : 'mt_with_zmm',
+    'em' : 'em_default',
+    'tt' : 'tt_default',
+    'zmm' : 'zmm'
+  }
+  sig_scheme = 'run2_mssm'
+  ANA = 'mssm'
+  
+if SCHEME == 'run2_mssm_summer2016_shapestudy':
+  BINS_FINE="[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,225,250,275,300,325,350,400,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500,3700,3900]"
+  BINS="[0,20,40,60,80,100,120,140,160,180,200,250,300,350,400,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500,3700,3900]"
+  BINS_EM_NOBTAG="[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,225,250,275,300,325,350,400,500,700,900,4000]"
+  BINS_EM_BTAG="[0,20,40,60,80,100,120,140,160,180,200,250,300,350,400,500,700,4000]"
+  if options.const:
+    BINS_FINE="(98,0,3920)"
+    BINS="(98,0,3920)"
+    
+  nobtag_loose_cat_et=' --set_alias="w_shape:(n_bjets==0 && iso_1<0.1 && mva_olddm_medium_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singleelectron)"'
+  nobtag_loose_cat_mt=' --set_alias="w_shape:(n_bjets==0 && iso_1<0.15 && mva_olddm_medium_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singlemuon)"'
+  btag_loose_cat_et=' --set_alias="w_shape:(n_bjets>=1 && iso_1<0.1 && mva_olddm_medium_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singleelectron)"'
+  btag_loose_cat_mt=' --set_alias="w_shape:(n_bjets>=1 && iso_1<0.15 && mva_olddm_medium_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singlemuon)"'
+  
+  #nobtag_loose_cat_et=' --set_alias="qcd_shape:(n_bjets==0 && iso_1<0.5 && mva_olddm_tight_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singleelectron)"'
+  #nobtag_loose_cat_mt=' --set_alias="qcd_shape:(n_bjets==0 && iso_1<0.5 && mva_olddm_tight_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singlemuon)"'
+  #btag_loose_cat_et=' --set_alias="qcd_shape:(n_bjets>=1 && iso_1<0.5 && mva_olddm_tight_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singleelectron)"'
+  #btag_loose_cat_mt=' --set_alias="qcd_shape:(n_bjets>=1 && iso_1<0.5 && mva_olddm_tight_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singlemuon)"'
+  
+  #nobtag_loose_cat_et=''
+  #nobtag_loose_cat_mt=''
+  #btag_loose_cat_et=' --set_alias="qcd_shape:(n_loose_bjets>=1 && iso_1<0.1 && mva_olddm_tight_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singleelectron)"'
+  #btag_loose_cat_mt=' --set_alias="qcd_shape:(n_loose_bjets>=1 && iso_1<0.15 && mva_olddm_tight_2>0.5 && antiele_2 && antimu_2 && leptonveto==0 && trg_singlemuon)"'
+  
+  #nobtag_loose_cat_et=''
+  #nobtag_loose_cat_mt=''
+  #btag_loose_cat_et=''
+  #btag_loose_cat_mt=''
+
+  scheme_et = [
+    #("12",   "inclusive",  "inclusive",  BINS_FINE, ''),
+    ("12",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, ''+nobtag_loose_cat_et),
+    ("12",   "nobtag_tight",    "nobtag_tight_wjets_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)"  '+nobtag_loose_cat_et),
+    ("12",   "nobtag_tight",    "nobtag_tight_wjets_ss_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" --do_ss '+nobtag_loose_cat_et),
+    ("12",   "nobtag_tight",    "nobtag_tight_qcd_cr",  BINS_FINE, '--do_ss '+nobtag_loose_cat_et),
+    ("12",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, ''+nobtag_loose_cat_et),
+    ("12",   "nobtag_loosemt",    "nobtag_loosemt_qcd_cr",  BINS_FINE, '--do_ss '+nobtag_loose_cat_et),
+    ("16",   "btag_tight",    "btag_tight",  BINS, ''+btag_loose_cat_et),
+    ("16",   "btag_tight",    "btag_tight_wjets_cr",  BINS, '--set_alias="sel:(mt_1>70)"  '+btag_loose_cat_et),
+    ("16",   "btag_tight",    "btag_tight_wjets_ss_cr",  BINS, '--set_alias="sel:(mt_1>70)" --do_ss '+btag_loose_cat_et),
+    ("16",   "btag_tight",    "btag_tight_qcd_cr",  BINS, '--do_ss '+btag_loose_cat_et),
+    ("16",   "btag_loosemt",    "btag_loosemt",  BINS, ''+btag_loose_cat_et),
+    ("16",   "btag_loosemt",    "btag_loosemt_qcd_cr",  BINS, '--do_ss '+btag_loose_cat_et),
+  ]
+  scheme_mt = [
+    #("12",   "inclusive",  "inclusive",  BINS_FINE, ''),
+    ("12",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, ''+nobtag_loose_cat_mt),
+    ("12",   "nobtag_tight",    "nobtag_tight_wjets_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)"  '+nobtag_loose_cat_mt),
+    ("12",   "nobtag_tight",    "nobtag_tight_wjets_ss_cr",  BINS_FINE, '--set_alias="sel:(mt_1>70)" --do_ss '+nobtag_loose_cat_mt),
+    ("12",   "nobtag_tight",    "nobtag_tight_qcd_cr",  BINS_FINE, '--do_ss '+nobtag_loose_cat_mt),
+    ("12",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, ''+nobtag_loose_cat_mt),
+    ("12",   "nobtag_loosemt",    "nobtag_loosemt_qcd_cr",  BINS_FINE, '--do_ss '+nobtag_loose_cat_mt),
+    ("16",   "btag_tight",    "btag_tight",  BINS, ''+btag_loose_cat_mt),
+    ("16",   "btag_tight",    "btag_tight_wjets_cr",  BINS, '--set_alias="sel:(mt_1>70)"  '+btag_loose_cat_mt),
+    ("16",   "btag_tight",    "btag_tight_wjets_ss_cr",  BINS, '--set_alias="sel:(mt_1>70)" --do_ss '+btag_loose_cat_mt),
+    ("16",   "btag_tight",    "btag_tight_qcd_cr",  BINS, '--do_ss '+btag_loose_cat_mt),
+    ("16",   "btag_loosemt",    "btag_loosemt",  BINS, ''+btag_loose_cat_mt),
+    ("16",   "btag_loosemt",    "btag_loosemt_qcd_cr",  BINS, '--do_ss '+btag_loose_cat_mt),
 
   ]
   scheme_tt = [
@@ -355,59 +522,14 @@ if SCHEME == 'run2_mssm_summer2016':
   }
   sig_scheme = 'run2_mssm'
   ANA = 'mssm'
-  
-if SCHEME == 'run2_mssm_summer2016_ff':
-  BINS_FINE="[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,225,250,275,300,325,350,400,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500,3700,3900]"
-  BINS="[0,20,40,60,80,100,120,140,160,180,200,250,300,350,400,500,700,900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500,3700,3900]"
-  if options.const:
-    BINS_FINE="(98,0,3920)"
-    BINS="(98,0,3920)"
 
-  scheme_et = [
-    ("17",   "inclusive",  "inclusive",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "nobtag_looseiso",    "nobtag_looseiso",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "btag_tight",    "btag_tight",  BINS, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "btag_loosemt",    "btag_loosemt",  BINS, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "btag_looseiso",    "btag_looseiso",  BINS, '--sel="(mt_1<70)" --do_ff_systs')
-  ]
-  scheme_mt = [
-    ("17",   "inclusive",  "inclusive",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "nobtag_tight",    "nobtag_tight",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "nobtag_loosemt",    "nobtag_loosemt",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "nobtag_looseiso",    "nobtag_looseiso",  BINS_FINE, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "btag_tight",    "btag_tight",  BINS, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "btag_loosemt",    "btag_loosemt",  BINS, '--sel="(mt_1<70)" --do_ff_systs'),
-    ("17",   "btag_looseiso",    "btag_looseiso",  BINS, '--sel="(mt_1<70)" --do_ff_systs')
 
-  ]
-  scheme_tt = [
-    ("17",   "inclusive",    "inclusive",  BINS_FINE,  '--do_ff_systs'),
-    ("17",   "nobtag",    "nobtag",  BINS_FINE, '--do_ff_systs'),
-    ("17",   "btag",    "btag",  BINS, '--do_ff_systs')
-  ]
-  scheme_em = [
-    ("15",   "inclusive",    "inclusive",  BINS_FINE, '--set_alias="sel:pzeta>-20"'),
-    ("15",   "nobtag",    "nobtag",  BINS_FINE, '--set_alias="sel:pzeta>-20"'),
-    ("15",   "btag",    "btag",  BINS, '--set_alias="sel:pzeta>-20"')
-  ]
-  bkg_schemes = {
-    'et' : 'et_default',
-    'mt' : 'mt_with_zmm',
-    'em' : 'em_default',
-    'tt' : 'tt_default'
-  }
-  sig_scheme = 'run2_mssm'
-  ANA = 'mssm'
-  
 cat_schemes = {
   'et' : scheme_et,
   'mt' : scheme_mt,
   'em' : scheme_em,
   'tt' : scheme_tt
 }
-
 
 plots = [ 
   ('m_vis'  , 'M_{#tau#tau}^{vis} [GeV]'  , '-mvis' , "60", "2500" if ANA=='mssm' else "120"),
@@ -450,7 +572,10 @@ for ch in channels:
     dc      = x[2]
     bin     = x[3]
     opts    = x[4]
-    extra = options.extra + extra_global + extra_channel[ch] + opts
+    extra = options.extra + ' ' + extra_global + ' ' + extra_channel[ch] + ' ' + opts
+    
+    if ch is 'zmm': var = 'm_vis'
+    else: var = plots[0]
     
     os.system('python $CMSSW_BASE/src/UserCode/ICHiggsTauTau/Analysis/HiggsTauTau/scripts/HiggsTauTauPlot.py --cfg=%(CFG)s --channel=%(ch)s'
               ' --method=%(cat_num)s --cat=%(cat_str)s --year=%(YEAR)s --outputfolder=%(output_folder)s/ --datacard=%(dc)s'

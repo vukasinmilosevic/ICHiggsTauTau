@@ -210,7 +210,31 @@ sample_list = [
    'SUSYGluGluToHToTauTau_M-2300',
    'SUSYGluGluToHToTauTau_M-2600',
    'SUSYGluGluToHToTauTau_M-2900',
-   'SUSYGluGluToHToTauTau_M-3200'
+   'SUSYGluGluToHToTauTau_M-3200',
+   'SUSYGluGluToBBHToTauTau_M-80-NLO',
+   'SUSYGluGluToBBHToTauTau_M-130-NLO',
+   'SUSYGluGluToBBHToTauTau_M-200-NLO',
+   'SUSYGluGluToBBHToTauTau_M-350-NLO',
+   'SUSYGluGluToBBHToTauTau_M-700-NLO',
+   'SUSYGluGluToBBHToTauTau_M-1200-NLO',
+   'SUSYGluGluToBBHToTauTau_M-1800-NLO',
+   'SUSYGluGluToBBHToTauTau_M-3200-NLO',
+   'SUSYGluGluToBBHToTauTau_M-80-NLO-QshUp',
+   'SUSYGluGluToBBHToTauTau_M-130-NLO-QshUp',
+   'SUSYGluGluToBBHToTauTau_M-200-NLO-QshUp',
+   'SUSYGluGluToBBHToTauTau_M-350-NLO-QshUp',
+   'SUSYGluGluToBBHToTauTau_M-700-NLO-QshUp',
+   'SUSYGluGluToBBHToTauTau_M-1200-NLO-QshUp',
+   'SUSYGluGluToBBHToTauTau_M-1800-NLO-QshUp',
+   'SUSYGluGluToBBHToTauTau_M-3200-NLO-QshUp',
+   'SUSYGluGluToBBHToTauTau_M-80-NLO-QshDown',
+   'SUSYGluGluToBBHToTauTau_M-130-NLO-QshDown',
+   'SUSYGluGluToBBHToTauTau_M-200-NLO-QshDown',
+   'SUSYGluGluToBBHToTauTau_M-350-NLO-QshDown',
+   'SUSYGluGluToBBHToTauTau_M-700-NLO-QshDown',
+   'SUSYGluGluToBBHToTauTau_M-1200-NLO-QshDown',
+   'SUSYGluGluToBBHToTauTau_M-1800-NLO-QshDown',
+   'SUSYGluGluToBBHToTauTau_M-3200-NLO-QshDown'
  
 	]
 
@@ -218,7 +242,7 @@ channel = ['em','et','mt','tt','zee','zmm','wmnu','tpzee','tpzmm']
 with open("%(samplelist)s"%vars(),"r") as inf:
   lines = inf.readlines()
 
-subdirs = ['TSCALE_DOWN','TSCALE_UP','JES_UP','JES_DOWN', 'BTAG_UP','BTAG_DOWN','BFAKE_UP','BFAKE_DOWN','MET_SCALE_UP','MET_SCALE_DOWN','MET_RES_UP','MET_RES_DOWN']
+subdirs = ['TSCALE_DOWN','TSCALE_UP','TSCALE0PI_UP','TSCALE0PI_DOWN','TSCALE1PI_UP','TSCALE1PI_DOWN','TSCALE3PRONG_UP','TSCALE3PRONG_DOWN','JES_UP','JES_DOWN', 'BTAG_UP','BTAG_DOWN','BFAKE_UP','BFAKE_DOWN','MET_SCALE_UP','MET_SCALE_DOWN','MET_RES_UP','MET_RES_DOWN', 'EFAKE0PI_UP', 'EFAKE0PI_DOWN', 'EFAKE1PI_UP', 'EFAKE1PI_DOWN']
 
 nfiles={}
 
