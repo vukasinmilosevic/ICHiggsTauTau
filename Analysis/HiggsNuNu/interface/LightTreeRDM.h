@@ -55,6 +55,8 @@ namespace ic {
     double total_weight_leptight_;
     double puweight_up_scale_;
     double puweight_down_scale_;
+    double weight_pileup_;
+    double weight_xsection_;
 
     double v_nlo_Reweight_;
 

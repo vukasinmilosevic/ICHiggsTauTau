@@ -543,13 +543,13 @@ process.icMuonSequence += cms.Sequence(
 
 #make and store ic muon object
 
-process.load('RecoMET.METFilters.badGlobalMuonTaggersMiniAOD_cff')
-process.badGlobalMuonTagger.muons = muonLabel
-process.badGlobalMuonTagger.vtx   = vtxLabel
-process.badGlobalMuonTagger.taggingMode = cms.bool(True)
-process.cloneGlobalMuonTagger.muons = muonLabel
-process.cloneGlobalMuonTagger.vtx   = vtxLabel
-process.cloneGlobalMuonTagger.taggingMode = cms.bool(True)
+#process.load('RecoMET.METFilters.badGlobalMuonTaggersMiniAOD_cff')
+#process.badGlobalMuonTagger.muons = muonLabel
+#process.badGlobalMuonTagger.vtx   = vtxLabel
+#process.badGlobalMuonTagger.taggingMode = cms.bool(True)
+#process.cloneGlobalMuonTagger.muons = muonLabel
+#process.cloneGlobalMuonTagger.vtx   = vtxLabel
+#process.cloneGlobalMuonTagger.taggingMode = cms.bool(True)
 
 process.icMuonProducer = producers.icMuonProducer.clone(
   branch                    = cms.string("muons"),
@@ -572,8 +572,8 @@ process.icMuonProducer = producers.icMuonProducer.clone(
 
 if release in ['80XMINIAOD']:
   process.icMuonProducer.isPF = cms.bool(False)
-  process.icMuonProducer.selectBadQualityMuons = cms.bool(True)
-  process.icMuonProducer.inputBadQualityMuons  = cms.InputTag("badGlobalMuonTagger","bad")
+  #process.icMuonProducer.selectBadQualityMuons = cms.bool(True)
+  #process.icMuonProducer.inputBadQualityMuons  = cms.InputTag("badGlobalMuonTagger","bad")
 
 
 process.icMuonSequence += cms.Sequence(
@@ -584,8 +584,8 @@ process.icMuonSequence += cms.Sequence(
 # So you should redefine noBadGlobalMuons as (process.badGlobalMuonTagger + process.cloneGlobalMuonTagger).
 # See also https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2786/2/1.html.
 #  process.noBadGlobalMuons+
-  process.badGlobalMuonTagger+ 
-  process.cloneGlobalMuonTagger+
+  #process.badGlobalMuonTagger+ 
+  #process.cloneGlobalMuonTagger+
   process.icMuonProducer
 )
 
@@ -1392,24 +1392,24 @@ if isData or isReHLT:
 ################################################################
 # EventInfo
 ################################################################
-
-#process.load('CommonTools.RecoAlgos.HBHENoiseFilterResultProducer_cfi')
-#process.HBHENoiseFilterResultProducer.minZeros = cms.int32(99999)
-#process.HBHENoiseFilterResultProducer.IgnoreTS4TS5ifJetInLowBVRegion=cms.bool(False) 
-#process.HBHENoiseFilterResultProducer.defaultDecision = cms.string("HBHENoiseFilterResultRun2Loose")
-
-
-#process.HBHEISONoiseFilterResultProducer = process.HBHENoiseFilterResultProducer.clone()
-#process.HBHEISONoiseFilterResultProducer.defaultDecision = cms.string("HBHEIsoNoiseFilterResult")
 #Load the MET filters here
 process.load('RecoMET.METFilters.BadPFMuonFilter_cfi')
-process.BadPFMuonFilter.muons = cms.InputTag("slimmedMuons")
-process.BadPFMuonFilter.PFCandidates = cms.InputTag("packedPFCandidates")
-process.BadPFMuonFilter.taggingMode = cms.bool(True)
 process.load('RecoMET.METFilters.BadChargedCandidateFilter_cfi')
-process.BadChargedCandidateFilter.muons = cms.InputTag("slimmedMuons")
+process.load('RecoMET.METFilters.badGlobalMuonTaggersMiniAOD_cff')
+
+process.BadPFMuonFilter.muons        = cms.InputTag("slimmedMuons")
+process.BadPFMuonFilter.PFCandidates = cms.InputTag("packedPFCandidates")
+process.BadPFMuonFilter.taggingMode  = cms.bool(True)
+process.BadChargedCandidateFilter.muons        = cms.InputTag("slimmedMuons")
 process.BadChargedCandidateFilter.PFCandidates = cms.InputTag("packedPFCandidates")
-process.BadChargedCandidateFilter.taggingMode = cms.bool(True)
+process.BadChargedCandidateFilter.taggingMode  = cms.bool(True)
+
+process.badGlobalMuonTaggerMAOD.muons       = muonLabel
+process.badGlobalMuonTaggerMAOD.vtx         = vtxLabel
+process.badGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
+process.cloneGlobalMuonTaggerMAOD.muons       = muonLabel
+process.cloneGlobalMuonTaggerMAOD.vtx         = vtxLabel
+process.cloneGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
 
 process.icEventInfoProducer = producers.icEventInfoProducer.clone(
   includeJetRho       = cms.bool(True),
@@ -1424,16 +1424,26 @@ process.icEventInfoProducer = producers.icEventInfoProducer.clone(
   inputCSCFilter      = cms.InputTag("BeamHaloSummary"),
   includeFiltersFromTrig = cms.bool(True),
   inputfiltersfromtrig = cms.InputTag("TriggerResults","","RECO"),
-  filtersfromtrig     = cms.vstring("*"),
   filters             = cms.PSet(
     badChargedHadronFilter = cms.InputTag("BadChargedCandidateFilter"),
-    badMuonFilter          = cms.InputTag("BadPFMuonFilter")
+    badMuonFilter          = cms.InputTag("BadPFMuonFilter"),
+    Flag_badMuons          = cms.InputTag("badGlobalMuonTaggerMAOD"),
+    Flag_duplicateMuons    = cms.InputTag("cloneGlobalMuonTaggerMAOD")
     ),
-  #filters             = cms.PSet(
-  # Flag_HBHENoiseFilter = cms.InputTag('HBHENoiseFilterResultProducer','HBHENoiseFilterResult'),
-  # Flag_HBHENoiseIsoFilter = cms.InputTag('HBHENoiseFilterResultProducer','HBHEIsoNoiseFilterResult'),
-  # )
+  filtersfromtrig     = cms.vstring("*"),
+  #filtersfromtrig     = cms.vstring("Flag_HBHENoiseFilter","Flag_HBHENoiseIsoFilter","Flag_EcalDeadCellTriggerPrimitiveFilter","Flag_goodVertices","Flag_eeBadScFilter","Flag_globalTightHalo2016Filter")
 )
+
+if not isData:
+  process.icEventInfoProducer.inputfiltersfromtrig = cms.InputTag("TriggerResults","","PAT")
+
+if isData:
+  process.icEventInfoProducer.filters=cms.PSet(
+    badChargedHadronFilter = cms.InputTag("BadChargedCandidateFilter"),
+    badMuonFilter          = cms.InputTag("BadPFMuonFilter")
+  )
+  #process.icEventInfoProducer.filtersfromtrig = cms.vstring("Flag_HBHENoiseFilter","Flag_HBHENoiseIsoFilter","Flag_EcalDeadCellTriggerPrimitiveFilter","Flag_goodVertices","Flag_eeBadScFilter","Flag_globalTightHalo2016Filter","!Flag_badMuons","!Flag_duplicateMuons")
+
 
 
 #if doHT:
@@ -1445,8 +1455,14 @@ process.icEventInfoSequence = cms.Sequence(
 # process.HBHEISONoiseFilterResultProducer+
   process.BadPFMuonFilter+
   process.BadChargedCandidateFilter+ 
+  process.badGlobalMuonTaggerMAOD+
+  process.cloneGlobalMuonTaggerMAOD+
   process.icEventInfoProducer
   )
+
+if isData:
+  process.icEventInfoSequence.remove(process.badGlobalMuonTaggerMAOD)
+  process.icEventInfoSequence.remove(process.cloneGlobalMuonTaggerMAOD)
 
 ################################################################
 # Event
