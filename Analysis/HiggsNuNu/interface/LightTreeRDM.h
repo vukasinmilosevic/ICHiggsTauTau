@@ -151,11 +151,15 @@ namespace ic {
     double l1met_;
     double l1mht_;
     double met_;
+    double met_phi_;
     double calomet_;
+    double calomet_phi_;
     double genmet_;
     double genmetphi_;
     double metnomuons_;
+    double metnomuons_phi_;
     double metnoelectrons_;
+    double metnoelectrons_phi_;
     double met_x_;
     double met_y_;
     double metnomu_x_;

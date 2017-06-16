@@ -18,16 +18,16 @@ int Flow_MC_ZToNuNu(){
 
   const unsigned nF = 2;
   TFile *fin[nF];
-  fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170605_debug/ZJetsToNuNu_QCD.root");
-  fin[1] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170605_debug/ZJetsToNuNu_EWK.root");
-  const unsigned nC = 22;
+  fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170614_debug/ZJetsToNuNu_QCD.root");
+  fin[1] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170614_debug/ZJetsToNuNu_EWK.root");
+  const unsigned nC = 24;
   std::string nunu_cuts[nC] = {
     "",
     "nvetomuons==0",
     "nvetoelectrons==0",
     "nloosephotons==0",
-//     "nvetotaus==0",
-//     "n_jets_csv2medium==0",
+    "nvetotaus==0",
+    "n_jets_csv2medium==0",
     "abs(jet1_eta)<4.7 && abs(jet2_eta)<4.7 && jet1_pt>80 && jet2_pt>40",
     "metnomuons>200",
     "(abs(calomet-met)/metnomuons)<0.5",
@@ -62,10 +62,10 @@ int Flow_MC_ZToNuNu(){
     double previous_int = 1;
     for (unsigned iC(0); iC<nC; ++iC){
       TH1F *htemp = new TH1F("htemp",";min#Delta#phi(j,MET)",100,0,3.2);
-      if (iC>1 && iC<=14 && nunu_cuts[iC].size()>0) nunu_lcut += " && ";
-      if (iC>14 && nunu_cuts[iC].size()>0) nunu_lcut += "*";
+      if (iC>1 && iC<=16 && nunu_cuts[iC].size()>0) nunu_lcut += " && ";
+      if (iC>16 && nunu_cuts[iC].size()>0) nunu_lcut += "*";
       nunu_lcut += nunu_cuts[iC];
-      if (iC==14) nunu_lcut = " ( " + nunu_lcut + " ) ";
+      if (iC==16) nunu_lcut = " ( " + nunu_lcut + " ) ";
 //       std::cout << nunu_lcut << std::endl;
       tree->Draw("alljetsmetnomu_mindphi>>htemp",nunu_lcut.c_str());
       if (iC==0) {
@@ -76,16 +76,16 @@ int Flow_MC_ZToNuNu(){
         std::cout << "\\tiny"  << std::endl;
         std::cout << "\\begin{tabularx}{\\textwidth}{c|XXXX}"  << std::endl;
         std::cout << "\\toprule"  << std::endl;
-        std::cout << "Signal Region  &  cut  &  n. events  &  cut efficiency \\\\"  << std::endl;
+        std::cout << "Signal Region - Z$\\nu\\nu$_  &  cut  &  n. events  &  cut efficiency \\\\"  << std::endl;
         std::cout << "\\midrule"  << std::endl;
       }
 //       std::cout << iC << " & \\tiny " << nunu_cuts[iC] << " & " << htemp->GetEntries() << " & " << htemp->GetEntries()/previous << " \\\\ ";
 //       std::cout << std::endl;
       std::cout << iC << " &  " << nunu_cuts[iC] << " & " << htemp->Integral() << " & " << htemp->Integral()/previous_int << " \\\\ ";
       std::cout << std::endl;
-      if (iC==14){
+      if (iC==16){
         std::cout << "\\midrule"  << std::endl;
-        std::cout << "Signal Region  &  weight  &  n. weighted events  &  weight efficiency \\\\"  << std::endl;
+        std::cout << "Signal Region - Z$\\nu\\nu$_  &  weight  &  n. weighted events  &  weight efficiency \\\\"  << std::endl;
         std::cout << "\\midrule"  << std::endl;
       }
       if (iC==nC-1){

@@ -177,11 +177,15 @@ namespace ic {
     l1met_ = 0;
     l1mht_ = 0;
     met_ = 0;
+    met_phi_ = -5;
     calomet_ = 0;
+    calomet_phi_ = -5;
     genmet_ = 0;
     genmetphi_ = 0;
     metnomuons_ =0;
+    metnomuons_phi_ = -5;
     metnoelectrons_ =0;
+    metnoelectrons_phi_ = -5;
     met_x_ = 0;
     met_y_ = 0;
     metnomu_x_ = 0;
@@ -490,15 +494,19 @@ namespace ic {
     outputTree_->Branch("genmet",&genmet_);
     outputTree_->Branch("genmetphi",&genmetphi_);
     outputTree_->Branch("met",&met_);
+    outputTree_->Branch("met_phi",&met_phi_);
     outputTree_->Branch("calomet",&calomet_);
+    outputTree_->Branch("calomet_phi",&calomet_phi_);
     outputTree_->Branch("met_x",&met_x_);
     outputTree_->Branch("met_y",&met_y_);
     outputTree_->Branch("met_significance",&met_significance_);
     outputTree_->Branch("metnomuons",&metnomuons_);
+    outputTree_->Branch("metnomuons_phi",&metnomuons_phi_);
     outputTree_->Branch("metnomu_x",&metnomu_x_);
     outputTree_->Branch("metnomu_y",&metnomu_y_);
     outputTree_->Branch("metnomu_significance",&metnomu_significance_);
     outputTree_->Branch("metnoelectrons",&metnoelectrons_);
+    outputTree_->Branch("metnoelectrons_phi",&metnoelectrons_phi_);
     outputTree_->Branch("metnoel_x",&metnoel_x_);
     outputTree_->Branch("metnoel_y",&metnoel_y_);
     outputTree_->Branch("metnoel_significance",&metnoel_significance_);
@@ -894,8 +902,10 @@ namespace ic {
 
 
     met_ = met->pt();
+    met_phi_ = met->phi();
     const Met::BasicMet & caloMet = met->GetCorrectedMet("RawCalo");
     calomet_ = caloMet.pt();
+    calomet_phi_ = caloMet.phi();
     //std::cout << " Check: met = " << met_ << " calomet = " << calomet_ << std::endl;
 
     met_x_ = metvec.Px();
@@ -910,6 +920,7 @@ namespace ic {
     //else l1met_ = l1met[2]->pt();
     //}
     metnomuons_ = metnomuons->pt();
+    metnomuons_phi_ = metnomuons->phi();
     metnomu_x_ = metnomuvec.Px();
     metnomu_y_ = metnomuvec.Py();
     if (met_>0) metnomu_significance_ = met_significance_/met_*metnomuons_;
@@ -917,6 +928,7 @@ namespace ic {
 
 
     metnoelectrons_ = metnoelectrons->pt();
+    metnoelectrons_phi_ = metnoelectrons->phi();
     metnoel_x_ = metnoelvec.Px();
     metnoel_y_ = metnoelvec.Py();
     if (met_>0) metnoel_significance_ = met_significance_/met_*metnoelectrons_;

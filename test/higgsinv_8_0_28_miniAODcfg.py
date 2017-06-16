@@ -542,15 +542,6 @@ process.icMuonSequence += cms.Sequence(
     )
 
 #make and store ic muon object
-
-#process.load('RecoMET.METFilters.badGlobalMuonTaggersMiniAOD_cff')
-#process.badGlobalMuonTaggerMAOD.muons = muonLabel
-#process.badGlobalMuonTaggerMAOD.vtx   = vtxLabel
-#process.badGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
-#process.cloneGlobalMuonTaggerMAOD.muons = muonLabel
-#process.cloneGlobalMuonTaggerMAOD.vtx   = vtxLabel
-#process.cloneGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
-
 process.icMuonProducer = producers.icMuonProducer.clone(
   branch                    = cms.string("muons"),
   input                     = cms.InputTag("selectedPFMuons"),
@@ -572,20 +563,8 @@ process.icMuonProducer = producers.icMuonProducer.clone(
 
 if release in ['80XMINIAOD']:
   process.icMuonProducer.isPF = cms.bool(False)
-  #process.icMuonProducer.selectBadQualityMuons = cms.bool(True)
-  #process.icMuonProducer.inputBadQualityMuons  = cms.InputTag("badGlobalMuonTaggerMAOD","bad")
-
 
 process.icMuonSequence += cms.Sequence(
-# So in this case the 100 events you are checking simply do not contain any bad muons.
-# Because these modules select bad events, the event fails the filters if it does not have any bad muons.
-# This is why you arre using ~ to invert the behaviour of the filters.
-# If you look at  https://github.com/gpetruc/cmssw/blob/badMuonFilters_80X_v2/RecoMET/METFilters/plugins/badGlobalMuonTaggerMAOD.cc#L118-L125 you see that the opposite is true when you switch on tagging mode: if tagging mode is set to true then events always pass the filter, and so if you use ~ all of the events will fail the filter.
-# So you should redefine noBadGlobalMuons as (process.badGlobalMuonTaggerMAOD + process.cloneGlobalMuonTaggerMAOD).
-# See also https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2786/2/1.html.
-#  process.noBadGlobalMuons+
-  #process.badGlobalMuonTaggerMAOD+ 
-  #process.cloneGlobalMuonTaggerMAOD+
   process.icMuonProducer
 )
 
@@ -1411,6 +1390,13 @@ process.cloneGlobalMuonTaggerMAOD.muons       = muonLabel
 process.cloneGlobalMuonTaggerMAOD.vtx         = vtxLabel
 process.cloneGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
 
+# So in this case the 100 events you are checking simply do not contain any bad muons.
+# Because these modules select bad events, the event fails the filters if it does not have any bad muons.
+# This is why you arre using ~ to invert the behaviour of the filters.
+# If you look at  https://github.com/gpetruc/cmssw/blob/badMuonFilters_80X_v2/RecoMET/METFilters/plugins/badGlobalMuonTaggerMAOD.cc#L118-L125 you see that the opposite is true when you switch on tagging mode: if tagging mode is set to true then events always pass the filter, and so if you use ~ all of the events will fail the filter.
+# So you should redefine noBadGlobalMuons as (process.badGlobalMuonTaggerMAOD + process.cloneGlobalMuonTaggerMAOD).
+# See also https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/2786/2/1.html.
+
 process.icEventInfoProducer = producers.icEventInfoProducer.clone(
   includeJetRho       = cms.bool(True),
   includeHT           = cms.bool(False),
@@ -1441,8 +1427,8 @@ if isData:
   process.icEventInfoProducer.filters=cms.PSet(
     badChargedHadronFilter = cms.InputTag("BadChargedCandidateFilter"),
     badMuonFilter          = cms.InputTag("BadPFMuonFilter")
-  )
   #process.icEventInfoProducer.filtersfromtrig = cms.vstring("Flag_HBHENoiseFilter","Flag_HBHENoiseIsoFilter","Flag_EcalDeadCellTriggerPrimitiveFilter","Flag_goodVertices","Flag_eeBadScFilter","Flag_globalTightHalo2016Filter","!Flag_badMuons","!Flag_duplicateMuons")
+  )
 
 
 
@@ -1451,8 +1437,6 @@ if isData:
 
  
 process.icEventInfoSequence = cms.Sequence(
-#  process.HBHENoiseFilterResultProducer+
-# process.HBHEISONoiseFilterResultProducer+
   process.BadPFMuonFilter+
   process.BadChargedCandidateFilter+ 
   process.badGlobalMuonTaggerMAOD+
