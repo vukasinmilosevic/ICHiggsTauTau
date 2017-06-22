@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170615
+DATE=170622
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -86,7 +86,9 @@ do
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
-    ## To test for one hist
+    ## To test for one histi
+    #SHAPESTRING="met(55,0.,550.)"
+    #HISTSTRING=";MET (GeV);Events"
     #HISTSTRING=";(calo-pf)/recoil;Events!;(calo-pf)/recoil;Events"
     #SHAPESTRING="TMath::Abs(calomet-met)/metnomuons(40,0,2)!TMath::Abs(calomet-met)/metnoelectrons(40,0,2)"
     #HISTSTRING=";p_{T}^{j2} (GeV);Events"

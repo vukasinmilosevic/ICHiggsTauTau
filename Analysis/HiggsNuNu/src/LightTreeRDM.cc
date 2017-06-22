@@ -9,8 +9,8 @@
 #include "UserCode/ICHiggsTauTau/interface/city.h"
 #include "UserCode/ICHiggsTauTau/interface/L1TObject.hh"
 #include "TVector3.h"
+#include "TLorentzVector.h"
 #include "UserCode/ICHiggsTauTau/Analysis/Modules/interface/HTFromLHEParticles.h"
-
 
 namespace ic {
 
@@ -1003,15 +1003,39 @@ namespace ic {
       std::vector<GenParticle*> Zmuons;
       std::vector<GenParticle*> Zelecs;
 
+      TLorentzVector l1vec;
+      TLorentzVector l2vec;
+      bool boson_found = false;
+      bool l1_found =false;
+      bool l2_found =false;
+      bool reco_boson_found = false;
+
       //std::cout << " -- Event: " << event_ << " print of hardProcess particles..." << std::endl;
       for (unsigned iGenPart = 0; iGenPart < parts.size(); ++iGenPart) {//Loop over gen particles
         int id = parts[iGenPart]->pdgid();
         std::vector<bool> flags=parts[iGenPart]->statusFlags();
-        if (flags[GenStatusBits::IsHardProcess] && flags[GenStatusBits::FromHardProcess] && flags[GenStatusBits::IsFirstCopy]){
 
-          if (abs(id)==24 || abs(id)==23){// W+- || Z
-            boson_pt_ = parts[iGenPart]->pt();
+        if ( (abs(id)==24 || abs(id)==23) && 
+              parts[iGenPart]->daughters().size() > 1 && 
+              abs(parts[parts[iGenPart]->daughters()[0]]->pdgid()) > 10 &&
+              abs(parts[parts[iGenPart]->daughters()[0]]->pdgid()) < 17 ){// W+- || Z
+          boson_pt_ = parts[iGenPart]->pt();
+          boson_found = true;
+        } else if ( (flags[GenStatusBits::IsPrompt] && parts[iGenPart]->status()==1) || 
+                    (flags[GenStatusBits::IsPrompt] && flags[GenStatusBits::IsDecayedLeptonHadron]) ) {
+          if (id > 10 && id < 17) {
+            l1vec.SetPtEtaPhiM(parts[iGenPart]->pt(), parts[iGenPart]->eta(), parts[iGenPart]->phi(), 0.);
+            l1_found = true;
           }
+          if (id < -10 && id > -17) {
+            l2vec.SetPtEtaPhiM(parts[iGenPart]->pt(), parts[iGenPart]->eta(), parts[iGenPart]->phi(), 0.);
+            l2_found = true;
+          }
+          if ( l1_found && l2_found ) {
+            reco_boson_found = true;
+          }
+        }
+        if (flags[GenStatusBits::IsHardProcess] && flags[GenStatusBits::FromHardProcess] && flags[GenStatusBits::IsFirstCopy]){
           if (abs(id)==15){
             genTaus.push_back(parts[iGenPart]);
           }
@@ -1025,6 +1049,12 @@ namespace ic {
         else if (abs(id)==13) genMus.push_back(parts[iGenPart]);
         else if (abs(id)==22) genPhotons.push_back(parts[iGenPart]);
       }//endof Loop over gen particles
+
+      if (!boson_found && reco_boson_found) {
+        TLorentzVector wzvec(l1vec);
+        wzvec += l2vec;
+        boson_pt_ = wzvec.Pt();
+      }
 
       if (Zmuons.size()==2) {
         m_mumu_gen_ = (Zmuons[0]->vector()+Zmuons[1]->vector()).M();

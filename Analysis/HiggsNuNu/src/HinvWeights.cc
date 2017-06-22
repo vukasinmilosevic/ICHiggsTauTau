@@ -7,6 +7,7 @@
 #include "UserCode/ICHiggsTauTau/Analysis/Utilities/interface/SimpleParamParser.h"
 #include "UserCode/ICHiggsTauTau/Analysis/Modules/interface/HTFromLHEParticles.h"
 #include "TMath.h"
+#include "TLorentzVector.h"
 #include "TSystem.h"
 #include "TFile.h"
 #include "iostream"
@@ -736,58 +737,80 @@ namespace ic {//namespace
 
     if (do_w_reweighting_ || do_dy_reweighting_) { // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
       double v_nlo_Reweight = 1.0;
-      double v_pt = 0.0;
-      double v_pt_oldBinning = 0.0;
+      double v_pt = -50.0;
+      double v_pt_oldBinning = -50.0;
+      double boson_pt = -50.0;
 
       std::vector<GenParticle*> const& parts = event->GetPtrVec<GenParticle>("genParticles");
 
-      for (size_t idxPart = 0; idxPart < parts.size(); ++idxPart) {// Loop over genParticles
+      TLorentzVector l1vec;
+      TLorentzVector l2vec;
+      bool boson_found = false;
+      bool l1_found =false;
+      bool l2_found =false;
+      bool reco_boson_found = false;
 
-        unsigned absPdgId = TMath::Abs(parts[idxPart]->pdgid());
-        std::vector<bool> flags = parts[idxPart]->statusFlags();
-        if ( !(flags[GenStatusBits::IsHardProcess] && 
-                flags[GenStatusBits::FromHardProcess] && 
-                flags[GenStatusBits::IsFirstCopy]) ) continue;
-        v_pt = parts[idxPart]->pt();
-        v_pt_oldBinning = parts[idxPart]->pt();
+      for (unsigned iGenPart = 0; iGenPart < parts.size(); ++iGenPart) {//Loop over gen particles
+        int id = parts[iGenPart]->pdgid();
+        std::vector<bool> flags=parts[iGenPart]->statusFlags();
 
-        if (absPdgId==24) {// W+-
-          if (v_pt<150) {
-            //std::cout << " -- Underflow! v_pt = "<< v_pt << " has been re-set to v_pt = 151.0" << std::endl;
-            v_pt = 151.0;
+        if ( (abs(id)==24 || abs(id)==23) && 
+          parts[iGenPart]->daughters().size() > 1 && 
+          abs(parts[parts[iGenPart]->daughters()[0]]->pdgid()) > 10 &&
+          abs(parts[parts[iGenPart]->daughters()[0]]->pdgid()) < 17 ){// W+- || Z
+            boson_pt = parts[iGenPart]->pt();
+            boson_found = true;
+          } else if ( (flags[GenStatusBits::IsPrompt] && parts[iGenPart]->status()==1) || 
+            (flags[GenStatusBits::IsPrompt] && flags[GenStatusBits::IsDecayedLeptonHadron]) ) {
+            if (id > 10 && id < 17) {
+              l1vec.SetPtEtaPhiM(parts[iGenPart]->pt(), parts[iGenPart]->eta(), parts[iGenPart]->phi(), 0.);
+              l1_found = true;
+            }
+            if (id < -10 && id > -17) {
+              l2vec.SetPtEtaPhiM(parts[iGenPart]->pt(), parts[iGenPart]->eta(), parts[iGenPart]->phi(), 0.);
+              l2_found = true;
+            }
+            if ( l1_found && l2_found ) {
+              reco_boson_found = true;
+            }
           }
-          if (v_pt>=1000) {
-            //std::cout << " -- Overflow! v_pt = "<< v_pt << " has been re-set to v_pt = 1249.0" << std::endl;
-            v_pt = 999.0;
-          }
-          if (v_pt_oldBinning<150) {
-            v_pt_oldBinning = 151.0;
-          }
-          if (v_pt_oldBinning>=1250) {
-            v_pt_oldBinning = 1249.0;
-          }
-          v_nlo_Reweight = ( ( hist_kfactors_N_W->GetBinContent(hist_kfactors_N_W->FindBin(v_pt)) )/( hist_kfactors_D_W->GetBinContent(hist_kfactors_D_W->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_W->GetBinContent(hist_kfactors_EWKcorr_W->FindBin(v_pt_oldBinning)) )/( hist_kfactors_WJets_012j_NLO->GetBinContent(hist_kfactors_WJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
-          //std::cout << " -- The NLO weight of W is v_nlo_Reweight = "<< v_nlo_Reweight << std::endl;
-        } 
-        if (absPdgId==23) {// Z
-          if (v_pt<150) {
-            //std::cout << " -- Underflow! v_pt = "<< v_pt << " has been re-set to v_pt = 151.0" << std::endl;
-            v_pt = 151.0;
-          }
-          if (v_pt>=1000) {
-            //std::cout << " -- Overflow! v_pt = "<< v_pt << " has been re-set to v_pt = 1249.0" << std::endl;
-            v_pt = 999.0;
-          }
-          if (v_pt_oldBinning<150) {
-            v_pt_oldBinning = 151.0;
-          }
-          if (v_pt_oldBinning>=1250) {
-            v_pt_oldBinning = 1249.0;
-          }
-          v_nlo_Reweight = ( ( hist_kfactors_N_Z->GetBinContent(hist_kfactors_N_Z->FindBin(v_pt)) )/( hist_kfactors_D_Z->GetBinContent(hist_kfactors_D_Z->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_Z->GetBinContent(hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning)) )/( hist_kfactors_ZJets_012j_NLO->GetBinContent(hist_kfactors_ZJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
-          //std::cout << " -- The NLO weight of Z is v_nlo_Reweight = "<< v_nlo_Reweight << std::endl;
-        }
-      }//endof Loop over genParticles
+      }//endof Loop over gen particles
+
+      if (!boson_found && reco_boson_found) {
+        TLorentzVector wzvec(l1vec);
+        wzvec += l2vec;
+        boson_pt = wzvec.Pt();
+      }
+      v_pt = boson_pt;
+      v_pt_oldBinning = boson_pt;
+
+      if (v_pt<0 || v_pt_oldBinning<0 || boson_pt<0) {
+        std::cout << " SOMETHING IS GOING WRONG! " << std::endl;
+        std::cout << boson_pt << std::endl;
+        std::cout << v_pt << std::endl;
+        std::cout << v_pt_oldBinning << std::endl;
+      }
+
+      if (v_pt<150) {
+        //std::cout << " -- Underflow! v_pt = "<< v_pt << " has been re-set to v_pt = 151.0" << std::endl;
+        v_pt = 151.0;
+      }
+      if (v_pt>=1000) {
+        //std::cout << " -- Overflow! v_pt = "<< v_pt << " has been re-set to v_pt = 1249.0" << std::endl;
+        v_pt = 999.0;
+      }
+      if (v_pt_oldBinning<150) {
+        v_pt_oldBinning = 151.0;
+      }
+      if (v_pt_oldBinning>=1250) {
+        v_pt_oldBinning = 1249.0;
+      }
+
+      if (do_w_reweighting_) {
+        v_nlo_Reweight = ( ( hist_kfactors_N_W->GetBinContent(hist_kfactors_N_W->FindBin(v_pt)) )/( hist_kfactors_D_W->GetBinContent(hist_kfactors_D_W->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_W->GetBinContent(hist_kfactors_EWKcorr_W->FindBin(v_pt_oldBinning)) )/( hist_kfactors_WJets_012j_NLO->GetBinContent(hist_kfactors_WJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
+      } else if (do_dy_reweighting_) {
+        v_nlo_Reweight = ( ( hist_kfactors_N_Z->GetBinContent(hist_kfactors_N_Z->FindBin(v_pt)) )/( hist_kfactors_D_Z->GetBinContent(hist_kfactors_D_Z->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_Z->GetBinContent(hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning)) )/( hist_kfactors_ZJets_012j_NLO->GetBinContent(hist_kfactors_ZJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
+      }
 
 
       eventInfo->set_weight("!v_nlo_Reweighting", v_nlo_Reweight);
