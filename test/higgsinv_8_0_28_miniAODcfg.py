@@ -32,7 +32,7 @@ opts.register('file',
     parser.VarParsing.varType.string, "input file")
 
 
-opts.register('globalTag', '80X_dataRun2_2016SeptRepro_v6', parser.VarParsing.multiplicity.singleton,
+opts.register('globalTag', '80X_dataRun2_2016SeptRepro_v7', parser.VarParsing.multiplicity.singleton,
     parser.VarParsing.varType.string, "global tag") #to be frequently updated from https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideFrontierConditions#Prompt_reconstruction_Global_Tag
 
 opts.register('isData', 1, parser.VarParsing.multiplicity.singleton,
@@ -181,6 +181,11 @@ process.selectedElectrons = cms.EDFilter("PATElectronRefSelector",
   cut = cms.string("pt > 9.5 & abs(eta) < 2.6")
 )
 
+#process.selectedElectrons = cms.EDFilter("PATElectronSelector", 
+  #src = cms.InputTag("slimmedElectrons"),
+  #cut = cms.string("pt > 5 && abs(superCluster.eta)<2.5")
+#)
+
 process.selectedPFMuons = cms.EDFilter("PATMuonRefSelector",
   src = muonLabel,
   cut = cms.string("pt > 3.0 & abs(eta) < 2.6")
@@ -191,6 +196,18 @@ process.selectedPFTaus = cms.EDFilter("PATTauRefSelector",
   cut = cms.string('pt > 18.0 & abs(eta) < 2.6 & tauID("decayModeFindingNewDMs") > 0.5')
 )
 
+process.load('Configuration.StandardSequences.Services_cff')
+
+process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService",
+                                                   calibratedElectrons = cms.PSet( initialSeed = cms.untracked.uint32(81),
+                                                                                      engineName = cms.untracked.string('TRandom3'),
+                                                                                    ),
+                                                   calibratedPhotons = cms.PSet( initialSeed = cms.untracked.uint32(81),
+                                                                                    engineName = cms.untracked.string('TRandom3'),
+                                                                                  ),
+                                                  )
+process.load('EgammaAnalysis.ElectronTools.calibratedElectronsRun2_cfi')
+process.load('EgammaAnalysis.ElectronTools.calibratedPhotonsRun2_cfi')
 
 
 #process.selectedPF = cms.EDFilter("PATPackedCandidateSelector",#
@@ -204,6 +221,8 @@ process.icSelectionSequence = cms.Sequence(
   process.selectedElectrons+
   process.selectedPFMuons+
   process.selectedPFTaus
+  #+process.calibratedElectrons
+  #+process.calibratedPhotons 
 )
 
 
@@ -292,7 +311,6 @@ if isData :
 ################################################################
 # Electrons
 ################################################################
-
 process.icElectronSequence = cms.Sequence()
 
 #ICElectronConversionCalculator NOT final, but at least have a running version for now
@@ -968,11 +986,6 @@ process.icGenMetProducer = producers.icMetFromPatProducer.clone(
   doGenMet = cms.bool(True)
   )
 
-#remake type1 met with updated JEC
-#from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
-#runMetCorAndUncFromMiniAOD(process, 
-#                           isData=bool(isData))
-
 # Use the newly corrected jets we produced above
 #process.basicJetsForMet.src = cms.InputTag('updatedPatJetsUpdatedJEC')
 
@@ -983,6 +996,17 @@ process.ictype1PfMetProducer = producers.icMetFromPatProducer.clone(
   input = cms.InputTag("slimmedMETs"),
   #input = cms.InputTag("patPFMetT1"),
   branch = cms.string("pfMetType1Collection"),
+  includeCustomID = cms.bool(False),
+  inputCustomID = cms.InputTag(""),
+  includeExternalMetsigMethod2 = cms.bool(True),
+  includeMetCorrections = cms.bool(True),
+  includeMetUncertainties = cms.bool(True)
+  )
+
+process.ictype1PfMetMuEGCleanProducer = producers.icMetFromPatProducer.clone(
+  input = cms.InputTag("slimmedMETsMuEGClean"),
+  #input = cms.InputTag("patPFMetT1"),
+  branch = cms.string("pfMetType1MuEGCleanCollection"),
   includeCustomID = cms.bool(False),
   inputCustomID = cms.InputTag(""),
   includeExternalMetsigMethod2 = cms.bool(True),
@@ -1023,6 +1047,104 @@ process.icPfMetPuppiProducer = producers.icMetFromPatProducer.clone(
 #                                                     includeExternalMetsig = cms.bool(False)
 #                                                     )
 
+## Following lines are for default MET for Type1 corrections.
+from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
+
+# If you only want to re-correct for JEC and get the proper uncertainties for the default MET
+runMetCorAndUncFromMiniAOD(process,
+                           isData=bool(isData))
+
+process.load('RecoMET.METFilters.badGlobalMuonTaggersMiniAOD_cff')
+process.badGlobalMuonTaggerMAOD.muons       = muonLabel
+process.badGlobalMuonTaggerMAOD.vtx         = vtxLabel
+process.badGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
+process.cloneGlobalMuonTaggerMAOD.muons       = muonLabel
+process.cloneGlobalMuonTaggerMAOD.vtx         = vtxLabel
+process.cloneGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
+
+from PhysicsTools.PatUtils.tools.muonRecoMitigation import muonRecoMitigation
+
+muonRecoMitigation(process = process,
+                   pfCandCollection = "packedPFCandidates", #input PF Candidate Collection
+                   runOnMiniAOD = True, #To determine if you are running on AOD or MiniAOD
+                   selection="", #You can use a custom selection for your bad muons. Leave empty if you would like to use the bad muon recipe definition.
+                   muonCollection="", #The muon collection name where your custom selection will be applied to. Leave empty if you would like to use the bad muon recipe definition.
+                   cleanCollName="cleanMuonsPFCandidates", #output pf candidate collection ame
+                   cleaningScheme="computeAllApplyClone", #Options are: "all", "computeAllApplyBad","computeAllApplyClone". Decides which (or both) bad muon collections to be used for MET cleaning coming from the bad muon recipe.
+                   postfix="" #Use if you would like to add a post fix to your muon / pf collections
+                   )
+
+runMetCorAndUncFromMiniAOD(process,
+                           isData=bool(isData),
+                           pfCandColl="cleanMuonsPFCandidates",
+                           recoMetFromPFCs=True,
+                           postfix="MuClean"
+                           )
+
+process.mucorMET = cms.Sequence(process.badGlobalMuonTaggerMAOD *
+                                process.cloneGlobalMuonTaggerMAOD *
+                                #process.badMuons * # If you are using cleaning mode "all", uncomment this line
+                                process.cleanMuonsPFCandidates *
+                                process.fullPatMetSequenceMuClean
+                                )
+
+
+# Now you are creating the e/g corrected MET on top of the bad muon corrected MET (on re-miniaod)
+from PhysicsTools.PatUtils.tools.corMETFromMuonAndEG import corMETFromMuonAndEG
+corMETFromMuonAndEG(process,
+                    pfCandCollection="", #not needed
+                    electronCollection="slimmedElectronsBeforeGSFix",
+                    photonCollection="slimmedPhotonsBeforeGSFix",
+                    corElectronCollection="slimmedElectrons",
+                    corPhotonCollection="slimmedPhotons",
+                    allMETEGCorrected=True,
+                    muCorrection=False,
+                    eGCorrection=True,
+                    runOnMiniAOD=True,
+                    postfix="MuEGClean"
+                    )
+process.slimmedMETsMuEGClean = process.slimmedMETs.clone()
+process.slimmedMETsMuEGClean.src = cms.InputTag("patPFMetT1MuEGClean")
+process.slimmedMETsMuEGClean.rawVariation =  cms.InputTag("patPFMetRawMuEGClean")
+process.slimmedMETsMuEGClean.t1Uncertainties = cms.InputTag("patPFMetT1%sMuEGClean")
+del process.slimmedMETsMuEGClean.caloMET
+# If you are running in the scheduled mode:
+process.egcorrMET = cms.Sequence(
+  process.cleanedPhotonsMuEGClean+
+  process.cleanedCorPhotonsMuEGClean+
+  process.matchedPhotonsMuEGClean+ 
+  process.matchedElectronsMuEGClean +
+  process.corMETPhotonMuEGClean+
+  process.corMETElectronMuEGClean+
+  process.patPFMetT1MuEGClean+
+  process.patPFMetRawMuEGClean+
+  process.patPFMetT1SmearMuEGClean+
+  process.patPFMetT1TxyMuEGClean+
+  process.patPFMetTxyMuEGClean+
+  process.patPFMetT1JetEnUpMuEGClean+
+  process.patPFMetT1JetResUpMuEGClean+
+  process.patPFMetT1SmearJetResUpMuEGClean+
+  process.patPFMetT1ElectronEnUpMuEGClean+
+  process.patPFMetT1PhotonEnUpMuEGClean+
+  process.patPFMetT1MuonEnUpMuEGClean+
+  process.patPFMetT1TauEnUpMuEGClean+
+  process.patPFMetT1UnclusteredEnUpMuEGClean+
+  process.patPFMetT1JetEnDownMuEGClean+
+  process.patPFMetT1JetResDownMuEGClean+
+  process.patPFMetT1SmearJetResDownMuEGClean+
+  process.patPFMetT1ElectronEnDownMuEGClean+
+  process.patPFMetT1PhotonEnDownMuEGClean+
+  process.patPFMetT1MuonEnDownMuEGClean+
+  process.patPFMetT1TauEnDownMuEGClean+
+  process.patPFMetT1UnclusteredEnDownMuEGClean+
+  process.slimmedMETsMuEGClean)
+
+process.icMetSequenceCorrected = cms.Sequence(
+  process.mucorMET  *
+  process.fullPatMetSequence * # If you are re-correctign the default MET
+  process.egcorrMET
+)
+
 process.icMetSequence = cms.Sequence(
   process.METSignificance+
   process.icPfMet+
@@ -1036,6 +1158,9 @@ process.icMetSequence = cms.Sequence(
   #process.pfMetT0pcT1+
   #process.icPfMetT0pcT1Producer
 )
+
+if isData:
+  process.icMetSequence += cms.Sequence(process.ictype1PfMetMuEGCleanProducer)
 
 #!!MET UNCERTAINTIES
 #!!MET FILTERS
@@ -1374,7 +1499,6 @@ if isData or isReHLT:
 #Load the MET filters here
 process.load('RecoMET.METFilters.BadPFMuonFilter_cfi')
 process.load('RecoMET.METFilters.BadChargedCandidateFilter_cfi')
-process.load('RecoMET.METFilters.badGlobalMuonTaggersMiniAOD_cff')
 
 process.BadPFMuonFilter.muons        = cms.InputTag("slimmedMuons")
 process.BadPFMuonFilter.PFCandidates = cms.InputTag("packedPFCandidates")
@@ -1383,12 +1507,6 @@ process.BadChargedCandidateFilter.muons        = cms.InputTag("slimmedMuons")
 process.BadChargedCandidateFilter.PFCandidates = cms.InputTag("packedPFCandidates")
 process.BadChargedCandidateFilter.taggingMode  = cms.bool(True)
 
-process.badGlobalMuonTaggerMAOD.muons       = muonLabel
-process.badGlobalMuonTaggerMAOD.vtx         = vtxLabel
-process.badGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
-process.cloneGlobalMuonTaggerMAOD.muons       = muonLabel
-process.cloneGlobalMuonTaggerMAOD.vtx         = vtxLabel
-process.cloneGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
 
 # So in this case the 100 events you are checking simply do not contain any bad muons.
 # Because these modules select bad events, the event fails the filters if it does not have any bad muons.
@@ -1416,8 +1534,7 @@ process.icEventInfoProducer = producers.icEventInfoProducer.clone(
     Flag_badMuons          = cms.InputTag("badGlobalMuonTaggerMAOD"),
     Flag_duplicateMuons    = cms.InputTag("cloneGlobalMuonTaggerMAOD")
     ),
-  filtersfromtrig     = cms.vstring("*"),
-  #filtersfromtrig     = cms.vstring("Flag_HBHENoiseFilter","Flag_HBHENoiseIsoFilter","Flag_EcalDeadCellTriggerPrimitiveFilter","Flag_goodVertices","Flag_eeBadScFilter","Flag_globalTightHalo2016Filter")
+  filtersfromtrig     = cms.vstring("*")
 )
 
 if not isData:
@@ -1427,7 +1544,6 @@ if isData:
   process.icEventInfoProducer.filters=cms.PSet(
     badChargedHadronFilter = cms.InputTag("BadChargedCandidateFilter"),
     badMuonFilter          = cms.InputTag("BadPFMuonFilter")
-  #process.icEventInfoProducer.filtersfromtrig = cms.vstring("Flag_HBHENoiseFilter","Flag_HBHENoiseIsoFilter","Flag_EcalDeadCellTriggerPrimitiveFilter","Flag_goodVertices","Flag_eeBadScFilter","Flag_globalTightHalo2016Filter","!Flag_badMuons","!Flag_duplicateMuons")
   )
 
 
@@ -1453,7 +1569,12 @@ if isData:
 ################################################################
 process.icEventProducer = producers.icEventProducer.clone()
 
-process.icProdSeq = cms.Sequence(
+process.icProdSeq = cms.Sequence()
+
+if isData:
+  process.icProdSeq += cms.Sequence(process.icMetSequenceCorrected)
+
+process.icProdSeq += cms.Sequence(
   process.ic80XSequence+
   process.icMiniAODSequence+
   process.icSelectionSequence+
