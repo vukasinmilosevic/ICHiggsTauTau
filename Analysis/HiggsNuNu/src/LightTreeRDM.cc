@@ -94,6 +94,7 @@ namespace ic {
     puweight_up_scale_=1;
     puweight_down_scale_=1;
     v_nlo_Reweight_=1;
+    ewk_v_nlo_Reweight_=1;
     weight_pileup_=1;
     weight_xsection_=1;
     for (unsigned err(0); err<3;++err){
@@ -402,6 +403,7 @@ namespace ic {
     outputTree_->Branch("puweight_up_scale",&puweight_up_scale_);
     outputTree_->Branch("puweight_down_scale",&puweight_down_scale_);
     outputTree_->Branch("v_nlo_Reweight",&v_nlo_Reweight_);
+    outputTree_->Branch("ewk_v_nlo_Reweight",&ewk_v_nlo_Reweight_);
     outputTree_->Branch("weight_pileup",&weight_pileup_);
     outputTree_->Branch("weight_xsection",&weight_xsection_);
     outputTree_->Branch("weight_eletrigEff",&weight_eletrigEff_[0]);
@@ -801,6 +803,7 @@ namespace ic {
 
     if(!is_data_){
       v_nlo_Reweight_= eventInfo->weight_defined("v_nlo_Reweighting")?eventInfo->weight("v_nlo_Reweighting"):1;
+      ewk_v_nlo_Reweight_= eventInfo->weight_defined("ewk_v_nlo_Reweighting")?eventInfo->weight("ewk_v_nlo_Reweighting"):1;
       weight_pileup_=eventInfo->weight("pileup");
       weight_xsection_=eventInfo->weight("lumixs");
       weight_lepveto_= eventInfo->weight("idisoVeto");

@@ -296,7 +296,7 @@ int main(int argc, char* argv[]){
     .set_latexname("Luminosity")
     .set_type("constlnN")
     .set_procsaffected(lumi8tevprocsaffected)
-    .set_constvalue(1.026);
+    .set_constvalue(1.025);
 
   std::vector<std::string> allprocs={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","zvv","zvvewk","zvvqcd","zllewk","zllqcd","zmumu","zee","zmumuqcd","zeeqcd","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","zmumuewk","zeeewk","wmuewk","welewk","wtauewk","top","qcd","wg","vv"};
   std::vector<std::string> allprocsnotz={"ggH110","ggH125","ggH150","ggH200","ggH300","ggH400","ggH500","ggH600","ggH800","ggH1000","qqH110","qqH125","qqH150","qqH200","qqH300","qqH400","qqH500","qqH600","qqH800","qqH1000","wmu","wel","wtau","wmuqcd","welqcd","wtauqcd","wmuewk","welewk","wtauewk","top","qcd","wg","vv"};
@@ -1052,7 +1052,8 @@ int main(int argc, char* argv[]){
   //if (!do_run2) 
   systematics.push_back(jes);
   //if (!do_run2) 
-  systematics.push_back(jer);
+  //HACK
+  //systematics.push_back(jer);
   if(do_ues){
     //if (!do_run2) 
     systematics.push_back(ues);

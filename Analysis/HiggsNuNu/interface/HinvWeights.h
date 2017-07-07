@@ -35,9 +35,11 @@ class HinvWeights : public ModuleBase {
   CLASS_MEMBER(HinvWeights, bool, do_idiso_veto_weights)
   CLASS_MEMBER(HinvWeights, bool, do_w_soup)
   CLASS_MEMBER(HinvWeights, bool, do_w_reweighting)
+  CLASS_MEMBER(HinvWeights, bool, do_ewk_w_reweighting)
   CLASS_MEMBER(HinvWeights, bool, do_dy_soup)
   CLASS_MEMBER(HinvWeights, bool, do_dy_soup_htbinned)
   CLASS_MEMBER(HinvWeights, bool, do_dy_reweighting)
+  CLASS_MEMBER(HinvWeights, bool, do_ewk_dy_reweighting)
   CLASS_MEMBER(HinvWeights, std::string, input_met)
   CLASS_MEMBER(HinvWeights, std::string, input_jet)
   CLASS_MEMBER(HinvWeights, bool, do_lumixs_weights)
@@ -62,7 +64,12 @@ class HinvWeights : public ModuleBase {
   TH1F *hist_kfactors_N_Z;
   TH1F *hist_kfactors_D_Z;
 
-
+  CLASS_MEMBER(HinvWeights, std::string, kFactor_ZToNuNu_pT_Mjj_file)
+  CLASS_MEMBER(HinvWeights, std::string, kFactor_WToLNu_pT_Mjj_file)
+  TFile *kFactor_ZToNuNu_pT_Mjj_;
+  TFile *kFactor_WToLNu_pT_Mjj_;
+  TH2F *hist_kFactors_ewk_Z;
+  TH2F *hist_kFactors_ewk_W;
 
   TFile *triggerSF_;
   std::vector<std::vector<std::vector<TF1*> > > func_trigSF_binnedin2d[7];

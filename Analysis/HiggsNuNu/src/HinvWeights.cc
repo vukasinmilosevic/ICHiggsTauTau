@@ -49,9 +49,11 @@ namespace ic {//namespace
     do_idiso_veto_weights_  = false;
     do_w_soup_              = false;
     do_w_reweighting_       = false;
+    do_ewk_w_reweighting_   = false;
     do_dy_soup_             = false;
     do_dy_soup_htbinned_    = false;
     do_dy_reweighting_      = false;
+    do_ewk_dy_reweighting_  = false;
     do_lumixs_weights_      = false;
     save_lumixs_weights_    = true;
     input_params_ = "";
@@ -78,6 +80,9 @@ namespace ic {//namespace
     kfactors_file_="input/scale_factors/kfactors.root";
     kfactor_VBF_zjets_v2_file_="input/scale_factors/kfactor_VBF_zjets_v2.root";
     kfactor_VBF_wjets_v2_file_="input/scale_factors/kfactor_VBF_wjets_v2.root";
+
+    kFactor_ZToNuNu_pT_Mjj_file_="input/scale_factors/kFactor_ZToNuNu_pT_Mjj.root";
+    kFactor_WToLNu_pT_Mjj_file_ ="input/scale_factors/kFactor_WToLNu_pT_Mjj.root";
   }
 
   HinvWeights::~HinvWeights() {
@@ -215,7 +220,19 @@ namespace ic {//namespace
       }
     }
 
+    if (do_ewk_w_reweighting_ || do_ewk_dy_reweighting_) {
+      kFactor_ZToNuNu_pT_Mjj_ = TFile::Open(kFactor_ZToNuNu_pT_Mjj_file_.c_str());
+      kFactor_WToLNu_pT_Mjj_ = TFile::Open(kFactor_WToLNu_pT_Mjj_file_.c_str());
 
+      if (do_ewk_w_reweighting_) {
+        std::cout << " -- Applying reweighting of W events to NLO from MIT (Raffaele)." << std::endl;
+        hist_kFactors_ewk_W = (TH2F*)kFactor_WToLNu_pT_Mjj_->Get("TH2F_kFactor");
+      }
+      if (do_ewk_dy_reweighting_) {
+        std::cout << " -- Applying reweighting of DY events to NLO from MIT (Raffaele)." << std::endl;
+        hist_kFactors_ewk_Z = (TH2F*)kFactor_ZToNuNu_pT_Mjj_->Get("TH2F_kFactor");
+      }
+    }
 
     if (save_weights_ && do_trg_weights_){
       // do weights even if not applied, to fill histo with weight for comparison !
@@ -814,6 +831,92 @@ namespace ic {//namespace
 
 
       eventInfo->set_weight("!v_nlo_Reweighting", v_nlo_Reweight);
+
+    }
+
+    if (do_ewk_w_reweighting_ || do_ewk_dy_reweighting_) { // For ewk_v_nlo_Reweighting (kFactor_V*_pT_Mjj.root file in input/scalefactors from MIT group)
+
+      double ewk_v_nlo_Reweight = 1.0;
+      double v_pt     = -50.0;
+      double boson_pt = -50.0;
+      double mjj      = -50.0;
+      std::vector<CompositeCandidate *> const& dijet_vec = event->GetPtrVec<CompositeCandidate>("jjLeadingCandidates");
+      if (dijet_vec.size() > 0) {//if dijets
+        CompositeCandidate const* dijet = dijet_vec.at(0);
+        mjj = dijet->M();
+      }
+
+      std::vector<GenParticle*> const& parts = event->GetPtrVec<GenParticle>("genParticles");
+
+      TLorentzVector l1vec;
+      TLorentzVector l2vec;
+      bool boson_found = false;
+      bool l1_found =false;
+      bool l2_found =false;
+      bool reco_boson_found = false;
+
+      for (unsigned iGenPart = 0; iGenPart < parts.size(); ++iGenPart) {//Loop over gen particles
+        int id = parts[iGenPart]->pdgid();
+        std::vector<bool> flags=parts[iGenPart]->statusFlags();
+
+        if ( (abs(id)==24 || abs(id)==23) && 
+          parts[iGenPart]->daughters().size() > 1 && 
+          abs(parts[parts[iGenPart]->daughters()[0]]->pdgid()) > 10 &&
+          abs(parts[parts[iGenPart]->daughters()[0]]->pdgid()) < 17 ){// W+- || Z
+            boson_pt = parts[iGenPart]->pt();
+            boson_found = true;
+          } else if ( (flags[GenStatusBits::IsPrompt] && parts[iGenPart]->status()==1) || 
+            (flags[GenStatusBits::IsPrompt] && flags[GenStatusBits::IsDecayedLeptonHadron]) ) {
+            if (id > 10 && id < 17) {
+              l1vec.SetPtEtaPhiM(parts[iGenPart]->pt(), parts[iGenPart]->eta(), parts[iGenPart]->phi(), 0.);
+              l1_found = true;
+            }
+            if (id < -10 && id > -17) {
+              l2vec.SetPtEtaPhiM(parts[iGenPart]->pt(), parts[iGenPart]->eta(), parts[iGenPart]->phi(), 0.);
+              l2_found = true;
+            }
+            if ( l1_found && l2_found ) {
+              reco_boson_found = true;
+            }
+          }
+      }//endof Loop over gen particles
+
+      if (!boson_found && reco_boson_found) {
+        TLorentzVector wzvec(l1vec);
+        wzvec += l2vec;
+        boson_pt = wzvec.Pt();
+      }
+      v_pt = boson_pt;
+
+      if (v_pt<0 || boson_pt<0 || mjj<0) {
+        std::cout << " SOMETHING IS GOING WRONG! " << std::endl;
+        std::cout << " -- Boson pT: " << boson_pt << std::endl;
+        std::cout << " -- V pT: " << v_pt << std::endl;
+        std::cout << " -- Mjj: " << mjj << std::endl;
+      }
+
+      if (v_pt<200) {
+        //std::cout << " -- Underflow! v_pt = "<< v_pt << " has been re-set to v_pt = 151.0" << std::endl;
+        v_pt = 201.0;
+      }
+      if (v_pt>=1000) {
+        //std::cout << " -- Overflow! v_pt = "<< v_pt << " has been re-set to v_pt = 1249.0" << std::endl;
+        v_pt = 999.0;
+      }
+      if (mjj<200) {
+        mjj = 201.0;
+      }
+      if (mjj>=3000) {
+        mjj = 2999.0;
+      }
+
+      if (do_ewk_w_reweighting_) {
+        ewk_v_nlo_Reweight = hist_kFactors_ewk_W->GetBinContent( hist_kFactors_ewk_W->FindBin(v_pt), hist_kFactors_ewk_W->FindBin(mjj) );
+      } else if (do_ewk_dy_reweighting_) {
+        ewk_v_nlo_Reweight = hist_kFactors_ewk_Z->GetBinContent( hist_kFactors_ewk_Z->FindBin(v_pt), hist_kFactors_ewk_Z->FindBin(mjj) );
+      }
+
+      eventInfo->set_weight("!ewk_v_nlo_Reweighting", ewk_v_nlo_Reweight);
 
     }
 

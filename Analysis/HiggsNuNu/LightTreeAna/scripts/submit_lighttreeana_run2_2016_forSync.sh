@@ -86,7 +86,7 @@ do
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
-    ## To test for one histi
+    ## To test for one hist
     #SHAPESTRING="met(55,0.,550.)"
     #HISTSTRING=";MET (GeV);Events"
     #HISTSTRING=";(calo-pf)/recoil;Events!;(calo-pf)/recoil;Events"

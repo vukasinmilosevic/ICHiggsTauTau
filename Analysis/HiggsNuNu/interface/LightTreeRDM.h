@@ -59,6 +59,7 @@ namespace ic {
     double weight_xsection_;
 
     double v_nlo_Reweight_;
+    double ewk_v_nlo_Reweight_;
 
     double weight_eleVeto_[5];
     double weight_muVeto_[7];
