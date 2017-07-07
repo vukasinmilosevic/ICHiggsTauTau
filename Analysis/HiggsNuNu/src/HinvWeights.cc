@@ -262,7 +262,7 @@ namespace ic {//namespace
 		else tmp = (TF1*)gDirectory->Get((errLabel[iErr]+"METMHT120_MJJBIN"+histnumber).c_str());
 		
 		thisfuncvector[iErr].push_back(tmp);
-		std::cout << " -- trigger Function " << errLabel[iErr]+"METMHT120_MJJBIN"+histnumber << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->GetName() << " " << tmp->GetName() << " check value Mjj=2000 " << tmp->Eval(2000.) << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->Eval(2000.) << std::endl; 
+		//std::cout << " -- trigger Function " << errLabel[iErr]+"METMHT120_MJJBIN"+histnumber << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->GetName() << " " << tmp->GetName() << " check value Mjj=2000 " << tmp->Eval(2000.) << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->Eval(2000.) << std::endl; 
 	      }
             }
             for (unsigned iErr(0); iErr<errLabel.size();++iErr){
@@ -1170,9 +1170,9 @@ namespace ic {//namespace
       }
     }
 
-    std::cout << " ---- CHECK! Size of pt and eta vectors for file " << aFileName << " : ";
-    std::cout << " " << nPtBins;
-    std::cout << " " << nEtaBins << std::endl;
+    //std::cout << " ---- CHECK! Size of pt and eta vectors for file " << aFileName << " : ";
+    //std::cout << " " << nPtBins;
+    //std::cout << " " << nEtaBins << std::endl;
 
     lInput.close();
 

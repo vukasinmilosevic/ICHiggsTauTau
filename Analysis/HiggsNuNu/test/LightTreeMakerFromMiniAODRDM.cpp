@@ -1018,13 +1018,13 @@ int main(int argc, char* argv[]){
     xsWeights.set_do_w_reweighting(true);
   }
 
-  if (output_name.find("EWKZ") != output_name.npos) {
-    xsWeights.set_do_ewk_dy_reweighting(true);
-    }
-
-  if (output_name.find("EWKW") != output_name.npos) {
-    xsWeights.set_do_ewk_w_reweighting(true);
-  }
+//   if (output_name.find("EWKZ") != output_name.npos) {
+//     xsWeights.set_do_ewk_dy_reweighting(true);
+//     }
+// 
+//   if (output_name.find("EWKW") != output_name.npos) {
+//     xsWeights.set_do_ewk_w_reweighting(true);
+//   }
 
   // ------------------------------------------------------------------------------------
   // Gen particle selection modules
