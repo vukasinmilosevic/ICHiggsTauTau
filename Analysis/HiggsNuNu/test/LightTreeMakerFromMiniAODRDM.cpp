@@ -1018,13 +1018,20 @@ int main(int argc, char* argv[]){
     xsWeights.set_do_w_reweighting(true);
   }
 
-//   if (output_name.find("EWKZ") != output_name.npos) {
-//     xsWeights.set_do_ewk_dy_reweighting(true);
-//     }
-// 
-//   if (output_name.find("EWKW") != output_name.npos) {
-//     xsWeights.set_do_ewk_w_reweighting(true);
-//   }
+  HinvWeights nloWeights = HinvWeights("NLOWeights")
+  .set_era(era)
+  .set_mc(mc)
+  .set_input_params(inputparams)
+  .set_sample_name(output_name)
+  .set_fs(fs);
+
+  if (output_name.find("EWKZ") != output_name.npos) {
+    nloWeights.set_do_ewk_dy_reweighting(true);
+    }
+
+  if (output_name.find("EWKW") != output_name.npos) {
+    nloWeights.set_do_ewk_w_reweighting(true);
+  }
 
   // ------------------------------------------------------------------------------------
   // Gen particle selection modules
@@ -1218,6 +1225,7 @@ int main(int argc, char* argv[]){
   //record the number of jets in the gap
   analysis.AddModule(&jetPairFilter);
   analysis.AddModule(&FilterCJV);
+  if (!is_data) analysis.AddModule(&nloWeights);
 
   //jet pair selection
   //if (printEventList) analysis.AddModule(&hinvPrintList);
