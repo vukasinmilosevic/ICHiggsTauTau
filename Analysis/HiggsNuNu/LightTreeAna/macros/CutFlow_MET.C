@@ -15,18 +15,19 @@ int CutFlow_MET(){
 
   bool doCR = false;
 
-  const unsigned nF = 1;
+  const unsigned nF = 2;
   TFile *fin[nF];
-  fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MET.root");
+  fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MET_old.root");
+  fin[1] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MET_new.root");
 //   fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MC_EWKZ2Jets_ZToNuNu.root");
 //   fin[1] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MC_EWKWPlus2Jets_WToLNu.root");
 //   fin[2] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MC_EWKZ2Jets_ZToLL.root");
 //   fin[3] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MC_Powheg-VBFHtoinv-mH125.root");
 
-  const unsigned nC = 18;
+  const unsigned nC = 20;
   std::string mumu_cuts[nC] = {
     "",
-    "(pass_metmht90trigger==1 || pass_metmht100trigger==1 || pass_metmht110trigger==1 || pass_metmht120trigger==1)",
+    "(pass_metmht90trigger==1 || pass_metmht100trigger==1 || pass_metmht110trigger==1 || pass_metmht120trigger==1 || pass_mettrigger==1)",
     "jet1_pt>80",
     "jet2_pt>40",
     "jet1_eta*jet2_eta<0",
@@ -35,19 +36,21 @@ int CutFlow_MET(){
     "nvetomuons==2",
     "nvetoelectrons==0",
     "m_mumu>60 && m_mumu<120 && oppsign_mumu",
-    "alljetsmetnomu_mindphi>0.5",
+    "fourjetsmetnomu_mindphi>0.5",
     "metnomuons>200",
-    "(abs(calomet-met)/metnomuons)<0.5",
-    "dijet_deta>1.0",
-    "dijet_dphi<1.3",
+    "dijet_deta>4.0",
+    "dijet_dphi<1.5",
     "nloosephotons==0",
     "nvetotaus==0",
-    "n_jets_csv2medium==0"
+    "n_jets_csv2medium==0",
+    "dijet_M>1300",
+    "( !( abs(jet1_eta) < 2.4 && !(jet1_chargedhadfrac>0.1 && jet1_neutralhadfrac<0.8) ) )",
+    "(abs(calomet-met)/metnomuons)<0.5"
   };
 
   std::string munu_cuts[nC] = {
     "",
-    "(pass_metmht90trigger==1 || pass_metmht100trigger==1 || pass_metmht110trigger==1 || pass_metmht120trigger==1)",
+    "(pass_metmht90trigger==1 || pass_metmht100trigger==1 || pass_metmht110trigger==1 || pass_metmht120trigger==1 || pass_mettrigger==1)",
     "jet1_pt>80",
     "jet2_pt>40",
     "jet1_eta*jet2_eta<0",
@@ -55,15 +58,17 @@ int CutFlow_MET(){
     "nselmuons==1",
     "nvetomuons==1",
     "nvetoelectrons==0",
-    "alljetsmetnomu_mindphi>0.5",
+    "fourjetsmetnomu_mindphi>0.5",
     "metnomuons>200",
-    "(abs(calomet-met)/metnomuons)<0.5",
-    "dijet_deta>1.0",
-    "dijet_dphi<1.3",
+    "dijet_deta>4.0",
+    "dijet_dphi<1.5",
     "nloosephotons==0",
     "nvetotaus==0",
     "n_jets_csv2medium==0",
-    "lep_mt>=0 && lep_mt<160"
+    "lep_mt>=0 && lep_mt<160",
+    "dijet_M>1300",
+    "( !( abs(jet1_eta) < 2.4 && !(jet1_chargedhadfrac>0.1 && jet1_neutralhadfrac<0.8) ) )",
+    "(abs(calomet-met)/metnomuons)<0.5"
   };
 
 

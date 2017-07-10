@@ -18,6 +18,7 @@ namespace ic {
     fs_ = NULL;
     debug_ = 0;
     met_label_ = "pfMetType1Collection";
+    pfmet_label_ = "pfMetType1Collection";
     jet_label_ = "pfJetsPFlow";
     dijet_label_ = "jjCandidates";
     is_data_ = false;
@@ -375,6 +376,7 @@ namespace ic {
               << "-----------------------------------------------" << std::endl;
     if (fs_) {
       std::cout << "MET Label: " << met_label_ << std::endl;
+      std::cout << "PF MET (e.g. for calo) Label: " << pfmet_label_ << std::endl;
       std::cout << "Jets Label: " << jet_label_ << std::endl;
       std::cout << "dijet Label: " << dijet_label_ << std::endl;
       if (is_data_) std::cout << "Processing set for data !" << std::endl;
@@ -903,13 +905,8 @@ namespace ic {
     ROOT::Math::PtEtaPhiEVector metnomuvec = metnomuons->vector();
     ROOT::Math::PtEtaPhiEVector metnoelvec = metnoelectrons->vector();
 
-
     met_ = met->pt();
     met_phi_ = met->phi();
-    const Met::BasicMet & caloMet = met->GetCorrectedMet("RawCalo");
-    calomet_ = caloMet.pt();
-    calomet_phi_ = caloMet.phi();
-    //std::cout << " Check: met = " << met_ << " calomet = " << calomet_ << std::endl;
 
     met_x_ = metvec.Px();
     met_y_ = metvec.Py();
@@ -929,13 +926,29 @@ namespace ic {
     if (met_>0) metnomu_significance_ = met_significance_/met_*metnomuons_;
     else metnomu_significance_ = met_significance_;
 
-
     metnoelectrons_ = metnoelectrons->pt();
     metnoelectrons_phi_ = metnoelectrons->phi();
     metnoel_x_ = metnoelvec.Px();
     metnoel_y_ = metnoelvec.Py();
     if (met_>0) metnoel_significance_ = met_significance_/met_*metnoelectrons_;
     else metnoel_significance_ = met_significance_;
+
+    Met *pfmet = 0;
+    try {
+      std::vector<Met*> & pfmetCol = event->GetPtrVec<Met>(pfmet_label_);
+      pfmet = pfmetCol[0];
+    } catch (...){
+      //std::cout << " Met vec not found..." << std::endl;
+      pfmet = event->GetPtr<Met>(pfmet_label_);
+      if (!pfmet) {
+        std::cerr << " -- Found no PF MET " << pfmet_label_ << " in event! Exiting..." << std::endl;
+        exit(1);
+      }
+    }
+    const Met::BasicMet & caloMet = pfmet->GetCorrectedMet("RawCalo");
+    calomet_ = caloMet.pt();
+    calomet_phi_ = caloMet.phi();
+    //std::cout << " Check: met = " << met_ << " pfmet = " << calomet_ << std::endl;
 
     ////////////////
     // L1 objects //

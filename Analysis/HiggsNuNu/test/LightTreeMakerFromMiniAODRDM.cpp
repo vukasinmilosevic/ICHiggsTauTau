@@ -101,6 +101,7 @@ int main(int argc, char* argv[]){
   bool donoskim;                  // Do no skimming
 
   string mettype;                 // MET input collection to be used
+  string pfmettype;             // Calo MET input collection to be used
   string jettype;                 // JET input collection to be used
   string jesuncfile;              // File to get JES uncertainties from
   bool reapplyJEC;                // Reapply JEC from txt files
@@ -160,6 +161,7 @@ int main(int argc, char* argv[]){
     ("dojetEtaCut",           po::value<bool>(&dojetEtaCut)->default_value(false))
     ("is_data",               po::value<bool>(&is_data)->required())
     ("mettype",               po::value<string>(&mettype)->default_value("pfMetType1"))
+    ("pfmettype",             po::value<string>(&pfmettype)->default_value("pfMetType1"))
     ("jet1ptcut",             po::value<double>(&jet1ptcut)->default_value(0.))
     ("jet2ptcut",             po::value<double>(&jet2ptcut)->default_value(0.))
     ("jetptprecut",           po::value<double>(&jetptprecut)->default_value(15.))
@@ -921,12 +923,12 @@ int main(int argc, char* argv[]){
   SingleMetMaker singleMet = SingleMetMaker(mettype,mettype+"Collection");
 
   MetSelection metFilters = MetSelection("MetFilters",mettype,doMetFilters,filtersVec,0);
-  
+
 
   unsigned nLepToAdd = 100;
   //no need to be explicit in the number of leptons: will take the number 
   // that is asked in the selection (i.e. exactly one for the W->e,mu selections...)
-  
+
   ModifyMet metNoMuons     = ModifyMet("metNoMuons",mettype,"vetoMuons",2,nLepToAdd);
   ModifyMet metNoElectrons = ModifyMet("metNoElectrons",mettype,"vetoElectrons",1,nLepToAdd);
   ModifyMet metNoENoMu     = ModifyMet("metNoENoMu","metNoMuons","vetoElectrons",1,nLepToAdd);
@@ -936,9 +938,6 @@ int main(int argc, char* argv[]){
   // Weight Modules
   // ------------------------------------------------------------------------------------  
 
-
-
-  
   HinvWeights hinvWeights = HinvWeights("HinvWeights")
     .set_era(era)
     .set_mc(mc)
@@ -1084,6 +1083,7 @@ int main(int argc, char* argv[]){
     .set_fs(fs)
     .set_debug(debug)
     .set_met_label(mettype)
+    .set_pfmet_label(pfmettype)
     .set_jet_label(jettype)
     .set_dijet_label("jjLeadingCandidates")
     .set_is_data(is_data)
