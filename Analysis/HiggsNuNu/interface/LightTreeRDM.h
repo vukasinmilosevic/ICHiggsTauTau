@@ -42,6 +42,8 @@ namespace ic {
 
     unsigned countZmumu_;
     unsigned countZee_;
+    unsigned countQuarks_;
+    unsigned countGenjets_;
 
     TTree *outputTree_;
 
@@ -338,6 +340,10 @@ namespace ic {
 
     // Boson pt
     double boson_pt_;
+
+    //dijet mass from genjets from VBF quarks
+    double vbf_digenjet_m_;
+    double vbf_diquark_m_;
 
     const BTagCalibration *calib;
     BTagCalibrationReader* reader_comb;

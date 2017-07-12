@@ -7,7 +7,7 @@ PRODUCTION=170201
 PRODUSER=rdimaria
 JPTCUTVAL=40
 
-DATE=170707
+DATE=170710
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -34,7 +34,7 @@ CONFIG=scripts/DefaultLightTreeConfig_mc.cfg
 
 
 
-for SYST in central JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
+for SYST in central #JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 ## Do not use till new JEC #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 #for SYST in JERBETTER JERWORSE
 ## For CMS_scale_met uncertainty
@@ -193,6 +193,7 @@ for SYST in central JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE I
 
     for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
     ## For quick tests
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*EWK*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJetsToLNu*.dat`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*ToNuNu*`

@@ -29,7 +29,8 @@ namespace ic {
 
     countZmumu_ = 0;
     countZee_ = 0;
-
+    countQuarks_ = 0;
+    countGenjets_ = 0;
     outputTree_ = 0;
 
     //set vectors, do not reset later!!!
@@ -363,6 +364,8 @@ namespace ic {
 
     // Boson pt
     boson_pt_=-50;
+    vbf_digenjet_m_ = 0;
+    vbf_diquark_m_ = 0;
   }
 
   LightTreeRDM::~LightTreeRDM(){
@@ -688,6 +691,10 @@ namespace ic {
     // Boson pt
     outputTree_->Branch("boson_pt",&boson_pt_);
 
+    //genjets dijet mass
+    outputTree_->Branch("vbf_digenjet_m",&vbf_digenjet_m_);
+    outputTree_->Branch("vbf_diquark_m",&vbf_diquark_m_);
+
 
     //btag SF
     std::string csv_file_path = "input/btag_sf/CSVv2_Moriond17_B_H.csv";
@@ -776,7 +783,7 @@ namespace ic {
         }
       }
 
-      if (debug_) {
+      if (debug_>1) {
         std::cout << " -- Pass Sig         " << pass_sigtrigger_       << std::endl;
         std::cout << " -- Pass Muon        " << pass_muontrigger_      << std::endl;
         std::cout << " -- Pass Electron    " << pass_singleEltrigger_  << std::endl;
@@ -880,7 +887,7 @@ namespace ic {
     //std::cout << " -- What should be total_weight decomposed = eventInfo->weight(pileup)*eventInfo->weight(lumixs)*eventInfo->weight(wt_mc_sign)*eventInfo->weight(trig_2dbinned1d) : " << eventInfo->weight("pileup")*eventInfo->weight("lumixs")*eventInfo->weight("wt_mc_sign")*eventInfo->weight("trig_2dbinned1d") << std::endl;
     //std::cout << " -- What should be weight_trig_0 : " << weight_trig_[0] << std::endl;
 
-    if (debug_) std::cout << " Event weight = " << wt << " pu up " << puweight_up_scale_ << " " << puweight_down_scale_ << std::endl;
+    if (debug_>1) std::cout << " Event weight = " << wt << " pu up " << puweight_up_scale_ << " " << puweight_down_scale_ << std::endl;
 
     /////////////////////////
     // Get MET collections //
@@ -979,7 +986,7 @@ namespace ic {
         std::cout << " *** Warning, found " << counterMet << " L1MET and " << counterMht << " L1MHT." << std::endl;
       }
 
-      if (debug_) std::cout << " Met = " << met_ << " metnomu = " << metnomuons_ << " metnoel = " << metnoelectrons_ << " l1met = " << l1met_ << std::endl;
+      if (debug_>1) std::cout << " Met = " << met_ << " metnomu = " << metnomuons_ << " metnoel = " << metnoelectrons_ << " l1met = " << l1met_ << std::endl;
 
     } catch (...) {
       static bool firsttime = true;
@@ -1018,6 +1025,7 @@ namespace ic {
       std::vector<GenParticle*> const& parts = event->GetPtrVec<GenParticle>("genParticles");
       std::vector<GenParticle*> Zmuons;
       std::vector<GenParticle*> Zelecs;
+      std::vector<GenParticle*> Quarks;
 
       TLorentzVector l1vec;
       TLorentzVector l2vec;
@@ -1025,8 +1033,8 @@ namespace ic {
       bool l1_found =false;
       bool l2_found =false;
       bool reco_boson_found = false;
-
-      //std::cout << " -- Event: " << event_ << " print of hardProcess particles..." << std::endl;
+      bool foundVBF = false;
+      if (debug_) std::cout << " -- Event: " << event_ << " print of hardProcess particles..." << std::endl;
       for (unsigned iGenPart = 0; iGenPart < parts.size(); ++iGenPart) {//Loop over gen particles
         int id = parts[iGenPart]->pdgid();
         std::vector<bool> flags=parts[iGenPart]->statusFlags();
@@ -1059,7 +1067,13 @@ namespace ic {
             if (abs(id)==11) Zelecs.push_back(parts[iGenPart]);
             else if (abs(id)==13) Zmuons.push_back(parts[iGenPart]);
           }
-        }
+	}
+	
+	if (abs(id)>0 && abs(id)<6 && parts[iGenPart]->mothers().size()==2 && parts[iGenPart]->mothers()[0]==2 && parts[iGenPart]->mothers()[1]==3){
+	  Quarks.push_back(parts[iGenPart]);
+	  //std::cout << " Select " << std::endl;
+	}
+	//if(abs(id)>0 && abs(id)<6) parts[iGenPart]->Print();
         if (parts[iGenPart]->status()!=1) continue;
         if (abs(id)==11) genElecs.push_back(parts[iGenPart]);
         else if (abs(id)==13) genMus.push_back(parts[iGenPart]);
@@ -1081,6 +1095,54 @@ namespace ic {
         countZee_++;
       }
 
+      if (Quarks.size()==2) foundVBF=true;
+      if (!foundVBF){
+	//loop again to find quarks from W or Z from WWZ and ZZZ vertices.
+	for (unsigned iGenPart = 0; iGenPart < parts.size(); ++iGenPart) {//Loop over gen particles                                                     
+	  int id = parts[iGenPart]->pdgid();
+	  std::vector<bool> flags=parts[iGenPart]->statusFlags();
+	  if (abs(id)>0 && abs(id)<6 && parts[iGenPart]->mothers().size()==1 && (abs(parts[parts[iGenPart]->mothers()[0]]->pdgid())==24 || abs(parts[parts[iGenPart]->mothers()[0]]->pdgid())==23)){
+	    Quarks.push_back(parts[iGenPart]);
+	  }
+
+	}
+	//if (Quarks.size()==2) foundVBF=true;
+      }
+
+
+
+      if (Quarks.size()==2){
+	countQuarks_++;
+	vbf_diquark_m_ = (Quarks[0]->vector()+Quarks[1]->vector()).M();
+	//get genlevel dijet mass
+	unsigned genjet1 = 1000; 
+	unsigned genjet2 = 1000; 
+	double mindr1 = 1000;
+	double mindr2 = 1000;
+	for (unsigned ig(0); ig<genvec.size(); ++ig){
+	  double dr1 = ROOT::Math::VectorUtil::DeltaR(genvec[ig]->vector(),Quarks[0]->vector());
+	  if (dr1<mindr1){
+	    genjet1 = ig;
+	    mindr1=dr1;
+	  }
+	  double dr2 = ROOT::Math::VectorUtil::DeltaR(genvec[ig]->vector(),Quarks[1]->vector());
+	  if (dr2<mindr2){
+	    genjet2 = ig;
+	    mindr2=dr2;
+	  }
+	}
+	if (debug_>1) std::cout << " genjet1/2 " << genjet1 << " " << genjet2 << " mindr1=" << mindr1 << " mindr2=" << mindr2 << std::endl;
+	if (genjet1<genvec.size() && genjet2<genvec.size()){
+	  vbf_digenjet_m_ = (genvec[genjet1]->vector()+genvec[genjet2]->vector()).M();
+	  countGenjets_++;
+	} else {
+	  std::cout << " Warning, event " << event_ << " genjet pair for VBF jets not found! Taking leading pair." << std::endl;
+	  if (genvec.size()>1) vbf_digenjet_m_ = (genvec[0]->vector()+genvec[1]->vector()).M();
+	  std::cout << " Check mass: " << vbf_diquark_m_ << " " << vbf_digenjet_m_ << std::endl;
+	}
+      } else {
+	std::cout << " Problem event " << event_ << " found " << Quarks.size() << " quarks" << std::endl;
+      }
 
       std::sort(genElecs.begin(), genElecs.end(), bind(&Candidate::pt, _1) > bind(&Candidate::pt, _2));
       std::sort(genMus.begin(), genMus.end(), bind(&Candidate::pt, _1) > bind(&Candidate::pt, _2));
@@ -1170,7 +1232,7 @@ namespace ic {
       jet2metnoel_scalarprod_ = (jet2vec.Px()*metnoel_x_+jet2vec.Py()*metnoel_y_)/met_;
 
 
-      if (debug_>1){
+      if (debug_>2){
         std::cout << " Jet1 = ";
         jet1->Print();
         std::cout << " Jet2 = ";
@@ -1258,7 +1320,7 @@ namespace ic {
           jet_genphi_[nJets_]=genvec[genid]->phi();
         }
         nJets_++;
-        if (debug_>1) {
+        if (debug_>2) {
           std::cout << " Jet " << i ;
           jets[i]->Print();
         }
@@ -1419,7 +1481,7 @@ namespace ic {
       fabs(ROOT::Math::VectorUtil::DeltaPhi(jet2vec,unclVec)));
     }
 
-    if (debug_) std::cout << " mht = " << mht_ << std::endl;
+    if (debug_>1) std::cout << " mht = " << mht_ << std::endl;
 
    //////////////////////////////
     // Get Leptons collections //
@@ -1479,6 +1541,7 @@ namespace ic {
     std::vector<std::pair<unsigned,bool> > recotogen_vetotaus;
     recotogen_vetotaus.resize(vetotaus.size(),std::pair<unsigned,bool>(1000,false));
     if (!is_data_) getGenRecoMatches<Tau,Candidate>(vetotaus,genTaus,recotogen_vetotaus);
+
 
     double lep_pt=0;
     double lep_phi=0;
@@ -1699,7 +1762,9 @@ namespace ic {
               << "-- PostAnalysis Info for LightTreeRDM --" << std::endl
               << "----------------------------------------" << std::endl
               << " -- Number of Zmumu at ME level: " << countZmumu_ << std::endl
-              << " -- Number of Zee at ME level: " << countZee_ << std::endl;
+              << " -- Number of Zee at ME level: " << countZee_ << std::endl
+              << " -- Number of VBF Quark pair at ME level: " << countQuarks_ << std::endl
+              << " -- Number of Genjets pair matched to VBF quarks: " << countGenjets_ << std::endl;
 
     return 0;
   }
