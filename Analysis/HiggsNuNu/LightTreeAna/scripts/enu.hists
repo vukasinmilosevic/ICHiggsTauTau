@@ -1,14 +1,14 @@
 n_jets_csv2medium(5,0,5);n_{bjets};Events
 lep_mt(25,0.,250.)	;m_{T}(lepton+MET) (GeV);Events
 ele1_pt(22,20.,350.)	;p_{T}(electron) (GeV);Events
-ele1_eta(20,-2.5,2.5)	;#eta(electron) (GeV);Events
+ele1_eta(20,-2.5,2.5)	;#eta(electron);Events
 n_vertices(40,0,40)	;n_{vtx};Events
 jet1_pt(32,80.,560.)	;p_{T}^{j1} (GeV);Events
 jet2_pt(16,40.,310.)	;p_{T}^{j2} (GeV);Events
 jet1_uncorpt(32,80.,560.)	;uncor p_{T}^{j1} (GeV);Events
 jet2_uncorpt(16,40.,310.)	;uncor p_{T}^{j2} (GeV);Events
-jet1_eta(47,-4.7,4.7)	;#eta^{j1} (GeV);Events
-jet2_eta(47,-4.7,4.7)	;#eta^{j2} (GeV);Events
+jet1_eta(47,-4.7,4.7)	;#eta^{j1};Events
+jet2_eta(47,-4.7,4.7)	;#eta^{j2};Events
 cjvjetpt(19,15.,205.)	;p_{T}^{CJV jet} (GeV);Events
 metnoelectrons(50,0.,500.)	;E_{T,no-el}^{miss} (GeV);Events
 met(30,0.,550.)	;MET (GeV);Events

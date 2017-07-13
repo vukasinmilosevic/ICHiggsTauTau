@@ -2,16 +2,16 @@ n_jets_csv2medium(5,0,5);n_{bjets};Events
 m_mumu(12,60.,120.)	;m_{#mu#mu};Events
 pt_mumu(20,0.,600.)	;p_{T}^{#mu#mu};Events
 mu1_pt(22,20.,360.)	;p_{T}(lead muon) (GeV);Events
-mu1_eta(30,-2.5,2.5)	;#eta(lead muon) (GeV);Events
+mu1_eta(30,-2.5,2.5)	;#eta(lead muon);Events
 mu2_pt(17,20.,275.)	;p_{T}(sublead muon) (GeV);Events
-mu2_eta(30,-2.5,2.5)	;#eta(sublead muon) (GeV);Events 
+mu2_eta(30,-2.5,2.5)	;#eta(sublead muon);Events 
 n_vertices(20,0,40)	;n_{vtx};Events
 jet1_pt(28,80.,500.)	;p_{T}^{j1} (GeV);Events
 jet2_pt(12,40.,250.)	;p_{T}^{j2} (GeV);Events
 jet1_uncorpt(28,80.,500.)	;uncor p_{T}^{j1} (GeV);Events
 jet2_uncorpt(12,40.,250.)	;uncor p_{T}^{j2} (GeV);Events
-jet1_eta(25,-5,5)	;#eta^{j1} (GeV);Events
-jet2_eta(25,-5,5)	;#eta^{j2} (GeV);Events
+jet1_eta(25,-5,5)	;#eta^{j1};Events
+jet2_eta(25,-5,5)	;#eta^{j2};Events
 cjvjetpt(19,15.,205.)	;p_{T}^{CJV jet} (GeV);Events
 met(20,0.,550.)	;MET (GeV);Events
 ht(20,100,1000)	;H_{T}^{p_{T}^{j}>15 GeV} (GeV);Events

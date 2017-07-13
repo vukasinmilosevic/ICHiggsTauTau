@@ -7,7 +7,7 @@ PRODUCTION=170201
 PRODUSER=rdimaria
 JPTCUTVAL=40
 
-DATE=170707
+DATE=170712_new
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -34,7 +34,7 @@ CONFIG=scripts/DefaultLightTreeConfig_mc.cfg
 
 
 
-for SYST in central JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
+for SYST in central #JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 ## Do not use till new JEC #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 #for SYST in JERBETTER JERWORSE
 ## For CMS_scale_met uncertainty
@@ -161,11 +161,11 @@ for SYST in central JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE I
 
   cp $CONFIG $OUTPUTDIR
 
-  for QUEUEDIR in short medium
+  for QUEUEDIR in short_new medium_new
     do
     if [ "$DOCERN" = "0" ]
       then
-      if [ "$QUEUEDIR" = "medium" ]
+      if [ "$QUEUEDIR" = "medium_new" ]
         then
         JOBQUEUE="5:59:0"
       elif [ "$QUEUEDIR" = "long" ]
@@ -175,7 +175,7 @@ for SYST in central JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE I
         JOBQUEUE="2:59:0"
       fi
     else
-      if [ "$QUEUEDIR" = "medium" ]
+      if [ "$QUEUEDIR" = "medium_new" ]
         then
         JOBQUEUE="1nd"
       elif [ "$QUEUEDIR" = "long" ]
