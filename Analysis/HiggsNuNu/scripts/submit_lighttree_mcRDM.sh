@@ -193,6 +193,7 @@ for SYST in central #JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE 
 
     for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
     ## For quick tests
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*EWK*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJetsToLNu*.dat`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*ToNuNu*`
