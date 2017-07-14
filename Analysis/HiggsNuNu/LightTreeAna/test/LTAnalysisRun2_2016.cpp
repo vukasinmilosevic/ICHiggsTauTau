@@ -1022,7 +1022,7 @@ int main(int argc, char* argv[]){
     thisshape.set_legright(0.89);
 
 
-    if (strs=="forward_tag_eta"){
+    if (strs=="forward_tag_eta"||strs=="central_tag_eta"){
       thisshape.set_legleft(0.39);
       thisshape.set_legright(0.61);
     }

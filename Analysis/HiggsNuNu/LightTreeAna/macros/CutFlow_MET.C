@@ -5,20 +5,34 @@
 #include "TCanvas.h"
 #include "TFile.h"
 #include "TTree.h"
+#include "TChain.h"
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TLatex.h"
 #include "TStyle.h"
 #include "TMath.h"
+#include "TFileCollection.h"
+#include "TTreePlayer.h"
 
 int CutFlow_MET(){
 
   bool doCR = false;
 
+  system("./list_command.sh");
+
+  TChain *MET_old_chain = new TChain("LightTree","");
+  TChain *MET_new_chain = new TChain("LightTree","");
+
+  TFileCollection MET_old_fc("dum","","MET_old.txt");
+  TFileCollection MET_new_fc("dum","","MET_new.txt");
+
+  MET_old_chain->AddFileInfoList((TCollection*)MET_old_fc.GetList());
+  MET_new_chain->AddFileInfoList((TCollection*)MET_new_fc.GetList());
+
   const unsigned nF = 2;
-  TFile *fin[nF];
-  fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MET_old.root");
-  fin[1] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MET_new.root");
+//   TFile *fin[nF];
+//   fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MET_old.root");
+//   fin[1] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MET_new.root");
 //   fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MC_EWKZ2Jets_ZToNuNu.root");
 //   fin[1] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MC_EWKWPlus2Jets_WToLNu.root");
 //   fin[2] = TFile::Open("/vols/cms/rd1715/HiggsToInv/EventListStudy/MC_EWKZ2Jets_ZToLL.root");
@@ -77,9 +91,12 @@ int CutFlow_MET(){
   //TH2F *hsummary = new TH2F("hsummary",";run;cut",6,-1.5,4.5,nC,0,nC);
 
   for (unsigned iF(0); iF<nF; ++iF){
-    fin[iF]->cd();
-    std::cout << " -- File " << fin[iF]->GetName() << std::endl;
-    TTree *tree = (TTree*)gDirectory->Get("LightTree");
+//     fin[iF]->cd();
+//     std::cout << " -- File " << fin[iF]->GetName() << std::endl;
+//     TTree *tree = (TTree*)gDirectory->Get("LightTree");
+    TChain *tree;
+    if (iF==0) tree = MET_old_chain;
+    if (iF==1) tree = MET_new_chain;
     std::string mumu_lcut;
     std::string munu_lcut;
     double previous = tree->GetEntries();

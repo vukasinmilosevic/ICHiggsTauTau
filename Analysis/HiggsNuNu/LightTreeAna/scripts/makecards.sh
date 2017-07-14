@@ -5,7 +5,7 @@ if [ "$#" -ne "2" ]; then
   exit 0
 fi
 
-DATE=170710_forSync
+DATE=170712_70_200
 
 DOSUBMIT=$1
 DO4PARAMS=$2

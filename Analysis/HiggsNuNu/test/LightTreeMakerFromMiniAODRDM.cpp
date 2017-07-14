@@ -101,7 +101,7 @@ int main(int argc, char* argv[]){
   bool donoskim;                  // Do no skimming
 
   string mettype;                 // MET input collection to be used
-  string pfmettype;             // Calo MET input collection to be used
+  string pfmettype;               // Calo MET input collection to be used
   string jettype;                 // JET input collection to be used
   string jesuncfile;              // File to get JES uncertainties from
   bool reapplyJEC;                // Reapply JEC from txt files
@@ -161,7 +161,7 @@ int main(int argc, char* argv[]){
     ("dojetEtaCut",           po::value<bool>(&dojetEtaCut)->default_value(false))
     ("is_data",               po::value<bool>(&is_data)->required())
     ("mettype",               po::value<string>(&mettype)->default_value("pfMetType1"))
-    ("pfmettype",             po::value<string>(&pfmettype)->default_value("pfMetType1"))
+    ("pfmettype",             po::value<string>(&pfmettype)->default_value("pfMetType1Collection"))
     ("jet1ptcut",             po::value<double>(&jet1ptcut)->default_value(0.))
     ("jet2ptcut",             po::value<double>(&jet2ptcut)->default_value(0.))
     ("jetptprecut",           po::value<double>(&jetptprecut)->default_value(15.))
