@@ -438,7 +438,7 @@ int main(int argc, char* argv[]){
     .set_type("constlnN")
 //     .set_type("fromfilelnN")
     .set_procsaffected(do_run2?allprocs:allprocsnotqcd)
-    .set_constvalue(1.015);
+    .set_constvalue(1.02);
 //     .set_uptfile(trigup)
 //     .set_downtfile(trigdown);
 
@@ -1187,6 +1187,7 @@ int main(int argc, char* argv[]){
   else std::cout<<"Getting observation"<<std::endl;
   //OBSERVATION
   TDirectory* dir;
+  int dataobs;
   if(!blind){
     std::string dirname="data_obs";
     if(dirname==""){
@@ -1232,6 +1233,7 @@ int main(int argc, char* argv[]){
     }
     datacard<<"observation "<<rate<<std::endl;
     std::cout<<"observation "<<rate<<std::endl;
+    dataobs = (int)rate;
   }
   else{
     double totalbkgs=0;
@@ -1268,7 +1270,7 @@ int main(int argc, char* argv[]){
     if(do_qcdfromnumber) totalbkgs+=qcdrate;
     datacard<<"observation "<<totalbkgs<<std::endl;
     std::cout<<"observation "<<totalbkgs<<std::endl;
-
+    dataobs = (int)totalbkgs;
   }
 
   //Bin information and process names
@@ -1800,26 +1802,48 @@ int main(int argc, char* argv[]){
       printf("  %s: %.1f +- %.1f (stat.) +- %.1f (syst.)\n",bkgprocesses[iProc].c_str(),bkgcentralrates[iProc],procstattotal[bkgprocesses[iProc]]*bkgcentralrates[iProc],procsysttotal[bkgprocesses[iProc]]*bkgcentralrates[iProc]);
     }  
   }
-  else{
-    std::cout<<"\\begin{tabular}{|l|c|}"<<std::endl;
-    std::cout<<"\\hline"<<std::endl;
-    std::cout<<"Background       & $N_{est} \\pm (stat) \\pm (syst)$ \\\\"<<std::endl;
-    std::cout<<"\\hline"<<std::endl;
-    for(unsigned iProc=0;iProc<(bkgprocesses.size());iProc++){
-      printf("%s&$%.1f \\pm %.1f \\pm %.1f$\\\\\n",bkgprocesslatex[iProc].c_str(),bkgcentralrates[iProc],procstattotal[bkgprocesses[iProc]]*bkgcentralrates[iProc],procsysttotal[bkgprocesses[iProc]]*bkgcentralrates[iProc]);
-    }  
-    if(do_qcdfromnumber){
-      std::cout<<"QCD multijet &$"<<qcdrate<<"\\pm 0 \\pm"<<qcdabserr<<"$\\\\"<<std::endl;
-    }
-    std::cout<<"\\hline"<<std::endl;
-    printf("Total Background &$%.1f \\pm %.1f \\pm %.1f $\\\\\n",bkgtotal,totalbkgstat,totalbkgsyst);
-    std::cout<<"\\hline"<<std::endl;
-    for(unsigned iProc=0;iProc<(sigprocesses.size());iProc++){
-      printf("%s &$%.1f \\pm %.1f \\pm %.1f $\\\\\n",sigprocesslatex[iProc].c_str(),sigcentralrates[iProc],procstattotal[sigprocesses[iProc]]*sigcentralrates[iProc],procsysttotal[sigprocesses[iProc]]*sigcentralrates[iProc]);
-    }  
-    std::cout<<"\\hline"<<std::endl;
-    std::cout<<"\\end{tabular}"<<std::endl;
+//   else{
+//     std::cout<<"\\begin{tabular}{|l|c|}"<<std::endl;
+//     std::cout<<"\\hline"<<std::endl;
+//     std::cout<<"Background       & $N_{est} \\pm (stat) \\pm (syst)$ \\\\"<<std::endl;
+//     std::cout<<"\\hline"<<std::endl;
+//     for(unsigned iProc=0;iProc<(bkgprocesses.size());iProc++){
+//       printf("%s&$%.1f \\pm %.1f \\pm %.1f$\\\\\n",bkgprocesslatex[iProc].c_str(),bkgcentralrates[iProc],procstattotal[bkgprocesses[iProc]]*bkgcentralrates[iProc],procsysttotal[bkgprocesses[iProc]]*bkgcentralrates[iProc]);
+//     }  
+//     if(do_qcdfromnumber){
+//       std::cout<<"QCD multijet &$"<<qcdrate<<"\\pm 0 \\pm"<<qcdabserr<<"$\\\\"<<std::endl;
+//     }
+//     std::cout<<"\\hline"<<std::endl;
+//     printf("Total Background &$%.1f \\pm %.1f \\pm %.1f $\\\\\n",bkgtotal,totalbkgstat,totalbkgsyst);
+//     std::cout<<"\\hline"<<std::endl;
+//     for(unsigned iProc=0;iProc<(sigprocesses.size());iProc++){
+//       printf("%s &$%.1f \\pm %.1f \\pm %.1f $\\\\\n",sigprocesslatex[iProc].c_str(),sigcentralrates[iProc],procstattotal[sigprocesses[iProc]]*sigcentralrates[iProc],procsysttotal[sigprocesses[iProc]]*sigcentralrates[iProc]);
+//     }  
+//     std::cout<<"\\hline"<<std::endl;
+//     std::cout<<"\\end{tabular}"<<std::endl;
+//   }
+else{
+  std::cout<<"\\begin{tabular}{|l|c|}"<<std::endl;
+  std::cout<<"\\hline"<<std::endl;
+  std::cout<<"Background       & $N_{est} \\pm (stat+syst)$ \\\\"<<std::endl;
+  std::cout<<"\\hline"<<std::endl;
+  for(unsigned iProc=0;iProc<(bkgprocesses.size());iProc++){
+    printf("%s&$%.1f \\pm %.1f$\\\\\n",bkgprocesslatex[iProc].c_str(),bkgcentralrates[iProc],procsysttotal[bkgprocesses[iProc]]*bkgcentralrates[iProc]);
+  }  
+  if(do_qcdfromnumber){
+    std::cout<<"QCD multijet &$"<<qcdrate<<" \\pm"<<qcdabserr<<"$\\\\"<<std::endl;
   }
+  std::cout<<"\\hline"<<std::endl;
+  printf("Total Background &$%.1f \\pm %.1f $\\\\\n",bkgtotal,totalbkgsyst);
+  std::cout<<"\\hline"<<std::endl;
+  for(unsigned iProc=0;iProc<(sigprocesses.size());iProc++){
+    printf("%s &$%.1f \\pm %.1f $\\\\\n",sigprocesslatex[iProc].c_str(),sigcentralrates[iProc],procsysttotal[sigprocesses[iProc]]*sigcentralrates[iProc]);
+  }
+  printf("Data & $%d$\\\\\n",dataobs);
+  std::cout<<"\\hline"<<std::endl;
+  std::cout<<"\\hline"<<std::endl;
+  std::cout<<"\\end{tabular}"<<std::endl;
+}
 
 datacard<<std::endl;
 datacard<<std::endl;
