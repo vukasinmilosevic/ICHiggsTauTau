@@ -64,8 +64,8 @@ namespace ic {
     double v_nlo_Reweight_;
     double ewk_v_nlo_Reweight_;
 
-    double weight_eleVeto_[5];
-    double weight_muVeto_[7];
+    double weight_eleVeto_[7];
+    double weight_muVeto_[9];
     double weight_eleTight_[3];
     double weight_gsfTight_[3];
     double weight_muidTight_[3];
@@ -258,6 +258,8 @@ namespace ic {
     double gen_mu1_phi_;
     double gen_mu1_mindR_j1_;
     double gen_mu1_mindR_j2_;
+    double gen_mu2_pt_;
+    double gen_mu2_eta_;
 
 
     double mu1_pt_;
@@ -285,6 +287,8 @@ namespace ic {
     double gen_ele1_phi_;
     double gen_ele1_mindR_j1_;
     double gen_ele1_mindR_j2_;
+    double gen_ele2_pt_;
+    double gen_ele2_eta_;
 
 
     double ele1_pt_;
