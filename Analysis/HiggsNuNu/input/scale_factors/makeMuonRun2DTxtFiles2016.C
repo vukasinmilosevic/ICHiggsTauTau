@@ -64,10 +64,10 @@ int makeMuonRun2DTxtFiles2016(){//main
   }//loop on eta bin
 
   lOut_ratios.close();
-  return 1;
+  //return 1;
 
 
-  double lumi[2] = {20.2,16.6};
+  double lumi[2] = {19.721,16.146};
   double totlumi = lumi[0]+lumi[1];
 
   //looseID
