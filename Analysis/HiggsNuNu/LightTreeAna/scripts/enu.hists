@@ -10,13 +10,13 @@ jet2_uncorpt(16,40.,310.)	;uncor p_{T}^{j2} (GeV);Events
 jet1_eta(47,-4.7,4.7)	;#eta^{j1};Events
 jet2_eta(47,-4.7,4.7)	;#eta^{j2};Events
 cjvjetpt(19,15.,205.)	;p_{T}^{CJV jet} (GeV);Events
-metnoelectrons(50,0.,500.)	;E_{T,no-el}^{miss} (GeV);Events
+metnoelectrons(50,200.,1200.)	;E_{T,no-el}^{miss} (GeV);Events
 met(30,0.,550.)	;MET (GeV);Events
 ht(30,100,1000)	;H_{T}^{p_{T}^{j}>15 GeV} (GeV);Events
 ht30(30,100,1000)	;H_{T}^{p_{T}^{j}>30 GeV} (GeV);Events
-dijet_M(20,800.,3500.)	;M_{jj} (GeV);Events
+dijet_M(40,1300.,5300.)	;M_{jj} (GeV);Events
 dijet_dphi(20,0.,3.1416)	;#Delta#phi_{jj};Events
-dijet_deta(20,3.6,6.5)	;#Delta#eta_{jj};Events
+dijet_deta(20,4.0,8.0)	;#Delta#eta_{jj};Events
 dijet_sumeta(30,-5,5)	;#eta_{j1}+#eta_{j2};Events
 jetmetnoel_mindphi(20,0.,3.1416)	;#Delta#phi(E_{T}^{miss},j_{1,2});Events
 fourjetsmetnoel_mindphi(20,0,3.1416)	;#Delta#phi(E_{T,no-el}^{miss},j);Events
