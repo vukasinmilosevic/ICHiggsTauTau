@@ -101,18 +101,16 @@ namespace ic {
     weight_xsection_=1;
     for (unsigned err(0); err<3;++err){
       weight_eletrigEff_[err] = 1;
-      weight_eleVeto_[err] = 1;
       weight_eleTight_[err] = 1;
       weight_gsfTight_[err] = 1;
       weight_muidTight_[err] = 1;
       weight_muisoTight_[err] = 1;
       weight_mutkTight_[err] = 1;
     }
-    for (unsigned err(0); err<7;++err){
+    for (unsigned err(0); err<9;++err){
       weight_muVeto_[err] = 1;
+      if (err<7) weight_eleVeto_[err] = 1; 
     }
-    weight_eleVeto_[3] = 1;
-    weight_eleVeto_[4] = 1;
 
     weight_0b_alljets_ = 1;
     weight_0bup_alljets_ = 1;
@@ -283,6 +281,8 @@ namespace ic {
     gen_mu1_phi_=-5;
     gen_mu1_mindR_j1_=99;
     gen_mu1_mindR_j2_=99;
+    gen_mu2_pt_=-1;
+    gen_mu2_eta_=-5;
 
     mu1_pt_=-1;
     mu1_eta_=-5;
@@ -308,6 +308,8 @@ namespace ic {
     gen_ele1_phi_=-5;
     gen_ele1_mindR_j1_=99;
     gen_ele1_mindR_j2_=99;
+    gen_ele2_pt_=-1;
+    gen_ele2_eta_=-5;
 
 
     ele1_pt_=-1;
@@ -419,6 +421,8 @@ namespace ic {
     outputTree_->Branch("weight_eleVeto_down",&weight_eleVeto_[2]);
     outputTree_->Branch("weight_eleVeto_gsfup",&weight_eleVeto_[3]);
     outputTree_->Branch("weight_eleVeto_gsfdown",&weight_eleVeto_[4]);
+    outputTree_->Branch("weight_eleVeto_allup",&weight_eleVeto_[5]);
+    outputTree_->Branch("weight_eleVeto_alldown",&weight_eleVeto_[6]);
     outputTree_->Branch("weight_eleTight",&weight_eleTight_[0]);
     outputTree_->Branch("weight_eleTight_up",&weight_eleTight_[1]);
     outputTree_->Branch("weight_eleTight_down",&weight_eleTight_[2]);
@@ -432,6 +436,8 @@ namespace ic {
     outputTree_->Branch("weight_muVeto_isodown",&weight_muVeto_[4]);
     outputTree_->Branch("weight_muVeto_tkup",&weight_muVeto_[5]);
     outputTree_->Branch("weight_muVeto_tkdown",&weight_muVeto_[6]);
+    outputTree_->Branch("weight_muVeto_allup",&weight_muVeto_[7]);
+    outputTree_->Branch("weight_muVeto_alldown",&weight_muVeto_[8]);
     outputTree_->Branch("weight_muidTight",&weight_muidTight_[0]);
     outputTree_->Branch("weight_muidTight_up",&weight_muidTight_[1]);
     outputTree_->Branch("weight_muidTight_down",&weight_muidTight_[2]);
@@ -677,12 +683,16 @@ namespace ic {
     outputTree_->Branch("gen_mu1_phi",      &gen_mu1_phi_);
     outputTree_->Branch("gen_mu1_mindR_j1", &gen_mu1_mindR_j1_);
     outputTree_->Branch("gen_mu1_mindR_j2", &gen_mu1_mindR_j2_);
+    outputTree_->Branch("gen_mu2_pt",       &gen_mu2_pt_);
+    outputTree_->Branch("gen_mu2_eta",      &gen_mu2_eta_);
 
     outputTree_->Branch("gen_ele1_pt",      &gen_ele1_pt_);
     outputTree_->Branch("gen_ele1_eta",     &gen_ele1_eta_);
     outputTree_->Branch("gen_ele1_phi",     &gen_ele1_phi_);
     outputTree_->Branch("gen_ele1_mindR_j1",&gen_ele1_mindR_j1_);
     outputTree_->Branch("gen_ele1_mindR_j2",&gen_ele1_mindR_j2_);
+    outputTree_->Branch("gen_ele2_pt",      &gen_ele2_pt_);
+    outputTree_->Branch("gen_ele2_eta",     &gen_ele2_eta_);
 
 
     // lheParticles
@@ -825,6 +835,8 @@ namespace ic {
       weight_eleVeto_[2] = eventInfo->weight("eleVeto_idisoSF_down");
       weight_eleVeto_[3] = eventInfo->weight("eleVeto_gsfSF_up");
       weight_eleVeto_[4] = eventInfo->weight("eleVeto_gsfSF_down");
+      weight_eleVeto_[5] = eventInfo->weight("eleVeto_up");
+      weight_eleVeto_[6] = eventInfo->weight("eleVeto_down");
       weight_eleTight_[0] = eventInfo->weight("eleTight_idisoSF");
       weight_eleTight_[1] = eventInfo->weight("eleTight_idisoSF_up");
       weight_eleTight_[2] = eventInfo->weight("eleTight_idisoSF_down");
@@ -838,6 +850,8 @@ namespace ic {
       weight_muVeto_[4] = eventInfo->weight("muVeto_isoSF_down");
       weight_muVeto_[5] = eventInfo->weight("muVeto_tkSF_up");
       weight_muVeto_[6] = eventInfo->weight("muVeto_tkSF_down");
+      weight_muVeto_[7] = eventInfo->weight("muVeto_up");
+      weight_muVeto_[8] = eventInfo->weight("muVeto_down");
       weight_muidTight_[0] = eventInfo->weight("muTight_idSF");
       weight_muidTight_[1] = eventInfo->weight("muTight_idSF_up");
       weight_muidTight_[2] = eventInfo->weight("muTight_idSF_down");
@@ -1155,12 +1169,20 @@ namespace ic {
         gen_ele1_pt_       = genElecs[0]->pt();
         gen_ele1_eta_      = genElecs[0]->eta();
         gen_ele1_phi_      = genElecs[0]->phi();
+	if (genElecs.size()>1){
+        gen_ele2_pt_       = genElecs[1]->pt();
+        gen_ele2_eta_      = genElecs[1]->eta();
+	}
       }
 
       if(genMus.size()   != 0){
         gen_mu1_pt_        = genMus[0]->pt();
         gen_mu1_eta_       = genMus[0]->eta();
         gen_mu1_phi_       = genMus[0]->phi();
+	if(genMus.size() > 1){
+	  gen_mu2_pt_        = genMus[1]->pt();
+	  gen_mu2_eta_       = genMus[1]->eta();
+	}
       }
 
 

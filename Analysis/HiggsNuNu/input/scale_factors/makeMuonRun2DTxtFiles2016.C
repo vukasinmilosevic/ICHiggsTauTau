@@ -66,7 +66,6 @@ int makeMuonRun2DTxtFiles2016(){//main
   lOut_ratios.close();
   //return 1;
 
-
   double lumi[2] = {19.721,16.146};
   double totlumi = lumi[0]+lumi[1];
 
@@ -176,7 +175,7 @@ int makeMuonRun2DTxtFiles2016(){//main
 
   for (unsigned iWP(0);iWP<nP;++iWP){//loop on WP
     std::cout << lFileName[iWP] << std::endl;    
-    //double valcheck[3][nEta][nPt];
+    double valcheck[3][nEta][nPt];
 
     for (unsigned iData(0);iData<3;++iData){//loop on data type: data, MC, SF
       lName.str("");
@@ -202,7 +201,7 @@ int makeMuonRun2DTxtFiles2016(){//main
       for (unsigned iEta(0); iEta<nEta; ++iEta){//loop on eta bin
 	for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
 	  double val = hist_muon[iWP][iData]->GetBinContent(iEta+1,iPt+1);
-	  //valcheck[iData][iEta][iPt] = val;
+	  valcheck[iData][iEta][iPt] = val;
 	  double err = hist_muon[iWP][iData]->GetBinError(iEta+1,iPt+1);
 	  //apply extra syst only on SF or data
           if (iData!=1) err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
@@ -214,11 +213,14 @@ int makeMuonRun2DTxtFiles2016(){//main
       lOut.close();
     }//loop on data type
 
-    //for (unsigned iEta(0); iEta<nEta; ++iEta){//loop on eta bin
-    //for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
-    //	std::cout << " Check: " << valcheck[2][iEta][iPt] << " data/MC " << valcheck[0][iEta][iPt]/valcheck[1][iEta][iPt] << std::endl;
-    //}
-    //}
+    if (iWP==0 || iWP==2){
+      for (unsigned iEta(0); iEta<nEta; ++iEta){//loop on eta bin
+	for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
+	  if ( (valcheck[2][iEta][iPt]-valcheck[0][iEta][iPt]/valcheck[1][iEta][iPt]) > 0.001) std::cout << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " Check SF: " << valcheck[2][iEta][iPt] << " data/MC " << valcheck[0][iEta][iPt]/valcheck[1][iEta][iPt] << std::endl;
+	  std::cout << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " SF " << valcheck[0][iEta][iPt] << " / " << valcheck[1][iEta][iPt] << " veto: " << (1-valcheck[0][iEta][iPt])<< " / " << (1-valcheck[1][iEta][iPt]) << " " << (1-valcheck[0][iEta][iPt])/(1-valcheck[1][iEta][iPt]) << std::endl;
+	}
+      }
+    }
 
   }//loop on WP
   
