@@ -174,9 +174,9 @@ int makeMuonRun2DTxtFiles2016(){//main
 
   std::ostringstream lName;
 
+  double valcheck[nP][3][nEta][nPt];
   for (unsigned iWP(0);iWP<nP;++iWP){//loop on WP
     std::cout << lFileName[iWP] << std::endl;    
-    double valcheck[3][nEta][nPt];
 
     for (unsigned iData(0);iData<3;++iData){//loop on data type: data, MC, SF
       lName.str("");
@@ -190,6 +190,15 @@ int makeMuonRun2DTxtFiles2016(){//main
 	  double err = hist_muon[iWP][iData]->GetBinError(iEta,iPt+1);
 	  //apply extra syst only on SF or data
           if (iData!=1) err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
+
+	  //round SF to within unc.
+	  if (iData==2) {
+	    if (err*10>=1) {err = static_cast<int>(err*10+0.5)/10.;val = static_cast<int>(val*10+0.5)/10.;}
+	    else if (err*100>=1){err = static_cast<int>(err*100+0.5)/100.;val = static_cast<int>(val*100+0.5)/100.;}
+	    else if (err*1000>=1){err = static_cast<int>(err*1000+0.5)/1000.;val = static_cast<int>(val*1000+0.5)/1000.;}
+	    else if (err*10000>=1){err = static_cast<int>(err*10000+0.5)/10000.;val = static_cast<int>(val*10000+0.5)/10000.;}
+	  }
+
 	  std::ostringstream lstr;
 	  lstr << ptMin[iPt] << " " << ptMax[iPt] << " " << -etaMax[iEta-1] << " " << -etaMin[iEta-1] << " " << val << " " << err << " " << err << std::endl;
 	  lOut << lstr.str();
@@ -202,10 +211,19 @@ int makeMuonRun2DTxtFiles2016(){//main
       for (unsigned iEta(0); iEta<nEta; ++iEta){//loop on eta bin
 	for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
 	  double val = hist_muon[iWP][iData]->GetBinContent(iEta+1,iPt+1);
-	  valcheck[iData][iEta][iPt] = val;
 	  double err = hist_muon[iWP][iData]->GetBinError(iEta+1,iPt+1);
 	  //apply extra syst only on SF or data
           if (iData!=1) err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
+
+	  //round SF to within unc.
+	  if (iData==2) {
+	    if (err*10>=1) {err = static_cast<int>(err*10+0.5)/10.;val = static_cast<int>(val*10+0.5)/10.;}
+	    else if (err*100>=1){err = static_cast<int>(err*100+0.5)/100.;val = static_cast<int>(val*100+0.5)/100.;}
+	    else if (err*1000>=1){err = static_cast<int>(err*1000+0.5)/1000.;val = static_cast<int>(val*1000+0.5)/1000.;}
+	    else if (err*10000>=1){err = static_cast<int>(err*10000+0.5)/10000.;val = static_cast<int>(val*10000+0.5)/10000.;}
+	  }
+	  valcheck[iWP][iData][iEta][iPt] = val;
+
 	  lOut << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " " << val << " " << err << " " << err << std::endl;
 	}//loop on pT bins
 	
@@ -214,16 +232,15 @@ int makeMuonRun2DTxtFiles2016(){//main
       lOut.close();
     }//loop on data type
 
-    if (iWP==0 || iWP==2){
-      for (unsigned iEta(0); iEta<nEta; ++iEta){//loop on eta bin
-	for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
-	  if ( (valcheck[2][iEta][iPt]-valcheck[0][iEta][iPt]/valcheck[1][iEta][iPt]) > 0.001) std::cout << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " Check SF: " << valcheck[2][iEta][iPt] << " data/MC " << valcheck[0][iEta][iPt]/valcheck[1][iEta][iPt] << std::endl;
-	  std::cout << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " SF " << valcheck[0][iEta][iPt] << " / " << valcheck[1][iEta][iPt] << " veto: " << (1-valcheck[0][iEta][iPt])<< " / " << (1-valcheck[1][iEta][iPt]) << " " << (1-valcheck[0][iEta][iPt])/(1-valcheck[1][iEta][iPt]) << std::endl;
-	}
-      }
-    }
-
   }//loop on WP
+
+  for (unsigned iEta(0); iEta<nEta; ++iEta){//loop on eta bin
+    for (unsigned iPt(0); iPt<nPt; ++iPt){//loop on pT bins
+      //if ( (valcheck[iWP][2][iEta][iPt]-valcheck[iWP][0][iEta][iPt]/valcheck[iWP][1][iEta][iPt]) > 0.01) std::cout << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " Check SF: " << valcheck[iWP][2][iEta][iPt] << " data/MC " << valcheck[iWP][0][iEta][iPt]/valcheck[iWP][1][iEta][iPt] << std::endl;
+      std::cout << ptMin[iPt] << " " << ptMax[iPt] << " " << etaMin[iEta] << " " << etaMax[iEta] << " SFid " << valcheck[0][2][iEta][iPt] << " SFiso " << valcheck[2][2][iEta][iPt]  << " veto: " << (1-valcheck[0][2][iEta][iPt]*valcheck[0][1][iEta][iPt]*valcheck[2][2][iEta][iPt]*valcheck[2][1][iEta][iPt])<< " / " << (1-valcheck[0][1][iEta][iPt]*valcheck[2][1][iEta][iPt]) << " " << (1-valcheck[0][2][iEta][iPt]*valcheck[0][1][iEta][iPt]*valcheck[2][2][iEta][iPt]*valcheck[2][1][iEta][iPt])/(1-valcheck[0][1][iEta][iPt]*valcheck[2][1][iEta][iPt]) << std::endl;
+    }
+  }
+
   
   return 0;
 
