@@ -192,7 +192,7 @@ int makeMuonRun2DTxtFiles2016(){//main
           if (iData!=1) err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
 
 	  //round SF to within unc.
-	  if (iData==2) {
+	  if (iData==2 && (iWP==0 || iWP==2)) {
 	    if (err*10>=1) {err = static_cast<int>(err*10+0.5)/10.;val = static_cast<int>(val*10+0.5)/10.;}
 	    else if (err*100>=1){err = static_cast<int>(err*100+0.5)/100.;val = static_cast<int>(val*100+0.5)/100.;}
 	    else if (err*1000>=1){err = static_cast<int>(err*1000+0.5)/1000.;val = static_cast<int>(val*1000+0.5)/1000.;}
@@ -216,7 +216,7 @@ int makeMuonRun2DTxtFiles2016(){//main
           if (iData!=1) err = sqrt(pow(err,2)+pow(lSystematic[iWP],2));
 
 	  //round SF to within unc.
-	  if (iData==2) {
+	  if (iData==2 && (iWP==0 || iWP==2)) {
 	    if (err*10>=1) {err = static_cast<int>(err*10+0.5)/10.;val = static_cast<int>(val*10+0.5)/10.;}
 	    else if (err*100>=1){err = static_cast<int>(err*100+0.5)/100.;val = static_cast<int>(val*100+0.5)/100.;}
 	    else if (err*1000>=1){err = static_cast<int>(err*1000+0.5)/1000.;val = static_cast<int>(val*1000+0.5)/1000.;}
