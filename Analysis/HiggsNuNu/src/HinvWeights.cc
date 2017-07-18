@@ -292,6 +292,8 @@ namespace ic {//namespace
       fillVector("input/scale_factors/Summer16_80X_gsf_id_mc_eff.txt",3,30,e_gsfidMCEff_,dummypt,dummyeta,true);
 
       fillVector("input/scale_factors/Summer16_80X_mu_tight_iso_SF.txt",6,8,muTight_isoSF_,dummypt,dummyeta,false);
+      fillVector("input/scale_factors/Summer16_80X_mu_loose_id_SF.txt",6,8,muVeto_idSF_,dummypt,dummyeta,false);
+      fillVector("input/scale_factors/Summer16_80X_mu_loose_iso_SF.txt",6,8,muVeto_isoSF_,dummypt,dummyeta,false);
       fillVector("input/scale_factors/Summer16_80X_mu_loose_id_data_eff.txt",6,8,muVeto_idDataEff_,dummypt,dummyeta,true);
       fillVector("input/scale_factors/Summer16_80X_mu_loose_iso_data_eff.txt",6,8,muVeto_isoDataEff_,dummypt,dummyeta,true);
       fillVector("input/scale_factors/Summer16_80X_mu_loose_id_mc_eff.txt",6,8,muVeto_idMCEff_,dummypt,dummyeta,true);
@@ -671,21 +673,21 @@ namespace ic {//namespace
           unsigned lBin = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),mu_ptbin_,mu_etabin_);
           unsigned lBinTk = findPtEtaBin(genParts[iEle]->pt(),genParts[iEle]->eta(),tk_ptbin_,tk_etabin_);
 	  for (unsigned err(0); err<3;++err){
-	    mu_veto_weight[err] *= (1-(muVeto_idDataEff_[err][lBin]*muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
+	    mu_veto_weight[err] *= (1-(muVeto_idSF_[err][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[0][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[0][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
 	    //mu_veto_weight[err] *= (1-(muVeto_idDataEff_[err][lBin]*muVeto_isoDataEff_[0][lBin]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
 	  }
-	  mu_veto_weight[3] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[1][lBin]*mu_tkSF_[0][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
-	  mu_veto_weight[4] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[2][lBin]*mu_tkSF_[0][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
-	  mu_veto_weight[5] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*mu_tkSF_[1][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
-	  mu_veto_weight[6] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*mu_tkSF_[2][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
-	  double sumsqunc = sqrt(pow(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*(mu_tkSF_[1][lBinTk]-mu_tkSF_[0][lBinTk]),2)
-				 +pow(muVeto_idDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_isoDataEff_[1][lBin]-muVeto_isoDataEff_[0][lBin]),2)+
-				 pow(muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_idDataEff_[1][lBin]-muVeto_idDataEff_[0][lBin]),2));
-	  mu_veto_weight[7] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]+sumsqunc))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
-	  sumsqunc = sqrt(pow(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*(mu_tkSF_[2][lBinTk]-mu_tkSF_[0][lBinTk]),2)
-			  +pow(muVeto_idDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_isoDataEff_[2][lBin]-muVeto_isoDataEff_[0][lBin]),2)+
-			  pow(muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_idDataEff_[2][lBin]-muVeto_idDataEff_[0][lBin]),2));
-	  mu_veto_weight[8] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]-sumsqunc))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
+	  mu_veto_weight[3] *= (1-(muVeto_idSF_[0][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[1][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[0][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
+	  mu_veto_weight[4] *= (1-(muVeto_idSF_[0][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[2][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[0][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
+	  mu_veto_weight[5] *= (1-(muVeto_idSF_[0][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[0][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[1][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
+	  mu_veto_weight[6] *= (1-(muVeto_idSF_[0][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[0][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[2][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
+	  //double sumsqunc = sqrt(pow(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*(mu_tkSF_[1][lBinTk]-mu_tkSF_[0][lBinTk]),2)
+	  //			 +pow(muVeto_idDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_isoDataEff_[1][lBin]-muVeto_isoDataEff_[0][lBin]),2)+
+	  //			 pow(muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_idDataEff_[1][lBin]-muVeto_idDataEff_[0][lBin]),2));
+	//mu_veto_weight[7] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]+sumsqunc))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
+	//sumsqunc = sqrt(pow(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*(mu_tkSF_[2][lBinTk]-mu_tkSF_[0][lBinTk]),2)
+	//		  +pow(muVeto_idDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_isoDataEff_[2][lBin]-muVeto_isoDataEff_[0][lBin]),2)+
+	//		  pow(muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_idDataEff_[2][lBin]-muVeto_idDataEff_[0][lBin]),2));
+      //mu_veto_weight[8] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]-sumsqunc))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
 
 	  //mu_veto_weight[3] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[1][lBin]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
 	  //mu_veto_weight[4] *= (1-(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[2][lBin]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
