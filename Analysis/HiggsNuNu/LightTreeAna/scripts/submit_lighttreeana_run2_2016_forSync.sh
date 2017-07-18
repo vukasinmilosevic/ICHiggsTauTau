@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170713_AN
+DATE=170714_mit
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -26,7 +26,7 @@ echo "Using job-submission: " $JOBSUBMIT
 #CONFIG=scripts/DefaultRun2Config.cfg
 CONFIG=scripts/DefaultRun2Config_vetos_forSync.cfg
 
-QUEUEDIR=short #medium long
+QUEUEDIR=long #short #medium long
 
 JOBDIRPREFIX=jobs_run2ana_${DATE}
 JOBDIR=$JOBDIRPREFIX/
@@ -81,8 +81,10 @@ do
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/weights.hists`
     #executable expect strings separated by "!"
     ## To produce all of the hist
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_mit.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_mit.hists`
     ## To produce all of the hist for datacard
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`

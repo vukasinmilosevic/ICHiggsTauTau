@@ -855,23 +855,38 @@ namespace ic {//namespace
     if (do_ewk_w_reweighting_ || do_ewk_dy_reweighting_) { // For ewk_v_nlo_Reweighting (kFactor_V*_pT_Mjj.root file in input/scalefactors from MIT group)
 
       double ewk_v_nlo_Reweight = 1.0;
+
       double v_pt     = -50.0;
       double boson_pt = -50.0;
+
+      //dijet mass from genjets from VBF quarks
+      double vbf_digenjet_m = 0;
+      double vbf_diquark_m = 0;
       double mjj      = -50.0;
-      std::vector<CompositeCandidate *> const& dijet_vec = event->GetPtrVec<CompositeCandidate>("jjLeadingCandidates");
-      if (dijet_vec.size() > 0) {//if dijets
-        CompositeCandidate const* dijet = dijet_vec.at(0);
-        mjj = dijet->M();
-      }
 
       std::vector<GenParticle*> const& parts = event->GetPtrVec<GenParticle>("genParticles");
+      std::vector<GenParticle*> Quarks;
+
+      std::vector<GenJet *> genvec;
+      genvec = event->GetPtrVec<GenJet>("genJets");
+      std::sort(genvec.begin(), genvec.end(), bind(&Candidate::pt, _1) > bind(&Candidate::pt, _2));
+
+      unsigned countQuarks = 0;
+      unsigned countGenjets = 0;
 
       TLorentzVector l1vec;
       TLorentzVector l2vec;
       bool boson_found = false;
-      bool l1_found =false;
-      bool l2_found =false;
+      bool l1_found = false;
+      bool l2_found = false;
       bool reco_boson_found = false;
+      bool foundVBF = false;
+
+//       std::vector<CompositeCandidate *> const& dijet_vec = event->GetPtrVec<CompositeCandidate>("jjLeadingCandidates");
+//       if (dijet_vec.size() > 0) {//if dijets
+//         CompositeCandidate const* dijet = dijet_vec.at(0);
+//         mjj = dijet->M();
+//       }
 
       for (unsigned iGenPart = 0; iGenPart < parts.size(); ++iGenPart) {//Loop over gen particles
         int id = parts[iGenPart]->pdgid();
@@ -897,6 +912,15 @@ namespace ic {//namespace
               reco_boson_found = true;
             }
           }
+
+          if (abs(id)>0 && abs(id)<6 && 
+              parts[iGenPart]->mothers().size()==2 && 
+              parts[iGenPart]->mothers()[0]==2 && 
+              parts[iGenPart]->mothers()[1]==3){
+            Quarks.push_back(parts[iGenPart]);
+            //std::cout << " Select " << std::endl;
+          }
+          //if(abs(id)>0 && abs(id)<6) parts[iGenPart]->Print();
       }//endof Loop over gen particles
 
       if (!boson_found && reco_boson_found) {
@@ -905,6 +929,58 @@ namespace ic {//namespace
         boson_pt = wzvec.Pt();
       }
       v_pt = boson_pt;
+
+      if (Quarks.size()==2) foundVBF=true;
+      if (!foundVBF){
+        //loop again to find quarks from W or Z from WWZ and ZZZ vertices.
+        for (unsigned iGenPart = 0; iGenPart < parts.size(); ++iGenPart) {//Loop over gen particles
+          int id = parts[iGenPart]->pdgid();
+          std::vector<bool> flags=parts[iGenPart]->statusFlags();
+
+          if (abs(id)>0 && abs(id)<6 && 
+              parts[iGenPart]->mothers().size()==1 && 
+              (abs(parts[parts[iGenPart]->mothers()[0]]->pdgid())==24 || 
+               abs(parts[parts[iGenPart]->mothers()[0]]->pdgid())==23)){
+            Quarks.push_back(parts[iGenPart]);
+          }
+        }//endof Loop over gen particles
+        //if (Quarks.size()==2) foundVBF=true;
+      }
+
+
+      if (Quarks.size()==2){
+        countQuarks++;
+        vbf_diquark_m = (Quarks[0]->vector()+Quarks[1]->vector()).M();
+        //get genlevel dijet mass
+        unsigned genjet1 = 1000; 
+        unsigned genjet2 = 1000; 
+        double mindr1 = 1000;
+        double mindr2 = 1000;
+        for (unsigned ig(0); ig<genvec.size(); ++ig){
+          double dr1 = ROOT::Math::VectorUtil::DeltaR(genvec[ig]->vector(),Quarks[0]->vector());
+          if (dr1<mindr1){
+            genjet1 = ig;
+            mindr1 = dr1;
+          }
+          double dr2 = ROOT::Math::VectorUtil::DeltaR(genvec[ig]->vector(),Quarks[1]->vector());
+          if (dr2<mindr2){
+            genjet2 = ig;
+            mindr2=dr2;
+          }
+        }
+        //if (debug_>1) std::cout << " genjet1/2 " << genjet1 << " " << genjet2 << " mindr1=" << mindr1 << " mindr2=" << mindr2 << std::endl;
+        if (genjet1<genvec.size() && genjet2<genvec.size()){
+          vbf_digenjet_m = (genvec[genjet1]->vector()+genvec[genjet2]->vector()).M();
+          countGenjets++;
+        } else {
+          std::cout << " Warning, event genjet pair for VBF jets not found! Taking leading pair." << std::endl;
+          if (genvec.size()>1) vbf_digenjet_m = (genvec[0]->vector()+genvec[1]->vector()).M();
+          std::cout << " Check mass: " << vbf_diquark_m << " " << vbf_digenjet_m << std::endl;
+        }
+      } else {
+        std::cout << " Problem event found " << Quarks.size() << " quarks" << std::endl;
+      }
+      mjj = vbf_digenjet_m;
 
       if (v_pt<0 || boson_pt<0 || mjj<0) {
         std::cout << " SOMETHING IS GOING WRONG! " << std::endl;
@@ -937,6 +1013,7 @@ namespace ic {//namespace
       eventInfo->set_weight("!ewk_v_nlo_Reweighting", ewk_v_nlo_Reweight);
 
     }
+
 
     if (do_dy_soup_) {
       std::vector<GenParticle*> const& parts = event->GetPtrVec<GenParticle>("genParticles");
