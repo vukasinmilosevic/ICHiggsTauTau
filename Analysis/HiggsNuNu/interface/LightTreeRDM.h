@@ -311,6 +311,18 @@ namespace ic {
     double ele2_genphi_;
     double ele2_relISOwithEA_;
 
+
+//  Define gen_tau1_*
+
+    double gen_tau1_pt_;
+    double gen_tau1_eta_;
+    double gen_tau1_phi_;
+    double gen_tau1_mindR_j1_;
+    double gen_tau1_mindR_j2_;
+    double gen_tau2_pt_;
+    double gen_tau2_eta_;
+
+
     double tau1_pt_;
     double tau1_eta_;
     double tau1_phi_;

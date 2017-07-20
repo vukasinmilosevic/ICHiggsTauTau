@@ -332,6 +332,16 @@ namespace ic {
     ele2_genphi_=-5;
     ele2_relISOwithEA_=-1;
 
+// Define gen_tau1_*
+
+    gen_tau1_pt_=-1;
+    gen_tau1_eta_=-5;
+    gen_tau1_phi_=-5;
+    gen_tau1_mindR_j1_=99;
+    gen_tau1_mindR_j2_=99;
+    gen_tau2_pt_=-1;
+    gen_tau2_eta_=-5;
+
     tau1_pt_=-1;
     tau1_eta_=-5;
     tau1_phi_=-5;
@@ -676,7 +686,7 @@ namespace ic {
     outputTree_->Branch("vetoMuons",    &mynewvetomuons_);
     outputTree_->Branch("selMuons",     &mynewselmuons_);
 
-//Branches for gen_ Electrons and Muons
+//Branches for gen_ Electrons and Muons and Taus
 
     outputTree_->Branch("gen_mu1_pt",       &gen_mu1_pt_);
     outputTree_->Branch("gen_mu1_eta",      &gen_mu1_eta_);
@@ -693,6 +703,15 @@ namespace ic {
     outputTree_->Branch("gen_ele1_mindR_j2",&gen_ele1_mindR_j2_);
     outputTree_->Branch("gen_ele2_pt",      &gen_ele2_pt_);
     outputTree_->Branch("gen_ele2_eta",     &gen_ele2_eta_);
+
+    outputTree_->Branch("gen_tau1_pt",      &gen_tau1_pt_);
+    outputTree_->Branch("gen_tau1_eta",     &gen_tau1_eta_);
+    outputTree_->Branch("gen_tau1_phi",     &gen_tau1_phi_);
+    outputTree_->Branch("gen_tau1_mindR_j1",&gen_tau1_mindR_j1_);
+    outputTree_->Branch("gen_tau1_mindR_j2",&gen_tau1_mindR_j2_);
+    outputTree_->Branch("gen_tau2_pt",      &gen_tau2_pt_);
+    outputTree_->Branch("gen_tau2_eta",     &gen_tau2_eta_);
+
 
 
     // lheParticles
@@ -1081,13 +1100,13 @@ namespace ic {
             if (abs(id)==11) Zelecs.push_back(parts[iGenPart]);
             else if (abs(id)==13) Zmuons.push_back(parts[iGenPart]);
           }
-	}
-	
-	if (abs(id)>0 && abs(id)<6 && parts[iGenPart]->mothers().size()==2 && parts[iGenPart]->mothers()[0]==2 && parts[iGenPart]->mothers()[1]==3){
-	  Quarks.push_back(parts[iGenPart]);
-	  //std::cout << " Select " << std::endl;
-	}
-	//if(abs(id)>0 && abs(id)<6) parts[iGenPart]->Print();
+        }
+
+        if (abs(id)>0 && abs(id)<6 && parts[iGenPart]->mothers().size()==2 && parts[iGenPart]->mothers()[0]==2 && parts[iGenPart]->mothers()[1]==3){
+          Quarks.push_back(parts[iGenPart]);
+          //std::cout << " Select " << std::endl;
+        }
+        //if(abs(id)>0 && abs(id)<6) parts[iGenPart]->Print();
         if (parts[iGenPart]->status()!=1) continue;
         if (abs(id)==11) genElecs.push_back(parts[iGenPart]);
         else if (abs(id)==13) genMus.push_back(parts[iGenPart]);
@@ -1111,51 +1130,50 @@ namespace ic {
 
       if (Quarks.size()==2) foundVBF=true;
       if (!foundVBF){
-	//loop again to find quarks from W or Z from WWZ and ZZZ vertices.
-	for (unsigned iGenPart = 0; iGenPart < parts.size(); ++iGenPart) {//Loop over gen particles                                                     
-	  int id = parts[iGenPart]->pdgid();
-	  std::vector<bool> flags=parts[iGenPart]->statusFlags();
-	  if (abs(id)>0 && abs(id)<6 && parts[iGenPart]->mothers().size()==1 && (abs(parts[parts[iGenPart]->mothers()[0]]->pdgid())==24 || abs(parts[parts[iGenPart]->mothers()[0]]->pdgid())==23)){
-	    Quarks.push_back(parts[iGenPart]);
-	  }
-
-	}
-	//if (Quarks.size()==2) foundVBF=true;
+        //loop again to find quarks from W or Z from WWZ and ZZZ vertices.
+        for (unsigned iGenPart = 0; iGenPart < parts.size(); ++iGenPart) {//Loop over gen particles
+          int id = parts[iGenPart]->pdgid();
+          std::vector<bool> flags=parts[iGenPart]->statusFlags();
+          if (abs(id)>0 && abs(id)<6 && parts[iGenPart]->mothers().size()==1 && (abs(parts[parts[iGenPart]->mothers()[0]]->pdgid())==24 || abs(parts[parts[iGenPart]->mothers()[0]]->pdgid())==23)){
+            Quarks.push_back(parts[iGenPart]);
+          }
+        }
+        //if (Quarks.size()==2) foundVBF=true;
       }
 
 
 
       if (Quarks.size()==2){
-	countQuarks_++;
-	vbf_diquark_m_ = (Quarks[0]->vector()+Quarks[1]->vector()).M();
-	//get genlevel dijet mass
-	unsigned genjet1 = 1000; 
-	unsigned genjet2 = 1000; 
-	double mindr1 = 1000;
-	double mindr2 = 1000;
-	for (unsigned ig(0); ig<genvec.size(); ++ig){
-	  double dr1 = ROOT::Math::VectorUtil::DeltaR(genvec[ig]->vector(),Quarks[0]->vector());
-	  if (dr1<mindr1){
-	    genjet1 = ig;
-	    mindr1=dr1;
-	  }
-	  double dr2 = ROOT::Math::VectorUtil::DeltaR(genvec[ig]->vector(),Quarks[1]->vector());
-	  if (dr2<mindr2){
-	    genjet2 = ig;
-	    mindr2=dr2;
-	  }
-	}
-	if (debug_>1) std::cout << " genjet1/2 " << genjet1 << " " << genjet2 << " mindr1=" << mindr1 << " mindr2=" << mindr2 << std::endl;
-	if (genjet1<genvec.size() && genjet2<genvec.size()){
-	  vbf_digenjet_m_ = (genvec[genjet1]->vector()+genvec[genjet2]->vector()).M();
-	  countGenjets_++;
-	} else {
-	  std::cout << " Warning, event " << event_ << " genjet pair for VBF jets not found! Taking leading pair." << std::endl;
-	  if (genvec.size()>1) vbf_digenjet_m_ = (genvec[0]->vector()+genvec[1]->vector()).M();
-	  std::cout << " Check mass: " << vbf_diquark_m_ << " " << vbf_digenjet_m_ << std::endl;
-	}
+        countQuarks_++;
+        vbf_diquark_m_ = (Quarks[0]->vector()+Quarks[1]->vector()).M();
+        //get genlevel dijet mass
+        unsigned genjet1 = 1000; 
+        unsigned genjet2 = 1000; 
+        double mindr1 = 1000;
+        double mindr2 = 1000;
+        for (unsigned ig(0); ig<genvec.size(); ++ig){
+          double dr1 = ROOT::Math::VectorUtil::DeltaR(genvec[ig]->vector(),Quarks[0]->vector());
+          if (dr1<mindr1){
+            genjet1 = ig;
+            mindr1=dr1;
+          }
+          double dr2 = ROOT::Math::VectorUtil::DeltaR(genvec[ig]->vector(),Quarks[1]->vector());
+          if (dr2<mindr2){
+            genjet2 = ig;
+            mindr2=dr2;
+          }
+        }
+        if (debug_>1) std::cout << " genjet1/2 " << genjet1 << " " << genjet2 << " mindr1=" << mindr1 << " mindr2=" << mindr2 << std::endl;
+        if (genjet1<genvec.size() && genjet2<genvec.size()){
+          vbf_digenjet_m_ = (genvec[genjet1]->vector()+genvec[genjet2]->vector()).M();
+          countGenjets_++;
+        } else {
+          std::cout << " Warning, event " << event_ << " genjet pair for VBF jets not found! Taking leading pair." << std::endl;
+          if (genvec.size()>1) vbf_digenjet_m_ = (genvec[0]->vector()+genvec[1]->vector()).M();
+          std::cout << " Check mass: " << vbf_diquark_m_ << " " << vbf_digenjet_m_ << std::endl;
+        }
       } else {
-	std::cout << " Problem event " << event_ << " found " << Quarks.size() << " quarks" << std::endl;
+        std::cout << " Problem event " << event_ << " found " << Quarks.size() << " quarks" << std::endl;
       }
 
       std::sort(genElecs.begin(), genElecs.end(), bind(&Candidate::pt, _1) > bind(&Candidate::pt, _2));
@@ -1169,24 +1187,34 @@ namespace ic {
         gen_ele1_pt_       = genElecs[0]->pt();
         gen_ele1_eta_      = genElecs[0]->eta();
         gen_ele1_phi_      = genElecs[0]->phi();
-	if (genElecs.size()>1){
-        gen_ele2_pt_       = genElecs[1]->pt();
-        gen_ele2_eta_      = genElecs[1]->eta();
-	}
+        if (genElecs.size()>1){
+          gen_ele2_pt_     = genElecs[1]->pt();
+          gen_ele2_eta_    = genElecs[1]->eta();
+        }
       }
 
       if(genMus.size()   != 0){
         gen_mu1_pt_        = genMus[0]->pt();
         gen_mu1_eta_       = genMus[0]->eta();
         gen_mu1_phi_       = genMus[0]->phi();
-	if(genMus.size() > 1){
-	  gen_mu2_pt_        = genMus[1]->pt();
-	  gen_mu2_eta_       = genMus[1]->eta();
-	}
+        if(genMus.size() > 1){
+          gen_mu2_pt_      = genMus[1]->pt();
+          gen_mu2_eta_     = genMus[1]->eta();
+        }
+      }
+
+      if(genTaus.size()   != 0){
+        gen_tau1_pt_        = genTaus[0]->pt();
+        gen_tau1_eta_       = genTaus[0]->eta();
+        gen_tau1_phi_       = genTaus[0]->phi();
+        if(genTaus.size() > 1){
+          gen_tau2_pt_      = genTaus[1]->pt();
+          gen_tau2_eta_     = genTaus[1]->eta();
+        }
       }
 
 
-      if (debug_) std::cout << " nElecs = " << genElecs.size() << " nMu = " << genMus.size() << std::endl;
+      if (debug_) std::cout << " nElecs = " << genElecs.size() << " nMu = " << genMus.size() << " nTaus = " << genTaus.size() << std::endl;
     }//for MC
 
 
@@ -1227,6 +1255,11 @@ namespace ic {
       if(genMus.size()   != 0){
         gen_mu1_mindR_j1_  = ROOT::Math::VectorUtil::DeltaR(genMus[0]->vector(),jet1vec);
         gen_mu1_mindR_j2_  = ROOT::Math::VectorUtil::DeltaR(genMus[0]->vector(),jet2vec);
+      }
+
+      if(genTaus.size()   != 0){
+        gen_tau1_mindR_j1_  = ROOT::Math::VectorUtil::DeltaR(genTaus[0]->vector(),jet1vec);
+        gen_tau1_mindR_j2_  = ROOT::Math::VectorUtil::DeltaR(genTaus[0]->vector(),jet2vec);
       }
 
 
