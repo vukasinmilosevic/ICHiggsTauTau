@@ -2,7 +2,7 @@
 
 PROD=170201
 #JOBDIR=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170711_SingleMuonAndElectron_MuEGClean/
-JOBDIR=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170712_new/
+JOBDIR=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170719/
 INJOBDIR=0
 
 while [ $# -gt 0 ] ; do

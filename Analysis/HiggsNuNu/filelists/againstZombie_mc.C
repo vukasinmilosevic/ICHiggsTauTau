@@ -4,10 +4,10 @@
 using namespace std;
 int againstZombie_mc(){
 
-  fstream fList("list_mc");
+  fstream fList("list_mc_metfilters");
 
   std::ofstream outfile;
-  outfile.open("failed_files_MC.dat");
+  outfile.open("failed_files_MC_METfilters.dat");
   int i=0;
   char buf[1000];
 
