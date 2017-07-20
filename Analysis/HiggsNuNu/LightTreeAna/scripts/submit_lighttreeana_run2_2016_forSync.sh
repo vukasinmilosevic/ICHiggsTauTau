@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170714_mit
+DATE=170720_250
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -26,7 +26,7 @@ echo "Using job-submission: " $JOBSUBMIT
 #CONFIG=scripts/DefaultRun2Config.cfg
 CONFIG=scripts/DefaultRun2Config_vetos_forSync.cfg
 
-QUEUEDIR=long #short #medium long
+QUEUEDIR=short #medium long
 
 JOBDIRPREFIX=jobs_run2ana_${DATE}
 JOBDIR=$JOBDIRPREFIX/
@@ -65,7 +65,7 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
 echo "JOB name = $JOB"
-for syst in "" #JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUIDUP LEPEFF_MUIDDOWN LEPEFF_MUISOUP LEPEFF_MUISODOWN LEPEFF_MUTKUP LEPEFF_MUTKDOWN PUUP PUDOWN TRIGUP TRIGDOWN
+for syst in "" JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUIDUP LEPEFF_MUIDDOWN LEPEFF_MUISOUP LEPEFF_MUISODOWN LEPEFF_MUTKUP LEPEFF_MUTKDOWN PUUP PUDOWN TRIGUP TRIGDOWN
 #for syst in JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUIDUP LEPEFF_MUIDDOWN LEPEFF_MUISOUP LEPEFF_MUISODOWN LEPEFF_MUTKUP LEPEFF_MUTKDOWN PUUP PUDOWN TRIGUP TRIGDOWN
 ## Do not use till new JEC #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 #for syst in JERBETTER JERWORSE
@@ -83,11 +83,11 @@ do
     ## To produce all of the hist
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_mit.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_mit.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_mit.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_mit.hists`
     ## To produce all of the hist for datacard
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`

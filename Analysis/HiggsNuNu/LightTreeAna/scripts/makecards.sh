@@ -5,12 +5,12 @@ if [ "$#" -ne "2" ]; then
   exit 0
 fi
 
-DATE=170712_60_250
+DATE=170720_250
 
 DOSUBMIT=$1
 DO4PARAMS=$2
 infolder=output_run2ana_${DATE} #_datacard
-outfolder=cards_run2ana_${DATE}_2 #_datacard
+outfolder=cards_run2ana_${DATE} #_datacard
 do_tau_veto_unc=true
 do_b_veto_unc=true
 blind=true

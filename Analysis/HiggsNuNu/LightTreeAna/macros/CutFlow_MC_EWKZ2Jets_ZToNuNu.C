@@ -17,7 +17,7 @@ int CutFlow_MC_EWKZ2Jets_ZToNuNu(){
 
   const unsigned nF = 1;
   TFile *fin[nF];
-  fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170525/MC_EWKZ2Jets_ZToNuNu.root");
+  fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170718_test/MC_EWKZ2Jets_ZToNuNu.root");
 
   const unsigned nC = 17;
   std::string nunu_cuts[nC] = {

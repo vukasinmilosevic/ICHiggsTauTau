@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170712_70_200
+DATE=170720_200
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -73,7 +73,7 @@ for syst in "" JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_E
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in enu #munu ee mumu nunu #taunu qcd
+  for channels in enu munu ee mumu nunu #taunu qcd
     do
     JOB=$channels
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/weights.hists`

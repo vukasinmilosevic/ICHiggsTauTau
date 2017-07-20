@@ -18,9 +18,9 @@ int Flow_MC_ZToNuNu(){
 
   const unsigned nF = 2;
   TFile *fin[nF];
-  fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170614_debug/ZJetsToNuNu_QCD.root");
-  fin[1] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170614_debug/ZJetsToNuNu_EWK.root");
-  const unsigned nC = 24;
+  fin[0] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170718_test/ZJetsToNuNu_QCD.root");
+  fin[1] = TFile::Open("/vols/cms/rd1715/HiggsToInv/output_lighttree_170718_test/ZJetsToNuNu_EWK.root");
+  const unsigned nC = 25;
   std::string nunu_cuts[nC] = {
     "",
     "nvetomuons==0",
@@ -29,7 +29,7 @@ int Flow_MC_ZToNuNu(){
     "nvetotaus==0",
     "n_jets_csv2medium==0",
     "abs(jet1_eta)<4.7 && abs(jet2_eta)<4.7 && jet1_pt>80 && jet2_pt>40",
-    "metnomuons>200",
+    "metnomuons>250",
     "(abs(calomet-met)/metnomuons)<0.5",
     "fourjetsmetnomu_mindphi>0.5",
     "jet1_eta*jet2_eta<0",
@@ -42,9 +42,10 @@ int Flow_MC_ZToNuNu(){
 //     "total_weight_lepveto/(weight_lepveto*weight_trig_0)",
     "weight_xsection",
     "weight_pileup",
-    "v_nlo_Reweight",
-    "weight_0b_alljets",
     "weight_trig_0",
+    "v_nlo_Reweight",
+    "ewk_v_nlo_Reweight",
+    "weight_0b_alljets",
     "TMath::Power(1-0.95,nvetotaus)",
     "weight_lepveto"
   };
