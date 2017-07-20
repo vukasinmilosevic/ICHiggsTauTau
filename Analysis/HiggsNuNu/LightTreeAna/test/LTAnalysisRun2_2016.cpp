@@ -425,6 +425,7 @@ int main(int argc, char* argv[]){
   if (apply_trig_in_mc) mcextrasel=dataextrasel;
 
   std::string sigcat;
+  std::string sigcat_novetotaus;
   std::string zextrasigcat;
 
   std::string tauveto,tauvetoweight;
@@ -435,8 +436,9 @@ int main(int argc, char* argv[]){
 
 
   if (do_tauveto){
-    //tauveto="&&nvetotaus==0";
-    tauveto="";
+    if (channel!="taunu") tauveto="&&nvetotaus==0";
+    else tauveto="";
+//     tauveto="";
     if (channel!="taunu") dataextrasel += "&&nvetotaus==0";
     if (syst=="TAUUP") tauvetoweight="*TMath::Power(1-0.95,nvetotaus)*(1+nvetotaus)";//"*1.";"*TMath::Power(1-0.97,nvetotaus)";
     else if (syst=="TAUDOWN") tauvetoweight="*TMath::Power(1-0.95,nvetotaus)*(1-nvetotaus)";//"*TMath::Power(1-0.9,nvetotaus)";
@@ -477,50 +479,59 @@ int main(int argc, char* argv[]){
   }
 
   //AMM uncomment for QCD mindphi plot in signal region!
-  std::string nunucat  = "nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+tauveto+bveto+jet1_ID;
+  std::string nunucat  = "nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
   //std::string nunuqcdcat=nunucat;
   //AMM uncomment for QCD plot in signal region! except mindphi.
   //std::string nunuqcdcat="nvetomuons==0&&nvetoelectrons==0&&alljetsmetnomu_mindphi>1";
   //std::string nunuqcdcat="nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut;
 
-  std::string enucat   = "nselelectrons==1&&nvetomuons==0&&nvetoelectrons==1&&ele1_pt>40&&"+jetmetdphicut+tauveto+bveto+lep_mt_cut+met_cut+jet1_ID;
-  std::string munucat  = "nselmuons==1&&nvetomuons==1&&nvetoelectrons==0&&lep_mt>=0&&"+jetmetdphicut+tauveto+bveto+lep_mt_cut+jet1_ID;
+  std::string enucat   = "nselelectrons==1&&nvetomuons==0&&nvetoelectrons==1&&ele1_pt>40&&"+jetmetdphicut+bveto+lep_mt_cut+met_cut+jet1_ID;
+  std::string munucat  = "nselmuons==1&&nvetomuons==1&&nvetoelectrons==0&&lep_mt>=0&&"+jetmetdphicut+bveto+lep_mt_cut+jet1_ID;
   std::string taunucat = "ntaus==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+lep_mt_cut+jet1_ID;
 
-  std::string eecat    = "nselelectrons>=1&&nvetoelectrons==2&&nvetomuons==0&&m_ee>60&&m_ee<120&&oppsign_ee&&ele1_pt>40&&"+jetmetdphicut+tauveto+bveto+jet1_ID;
-  std::string mumucat  = "nselmuons>=1&&nvetomuons==2&&nvetoelectrons==0&&m_mumu>60&&m_mumu<120&&oppsign_mumu&&"+jetmetdphicut+tauveto+bveto+jet1_ID;
+  std::string eecat    = "nselelectrons>=1&&nvetoelectrons==2&&nvetomuons==0&&m_ee>60&&m_ee<120&&oppsign_ee&&ele1_pt>40&&"+jetmetdphicut+bveto+jet1_ID;
+  std::string mumucat  = "nselmuons>=1&&nvetomuons==2&&nvetoelectrons==0&&m_mumu>60&&m_mumu<120&&oppsign_mumu&&"+jetmetdphicut+bveto+jet1_ID;
 
-  std::string gammacat = "ntightphotons==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+tauveto+bveto+jet1_ID;
-  std::string toplcat  = "nvetomuons==1&&nvetoelectrons==1&&nselmuons==1&&nselelectrons==1"+tauveto+bveto+jet1_ID;
-  std::string topbcat  = "(nselmuons>=1 || nselelectrons>=1)&&(jet1_csv>0.679||jet2_csv>0.679)&&(forward_tag_eta>2.8||forward_tag_eta<-2.8)"+tauveto+bveto+jet1_ID;
+  std::string gammacat = "ntightphotons==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
+  std::string toplcat  = "nvetomuons==1&&nvetoelectrons==1&&nselmuons==1&&nselelectrons==1"+bveto+jet1_ID;
+  std::string topbcat  = "(nselmuons>=1 || nselelectrons>=1)&&(jet1_csv>0.679||jet2_csv>0.679)&&(forward_tag_eta>2.8||forward_tag_eta<-2.8)"+bveto+jet1_ID;
 
   if(channel=="nunu" || channel=="qcd"){//nunu
-    sigcat=nunucat;
+    sigcat=nunucat+tauveto;
+    sigcat_novetotaus=nunucat;
   }
   else {
     if(channel=="mumu"){//zmumu
-      sigcat=mumucat;
+      sigcat=mumucat+tauveto;
+      sigcat_novetotaus=mumucat;
     }
     else if(channel=="ee"){//zee
-      sigcat=eecat;
+      sigcat=eecat+tauveto;
+      sigcat_novetotaus=eecat;
     }
     else if(channel=="munu"){//wmu
-      sigcat=munucat;
+      sigcat=munucat+tauveto;
+      sigcat_novetotaus=munucat;
     }
     else if(channel=="enu"){//wel
-      sigcat=enucat;
+      sigcat=enucat+tauveto;
+      sigcat_novetotaus=enucat;
     }
     else if(channel=="taunu"){//wtau
-      sigcat=taunucat;
+      sigcat=taunucat+tauveto;
+      sigcat_novetotaus=taunucat;
     }
     else if(channel=="gamma"){
-      sigcat=gammacat;
+      sigcat=gammacat+tauveto;
+      sigcat_novetotaus=gammacat;
     }
     else if(channel=="topl"){
-      sigcat=toplcat;
+      sigcat=toplcat+tauveto;
+      sigcat_novetotaus=toplcat;
     }
     else if(channel=="topb"){
-      sigcat=topbcat;
+      sigcat=topbcat+tauveto;
+      sigcat_novetotaus=topbcat;
     }
      else{
       std::cout<<"Error: Channel "<<channel<<" not recognised, exiting"<<std::endl;
@@ -534,10 +545,10 @@ int main(int argc, char* argv[]){
   std::ostringstream mcweightsystfactor;
   mcweightsystfactor << "*" << lumiSF;
   mcweightsystfactor << bvetoweight;
-  if (channel!="taunu") mcweightsystfactor << tauvetoweight;
+//   if (channel!="taunu") mcweightsystfactor << tauvetoweight;
   if(syst=="PUUP") mcweightsystfactor << "*puweight_up_scale";
   if(syst=="PUDOWN") mcweightsystfactor << "*puweight_down_scale";
-  
+
   if (syst=="TRIGUP" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_1/weight_trig_0";
   if (syst=="TRIGDOWN" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_2/weight_trig_0";
 
@@ -550,12 +561,12 @@ int main(int argc, char* argv[]){
     if (syst=="LEPEFF_ELEDOWN") mcweightsystfactor<<"*weight_eleVeto_down/weight_eleVeto";
     if (syst=="LEPEFF_GSFUP") mcweightsystfactor<<"*weight_eleVeto_gsfup/weight_eleVeto";
     if (syst=="LEPEFF_GSFDOWN") mcweightsystfactor<<"*weight_eleVeto_gsfdown/weight_eleVeto";
-    if (syst=="LEPEFF_MUIDUP") mcweightsystfactor<<"*weight_muVeto_idup/weight_muVeto";
-    if (syst=="LEPEFF_MUIDDOWN") mcweightsystfactor<<"*weight_muVeto_iddown/weight_muVeto";
-    if (syst=="LEPEFF_MUISOUP") mcweightsystfactor<<"*weight_muVeto_isoup/weight_muVeto";
-    if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_muVeto_isodown/weight_muVeto";
-    if (syst=="LEPEFF_MUTKUP") mcweightsystfactor<<"*weight_muVeto_tkup/weight_muVeto";
-    if (syst=="LEPEFF_MUTKDOWN") mcweightsystfactor<<"*weight_muVeto_tkdown/weight_muVeto";
+//     if (syst=="LEPEFF_MUIDUP") mcweightsystfactor<<"*weight_muVeto_idup/weight_muVeto";
+//     if (syst=="LEPEFF_MUIDDOWN") mcweightsystfactor<<"*weight_muVeto_iddown/weight_muVeto";
+//     if (syst=="LEPEFF_MUISOUP") mcweightsystfactor<<"*weight_muVeto_isoup/weight_muVeto";
+//     if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_muVeto_isodown/weight_muVeto";
+//     if (syst=="LEPEFF_MUTKUP") mcweightsystfactor<<"*weight_muVeto_tkup/weight_muVeto";
+//     if (syst=="LEPEFF_MUTKDOWN") mcweightsystfactor<<"*weight_muVeto_tkdown/weight_muVeto";
   }
   else if (channel=="ee" || channel=="enu") {
     if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleTight_up/weight_eleTight";
@@ -579,13 +590,22 @@ int main(int argc, char* argv[]){
   //if (syst=="TRIG2UP") mcweightsystfactor<<"*weight_trig_5/weight_trig_0";
   //if (syst=="TRIG2DOWN") mcweightsystfactor<<"*weight_trig_6/weight_trig_0";
 
-  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") sigmcweight="total_weight_lepveto"+mcweightsystfactor.str();
+  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") sigmcweight="weight_nolepnotrig*weight_trig_0"+mcweightsystfactor.str();//"total_weight_lepveto"+mcweightsystfactor.str();
   //remove trigger weight for e channels which do not use signal trigger
   else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig"+mcweightsystfactor.str();
   else sigmcweight="total_weight_leptight"+mcweightsystfactor.str();
 
+  //lepton veto weight
+  std::string lepveto_weight;
+  if(channel=="nunu") lepveto_weight="*weight_lepveto";
+  else lepveto_weight="*1";
+
   //add NLO reweighting
   sigmcweight=sigmcweight+"*v_nlo_Reweight*ewk_v_nlo_Reweight";
+
+  //veto taus reweighting
+  std::string sigmcweight_wtau;
+  sigmcweight_wtau=sigmcweight+tauvetoweight;
 
   if (channel=="ee" || channel == "enu") dataset="SingleElectron";
 
@@ -941,7 +961,7 @@ int main(int argc, char* argv[]){
   wenuraw.set_dataset("WJets_enu")
     .set_dirname("wel")
     .set_shape(shape)
-    .set_dataweight(sigmcweight)
+    .set_dataweight(sigmcweight+lepveto_weight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
   if (use_nlo)  wenuraw.set_dataset("WJets_nlo_enu");
@@ -950,7 +970,7 @@ int main(int argc, char* argv[]){
   qcdwenuraw.set_dataset("WJets_enu")
     .set_dirname("welqcd")
     .set_shape(shape)
-    .set_dataweight(sigmcweight)
+    .set_dataweight(sigmcweight+lepveto_weight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
   if (use_nlo)  qcdwenuraw.set_dataset("WJets_nlo_enu");
@@ -959,7 +979,7 @@ int main(int argc, char* argv[]){
   ewkwenuraw.set_dataset("EWK_WJets_enu")
     .set_dirname("welewk")
     .set_shape(shape)
-    .set_dataweight(sigmcweight)
+    .set_dataweight(sigmcweight+lepveto_weight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
@@ -967,27 +987,27 @@ int main(int argc, char* argv[]){
   wtaunuraw.set_dataset("WJets_taunu")
     .set_dirname("wtau")
     .set_shape(shape)
-    .set_dataweight(sigmcweight)
+    .set_dataweight(sigmcweight_wtau)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
+    .set_cat(sigcat_novetotaus+mcextrasel);
   if (use_nlo) wtaunuraw.set_dataset("WJets_nlo_taunu");
 
   DataShape qcdwtaunuraw("qcdwtaunuraw");
   qcdwtaunuraw.set_dataset("WJets_taunu")
     .set_dirname("wtauqcd")
     .set_shape(shape)
-    .set_dataweight(sigmcweight)
+    .set_dataweight(sigmcweight_wtau)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
+    .set_cat(sigcat_novetotaus+mcextrasel);
   if (use_nlo) qcdwtaunuraw.set_dataset("WJets_nlo_taunu");
 
   DataShape ewkwtaunuraw("ewkwtaunuraw");
   ewkwtaunuraw.set_dataset("EWK_WJets_taunu")
     .set_dirname("wtauewk")
     .set_shape(shape)
-    .set_dataweight(sigmcweight)
+    .set_dataweight(sigmcweight_wtau)
     .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
+    .set_cat(sigcat_novetotaus+mcextrasel);
 
   DataShape qcdraw("qcdraw");
   qcdraw.set_dataset("QCD")
