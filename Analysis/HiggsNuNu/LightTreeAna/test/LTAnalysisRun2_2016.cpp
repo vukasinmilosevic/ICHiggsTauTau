@@ -440,9 +440,9 @@ int main(int argc, char* argv[]){
     else tauveto="";
 //     tauveto="";
     if (channel!="taunu") dataextrasel += "&&nvetotaus==0";
-    if (syst=="TAUUP") tauvetoweight="*TMath::Power(1-0.95,nvetotaus)*(1+nvetotaus)";//"*1.";"*TMath::Power(1-0.97,nvetotaus)";
-    else if (syst=="TAUDOWN") tauvetoweight="*TMath::Power(1-0.95,nvetotaus)*(1-nvetotaus)";//"*TMath::Power(1-0.9,nvetotaus)";
-    else tauvetoweight="*TMath::Power(1-0.95,nvetotaus)";
+    if (syst=="TAUUP") tauvetoweight="*TMath::Power(1-0.99,nvetotaus)*(1+5*nvetotaus)";//"*1.";"*TMath::Power(1-0.97,nvetotaus)";
+    else if (syst=="TAUDOWN") tauvetoweight="*TMath::Power(1-0.99,nvetotaus)*(1-5*nvetotaus)";//"*TMath::Power(1-0.9,nvetotaus)";
+    else tauvetoweight="*TMath::Power(1-0.99,nvetotaus)";
   } else {
     tauveto="";
     tauvetoweight="";
