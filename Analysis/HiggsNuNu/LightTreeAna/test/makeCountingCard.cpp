@@ -385,11 +385,11 @@ int main(int argc, char* argv[]){
     .set_uptfile(jesup)
     .set_downtfile(jesdown);
   //HACK
-  if (channel=="ee"||channel=="mumu"){
+  if (channel=="ee"||channel=="mumu"||channel=="enu"||channel=="munu"){
     jes.set_procsaffected({"top","qcd","vv"});
-  } else if (channel=="enu"){
-    jes.set_procsaffected({"welqcd","welewk","wtauqcd","wtauewk","top","vv"});
-  }
+  } else if (channel=="nunu"){
+    jes.set_procsaffected({"qqH125","ggH125","top","qcd","vv"});
+  } //then editing by hand a 2% flat unc on W processes in CRs
 
   Syst jer;
   jer.set_name("CMS_res_j")
@@ -1049,7 +1049,7 @@ int main(int argc, char* argv[]){
     systematics.push_back(mutkeff);
   }
 
-  //if (!do_run2) 
+  //if (!do_run2)
   systematics.push_back(jes);
   //if (!do_run2) 
   //HACK
@@ -1168,7 +1168,6 @@ int main(int argc, char* argv[]){
       systematics.push_back(ggHUEPS);
     }
   }
-  
 
   std::cout<<"Setting up datacard header.."<<std::endl;
   std::ofstream datacard;
