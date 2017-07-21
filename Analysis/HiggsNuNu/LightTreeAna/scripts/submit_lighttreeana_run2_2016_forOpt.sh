@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170328
+DATE=170721_200_Opt
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -23,13 +23,14 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
-CONFIG=scripts/DefaultRun2Config_forOpt.cfg
+#CONFIG=scripts/DefaultRun2Config_forOpt.cfg
+CONFIG=scripts/DefaultRun2Config_forOpt_200.cfg
 
 QUEUEDIR=short #medium long
-#_forOpt_no_dijet_dphi_cut
-JOBDIRPREFIX=jobs_run2ana_${DATE}_loosencuts
+
+JOBDIRPREFIX=jobs_run2ana_${DATE}
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE}_loosencuts
+OUTPUTPREFIX=output_run2ana_${DATE}
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -64,29 +65,32 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
 echo "JOB name = $JOB"
-for syst in "" JESUP JESDOWN JERBETTER JERWORSE BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUUP LEPEFF_MUDOWN PUUP PUDOWN TRIGUP TRIGDOWN UESUP UESDOWN
+for syst in "" JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUIDUP LEPEFF_MUIDDOWN LEPEFF_MUISOUP LEPEFF_MUISODOWN LEPEFF_MUTKUP LEPEFF_MUTKDOWN PUUP PUDOWN TRIGUP TRIGDOWN
+#for syst in JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUIDUP LEPEFF_MUIDDOWN LEPEFF_MUISOUP LEPEFF_MUISODOWN LEPEFF_MUTKUP LEPEFF_MUTKDOWN PUUP PUDOWN TRIGUP TRIGDOWN
+## Do not use till new JEC #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
+#for syst in JERBETTER JERWORSE
+## For CMS_scale_met uncertainty
+#for syst in UESUP UESDOWN
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in enu munu taunu ee mumu qcd nunu
+  for channels in enu munu ee mumu nunu #taunu qcd
     do
     JOB=$channels
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/weights.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/weights.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/weights.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/weights.hists`
     #executable expect strings separated by "!"
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_nomindphi.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_nomindphi.hists`
     ## To produce all of the hist
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
     ## To produce all of the hist for datacard
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     ## To test for one hist
     #HISTSTRING=";#Delta#phi_{jj};Events"
-    #SHAPESTRING="dijet_dphi(20,0.,3.1416)"
+    #SHAPESTRING="dijet_dphi(50,0.,3.1416)"
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events"
     #SHAPESTRING="metnomuons(25,200.,600.)"
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events!;Forward tag jet #eta;Events"
