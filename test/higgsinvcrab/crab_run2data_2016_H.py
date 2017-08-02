@@ -69,17 +69,17 @@ if __name__ == '__main__':
     rerecoparams=['isData=1','doHT=0','release=80XMINIAOD', 'globalTag=80X_dataRun2_Prompt_v16']
 
     #           (('SinglePhoton-2015D-16Dec-v1'  ,'/SinglePhoton/Run2015D-16Dec2015-v1/MINIAOD',json,rerecoparams,firstrun+'-'+maxrun))
-    tasks.append(('MET-2016H-ReMiniAOD_ver2-v1' ,'/MET/Run2016H-03Feb2017_ver2-v1/MINIAOD' ,rerecoparams,  ))
-    tasks.append(('MET-2016H-ReMiniAOD_ver3-v1' ,'/MET/Run2016H-03Feb2017_ver3-v1/MINIAOD' ,rerecoparams,  ))
+    #tasks.append(('MET-2016H-ReMiniAOD_ver2-v1' ,'/MET/Run2016H-03Feb2017_ver2-v1/MINIAOD' ,rerecoparams,  ))
+    #tasks.append(('MET-2016H-ReMiniAOD_ver3-v1' ,'/MET/Run2016H-03Feb2017_ver3-v1/MINIAOD' ,rerecoparams,  ))
 
-    tasks.append(('SingleMuon-2016H-ReMiniAOD_ver2-v1' ,'/SingleMuon/Run2016H-03Feb2017_ver2-v1/MINIAOD' ,rerecoparams,  ))
-    tasks.append(('SingleMuon-2016H-ReMiniAOD_ver3-v1' ,'/SingleMuon/Run2016H-03Feb2017_ver3-v1/MINIAOD' ,rerecoparams,  ))
+    #tasks.append(('SingleMuon-2016H-ReMiniAOD_ver2-v1' ,'/SingleMuon/Run2016H-03Feb2017_ver2-v1/MINIAOD' ,rerecoparams,  ))
+    #tasks.append(('SingleMuon-2016H-ReMiniAOD_ver3-v1' ,'/SingleMuon/Run2016H-03Feb2017_ver3-v1/MINIAOD' ,rerecoparams,  ))
 
-    tasks.append(('SingleElectron-2016H-ReMiniAOD_ver2-v1' ,'/SingleElectron/Run2016H-03Feb2017_ver2-v1/MINIAOD' ,rerecoparams,  ))
-    tasks.append(('SingleElectron-2016H-ReMiniAOD_ver3-v1' ,'/SingleElectron/Run2016H-03Feb2017_ver3-v1/MINIAOD' ,rerecoparams,  ))
+    #tasks.append(('SingleElectron-2016H-ReMiniAOD_ver2-v1' ,'/SingleElectron/Run2016H-03Feb2017_ver2-v1/MINIAOD' ,rerecoparams,  ))
+    #tasks.append(('SingleElectron-2016H-ReMiniAOD_ver3-v1' ,'/SingleElectron/Run2016H-03Feb2017_ver3-v1/MINIAOD' ,rerecoparams,  ))
 
-    #tasks.append(('JetHT-2016H-ReMiniAOD_ver2-v1' ,'/JetHT/Run2016H-03Feb2017_ver2-v1/MINIAOD' ,rerecoparams,  ))
-    #tasks.append(('JetHT-2016H-ReMiniAOD_ver3-v1' ,'/JetHT/Run2016H-03Feb2017_ver3-v1/MINIAOD' ,rerecoparams,  ))
+    tasks.append(('JetHT-2016H-ReMiniAOD_ver2-v1' ,'/JetHT/Run2016H-03Feb2017_ver2-v1/MINIAOD' ,rerecoparams,  ))
+    tasks.append(('JetHT-2016H-ReMiniAOD_ver3-v1' ,'/JetHT/Run2016H-03Feb2017_ver3-v1/MINIAOD' ,rerecoparams,  ))
 
     for task in tasks:
         print task[0]

@@ -273,133 +273,6 @@ int main(int argc, char* argv[]){
   #                                          #
   ##########################################*/
 
-
-  /*  if (debug) {
-    //shape.push_back("jet1_pt(47,80.,550.)");histTitle.push_back(";p_{T}^{j1} (GeV);Events");
-    //shape.push_back("jet2_pt(47,80.,550.)");histTitle.push_back(";p_{T}^{j2} (GeV);Events");
-    //if(channel=="enu" || channel=="munu" || channel=="taunu") {
-    //  shape.push_back("lep_mt(30,0.,150.)");histTitle.push_back(";m_{T}(lepton+MET) (GeV);Events");
-   // }
-   // else if(channel=="mumu"){
-     // shape.push_back("m_mumu(12,60.,120.)");histTitle.push_back(";m_{#mu#mu};Events");
-      //}
-    //shape.push_back("central_tag_eta(25,-5.,5.)");histTitle.push_back(";Central tag jet #eta;Events");
-    shape.push_back("forward_tag_eta(25,-5.,5.)");histTitle.push_back(";Forward tag jet #eta;Events");
-    shape.push_back("alljetsmetnomu_mindphi(32,0.,3.1416)");histTitle.push_back(";#Delta#phi(E_{T}^{miss},j);Events");
-
-    //if (channel=="munu"){
-      //shape.push_back("metnomuons*pow(sqrt(sumet-mu1_pt),-1)(30,0.,15.)");histTitle.push_back(";S;Events");
-    //}
-    //else if (channel=="mumu"){
-      //shape.push_back("metnomuons*pow(sqrt(sumet-mu1_pt-mu2_pt),-1)(30,0.,15.)");histTitle.push_back(";S;Events");
-    //}
-    //else {
-      //shape.push_back("metnomuons*pow(sqrt(sumet),-1)(30,0.,15.)");histTitle.push_back(";S;Events");
-      //}
-  }
-  else {
-    if(channel=="enu" || channel=="munu" || channel=="taunu" || channel=="topl" || channel=="topb"){
-      if(channel=="taunu") {
-	shape.push_back("lep_mt(10,0.,100.)");histTitle.push_back(";m_{T}(lepton+MET) (GeV);Events");
-      }
-      else {
-	shape.push_back("lep_mt(30,0.,150.)");histTitle.push_back(";m_{T}(lepton+MET) (GeV);Events");
-      }
-      if (channel=="enu" || channel=="topl" || channel=="topb"){
-	shape.push_back("ele1_pt(30,0.,300.)");histTitle.push_back(";p_{T}(electron) (GeV);Events");
-	shape.push_back("ele1_eta(30,-2.4,2.4)");histTitle.push_back(";#eta(electron) (GeV);Events");
-      }
-      if (channel=="munu" || channel=="topl" || channel=="topb"){
-	shape.push_back("mu1_pt(30,0.,300.)");histTitle.push_back(";p_{T}(muon) (GeV);Events");
-	shape.push_back("mu1_eta(30,-2.1,2.1)");histTitle.push_back(";#eta(muon) (GeV);Events");
-      }
-      if (channel=="taunu") {
-	shape.push_back("tau1_pt(15,0.,300.)");histTitle.push_back(";p_{T}(tau) (GeV);Events");
-	shape.push_back("tau1_eta(15,-2.4,2.4)");histTitle.push_back(";#eta(tau) (GeV);Events");
-      }
-    }
-
-    if (channel=="munu" || channel=="topl" || channel=="topb"){
-      shape.push_back("metnomuons*pow(sqrt(sumet-mu1_pt),-1)(30,0.,15.)");histTitle.push_back(";S;Events");
-    }
-    else if (channel=="mumu"){
-      shape.push_back("metnomuons*pow(sqrt(sumet-mu1_pt-mu2_pt),-1)(30,0.,15.)");histTitle.push_back(";S;Events");
-    }
-    else {
-      shape.push_back("metnomuons*pow(sqrt(sumet),-1)(30,0.,15.)");histTitle.push_back(";S;Events");
-    }
-
-    if (channel=="gamma"){
-      shape.push_back("gamma1_pt(50,0,500)");histTitle.push_back(";p_{T}(#gamma) (GeV);Events");
-      shape.push_back("gamma1_eta(30,-2.5,2.5)");histTitle.push_back(";#eta(#gamma);Events");
-    }
-
-    if(channel=="mumu"){
-      shape.push_back("m_mumu(12,60.,120.)");histTitle.push_back(";m_{#mu#mu};Events");
-      shape.push_back("pt_mumu(15,0.,400.)");histTitle.push_back(";p_{T}^{#mu#mu};Events");
-      shape.push_back("mu1_pt(30,0.,300.)");histTitle.push_back(";p_{T}(lead muon) (GeV);Events");
-      shape.push_back("mu1_eta(30,-2.1,2.1)");histTitle.push_back(";#eta(lead muon) (GeV);Events");
-      shape.push_back("mu2_pt(30,0.,300.)");histTitle.push_back(";p_{T}(sublead muon) (GeV);Events");
-      shape.push_back("mu2_eta(50,-2.1,2.1)");histTitle.push_back(";#eta(sublead muon) (GeV);Events");
-    }
-
-    shape.push_back("n_vertices(40,0,40)");histTitle.push_back(";n_{vtx};Events");
-
-    shape.push_back("jet1_pt(47,80.,550.)");histTitle.push_back(";p_{T}^{j1} (GeV);Events");
-    shape.push_back("jet2_pt(28,70.,350.)");histTitle.push_back(";p_{T}^{j2} (GeV);Events");
-    shape.push_back("jet1_uncorpt(47,80.,550.)");histTitle.push_back(";uncor p_{T}^{j1} (GeV);Events");
-    shape.push_back("jet2_uncorpt(28,70.,350.)");histTitle.push_back(";uncor p_{T}^{j2} (GeV);Events");
-    shape.push_back("jet1_eta(94,-4.7,4.7)");histTitle.push_back(";#eta^{j1} (GeV);Events");
-    shape.push_back("jet2_eta(94,-4.7,4.7)");histTitle.push_back(";#eta^{j2} (GeV);Events");
-    shape.push_back("cjvjetpt(19,15.,205.)");histTitle.push_back(";p_{T}^{CJV jet} (GeV);Events");
-
-    if(channel=="mumu") {
-      shape.push_back("metnomuons(15,200.,450.)");histTitle.push_back(";MET_{no #mu} (GeV);Events");
-    }
-    else {
-      shape.push_back("metnomuons(35,200.,550.)");histTitle.push_back(";MET_{no #mu} (GeV);Events");
-    }
-    shape.push_back("met(30,0.,550.)");histTitle.push_back(";MET (GeV);Events");
-    shape.push_back("l1met(30,0.,550.)");histTitle.push_back(";L1MET (GeV);Events");
-
-    shape.push_back("ht(30,100,1000)");histTitle.push_back(";H_{T}^{p_{T}^{j}>15 GeV} (GeV);Events");
-    shape.push_back("ht30(30,100,1000)");histTitle.push_back(";H_{T}^{p_{T}^{j}>30 GeV} (GeV);Events");
-
-    if(channel=="mumu") {shape.push_back("dijet_M(15,800.,3000.)");histTitle.push_back(";M_{jj} (GeV);Events");}
-    else {shape.push_back("dijet_M(30,800.,4000.)");histTitle.push_back(";M_{jj} (GeV);Events");}
-    shape.push_back("dijet_dphi(15,0.,3.1416)");histTitle.push_back(";#Delta#phi_{jj};Events");
-    shape.push_back("dijet_deta(30,3.6,7.)");histTitle.push_back(";#Delta#eta_{jj};Events");
-    shape.push_back("dijet_sumeta(30,-5,5)");histTitle.push_back(";#eta_{j1}+#eta_{j2};Events");
-
-    shape.push_back("jetmetnomu_mindphi(32,0.,3.1416)");histTitle.push_back(";#Delta#phi(E_{T}^{miss},j_{1,2});Events");
-    shape.push_back("alljetsmetnomu_mindphi(32,0.,3.1416)");histTitle.push_back(";#Delta#phi(E_{T}^{miss},j);Events");
-    shape.push_back("metnomu_significance(30,0.,300.)");histTitle.push_back(";S;Events");
-
-    shape.push_back("jetunclet_mindphi(32,0,3.1416)");histTitle.push_back(";min #Delta#phi(j,E_{T}^{uncl});Events");
-    shape.push_back("metnomuunclet_dphi(32,0,3.1416)");histTitle.push_back(";#Delta#phi(METnoMu,E_{T}^{uncl});Events");
-    shape.push_back("dijetmetnomu_scalarSum_pt(35,0,1400)");histTitle.push_back(";p_{T}^{jeta}+p_{T}^{jetb}+METnoMu;Events");
-    shape.push_back("dijetmetnomu_vectorialSum_pt(20,0,400)");histTitle.push_back(";p_{T}(#vec{ja}+#vec{jb}+#vec{METnoMu});Events");
-    shape.push_back("dijetmetnomu_ptfraction(20,0.,1.)");histTitle.push_back(";p_{T}^{dijet}/(p_{T}^{dijet}+METnoMu);Events");
-
-    shape.push_back("n_jets_cjv_30(5,0,5)");histTitle.push_back(";CJV jets (30 GeV);Events");
-    shape.push_back("n_jets_cjv_20EB_30EE(5,0,5)");histTitle.push_back(";CJV jets (20 GeV EB, 30 GeV EE);Events");
-
-    shape.push_back("jet1_csv(21,0.,1.)");histTitle.push_back(";Jet 1 CSV;Events");
-    shape.push_back("jet2_csv(21,0.,1.)");histTitle.push_back(";Jet 2 CSV;Events");
-    shape.push_back("jet3_csv(21,0.,1.)");histTitle.push_back(";Jet 3 CSV;Events");
-
-    shape.push_back("n_jets_30(10,0.,10.)");histTitle.push_back(";N jets pt>30 GeV;Events");
-    shape.push_back("n_jets_15(15,0.,15.)");histTitle.push_back(";N jets pt>15 GeV;Events");
-    shape.push_back("central_tag_eta(25,-5.,5.)");histTitle.push_back(";Central tag jet #eta;Events");
-    shape.push_back("forward_tag_eta(25,-5.,5.)");histTitle.push_back(";Forward tag jet #eta;Events");
-
-    shape.push_back("alljetsmetnomu_mindphi:dijet_M(24,800.,2000.,20,1.,3.)");histTitle.push_back(";M_{jj} (GeV);#Delta#phi(E_{T}^{miss},j);Events");
-
-
-    //mindR(tau,tagjets)
-    //shape.push_back("mymath::deltaRmin(jet1_eta,jet1_phi,jet2_eta,jet2_phi,tau1_eta,tau1_phi)(20,0.,4.)");histTitle.push_back(";min#DeltaR(#tau,tag jets);Events");
-  }*/
-
   std::string dataextrasel;
   std::string mcextrasel;
 
@@ -478,12 +351,7 @@ int main(int argc, char* argv[]){
     jet1_ID="";
   }
 
-  //AMM uncomment for QCD mindphi plot in signal region!
   std::string nunucat  = "nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
-  //std::string nunuqcdcat=nunucat;
-  //AMM uncomment for QCD plot in signal region! except mindphi.
-  //std::string nunuqcdcat="nvetomuons==0&&nvetoelectrons==0&&alljetsmetnomu_mindphi>1";
-  //std::string nunuqcdcat="nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut;
 
   std::string enucat   = "nselelectrons==1&&nvetomuons==0&&nvetoelectrons==1&&ele1_pt>40&&"+jetmetdphicut+bveto+lep_mt_cut+met_cut+jet1_ID;
   std::string munucat  = "nselmuons==1&&nvetomuons==1&&nvetoelectrons==0&&lep_mt>=0&&"+jetmetdphicut+bveto+lep_mt_cut+jet1_ID;
@@ -540,7 +408,6 @@ int main(int argc, char* argv[]){
   }
 
   std::string sigmcweight;
-  //std::string mcweightpufactordebug="*1./(weight_trig_1*weight_trig_2*weight_trig_3*weight_trig_4*weight_trig_5*weight_trig_6)";
 
   std::ostringstream mcweightsystfactor;
   mcweightsystfactor << "*" << lumiSF;
@@ -616,6 +483,7 @@ int main(int argc, char* argv[]){
 
   std::string additionalcut=(syst=="PUUP")?("&&abs(puweight_up_scale)<200"): (syst=="PUDOWN")?("&&abs(puweight_down_scale)<10") : ("");
   if (syst.find("TRIG")!=syst.npos && channel!= "ee" && channel != "enu") additionalcut="&&weight_trig_0>0";
+//   if (syst.find("LEPEFF_MUIDUP")!=syst.npos && channel== "nunu") additionalcut="&&weight_muVeto_idup>0";
   analysis->set_baseselection(basesel+additionalcut);
 
   //DATA SHAPE GENERATION
@@ -634,13 +502,13 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape qqH110("qqH110");
-  qqH110.set_dataset("VBFH110")
-    .set_dirname("qqH110")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
+//   DataShape qqH110("qqH110");
+//   qqH110.set_dataset("VBFH110")
+//     .set_dirname("qqH110")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
 
   DataShape qqH125("qqH125");
   qqH125.set_dataset("VBFH125")
@@ -650,77 +518,77 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape qqH150("qqH150");
-  qqH150.set_dataset("VBFH150")
-    .set_dirname("qqH150")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape qqH200("qqH200");
-  qqH200.set_dataset("VBFH200")
-    .set_dirname("qqH200")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape qqH300("qqH300");
-  qqH300.set_dataset("VBFH300")
-    .set_dirname("qqH300")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape qqH400("qqH400");
-  qqH400.set_dataset("VBFH400")
-    .set_dirname("qqH400")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape qqH500("qqH500");
-  qqH500.set_dataset("VBFH500")
-    .set_dirname("qqH500")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape qqH600("qqH600");
-  qqH600.set_dataset("VBFH600")
-    .set_dirname("qqH600")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape qqH800("qqH800");
-  qqH800.set_dataset("VBFH800")
-    .set_dirname("qqH800")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape qqH1000("qqH1000");
-  qqH1000.set_dataset("VBFH1000")
-    .set_dirname("qqH1000")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape ggH110("ggH110");
-  ggH110.set_dataset("GluGluH110")
-    .set_dirname("ggH110")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
+//   DataShape qqH150("qqH150");
+//   qqH150.set_dataset("VBFH150")
+//     .set_dirname("qqH150")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape qqH200("qqH200");
+//   qqH200.set_dataset("VBFH200")
+//     .set_dirname("qqH200")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape qqH300("qqH300");
+//   qqH300.set_dataset("VBFH300")
+//     .set_dirname("qqH300")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape qqH400("qqH400");
+//   qqH400.set_dataset("VBFH400")
+//     .set_dirname("qqH400")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape qqH500("qqH500");
+//   qqH500.set_dataset("VBFH500")
+//     .set_dirname("qqH500")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape qqH600("qqH600");
+//   qqH600.set_dataset("VBFH600")
+//     .set_dirname("qqH600")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape qqH800("qqH800");
+//   qqH800.set_dataset("VBFH800")
+//     .set_dirname("qqH800")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape qqH1000("qqH1000");
+//   qqH1000.set_dataset("VBFH1000")
+//     .set_dirname("qqH1000")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape ggH110("ggH110");
+//   ggH110.set_dataset("GluGluH110")
+//     .set_dirname("ggH110")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
 
   DataShape ggH125("ggH125");
   ggH125.set_dataset("GluGluH125")
@@ -730,69 +598,69 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape ggH150("ggH150");
-  ggH150.set_dataset("GluGluH150")
-    .set_dirname("ggH150")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape ggH200("ggH200");
-  ggH200.set_dataset("GluGluH200")
-    .set_dirname("ggH200")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape ggH300("ggH300");
-  ggH300.set_dataset("GluGluH300")
-    .set_dirname("ggH300")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape ggH400("ggH400");
-  ggH400.set_dataset("GluGluH400")
-    .set_dirname("ggH400")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape ggH500("ggH500");
-  ggH500.set_dataset("GluGluH500")
-    .set_dirname("ggH500")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape ggH600("ggH600");
-  ggH600.set_dataset("GluGluH600")
-    .set_dirname("ggH600")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape ggH800("ggH800");
-  ggH800.set_dataset("GluGluH800")
-    .set_dirname("ggH800")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape ggH1000("ggH1000");
-  ggH1000.set_dataset("GluGluH1000")
-    .set_dirname("ggH1000")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
+//   DataShape ggH150("ggH150");
+//   ggH150.set_dataset("GluGluH150")
+//     .set_dirname("ggH150")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape ggH200("ggH200");
+//   ggH200.set_dataset("GluGluH200")
+//     .set_dirname("ggH200")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape ggH300("ggH300");
+//   ggH300.set_dataset("GluGluH300")
+//     .set_dirname("ggH300")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape ggH400("ggH400");
+//   ggH400.set_dataset("GluGluH400")
+//     .set_dirname("ggH400")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape ggH500("ggH500");
+//   ggH500.set_dataset("GluGluH500")
+//     .set_dirname("ggH500")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape ggH600("ggH600");
+//   ggH600.set_dataset("GluGluH600")
+//     .set_dirname("ggH600")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape ggH800("ggH800");
+//   ggH800.set_dataset("GluGluH800")
+//     .set_dirname("ggH800")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+// 
+//   DataShape ggH1000("ggH1000");
+//   ggH1000.set_dataset("GluGluH1000")
+//     .set_dirname("ggH1000")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
 
   DataShape vv("vv");
   vv.set_dataset("VV")
@@ -810,13 +678,13 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape znunuraw("znunuraw");
-  znunuraw.set_dataset("ZJets_nunu")
-    .set_dirname("zvv")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
+//   DataShape znunuraw("znunuraw");
+//   znunuraw.set_dataset("ZJets_nunu")
+//     .set_dirname("zvv")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
 
 
   DataShape qcdznunuraw("qcdznunuraw");
@@ -836,14 +704,14 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape zmumuraw("zmumuraw");
-  zmumuraw.set_dataset("ZJets_ll")
-    .set_dirname("zmumu")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-  if (use_nlo)  zmumuraw.set_dataset("ZJets_ll_nlo");
+//   DataShape zmumuraw("zmumuraw");
+//   zmumuraw.set_dataset("ZJets_ll")
+//     .set_dirname("zmumu")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+//   if (use_nlo)  zmumuraw.set_dataset("ZJets_ll_nlo");
 
   DataShape qcdzmumuraw("qcdzmumuraw");
   qcdzmumuraw.set_dataset("ZJets_ll")
@@ -862,14 +730,14 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape zeeraw("zeeraw");
-  zeeraw.set_dataset("ZJets_ll")
-    .set_dirname("zee")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-  if (use_nlo)  zeeraw.set_dataset("ZJets_ll_nlo");
+//   DataShape zeeraw("zeeraw");
+//   zeeraw.set_dataset("ZJets_ll")
+//     .set_dirname("zee")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+//   if (use_nlo)  zeeraw.set_dataset("ZJets_ll_nlo");
 
   DataShape qcdzeeraw("qcdzeeraw");
   qcdzeeraw.set_dataset("ZJets_ll")
@@ -888,14 +756,14 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape zllraw("zllraw");
-  zllraw.set_dataset("ZJets_ll")
-    .set_dirname("zll")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-    if (use_nlo)  zllraw.set_dataset("ZJets_ll_nlo");
+//   DataShape zllraw("zllraw");
+//   zllraw.set_dataset("ZJets_ll")
+//     .set_dirname("zll")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+//     if (use_nlo)  zllraw.set_dataset("ZJets_ll_nlo");
 
   DataShape qcdzllraw("qcdzllraw");
   qcdzllraw.set_dataset("ZJets_ll")
@@ -914,37 +782,37 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape qcdwraw("qcdwraw");
-  qcdwraw.set_dataset("QCDWJets")
-    .set_dirname("wqcd")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-  if (use_nlo)  qcdwraw.set_dataset("QCDWJets_nlo");
+//   DataShape qcdwraw("qcdwraw");
+//   qcdwraw.set_dataset("QCDWJets")
+//     .set_dirname("wqcd")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+//   if (use_nlo)  qcdwraw.set_dataset("QCDWJets_nlo");
+// 
+//   DataShape ewkwraw("ewkwraw");
+//   ewkwraw.set_dataset("EWKWJets")
+//     .set_dirname("wewk")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
 
-  DataShape ewkwraw("ewkwraw");
-  ewkwraw.set_dataset("EWKWJets")
-    .set_dirname("wewk")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-
-  DataShape wmunuraw("wmunuraw");
-  wmunuraw.set_dataset("WJets_munu")
-    .set_dirname("wmu")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-  if (use_nlo)  wmunuraw.set_dataset("WJets_nlo_munu");
+//   DataShape wmunuraw("wmunuraw");
+//   wmunuraw.set_dataset("WJets_munu")
+//     .set_dirname("wmu")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight) //+lepveto_weight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+//   if (use_nlo)  wmunuraw.set_dataset("WJets_nlo_munu");
 
   DataShape qcdwmunuraw("qcdwmunuraw");
   qcdwmunuraw.set_dataset("WJets_munu")
     .set_dirname("wmuqcd")
     .set_shape(shape)
-    .set_dataweight(sigmcweight)
+    .set_dataweight(sigmcweight) //+lepveto_weight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
   if (use_nlo)  qcdwmunuraw.set_dataset("WJets_nlo_munu");
@@ -953,18 +821,18 @@ int main(int argc, char* argv[]){
   ewkwmunuraw.set_dataset("EWK_WJets_munu")
     .set_dirname("wmuewk")
     .set_shape(shape)
-    .set_dataweight(sigmcweight)
+    .set_dataweight(sigmcweight) //+lepveto_weight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape wenuraw("wenuraw");
-  wenuraw.set_dataset("WJets_enu")
-    .set_dirname("wel")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight+lepveto_weight)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat+mcextrasel);
-  if (use_nlo)  wenuraw.set_dataset("WJets_nlo_enu");
+//   DataShape wenuraw("wenuraw");
+//   wenuraw.set_dataset("WJets_enu")
+//     .set_dirname("wel")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight+lepveto_weight)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat+mcextrasel);
+//   if (use_nlo)  wenuraw.set_dataset("WJets_nlo_enu");
 
   DataShape qcdwenuraw("qcdwenuraw");
   qcdwenuraw.set_dataset("WJets_enu")
@@ -983,14 +851,14 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-  DataShape wtaunuraw("wtaunuraw");
-  wtaunuraw.set_dataset("WJets_taunu")
-    .set_dirname("wtau")
-    .set_shape(shape)
-    .set_dataweight(sigmcweight_wtau)
-    .set_basesel(analysis->baseselection())
-    .set_cat(sigcat_novetotaus+mcextrasel);
-  if (use_nlo) wtaunuraw.set_dataset("WJets_nlo_taunu");
+//   DataShape wtaunuraw("wtaunuraw");
+//   wtaunuraw.set_dataset("WJets_taunu")
+//     .set_dirname("wtau")
+//     .set_shape(shape)
+//     .set_dataweight(sigmcweight_wtau)
+//     .set_basesel(analysis->baseselection())
+//     .set_cat(sigcat_novetotaus+mcextrasel);
+//   if (use_nlo) wtaunuraw.set_dataset("WJets_nlo_taunu");
 
   DataShape qcdwtaunuraw("qcdwtaunuraw");
   qcdwtaunuraw.set_dataset("WJets_taunu")
@@ -1015,8 +883,6 @@ int main(int argc, char* argv[]){
     .set_shape(shape)
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
-    //AMM uncomment for QCD in signal region plots.
-    //.set_cat(nunuqcdcat+mcextrasel);
     .set_cat(sigcat+mcextrasel);
 
   DataShape gjetsraw("gjetsraw");
@@ -1028,7 +894,6 @@ int main(int argc, char* argv[]){
     .set_cat(sigcat+mcextrasel);
 
   //HISTPLOTTER
-  //std::vector<std::string> shapevec;
   std::vector<LTShapeElement> shapevec;
   for(unsigned ishape=0;ishape<shape.size();ishape++){
     //do not plot 2D hists....
@@ -1038,19 +903,18 @@ int main(int argc, char* argv[]){
 
     LTShapeElement thisshape;
     thisshape.set_name(strs);
-    thisshape.set_legleft(0.6);
-    thisshape.set_legright(0.89);
+    thisshape.set_legleft(0.65);
+    thisshape.set_legright(0.97);
 
 
-    if (strs=="forward_tag_eta"||strs=="central_tag_eta"){
-      thisshape.set_legleft(0.39);
-      thisshape.set_legright(0.61);
-    }
+//     if (strs=="forward_tag_eta"||strs=="central_tag_eta"){
+//       thisshape.set_legleft(0.39);
+//       thisshape.set_legright(0.71);
+//     }
     if (strs.find("fourjetsmetnomu")!=strs.npos) thisshape.set_axisrangemultiplier((channel=="mumu"||channel=="nunu")?2.2:1.6);
     if (strs.find("dijet_deta")!=strs.npos && channel=="nunu") thisshape.set_axisrangemultiplier(1.7);
 
     thisshape.set_histtitle(histTitle[ishape]);
-    //    shapevec.push_back(strs);
     if(do_logy) thisshape.set_dology(true);
     shapevec.push_back(thisshape);
   }
@@ -1095,244 +959,244 @@ int main(int argc, char* argv[]){
   }
 
   //All W
-  LTPlotElement qcdwele;
-  qcdwele.set_is_data(false)
-    .set_scale(getPostFitSF(channel,"wqcd"))
-    .set_color(kOrange-4)
-    .set_in_stack(true)
-    .set_is_inratioden(true)
-    .set_legname("QCD W#rightarrow l#nu")
-    .set_sample("wqcd");
-  if(!do_mcbkg)qcdwele.set_has_dderrors(1);
-
-  LTPlotElement ewkwele;
-  ewkwele.set_is_data(false)
-    .set_scale(getPostFitSF(channel,"wewk"))
-    .set_color(kOrange+2)
-    .set_in_stack(true)
-    .set_is_inratioden(true)
-    .set_legname("EWK W#rightarrow l#nu")
-    .set_sample("wewk");
-  if(!do_mcbkg)ewkwele.set_has_dderrors(1);
+//   LTPlotElement qcdwele;
+//   qcdwele.set_is_data(false)
+//     .set_scale(getPostFitSF(channel,"wqcd"))
+//     .set_color(kOrange-4)
+//     .set_in_stack(true)
+//     .set_is_inratioden(true)
+//     .set_legname("QCD W#rightarrow l#nu")
+//     .set_sample("wqcd");
+//   if(!do_mcbkg)qcdwele.set_has_dderrors(1);
+// 
+//   LTPlotElement ewkwele;
+//   ewkwele.set_is_data(false)
+//     .set_scale(getPostFitSF(channel,"wewk"))
+//     .set_color(kOrange+2)
+//     .set_in_stack(true)
+//     .set_is_inratioden(true)
+//     .set_legname("EWK W#rightarrow l#nu")
+//     .set_sample("wewk");
+//   if(!do_mcbkg)ewkwele.set_has_dderrors(1);
 
   //separate W
-  LTPlotElement wmunuele;
-  wmunuele.set_is_data(false)
-    .set_scale(1)
-    .set_color(kOrange-4)
-    .set_in_stack(true)
-    .set_is_inratioden(true)
-    .set_legname("W#rightarrow#mu#nu")
-    .set_sample("wmu");
-  if(!do_mcbkg)wmunuele.set_has_dderrors(1);
+//   LTPlotElement wmunuele;
+//   wmunuele.set_is_data(false)
+//     .set_scale(1)
+//     .set_color(kOrange-4)
+//     .set_in_stack(true)
+//     .set_is_inratioden(true)
+//     .set_legname("W#rightarrow#mu#nu")
+//     .set_sample("wmu");
+//   if(!do_mcbkg)wmunuele.set_has_dderrors(1);
 
   LTPlotElement qcdwmunuele;
   qcdwmunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wqcd"))
-    .set_color(kOrange-4)
+    .set_color(TColor::GetColor("#E19D07"))
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("QCD W#rightarrow#mu#nu")
+    .set_legname("W(#mu#nu)+jets QCD")
     .set_sample("wmuqcd");
   if(!do_mcbkg)qcdwmunuele.set_has_dderrors(1);
 
   LTPlotElement ewkwmunuele;
   ewkwmunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wewk"))
-    .set_color(kOrange-3)
+    .set_color(kAzure+2)
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("EWK W#rightarrow#mu#nu")
+    .set_legname("W(#mu#nu)+jets EWK")
     .set_sample("wmuewk");
   if(!do_mcbkg)ewkwmunuele.set_has_dderrors(1);
 
-  LTPlotElement wenuele;
-  wenuele.set_is_data(false)
-    .set_scale(1)
-    .set_color(kOrange  + 2)
-    .set_in_stack(true)
-    .set_is_inratioden(true)
-    .set_legname("W#rightarrow e#nu")
-    .set_sample("wel");
-  if(!do_mcbkg)wenuele.set_has_dderrors(1);
+//   LTPlotElement wenuele;
+//   wenuele.set_is_data(false)
+//     .set_scale(1)
+//     .set_color(kOrange  + 2)
+//     .set_in_stack(true)
+//     .set_is_inratioden(true)
+//     .set_legname("W#rightarrow e#nu")
+//     .set_sample("wel");
+//   if(!do_mcbkg)wenuele.set_has_dderrors(1);
 
   LTPlotElement qcdwenuele;
   qcdwenuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wqcd"))
-    .set_color(kOrange  + 2)
+    .set_color(TColor::GetColor("#FAAF08"))
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("QCD W#rightarrow e#nu")
+    .set_legname("W(e#nu)+jets QCD")
     .set_sample("welqcd");
   if(!do_mcbkg)qcdwenuele.set_has_dderrors(1);
 
   LTPlotElement ewkwenuele;
   ewkwenuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wewk"))
-    .set_color(kOrange  + 1)
+    .set_color(kAzure+1)
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("EWK W#rightarrow e#nu")
+    .set_legname("W(e#nu)+jets EWK")
     .set_sample("welewk");
   if(!do_mcbkg)ewkwenuele.set_has_dderrors(1);
 
-  LTPlotElement wtaunuele;
-  wtaunuele.set_is_data(false)
-    .set_scale(1)
-    .set_color(kOrange + 4)
-    .set_in_stack(true)
-    .set_is_inratioden(true)
-    .set_legname("W#rightarrow#tau#nu")
-    .set_sample("wtau");
-  if(!do_mcbkg)wtaunuele.set_has_dderrors(1);
+//   LTPlotElement wtaunuele;
+//   wtaunuele.set_is_data(false)
+//     .set_scale(1)
+//     .set_color(kOrange + 4)
+//     .set_in_stack(true)
+//     .set_is_inratioden(true)
+//     .set_legname("W#rightarrow#tau#nu")
+//     .set_sample("wtau");
+//   if(!do_mcbkg)wtaunuele.set_has_dderrors(1);
 
   LTPlotElement qcdwtaunuele;
   qcdwtaunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wqcd"))
-    .set_color(kOrange + 4)
+    .set_color(TColor::GetColor("#C88C06"))
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("QCD W#rightarrow#tau#nu")
+    .set_legname("W(#tau#nu)+jets QCD")
     .set_sample("wtauqcd");
   if(!do_mcbkg)qcdwtaunuele.set_has_dderrors(1);
 
   LTPlotElement ewkwtaunuele;
   ewkwtaunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"wewk"))
-    .set_color(kOrange + 5)
+    .set_color(kAzure+3)
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("EWK W#rightarrow#tau#nu")
+    .set_legname("W(#tau#nu)+jets EWK")
     .set_sample("wtauewk");
   if(!do_mcbkg)ewkwtaunuele.set_has_dderrors(1);
 
   //separate Z
-  LTPlotElement zmumuele;
-  zmumuele.set_is_data(false)
-    .set_scale(1)
-    .set_color(kAzure  + 2)
-    .set_in_stack(true)
-    .set_is_inratioden(true)
-    .set_legname("Z#rightarrow#mu#mu")
-    .set_sample("zmumu");
-  if(!do_mcbkg)zmumuele.set_has_dderrors(1);
+//   LTPlotElement zmumuele;
+//   zmumuele.set_is_data(false)
+//     .set_scale(1)
+//     .set_color(TColor::GetColor("#9A9EAB"))
+//     .set_in_stack(true)
+//     .set_is_inratioden(true)
+//     .set_legname("Z#rightarrow#mu#mu")
+//     .set_sample("zmumu");
+//   if(!do_mcbkg)zmumuele.set_has_dderrors(1);
 
   LTPlotElement qcdzmumuele;
   qcdzmumuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zqcd"))
-    .set_color(kAzure  + 2)
+    .set_color(TColor::GetColor("#9A9EAB"))
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("QCD Z#rightarrow#mu#mu")
+    .set_legname("Z(#mu#mu) QCD")
     .set_sample("zmumuqcd");
   if(!do_mcbkg)qcdzmumuele.set_has_dderrors(1);
 
   LTPlotElement ewkzmumuele;
   ewkzmumuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zewk"))
-    .set_color(kAzure  + 4)
+    .set_color(TColor::GetColor("#91ABC4"))
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("EWK Z#rightarrow#mu#mu")
+    .set_legname("Z(#mu#mu) EWK")
     .set_sample("zmumuewk");
   if(!do_mcbkg)ewkzmumuele.set_has_dderrors(1);
 
-  LTPlotElement zeeele;
-  zeeele.set_is_data(false)
-    .set_scale(1)
-    .set_color(kAzure  + 2)
-    .set_in_stack(true)
-    .set_is_inratioden(true)
-    .set_legname("Z#rightarrow ee")
-    .set_sample("zee");
-  if(!do_mcbkg)zeeele.set_has_dderrors(1);
+//   LTPlotElement zeeele;
+//   zeeele.set_is_data(false)
+//     .set_scale(1)
+//     .set_color(TColor::GetColor("#9A9EAB"))
+//     .set_in_stack(true)
+//     .set_is_inratioden(true)
+//     .set_legname("Z#rightarrow ee")
+//     .set_sample("zee");
+//   if(!do_mcbkg)zeeele.set_has_dderrors(1);
 
   LTPlotElement qcdzeeele;
   qcdzeeele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zqcd"))
-    .set_color(kAzure  + 2)
+    .set_color(TColor::GetColor("#9A9EAB"))
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("QCD Z#rightarrow ee")
+    .set_legname("Z(ee) QCD")
     .set_sample("zeeqcd");
   if(!do_mcbkg)qcdzeeele.set_has_dderrors(1);
 
   LTPlotElement ewkzeeele;
   ewkzeeele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zewk"))
-    .set_color(kAzure  + 4)
+    .set_color(TColor::GetColor("#91ABC4"))
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("EWK Z#rightarrow ee")
+    .set_legname("Z(ee) EWK")
     .set_sample("zeeewk");
   if(!do_mcbkg)ewkzeeele.set_has_dderrors(1);
 
   //Zll for SR
-  LTPlotElement zllele;
-  zllele.set_is_data(false)
-  .set_scale(1)
-  .set_color(kAzure  + 6)
-  .set_in_stack(true)
-  .set_is_inratioden(true)
-  .set_legname("Z#rightarrow ll")
-  .set_sample("zll");
-  if(!do_mcbkg)zllele.set_has_dderrors(1);
+//   LTPlotElement zllele;
+//   zllele.set_is_data(false)
+//   .set_scale(1)
+//   .set_color(TColor::GetColor("#9A9EAB"))
+//   .set_in_stack(true)
+//   .set_is_inratioden(true)
+//   .set_legname("Z#rightarrow ll")
+//   .set_sample("zll");
+//   if(!do_mcbkg)zllele.set_has_dderrors(1);
 
   LTPlotElement qcdzllele;
   qcdzllele.set_is_data(false)
   .set_scale(1)
-  .set_color(kAzure  + 6)
+  .set_color(TColor::GetColor("#9A9EAB"))
   .set_in_stack(true)
   .set_is_inratioden(true)
-  .set_legname("QCD Z#rightarrow ll")
+  .set_legname("Z(ll) QCD")
   .set_sample("zllqcd");
   if(!do_mcbkg)qcdzllele.set_has_dderrors(1);
 
   LTPlotElement ewkzllele;
   ewkzllele.set_is_data(false)
   .set_scale(1)
-  .set_color(kAzure  + 8)
+  .set_color(TColor::GetColor("#91ABC4"))
   .set_in_stack(true)
   .set_is_inratioden(true)
-  .set_legname("EWK Z#rightarrow ll")
+  .set_legname("Z(ll) EWK")
   .set_sample("zllewk");
   if(!do_mcbkg)ewkzllele.set_has_dderrors(1);
 
   //Znunu
-  LTPlotElement znunuele;
-  znunuele.set_is_data(false)
-    .set_scale(1)
-    .set_color(kAzure  + 2)
-    .set_in_stack(true)
-    .set_is_inratioden(true)
-    .set_legname("Z#rightarrow#nu#nu")
-    .set_sample("zvv");
-  if(!do_mcbkg)znunuele.set_has_dderrors(1);
+//   LTPlotElement znunuele;
+//   znunuele.set_is_data(false)
+//     .set_scale(1)
+//     .set_color(TColor::GetColor("#4D975D"))
+//     .set_in_stack(true)
+//     .set_is_inratioden(true)
+//     .set_legname("Z(#nu#nu)+jets")
+//     .set_sample("zvv");
+//   if(!do_mcbkg)znunuele.set_has_dderrors(1);
 
   LTPlotElement qcdznunuele;
   qcdznunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zqcd"))
-    .set_color(kAzure  + 2)
+    .set_color(TColor::GetColor("#4D975D"))
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("QCD Z#rightarrow#nu#nu")
+    .set_legname("Z(#nu#nu)+jets QCD")
     .set_sample("zvvqcd");
   if(!do_mcbkg)qcdznunuele.set_has_dderrors(1);
 
   LTPlotElement ewkznunuele;
   ewkznunuele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"zewk"))
-    .set_color(kAzure  + 4)
+    .set_color(kCyan+1)
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("EWK Z#rightarrow#nu#nu")
+    .set_legname("Z(#nu#nu)+jets EWK")
     .set_sample("zvvewk");
   if(!do_mcbkg)ewkznunuele.set_has_dderrors(1);
 
   LTPlotElement vvele;
   vvele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"VV"))
-    .set_color(kGreen-5)
+    .set_color(TColor::GetColor("#4897D8"))
     .set_in_stack(true)
     .set_is_inratioden(true)
     .set_legname("VV")
@@ -1341,10 +1205,10 @@ int main(int argc, char* argv[]){
   LTPlotElement topele;
   topele.set_is_data(false)
     .set_scale(getPostFitSF(channel,"top"))
-    .set_color(kBlue-8)
+    .set_color(TColor::GetColor("#CF3721"))
     .set_in_stack(true)
     .set_is_inratioden(true)
-    .set_legname("Top")
+    .set_legname("Top quark")
     .set_sample("top");
 
   LTPlotElement qcdele;
@@ -1354,26 +1218,27 @@ int main(int argc, char* argv[]){
     //.set_scale(3.8/7.9)
     //AMM uncomment for QCD in signal region plots all but mindphi.
     //.set_scale(3.8/6.5)
-    .set_color(kMagenta-10)
+    .set_color(TColor::GetColor("#F1F1F2"))
     .set_in_stack(true)
     .set_is_inratioden(true)
     .set_legname("QCD")
     .set_sample("qcd");
 
-  LTPlotElement gjetsele;
-  gjetsele.set_is_data(false)
-    .set_scale(1)
-    .set_color(kYellow+2)
-    .set_in_stack(true)
-    .set_is_inratioden(true)
-    .set_legname("#gamma+jets")
-    .set_sample("gjets");
+//   LTPlotElement gjetsele;
+//   gjetsele.set_is_data(false)
+//     .set_scale(1)
+//     .set_color(kYellow+2)
+//     .set_in_stack(true)
+//     .set_is_inratioden(true)
+//     .set_legname("#gamma+jets")
+//     .set_sample("gjets");
 
 
   LTPlotElement sigele;
   sigele.set_is_data(false)
     .set_scale(1)
     .set_color(kRed)
+    .set_line_style(1)
     .set_in_stack(false)
     .set_legname("Signal")
     .set_sample("sig125");
@@ -1381,72 +1246,67 @@ int main(int argc, char* argv[]){
   LTPlotElement qqHele;
   qqHele.set_is_data(false)
     .set_scale(1)
-    .set_color(kBlue)
+    .set_color(kBlack)
+    .set_line_style(1)
     .set_in_stack(false)
-    .set_legname("qq#rightarrow H")
+    .set_legname("qqH_{inv} m_{h} = 125 GeV")
     .set_sample("qqH125");
 
   LTPlotElement ggHele;
   ggHele.set_is_data(false)
     .set_scale(1)
-    .set_color(kGreen)
+    .set_color(kBlack)
+    .set_line_style(2)
     .set_in_stack(false)
-    .set_legname("gg#rightarrow H")
+    .set_legname("ggH_{inv} m_{h} = 125 GeV")
     .set_sample("ggH125");
 
   if(!(channel=="nunu"&&runblind))elementvec.push_back(dataele);
   if(!dataonly){
-    if (channel=="gamma"){
-      elementvec.push_back(gjetsele);
-    }
-    if (channel=="nunu"||channel=="qcd"||channel=="mumu"||channel=="ee"){
-      elementvec.push_back(qcdwele);
-      elementvec.push_back(ewkwele);
-    }
-    else { 
-      //if (channel!="enu" && channel!="taunu"){
-        elementvec.push_back(qcdwmunuele);
-        elementvec.push_back(ewkwmunuele);
-	// }
-	//if (channel!="munu" && channel!="taunu"){
-        elementvec.push_back(qcdwenuele);
-        elementvec.push_back(ewkwenuele);
-	//}
-	//if (channel!="enu" && channel!="munu"){
-        elementvec.push_back(qcdwtaunuele);
-        elementvec.push_back(ewkwtaunuele);
-	//}
-    } //else {
+    elementvec.push_back(qcdele);
+
     if(channel=="mumu") {
-      elementvec.push_back(qcdzmumuele);
       elementvec.push_back(ewkzmumuele);
+      elementvec.push_back(qcdzmumuele);
     }
     else if(channel=="ee") {
-      elementvec.push_back(qcdzeeele);
       elementvec.push_back(ewkzeeele);
+      elementvec.push_back(qcdzeeele);
+    }
+    if (channel=="nunu" || channel=="enu" || channel=="munu"|| channel=="taunu"){
+      elementvec.push_back(ewkzllele);
+      elementvec.push_back(qcdzllele);
     }
 
-    if (channel=="nunu" || channel=="enu" || channel=="munu"|| channel=="taunu"){
-      elementvec.push_back(qcdzllele);
-      elementvec.push_back(ewkzllele);
+    elementvec.push_back(topele);
+    elementvec.push_back(vvele);
+
+//     if (channel=="gamma"){
+//       elementvec.push_back(gjetsele);
+//     }
+
+    elementvec.push_back(ewkwtaunuele);
+    elementvec.push_back(ewkwmunuele);
+    elementvec.push_back(ewkwenuele);
+
+    if(channel=="nunu" || channel=="qcd" || channel=="taunu") {
+      elementvec.push_back(ewkznunuele);
     }
-    //}
+
+    elementvec.push_back(qcdwtaunuele);
+    elementvec.push_back(qcdwmunuele);
+    elementvec.push_back(qcdwenuele);
 
     if(channel=="nunu" || channel=="qcd" || channel=="taunu") {
       elementvec.push_back(qcdznunuele);
-      elementvec.push_back(ewkznunuele);
     }
-    elementvec.push_back(vvele);
-    elementvec.push_back(topele);
-    elementvec.push_back(qcdele);
     if(channel=="nunu" || channel=="qcd" || channel=="taunu") {
-      elementvec.push_back(sigele);
+//       elementvec.push_back(sigele);
       if (channel=="nunu"){
-	elementvec.push_back(qqHele);
-	elementvec.push_back(ggHele);
+        elementvec.push_back(qqHele);
+        elementvec.push_back(ggHele);
       }
     }
-
   }
 
   if (debug){
@@ -1484,8 +1344,8 @@ int main(int argc, char* argv[]){
     dirvec.push_back("zeeewk");
     dirvec.push_back("zllqcd");
     dirvec.push_back("zllewk");
-    dirvec.push_back("wqcd");
-    dirvec.push_back("wewk");
+//     dirvec.push_back("wqcd");
+//     dirvec.push_back("wewk");
     dirvec.push_back("zvvqcd");
     dirvec.push_back("zvvewk");
     dirvec.push_back("gjets");
@@ -1519,8 +1379,8 @@ int main(int argc, char* argv[]){
       analysis->AddModule(&ewkwmunuraw);
       analysis->AddModule(&ewkwenuraw);
       analysis->AddModule(&ewkwtaunuraw);
-      analysis->AddModule(&qcdwraw);
-      analysis->AddModule(&ewkwraw);
+//       analysis->AddModule(&qcdwraw);
+//       analysis->AddModule(&ewkwraw);
       analysis->AddModule(&topraw);
       analysis->AddModule(&gjetsraw);
       analysis->AddModule(&qcdzmumuraw);
@@ -1537,24 +1397,24 @@ int main(int argc, char* argv[]){
   if(!(channel=="nunu"&&runblind))analysis->AddModule(&data);
 
   if(!dataonly){
-    analysis->AddModule(&ggH110);
-    analysis->AddModule(&ggH150);
-    analysis->AddModule(&ggH200);
-    analysis->AddModule(&ggH300);
-    analysis->AddModule(&ggH400);
-    analysis->AddModule(&ggH500);
-    analysis->AddModule(&ggH600);
-    analysis->AddModule(&ggH800);
-    analysis->AddModule(&ggH1000);
-    analysis->AddModule(&qqH110);
-    analysis->AddModule(&qqH150);
-    analysis->AddModule(&qqH200);
-    analysis->AddModule(&qqH300);
-    analysis->AddModule(&qqH400);
-    analysis->AddModule(&qqH500);
-    analysis->AddModule(&qqH600);
-    analysis->AddModule(&qqH800);
-    analysis->AddModule(&qqH1000);
+//     analysis->AddModule(&ggH110);
+//     analysis->AddModule(&ggH150);
+//     analysis->AddModule(&ggH200);
+//     analysis->AddModule(&ggH300);
+//     analysis->AddModule(&ggH400);
+//     analysis->AddModule(&ggH500);
+//     analysis->AddModule(&ggH600);
+//     analysis->AddModule(&ggH800);
+//     analysis->AddModule(&ggH1000);
+//     analysis->AddModule(&qqH110);
+//     analysis->AddModule(&qqH150);
+//     analysis->AddModule(&qqH200);
+//     analysis->AddModule(&qqH300);
+//     analysis->AddModule(&qqH400);
+//     analysis->AddModule(&qqH500);
+//     analysis->AddModule(&qqH600);
+//     analysis->AddModule(&qqH800);
+//     analysis->AddModule(&qqH1000);
     analysis->AddModule(&qqH125);
     analysis->AddModule(&ggH125);
     analysis->AddModule(&totsignal125);

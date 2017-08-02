@@ -1,8 +1,7 @@
 #!/bin/sh
 
 PROD=170201
-#JOBDIR=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170711_SingleMuonAndElectron_MuEGClean/
-JOBDIR=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170719/
+JOBDIR=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170801/
 INJOBDIR=0
 
 while [ $# -gt 0 ] ; do
