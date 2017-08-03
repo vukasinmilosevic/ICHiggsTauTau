@@ -112,6 +112,14 @@ namespace ic {
       if (err<7) weight_eleVeto_[err] = 1; 
     }
 
+    weight_0muloose_ = 1;
+    weight_0muloose_idup_ = 1;
+    weight_0muloose_iddown_ = 1;
+    weight_0muloose_isoup_ = 1;
+    weight_0muloose_isodown_ = 1;
+    weight_0muloose_tkup_ = 1;
+    weight_0muloose_tkdown_ = 1;
+
     weight_0b_alljets_ = 1;
     weight_0bup_alljets_ = 1;
     weight_0bdown_alljets_ = 1;
@@ -457,6 +465,14 @@ namespace ic {
     outputTree_->Branch("weight_mutkTight",&weight_mutkTight_[0]);
     outputTree_->Branch("weight_mutkTight_up",&weight_mutkTight_[1]);
     outputTree_->Branch("weight_mutkTight_down",&weight_mutkTight_[2]);
+
+    outputTree_->Branch("weight_0muloose",&weight_0muloose_);
+    outputTree_->Branch("weight_0muloose_idup",&weight_0muloose_idup_);
+    outputTree_->Branch("weight_0muloose_iddown",&weight_0muloose_iddown_);
+    outputTree_->Branch("weight_0muloose_isoup",&weight_0muloose_isoup_);
+    outputTree_->Branch("weight_0muloose_isodown",&weight_0muloose_isodown_);
+    outputTree_->Branch("weight_0muloose_tkup",&weight_0muloose_tkup_);
+    outputTree_->Branch("weight_0muloose_tkdown",&weight_0muloose_tkdown_);
 
     outputTree_->Branch("weight_0b_alljets",&weight_0b_alljets_);
     outputTree_->Branch("weight_0bup_alljets",&weight_0bup_alljets_);
@@ -880,6 +896,14 @@ namespace ic {
       weight_mutkTight_[0] = eventInfo->weight("muTight_tkSF");
       weight_mutkTight_[1] = eventInfo->weight("muTight_tkSF_up");
       weight_mutkTight_[2] = eventInfo->weight("muTight_tkSF_down");
+
+      weight_0muloose_ = eventInfo->weight("muLoose_0muSF");
+      weight_0muloose_idup_ = eventInfo->weight("muLoose_0muSF_idup");
+      weight_0muloose_iddown_ = eventInfo->weight("muLoose_0muSF_iddown");
+      weight_0muloose_isoup_ = eventInfo->weight("muLoose_0muSF_isoup");
+      weight_0muloose_isodown_ = eventInfo->weight("muLoose_0muSF_isodown");
+      weight_0muloose_tkup_ = eventInfo->weight("muLoose_0muSF_tkup");
+      weight_0muloose_tkdown_ = eventInfo->weight("muLoose_0muSF_tkdown");
 
       pileupwt=eventInfo->weight("pileup");
       pileupwtup=eventInfo->weight("pileup_up");

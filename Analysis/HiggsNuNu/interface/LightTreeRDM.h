@@ -72,6 +72,14 @@ namespace ic {
     double weight_muisoTight_[3];
     double weight_mutkTight_[3];
 
+    double weight_0muloose_;
+    double weight_0muloose_idup_;
+    double weight_0muloose_iddown_;
+    double weight_0muloose_isoup_;
+    double weight_0muloose_isodown_;
+    double weight_0muloose_tkup_;
+    double weight_0muloose_tkdown_;
+
     double weight_eletrigEff_[3];
 
     double weight_0b_alljets_;
