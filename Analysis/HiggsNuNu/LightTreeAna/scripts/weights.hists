@@ -1,2 +1,0 @@
-jet2_pt(20,0.,350.)	;p_{T}^{j2} (GeV);Events
-n_jets_15(15,0.,15.)	;N jets pt>15 GeV;Events
