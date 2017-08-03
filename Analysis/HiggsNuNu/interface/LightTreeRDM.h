@@ -65,12 +65,20 @@ namespace ic {
     double ewk_v_nlo_Reweight_;
 
     double weight_eleVeto_[7];
-    double weight_muVeto_[9];
+    double weight_muVeto_[7];
     double weight_eleTight_[3];
     double weight_gsfTight_[3];
     double weight_muidTight_[3];
     double weight_muisoTight_[3];
     double weight_mutkTight_[3];
+
+    double weight_0muloose_;
+    double weight_0muloose_idup_;
+    double weight_0muloose_iddown_;
+    double weight_0muloose_isoup_;
+    double weight_0muloose_isodown_;
+    double weight_0muloose_tkup_;
+    double weight_0muloose_tkdown_;
 
     double weight_eletrigEff_[3];
 
