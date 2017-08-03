@@ -1,8 +1,7 @@
 #!/bin/sh
-DOCERN=0
 DOSUBMIT=1
 
-DATE=170405
+DATE=170803_Nminus1
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -10,13 +9,8 @@ DATE=170405
 : ${JOBSUBMIT:="eval"}
 
 GRIDSETUP=1
-if [ "$DOCERN" = "0" ]
-  then
-  JOBSCRIPT="./scripts/submit_ic_batch_job.sh"
-else
-  JOBSCRIPT="./scripts/submit_cern_batch_job.sh"
-  GRIDSETUP=0
-fi
+JOBSCRIPT="./scripts/submit_ic_batch_job.sh"
+
 export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 
 
@@ -26,10 +20,10 @@ echo "Using job-submission: " $JOBSUBMIT
 CONFIG=scripts/DefaultRun2Config_vetos_forN-1plots.cfg
 
 QUEUEDIR=short #medium long
-# no_METno_cut no_dijet_dphi_cut no_dijet_deta_cut no_fourjetsmetno_mindphi_cut no_dijet_M_cut
-JOBDIRPREFIX=jobs_run2ana_${DATE}_forN-1plots/no_dijet_M_cut
+# no_METno_cut no_dijet_dphi_cut no_dijet_deta_cut no_fourjetsmetnomu_mindphi_cut no_dijet_M_cut
+JOBDIRPREFIX=jobs_run2ana_${DATE}/no_dijet_M_cut
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE}_forN-1plots/no_dijet_M_cut
+OUTPUTPREFIX=output_run2ana_${DATE}/no_dijet_M_cut
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -38,28 +32,16 @@ echo "Config file: $CONFIG"
 mkdir -p $JOBDIR
 mkdir -p $OUTPUTDIR
 
-if [ "$DOCERN" = "0" ]
+if [ "$QUEUEDIR" = "medium" ]
   then
-  if [ "$QUEUEDIR" = "medium" ]
-    then
-    JOBQUEUE="5:59:0"
-  elif [ "$QUEUEDIR" = "long" ]
-    then
-    JOBQUEUE="47:59:0"
-  else
-    JOBQUEUE="2:59:0"
-  fi
+  JOBQUEUE="5:59:0"
+elif [ "$QUEUEDIR" = "long" ]
+  then
+  JOBQUEUE="47:59:0"
 else
-  if [ "$QUEUEDIR" = "medium" ]
-    then
-    JOBQUEUE="1nd"
-  elif [ "$QUEUEDIR" = "long" ]
-    then
-    JOBQUEUE="2nd"
-  else
-    JOBQUEUE="1nh"
-  fi
+  JOBQUEUE="2:59:0"
 fi
+
 export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
@@ -74,58 +56,29 @@ do
     #executable expect strings separated by "!"
 
     ## no_METno_cut
-#     HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events"
-#     SHAPESTRING="metnomuons(80,0.,800.)"
-#     if [ "$channels" = "ee" ]; then
-#       HISTSTRING=";E_{T,no-el}^{miss} (GeV);Events"
-#       SHAPESTRING="metnoelectrons(80,0.,800.)"
-#     fi
-#     if [ "$channels" = "enu" ]; then
-#       HISTSTRING=";E_{T,no-el}^{miss} (GeV);Events"
-#       SHAPESTRING="metnoelectrons(80,0.,800.)"
-#     fi
+#     HISTSTRING=";E_{T,no-#mu}^{miss} [GeV];Events"
+#     SHAPESTRING="metnomuons(50,0.,1000.)"
 
     ## no_dijet_dphi_cut
 #     HISTSTRING=";#Delta#phi_{jj};Events"
-#     SHAPESTRING="dijet_dphi(20,0.,3.1416)"
+#     SHAPESTRING="dijet_dphi(60,0.,3.1416)"
 
-    ## no_dijet_deta_cut
+#     ## no_dijet_deta_cut
 #     HISTSTRING=";#Delta#eta_{jj};Events"
-#     SHAPESTRING="dijet_deta(30,2.,8.)"
+#     SHAPESTRING="dijet_deta(35,1.,8.)"
 
     ## no_fourjetsmetnomu_mindphi_cut
 #     HISTSTRING=";#Delta#phi(E_{T,no-#mu}^{miss},j);Events"
-#     SHAPESTRING="fourjetsmetnomu_mindphi(60,0.,3.1416)"
-#     if [ "$channels" = "ee" ]; then
-#       HISTSTRING=";#Delta#phi(E_{T,no-el}^{miss},j);Events"
-#       SHAPESTRING="fourjetsmetnoel_mindphi(60,0.,3.1416)"
-#     fi
-#     if [ "$channels" = "enu" ]; then
-#       HISTSTRING=";#Delta#phi(E_{T,no-el}^{miss},j);Events"
-#       SHAPESTRING="fourjetsmetnoel_mindphi(60,0.,3.1416)"
-#     fi
+#     SHAPESTRING="fourjetsmetnomu_mindphi(24,0.,3.1416)"
 
     ## no_dijet_M_cut
-    HISTSTRING=";M_{jj} (GeV);Events"
-    SHAPESTRING="dijet_M(35,600.,4500.)"
+    HISTSTRING=";M_{jj} [GeV];Events"
+    SHAPESTRING="dijet_M(50,300.,5300.)"
 
     echo "Making histograms: " $SHAPESTRING
     OUTPUTNAME="$channels.root"
     MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"
-    if [ "$channels" = "taunu" ]; then
-	############MINDPHICUT="jetmetnomu_mindphi\>=1.0" #\&\&fourjetsmetnomu_mindphi\<2.3"
-	#MINDPHICUT="jetmetnomu_mindphi\>=1.0\&\&fourjetsmetnomu_mindphi\<2.3"
-      MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"
-    fi
-    if [ "$channels" = "qcd" ]; then
-      MINDPHICUT="fourjetsmetnomu_mindphi\<0.5"
-    fi
-    if [ "$channels" = "ee" ]; then
-      MINDPHICUT="fourjetsmetnoel_mindphi\>=0.5"
-    fi
-    if [ "$channels" = "enu" ]; then
-      MINDPHICUT="fourjetsmetnoel_mindphi\>=0.5"
-    fi
+
     if [ "$syst" = "" ]
       then
       $JOBWRAPPER "./bin/LTAnalysisRun2_2016 --cfg=$CONFIG --channel=$channels --histTitlePar='$HISTSTRING' --shapePar='$SHAPESTRING' -o $OUTPUTDIR$syst/$OUTPUTNAME --jetmetdphicut=$MINDPHICUT &> $JOBDIR$syst/$JOB.log" $JOBDIR$syst/$JOB.sh $GRIDSETUP
