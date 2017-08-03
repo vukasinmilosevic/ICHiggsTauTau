@@ -284,7 +284,7 @@ namespace ic {//namespace
       fillVector("input/scale_factors/Summer16_80X_ele_trig_data_eff.txt",15,6,e_trigDataEff_,e_pttrig_,e_etatrig_,true);
       fillVector("input/scale_factors/Summer16_80X_gsf_id_SF.txt",3,30,e_gsfidSF_,gsf_ptbin_,gsf_etabin_,false);
       fillVector("input/scale_factors/Summer16_80X_mu_tight_id_SF.txt",6,8,muTight_idSF_,mu_ptbin_,mu_etabin_,false);
-      fillVector("input/scale_factors/Summer16_80X_mu_trackingSF.txt",1,23,mu_tkSF_,tk_ptbin_,tk_etabin_,true);
+      fillVector("input/scale_factors/Summer16_80X_mu_trackingSF_smooth.txt",1,23,mu_tkSF_,tk_ptbin_,tk_etabin_,true);
 
       fillVector("input/scale_factors/Summer16_80X_ele_veto_id_data_eff.txt",6,10,eVeto_idisoDataEff_,dummypt,dummyeta,true);
       fillVector("input/scale_factors/Summer16_80X_ele_veto_id_mc_eff.txt",6,10,eVeto_idisoMCEff_,dummypt,dummyeta,true);
@@ -629,7 +629,7 @@ namespace ic {//namespace
     //first try: take leptons from W in pT,eta acceptance
     std::vector<GenParticle*> const& genParts = event->GetPtrVec<GenParticle>("genParticles");
     double ele_veto_weight[7] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0};
-    double mu_veto_weight[9] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0};
+    double mu_veto_weight[7] = {1.0,1.0,1.0,1.0,1.0,1.0,1.0};
 
     for (unsigned iEle(0); iEle<genParts.size(); ++iEle){//Loop on genparticles
 
@@ -680,6 +680,10 @@ namespace ic {//namespace
 	  mu_veto_weight[4] *= (1-(muVeto_idSF_[0][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[2][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[0][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
 	  mu_veto_weight[5] *= (1-(muVeto_idSF_[0][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[0][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[1][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
 	  mu_veto_weight[6] *= (1-(muVeto_idSF_[0][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[0][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[2][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
+
+	  for (unsigned err(0); err<7;++err){
+	    if (mu_veto_weight[err]<0) mu_veto_weight[err]=0;
+	  }
 	  //double sumsqunc = sqrt(pow(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*(mu_tkSF_[1][lBinTk]-mu_tkSF_[0][lBinTk]),2)
 	  //			 +pow(muVeto_idDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_isoDataEff_[1][lBin]-muVeto_isoDataEff_[0][lBin]),2)+
 	  //			 pow(muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_idDataEff_[1][lBin]-muVeto_idDataEff_[0][lBin]),2));
@@ -722,8 +726,8 @@ namespace ic {//namespace
     eventInfo->set_weight("!muVeto_isoSF_down",mu_veto_weight[4]);
     eventInfo->set_weight("!muVeto_tkSF_up",mu_veto_weight[5]);
     eventInfo->set_weight("!muVeto_tkSF_down",mu_veto_weight[6]);
-    eventInfo->set_weight("!muVeto_up",mu_veto_weight[7]);
-    eventInfo->set_weight("!muVeto_down",mu_veto_weight[8]);
+    //eventInfo->set_weight("!muVeto_up",mu_veto_weight[7]);
+    //eventInfo->set_weight("!muVeto_down",mu_veto_weight[8]);
 
     //std::cout << " IDISO veto done." << std::endl;
 

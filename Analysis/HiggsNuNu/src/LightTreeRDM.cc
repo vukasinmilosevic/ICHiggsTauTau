@@ -107,7 +107,7 @@ namespace ic {
       weight_muisoTight_[err] = 1;
       weight_mutkTight_[err] = 1;
     }
-    for (unsigned err(0); err<9;++err){
+    for (unsigned err(0); err<7;++err){
       weight_muVeto_[err] = 1;
       if (err<7) weight_eleVeto_[err] = 1; 
     }
@@ -446,8 +446,8 @@ namespace ic {
     outputTree_->Branch("weight_muVeto_isodown",&weight_muVeto_[4]);
     outputTree_->Branch("weight_muVeto_tkup",&weight_muVeto_[5]);
     outputTree_->Branch("weight_muVeto_tkdown",&weight_muVeto_[6]);
-    outputTree_->Branch("weight_muVeto_allup",&weight_muVeto_[7]);
-    outputTree_->Branch("weight_muVeto_alldown",&weight_muVeto_[8]);
+    //outputTree_->Branch("weight_muVeto_allup",&weight_muVeto_[7]);
+    //outputTree_->Branch("weight_muVeto_alldown",&weight_muVeto_[8]);
     outputTree_->Branch("weight_muidTight",&weight_muidTight_[0]);
     outputTree_->Branch("weight_muidTight_up",&weight_muidTight_[1]);
     outputTree_->Branch("weight_muidTight_down",&weight_muidTight_[2]);
@@ -869,8 +869,8 @@ namespace ic {
       weight_muVeto_[4] = eventInfo->weight("muVeto_isoSF_down");
       weight_muVeto_[5] = eventInfo->weight("muVeto_tkSF_up");
       weight_muVeto_[6] = eventInfo->weight("muVeto_tkSF_down");
-      weight_muVeto_[7] = eventInfo->weight("muVeto_up");
-      weight_muVeto_[8] = eventInfo->weight("muVeto_down");
+      //weight_muVeto_[7] = eventInfo->weight("muVeto_up");
+      //weight_muVeto_[8] = eventInfo->weight("muVeto_down");
       weight_muidTight_[0] = eventInfo->weight("muTight_idSF");
       weight_muidTight_[1] = eventInfo->weight("muTight_idSF_up");
       weight_muidTight_[2] = eventInfo->weight("muTight_idSF_down");
