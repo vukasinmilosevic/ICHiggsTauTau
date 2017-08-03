@@ -1092,6 +1092,8 @@ int main(int argc, char* argv[]){
     .set_do_noskim(donoskim)
     .set_ignoreLeptons(ignoreLeptons);
 
+  if (output_name.find("JetHT") != output_name.npos || output_name.find("QCD") != output_name.npos) lightTreeNew.set_do_jetht(true);
+
   if (doAllPairs) lightTreeNew.set_dijet_label("jjAllCandidates");
 
   // ------------------------------------------------------------------------------------
