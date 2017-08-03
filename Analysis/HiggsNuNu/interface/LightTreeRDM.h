@@ -36,6 +36,7 @@ namespace ic {
     CLASS_MEMBER(LightTreeRDM,std::string, dijet_label);
     CLASS_MEMBER(LightTreeRDM,bool, is_data);
     CLASS_MEMBER(LightTreeRDM,bool, ignoreLeptons);
+    CLASS_MEMBER(LightTreeRDM,bool, do_jetht);
     CLASS_MEMBER(LightTreeRDM,bool, do_trigskim);
     CLASS_MEMBER(LightTreeRDM,bool, do_promptskim);
     CLASS_MEMBER(LightTreeRDM,bool, do_noskim);
@@ -44,6 +45,9 @@ namespace ic {
     unsigned countZee_;
     unsigned countQuarks_;
     unsigned countGenjets_;
+
+    unsigned *Eht_;
+    unsigned *Ejet_;
 
     TTree *outputTree_;
 
@@ -238,6 +242,9 @@ namespace ic {
     int pass_metmht120trigger_;
     int pass_controltrigger_;
     int pass_singleEltrigger_;
+
+    int pass_httrigger_[11];
+    int pass_jettrigger_[10];
 
     unsigned nvetomuons_;
     unsigned nselmuons_;

@@ -22,6 +22,7 @@ namespace ic {
     jet_label_ = "pfJetsPFlow";
     dijet_label_ = "jjCandidates";
     is_data_ = false;
+    do_jetht_ = false;
     do_trigskim_ = false;
     do_promptskim_ = false;
     do_noskim_ = false;
@@ -78,6 +79,9 @@ namespace ic {
       jet_genphi_.push_back(-5);
       }*/
     resetAllTreeVariables();
+
+    Eht_ = new unsigned[11]{125,200,250,300,350,400,475,600,650,800,900};
+    Ejet_ = new unsigned[10]{40,60,80,140,200,260,320,400,450,500};
   }
 
   void LightTreeRDM::resetAllTreeVariables(){
@@ -261,6 +265,12 @@ namespace ic {
     pass_metmht120trigger_ = -1;
     pass_controltrigger_ = -1;
     pass_singleEltrigger_ = -1;
+
+    for (unsigned i(0);i<11;++i){
+      pass_httrigger_[i] = -1;
+      if (i<10) pass_jettrigger_[i] = -1;
+    }
+
 
     nvetomuons_=0;
     nselmuons_=0;
@@ -605,6 +615,21 @@ namespace ic {
     outputTree_->Branch("pass_controltrigger",&pass_controltrigger_);
     outputTree_->Branch("pass_singleEltrigger",&pass_singleEltrigger_);
 
+    if (do_jetht_){
+      for (unsigned i(0);i<11;++i){
+	std::ostringstream label;
+	label << "pass_httrigger_" << Eht_[i];
+	std::cout << label.str() << std::endl;
+	outputTree_->Branch(label.str().c_str(),&pass_httrigger_[i]);
+	if (i<10) {
+	  label.str("");
+	  label << "pass_jettrigger_" << Ejet_[i];
+	  outputTree_->Branch(label.str().c_str(),&pass_jettrigger_[i]);
+	}
+      }
+    }
+
+
     outputTree_->Branch("nvetomuons",&nvetomuons_);
     outputTree_->Branch("nselmuons",&nselmuons_);
     outputTree_->Branch("nvetoelectrons",&nvetoelectrons_);
@@ -812,6 +837,19 @@ namespace ic {
 	    name.find("HLT_Ele105_CaloIdVT_GsfTrkIdT") != name.npos 
             //name.find("HLT_Ele35_WPLoose_Gsf_v") != name.npos 
 	    ) pass_singleEltrigger_ = prescale;
+
+	if (do_jetht_){
+	  for (unsigned i(0); i<11; ++i){
+	    std::ostringstream label;
+	    label << "HLT_PFHT" << Eht_[i] << "_v";
+	    if (name.find(label.str()) != name.npos) pass_httrigger_[i] = prescale;
+	    if (i<10) {
+	      label.str("");
+	      label << "HLT_PFJet" << Ejet_[i] << "_v";
+	      if (name.find(label.str()) != name.npos) pass_jettrigger_[i] = prescale;
+	    }
+	  }
+	}
       }
       if(do_trigskim_){
         if(!(pass_muontrigger_==1     ||
@@ -1197,7 +1235,7 @@ namespace ic {
           std::cout << " Check mass: " << vbf_diquark_m_ << " " << vbf_digenjet_m_ << std::endl;
         }
       } else {
-        std::cout << " Problem event " << event_ << " found " << Quarks.size() << " quarks" << std::endl;
+        if (debug_) std::cout << " Problem event " << event_ << " found " << Quarks.size() << " quarks" << std::endl;
       }
 
       std::sort(genElecs.begin(), genElecs.end(), bind(&Candidate::pt, _1) > bind(&Candidate::pt, _2));
