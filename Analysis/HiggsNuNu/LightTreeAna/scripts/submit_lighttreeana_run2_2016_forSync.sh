@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170801_plotStyle
+DATE=170804_QCDstudy
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -74,7 +74,7 @@ for syst in "" #JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in munu #nunu qcd #enu munu ee mumu nunu #taunu qcd
+  for channels in nunu qcd #enu munu ee mumu nunu #taunu qcd
     do
     JOB=$channels
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/weights.hists`
@@ -90,15 +90,15 @@ do
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
-    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
-    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
+    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
+    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
     ## To test for one hist
     #SHAPESTRING="met(55,0.,550.)"
     #HISTSTRING=";MET (GeV);Events"
     #HISTSTRING=";(calo-pf)/recoil;Events!;(calo-pf)/recoil;Events"
     #SHAPESTRING="TMath::Abs(calomet-met)/metnomuons(40,0,2)!TMath::Abs(calomet-met)/metnoelectrons(40,0,2)"
-    HISTSTRING=";p_{T}^{j2} (GeV);Events"
-    SHAPESTRING="jet2_pt(12,40.,250.)"
+    #HISTSTRING=";p_{T}^{j2} (GeV);Events"
+    #SHAPESTRING="jet2_pt(12,40.,250.)"
     #HISTSTRING=";#Delta#phi_{jj};Events"
     #SHAPESTRING="dijet_dphi(50,0.,3.1416)"
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events"

@@ -351,15 +351,17 @@ int main(int argc, char* argv[]){
     jet1_ID="";
   }
 
-  std::string nunucat  = "nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
+  //HACK
+//   std::string nunucat  = "nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
+  std::string nunucat  = "nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
 
   std::string enucat   = "nselelectrons==1&&nvetomuons==0&&nvetoelectrons==1&&ele1_pt>40&&"+jetmetdphicut+bveto+lep_mt_cut+met_cut+jet1_ID;
   std::string munucat  = "nselmuons==1&&nvetomuons==1&&nvetoelectrons==0&&lep_mt>=0&&"+jetmetdphicut+bveto+lep_mt_cut+jet1_ID;
-  std::string taunucat = "ntaus==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+lep_mt_cut+jet1_ID;
 
   std::string eecat    = "nselelectrons>=1&&nvetoelectrons==2&&nvetomuons==0&&m_ee>60&&m_ee<120&&oppsign_ee&&ele1_pt>40&&"+jetmetdphicut+bveto+jet1_ID;
   std::string mumucat  = "nselmuons>=1&&nvetomuons==2&&nvetoelectrons==0&&m_mumu>60&&m_mumu<120&&oppsign_mumu&&"+jetmetdphicut+bveto+jet1_ID;
 
+  std::string taunucat = "ntaus==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+lep_mt_cut+jet1_ID;
   std::string gammacat = "ntightphotons==1&&nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
   std::string toplcat  = "nvetomuons==1&&nvetoelectrons==1&&nselmuons==1&&nselelectrons==1"+bveto+jet1_ID;
   std::string topbcat  = "(nselmuons>=1 || nselelectrons>=1)&&(jet1_csv>0.679||jet2_csv>0.679)&&(forward_tag_eta>2.8||forward_tag_eta<-2.8)"+bveto+jet1_ID;
@@ -428,12 +430,22 @@ int main(int argc, char* argv[]){
     if (syst=="LEPEFF_ELEDOWN") mcweightsystfactor<<"*weight_eleVeto_down/weight_eleVeto";
     if (syst=="LEPEFF_GSFUP") mcweightsystfactor<<"*weight_eleVeto_gsfup/weight_eleVeto";
     if (syst=="LEPEFF_GSFDOWN") mcweightsystfactor<<"*weight_eleVeto_gsfdown/weight_eleVeto";
+    //HACK
 //     if (syst=="LEPEFF_MUIDUP") mcweightsystfactor<<"*weight_muVeto_idup/weight_muVeto";
 //     if (syst=="LEPEFF_MUIDDOWN") mcweightsystfactor<<"*weight_muVeto_iddown/weight_muVeto";
 //     if (syst=="LEPEFF_MUISOUP") mcweightsystfactor<<"*weight_muVeto_isoup/weight_muVeto";
 //     if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_muVeto_isodown/weight_muVeto";
 //     if (syst=="LEPEFF_MUTKUP") mcweightsystfactor<<"*weight_muVeto_tkup/weight_muVeto";
 //     if (syst=="LEPEFF_MUTKDOWN") mcweightsystfactor<<"*weight_muVeto_tkdown/weight_muVeto";
+
+    dataextrasel+="&&nvetomuons==0";
+    if      (syst=="LEPEFF_MUIDUP")    mcweightsystfactor<<"*weight_0muloose_idup";
+    else if (syst=="LEPEFF_MUIDDOWN")  mcweightsystfactor<<"*weight_0muloose_iddown";
+    else if (syst=="LEPEFF_MUISOUP")   mcweightsystfactor<<"*weight_0muloose_isoup";
+    else if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_0muloose_isodown";
+    else if (syst=="LEPEFF_MUTKUP")    mcweightsystfactor<<"*weight_0muloose_tkup";
+    else if (syst=="LEPEFF_MUTKDOWN")  mcweightsystfactor<<"*weight_0muloose_tkdown";
+    else                               mcweightsystfactor<<"*weight_0muloose";
   }
   else if (channel=="ee" || channel=="enu") {
     if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleTight_up/weight_eleTight";
@@ -457,15 +469,16 @@ int main(int argc, char* argv[]){
   //if (syst=="TRIG2UP") mcweightsystfactor<<"*weight_trig_5/weight_trig_0";
   //if (syst=="TRIG2DOWN") mcweightsystfactor<<"*weight_trig_6/weight_trig_0";
 
-  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") sigmcweight="weight_nolepnotrig*weight_trig_0"+mcweightsystfactor.str();//"total_weight_lepveto"+mcweightsystfactor.str();
+  //remove weight_lepveto, only mu part
+  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") sigmcweight="weight_nolepnotrig*weight_trig_0*weight_eleVeto"+mcweightsystfactor.str();//"total_weight_lepveto"+mcweightsystfactor.str();
   //remove trigger weight for e channels which do not use signal trigger
   else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig"+mcweightsystfactor.str();
   else sigmcweight="total_weight_leptight"+mcweightsystfactor.str();
 
   //lepton veto weight
-  std::string lepveto_weight;
-  if(channel=="nunu") lepveto_weight="*weight_lepveto";
-  else lepveto_weight="*1";
+//   std::string lepveto_weight;
+//   if(channel=="nunu") lepveto_weight="*weight_lepveto";
+//   else lepveto_weight="*1";
 
   //add NLO reweighting
   sigmcweight=sigmcweight+"*v_nlo_Reweight*ewk_v_nlo_Reweight";
@@ -829,7 +842,7 @@ int main(int argc, char* argv[]){
 //   wenuraw.set_dataset("WJets_enu")
 //     .set_dirname("wel")
 //     .set_shape(shape)
-//     .set_dataweight(sigmcweight+lepveto_weight)
+//     .set_dataweight(sigmcweight) //+lepveto_weight)
 //     .set_basesel(analysis->baseselection())
 //     .set_cat(sigcat+mcextrasel);
 //   if (use_nlo)  wenuraw.set_dataset("WJets_nlo_enu");
@@ -838,7 +851,7 @@ int main(int argc, char* argv[]){
   qcdwenuraw.set_dataset("WJets_enu")
     .set_dirname("welqcd")
     .set_shape(shape)
-    .set_dataweight(sigmcweight+lepveto_weight)
+    .set_dataweight(sigmcweight) //+lepveto_weight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
   if (use_nlo)  qcdwenuraw.set_dataset("WJets_nlo_enu");
@@ -847,7 +860,7 @@ int main(int argc, char* argv[]){
   ewkwenuraw.set_dataset("EWK_WJets_enu")
     .set_dirname("welewk")
     .set_shape(shape)
-    .set_dataweight(sigmcweight+lepveto_weight)
+    .set_dataweight(sigmcweight) //+lepveto_weight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 

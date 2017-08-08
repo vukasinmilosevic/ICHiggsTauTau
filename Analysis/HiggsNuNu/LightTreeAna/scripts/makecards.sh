@@ -5,7 +5,7 @@ if [ "$#" -ne "2" ]; then
   exit 0
 fi
 
-DATE=170801_muVeto
+DATE=170808
 
 DOSUBMIT=$1
 DO4PARAMS=$2
@@ -19,7 +19,7 @@ mkdir -p $outfolder
 
 extraoptions="--do_ues=false" #--do_ggh=false --do_separate_qcdewk=false"
 
-for channel in nunu #enu munu mumu ee nunu #taunu qcd
+for channel in enu munu mumu ee nunu #taunu qcd
   do
   echo " ********************************"
   echo " *** Processing channel $channel"
