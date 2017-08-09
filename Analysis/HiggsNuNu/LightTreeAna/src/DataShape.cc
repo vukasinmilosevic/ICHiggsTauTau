@@ -75,7 +75,7 @@ namespace ic{
       TH3F datashape3D;
       bool is2D = false;
       bool is3D = false;
-      std::cout << " Idientifying 2D histos: " << histname << " " << n << std::endl;
+      std::cout << " Identifying histo's dimension: " << histname << ": " << n+1 << std::endl;
       if (n==1) {
 	datashape2D=filemanager->GetSetsShape2D(dataset_,shape_[iShape],basesel_,cat_,dataweight_,false);
 	is2D=true;

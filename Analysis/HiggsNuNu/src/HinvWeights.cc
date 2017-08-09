@@ -605,9 +605,9 @@ namespace ic {//namespace
       muloose_0mu_weight[4] *= (1-(muVeto_idSF_[0][lBin]*muVeto_isoSF_[2][lBin]*mu_tkSF_[0][mBin]));
       muloose_0mu_weight[5] *= (1-(muVeto_idSF_[0][lBin]*muVeto_isoSF_[0][lBin]*mu_tkSF_[1][mBin]));
       muloose_0mu_weight[6] *= (1-(muVeto_idSF_[0][lBin]*muVeto_isoSF_[0][lBin]*mu_tkSF_[2][mBin]));
-      for (unsigned err(0); err<7;++err){
-	if (muloose_0mu_weight[err]<0) muloose_0mu_weight[err]=0;
-      }
+      //for (unsigned err(0); err<7;++err){
+	//if (muloose_0mu_weight[err]<0) muloose_0mu_weight[err]=0;
+      //}
       
       //check overlap with tight
       if (isTightMuon(loosemus[iEle],mus)) continue;
@@ -681,9 +681,9 @@ namespace ic {//namespace
 	  ele_veto_weight[5] *= (1-(eVeto_idisoDataEff_[0][lBin]*e_gsfidDataEff_[0][lBinGsf]+sumsqunc))/(1-(eVeto_idisoMCEff_[0][lBin]*e_gsfidMCEff_[0][lBinGsf]));
 	  sumsqunc = sqrt(pow(e_gsfidDataEff_[0][lBinGsf]*(eVeto_idisoDataEff_[2][lBin]-eVeto_idisoDataEff_[0][lBin]),2)+pow(eVeto_idisoDataEff_[0][lBin]*(e_gsfidDataEff_[2][lBinGsf]-e_gsfidDataEff_[0][lBinGsf]),2));
 	  ele_veto_weight[6] *= (1-(eVeto_idisoDataEff_[0][lBin]*e_gsfidDataEff_[0][lBinGsf]-sumsqunc))/(1-(eVeto_idisoMCEff_[0][lBin]*e_gsfidMCEff_[0][lBinGsf]));
-	  for (unsigned err(0); err<7;++err){
-	    if (ele_veto_weight[err]<0) ele_veto_weight[err]=0;
-	  }
+	  //for (unsigned err(0); err<7;++err){
+	  //if (ele_veto_weight[err]<0) ele_veto_weight[err]=0;
+	  //}
 
           if (isTau) eventsWithGenElectronFromTauInAcc_++;
           else eventsWithGenElectronInAcc_++;
@@ -707,9 +707,9 @@ namespace ic {//namespace
 	  mu_veto_weight[5] *= (1-(muVeto_idSF_[0][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[0][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[1][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
 	  mu_veto_weight[6] *= (1-(muVeto_idSF_[0][lBin]*muVeto_idMCEff_[0][lBin]*muVeto_isoSF_[0][lBin]*muVeto_isoMCEff_[0][lBin]*mu_tkSF_[2][lBinTk]))/(1-(muVeto_idMCEff_[0][lBin]*muVeto_isoMCEff_[0][lBin]));
 
-	  for (unsigned err(0); err<7;++err){
-	    if (mu_veto_weight[err]<0) mu_veto_weight[err]=0;
-	  }
+	  //for (unsigned err(0); err<7;++err){
+	  //if (mu_veto_weight[err]<0) mu_veto_weight[err]=0;
+	  //}
 	  //double sumsqunc = sqrt(pow(muVeto_idDataEff_[0][lBin]*muVeto_isoDataEff_[0][lBin]*(mu_tkSF_[1][lBinTk]-mu_tkSF_[0][lBinTk]),2)
 	  //			 +pow(muVeto_idDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_isoDataEff_[1][lBin]-muVeto_isoDataEff_[0][lBin]),2)+
 	  //			 pow(muVeto_isoDataEff_[0][lBin]*mu_tkSF_[0][lBinTk]*(muVeto_idDataEff_[1][lBin]-muVeto_idDataEff_[0][lBin]),2));
