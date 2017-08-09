@@ -1,12 +1,13 @@
 #!/bin/sh
 DOCERN=0
-DOSUBMIT=0
+DOSUBMIT=1
 MYEXEC=LightTreeMakerFromMiniAODRDM
 PRODUCTION=170201
 PRODUSER=rdimaria
-JPTCUTVAL=40
+J1PTCUTVAL=80
+J2PTCUTVAL=40
 
-DATE=170803
+DATE=170804
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -103,7 +104,7 @@ for SYST in central
 
       echo "JOB name = $JOB"
 
-      $JOBWRAPPER $JOBDIR $OUTPUTDIR "./bin/$MYEXEC --cfg=$CONFIG --prod="$PRODUCTION" --filelist="$FILELIST" --input_prefix=$PREFIX --output_name=$JOB.root --output_folder=$OUTPUTDIR  $SYSTOPTIONS --input_params=$INPUTPARAMS --jet1ptcut="$JPTCUTVAL" --jet2ptcut="$JPTCUTVAL" &> $JOBDIR/$JOB.log" $JOBDIR/$JOB.sh $GRIDSETUP
+      $JOBWRAPPER $JOBDIR $OUTPUTDIR "./bin/$MYEXEC --cfg=$CONFIG --prod="$PRODUCTION" --filelist="$FILELIST" --input_prefix=$PREFIX --output_name=$JOB.root --output_folder=$OUTPUTDIR  $SYSTOPTIONS --input_params=$INPUTPARAMS --jet1ptcut="$J1PTCUTVAL" --jet2ptcut="$J2PTCUTVAL" &> $JOBDIR/$JOB.log" $JOBDIR/$JOB.sh $GRIDSETUP
       if [ "$DOSUBMIT" = "1" ]; 
         then
         $JOBSUBMIT $JOBDIR/$JOB.sh

@@ -364,7 +364,7 @@ int main(int argc, char* argv[]){
   std::string toplcat  = "nvetomuons==1&&nvetoelectrons==1&&nselmuons==1&&nselelectrons==1"+bveto+jet1_ID;
   std::string topbcat  = "(nselmuons>=1 || nselelectrons>=1)&&(jet1_csv>0.679||jet2_csv>0.679)&&(forward_tag_eta>2.8||forward_tag_eta<-2.8)"+bveto+jet1_ID;
 
-  if(channel=="nunu" || channel=="qcd"){//nunu
+  if(channel=="nunu" || channel.find("qcd")!=channel.npos){//nunu
     sigcat=nunucat+tauveto;
     sigcat_novetotaus=nunucat;
   }
@@ -927,7 +927,7 @@ int main(int argc, char* argv[]){
     .set_legname("Data")
     .set_is_inrationum(true)
     .set_sample("data_obs");
-  if(runblindreg&&channel=="nunu"){
+  if(runblindreg&&(channel=="nunu"||channel=="qcdD")){
     std::vector<std::string> blindvars;
     std::vector<std::pair<double,double> > blindrange;
     blindvars.push_back("fourjetsmetnomu_mindphi");
@@ -1261,7 +1261,7 @@ int main(int argc, char* argv[]){
     .set_legname("ggH_{inv} m_{h} = 125 GeV")
     .set_sample("ggH125");
 
-  if(!(channel=="nunu"&&runblind))elementvec.push_back(dataele);
+  if(!((channel=="nunu"||channel=="qcdD")&&runblind))elementvec.push_back(dataele);
   if(!dataonly){
     elementvec.push_back(qcdele);
 
