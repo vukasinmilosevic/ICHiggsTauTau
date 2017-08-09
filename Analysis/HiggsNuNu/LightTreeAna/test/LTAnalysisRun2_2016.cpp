@@ -132,6 +132,7 @@ int main(int argc, char* argv[]){
   double met_cutval;
   bool do_lep_mt_cut;
   bool do_MIT_UCSD_sync;
+  bool do_new_muVeto;
 
   std::string jetmetdphicut;
   std::string metsigcut;
@@ -190,6 +191,7 @@ int main(int argc, char* argv[]){
     ("met_cutval",               po::value<double>(&met_cutval)->default_value(0))
     ("do_lep_mt_cut",            po::value<bool>(&do_lep_mt_cut)->default_value(false))
     ("do_MIT_UCSD_sync",         po::value<bool>(&do_MIT_UCSD_sync)->default_value(false))
+    ("do_new_muVeto",            po::value<bool>(&do_new_muVeto)->default_value(false))
     ;
 
   po::store(po::command_line_parser(argc, argv).options(config).allow_unregistered().run(), vm);
@@ -352,8 +354,9 @@ int main(int argc, char* argv[]){
   }
 
   //HACK
-//   std::string nunucat  = "nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
-  std::string nunucat  = "nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
+  std::string nunucat;
+  if (do_new_muVeto) nunucat  = "nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
+  else               nunucat  = "nvetomuons==0&&nvetoelectrons==0&&"+jetmetdphicut+bveto+jet1_ID;
 
   std::string enucat   = "nselelectrons==1&&nvetomuons==0&&nvetoelectrons==1&&ele1_pt>40&&"+jetmetdphicut+bveto+lep_mt_cut+met_cut+jet1_ID;
   std::string munucat  = "nselmuons==1&&nvetomuons==1&&nvetoelectrons==0&&lep_mt>=0&&"+jetmetdphicut+bveto+lep_mt_cut+jet1_ID;
@@ -431,21 +434,24 @@ int main(int argc, char* argv[]){
     if (syst=="LEPEFF_GSFUP") mcweightsystfactor<<"*weight_eleVeto_gsfup/weight_eleVeto";
     if (syst=="LEPEFF_GSFDOWN") mcweightsystfactor<<"*weight_eleVeto_gsfdown/weight_eleVeto";
     //HACK
-//     if (syst=="LEPEFF_MUIDUP") mcweightsystfactor<<"*weight_muVeto_idup/weight_muVeto";
-//     if (syst=="LEPEFF_MUIDDOWN") mcweightsystfactor<<"*weight_muVeto_iddown/weight_muVeto";
-//     if (syst=="LEPEFF_MUISOUP") mcweightsystfactor<<"*weight_muVeto_isoup/weight_muVeto";
-//     if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_muVeto_isodown/weight_muVeto";
-//     if (syst=="LEPEFF_MUTKUP") mcweightsystfactor<<"*weight_muVeto_tkup/weight_muVeto";
-//     if (syst=="LEPEFF_MUTKDOWN") mcweightsystfactor<<"*weight_muVeto_tkdown/weight_muVeto";
+    if (do_new_muVeto) {
+      dataextrasel+="&&nvetomuons==0";
+      if      (syst=="LEPEFF_MUIDUP")    mcweightsystfactor<<"*weight_0muloose_idup";
+      else if (syst=="LEPEFF_MUIDDOWN")  mcweightsystfactor<<"*weight_0muloose_iddown";
+      else if (syst=="LEPEFF_MUISOUP")   mcweightsystfactor<<"*weight_0muloose_isoup";
+      else if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_0muloose_isodown";
+      else if (syst=="LEPEFF_MUTKUP")    mcweightsystfactor<<"*weight_0muloose_tkup";
+      else if (syst=="LEPEFF_MUTKDOWN")  mcweightsystfactor<<"*weight_0muloose_tkdown";
+      else                               mcweightsystfactor<<"*weight_0muloose";
+    } else {
+      if (syst=="LEPEFF_MUIDUP") mcweightsystfactor<<"*weight_muVeto_idup/weight_muVeto";
+      if (syst=="LEPEFF_MUIDDOWN") mcweightsystfactor<<"*weight_muVeto_iddown/weight_muVeto";
+      if (syst=="LEPEFF_MUISOUP") mcweightsystfactor<<"*weight_muVeto_isoup/weight_muVeto";
+      if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_muVeto_isodown/weight_muVeto";
+      if (syst=="LEPEFF_MUTKUP") mcweightsystfactor<<"*weight_muVeto_tkup/weight_muVeto";
+      if (syst=="LEPEFF_MUTKDOWN") mcweightsystfactor<<"*weight_muVeto_tkdown/weight_muVeto";
 
-    dataextrasel+="&&nvetomuons==0";
-    if      (syst=="LEPEFF_MUIDUP")    mcweightsystfactor<<"*weight_0muloose_idup";
-    else if (syst=="LEPEFF_MUIDDOWN")  mcweightsystfactor<<"*weight_0muloose_iddown";
-    else if (syst=="LEPEFF_MUISOUP")   mcweightsystfactor<<"*weight_0muloose_isoup";
-    else if (syst=="LEPEFF_MUISODOWN") mcweightsystfactor<<"*weight_0muloose_isodown";
-    else if (syst=="LEPEFF_MUTKUP")    mcweightsystfactor<<"*weight_0muloose_tkup";
-    else if (syst=="LEPEFF_MUTKDOWN")  mcweightsystfactor<<"*weight_0muloose_tkdown";
-    else                               mcweightsystfactor<<"*weight_0muloose";
+    }
   }
   else if (channel=="ee" || channel=="enu") {
     if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleTight_up/weight_eleTight";
@@ -469,8 +475,11 @@ int main(int argc, char* argv[]){
   //if (syst=="TRIG2UP") mcweightsystfactor<<"*weight_trig_5/weight_trig_0";
   //if (syst=="TRIG2DOWN") mcweightsystfactor<<"*weight_trig_6/weight_trig_0";
 
-  //remove weight_lepveto, only mu part
-  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") sigmcweight="weight_nolepnotrig*weight_trig_0*weight_eleVeto"+mcweightsystfactor.str();//"total_weight_lepveto"+mcweightsystfactor.str();
+  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") {
+    //remove weight_lepveto, only mu part
+    if (do_new_muVeto) sigmcweight="weight_nolepnotrig*weight_trig_0*weight_eleVeto"+mcweightsystfactor.str();//"total_weight_lepveto"+mcweightsystfactor.str();
+    else               sigmcweight="total_weight_lepveto"+mcweightsystfactor.str();
+  }
   //remove trigger weight for e channels which do not use signal trigger
   else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig"+mcweightsystfactor.str();
   else sigmcweight="total_weight_leptight"+mcweightsystfactor.str();

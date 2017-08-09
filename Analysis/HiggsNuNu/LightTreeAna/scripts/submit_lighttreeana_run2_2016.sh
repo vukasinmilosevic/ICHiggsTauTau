@@ -89,6 +89,8 @@ do
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_approval.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_approval.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
     ## To test for one hist
     #HISTSTRING=";|calo-pf|/recoil;Events"
     #SHAPESTRING="(TMath::Abs(calomet-met)/metnomuons)(50,0.,1.)"
