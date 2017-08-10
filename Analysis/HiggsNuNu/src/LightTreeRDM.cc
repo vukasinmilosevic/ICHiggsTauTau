@@ -270,7 +270,7 @@ namespace ic {
       pass_httrigger_[i] = -1;
       if (i<10) pass_jettrigger_[i] = -1;
     }
-
+    pass_alljethttrigger_ = -1;
 
     nvetomuons_=0;
     nselmuons_=0;
@@ -627,6 +627,7 @@ namespace ic {
 	  outputTree_->Branch(label.str().c_str(),&pass_jettrigger_[i]);
 	}
       }
+      outputTree_->Branch("pass_alljethttrigger",&pass_alljethttrigger_);
     }
 
 
@@ -806,6 +807,7 @@ namespace ic {
     try {
       auto const& triggerPathPtrVec = event->GetPtrVec<TriggerPath>("triggerPathPtrVec","triggerPaths");
 
+      int minprescale = 999999;
       for (unsigned i = 0; i < triggerPathPtrVec.size(); ++i) {
         std::string name = triggerPathPtrVec[i]->name();
         double prescale = triggerPathPtrVec[i]->prescale();
@@ -842,15 +844,22 @@ namespace ic {
 	  for (unsigned i(0); i<11; ++i){
 	    std::ostringstream label;
 	    label << "HLT_PFHT" << Eht_[i] << "_v";
-	    if (name.find(label.str()) != name.npos) pass_httrigger_[i] = prescale;
+	    if (name.find(label.str()) != name.npos) {
+	      if (prescale>0 && prescale<minprescale) minprescale = prescale;
+	      pass_httrigger_[i] = prescale;
+	    }
 	    if (i<10) {
 	      label.str("");
 	      label << "HLT_PFJet" << Ejet_[i] << "_v";
-	      if (name.find(label.str()) != name.npos) pass_jettrigger_[i] = prescale;
+	      if (name.find(label.str()) != name.npos){
+		if (prescale>0 && prescale<minprescale) minprescale = prescale;
+		pass_jettrigger_[i] = prescale;
+	      }
 	    }
 	  }
 	}
       }
+      pass_alljethttrigger_ = minprescale!=999999 ? minprescale : -1;
       if(do_trigskim_){
         if(!(pass_muontrigger_==1     ||
              pass_sigtrigger_>0       ||

@@ -245,6 +245,7 @@ namespace ic {
 
     int pass_httrigger_[11];
     int pass_jettrigger_[10];
+    int pass_alljethttrigger_;
 
     unsigned nvetomuons_;
     unsigned nselmuons_;
