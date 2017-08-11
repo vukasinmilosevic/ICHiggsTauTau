@@ -125,6 +125,8 @@ int main(int argc, char* argv[]){
   double jetptprecut;             //jetptprecut, should be the CJV threshold
   double mjjcut;
   double detajjcut;
+  double dphijjcut;
+  double metcut;
 
   unsigned debug;
   int randomseed;
@@ -165,8 +167,10 @@ int main(int argc, char* argv[]){
     ("jet1ptcut",             po::value<double>(&jet1ptcut)->default_value(0.))
     ("jet2ptcut",             po::value<double>(&jet2ptcut)->default_value(0.))
     ("jetptprecut",           po::value<double>(&jetptprecut)->default_value(15.))
-    ("mjjcut",                po::value<double>(&mjjcut)->default_value(800.))
-    ("detajjcut",             po::value<double>(&detajjcut)->default_value(3.6))
+    ("mjjcut",                po::value<double>(&mjjcut)->default_value(600.))
+    ("detajjcut",             po::value<double>(&detajjcut)->default_value(1.0))
+    ("dphijjcut",             po::value<double>(&dphijjcut)->default_value(3.1416))
+    ("metcut",                po::value<double>(&metcut)->default_value(0))
     ("doMetFilters",          po::value<bool>(&doMetFilters)->default_value(false))
     ("filters",               po::value<string> (&filters)->default_value(""))
     ("dojessyst",             po::value<bool>(&dojessyst)->default_value(false))
@@ -271,6 +275,8 @@ int main(int argc, char* argv[]){
   std::cout << boost::format(param_fmt) % "jet2ptcut" % jet2ptcut;
   std::cout << boost::format(param_fmt) % "mjjcut" % mjjcut;
   std::cout << boost::format(param_fmt) % "detajjcut" % detajjcut;
+  std::cout << boost::format(param_fmt) % "dphijjcut" % dphijjcut;
+  std::cout << boost::format(param_fmt) % "metcut" % metcut;
 
 
   // Load necessary libraries for ROOT I/O of custom classes
@@ -908,7 +914,7 @@ int main(int argc, char* argv[]){
     .set_max(999);
 
   if(!donoskim && !doAllPairs){
-    jetPairFilter.set_predicate(bind(OrderedPairPtSelection, _1,jet1ptcut, jet2ptcut, cutaboveorbelow) && !bind(PairDEtaLessThan, _1, detajjcut) && bind(PairMassInRange, _1,mjjcut,100000) );
+    jetPairFilter.set_predicate(bind(OrderedPairPtSelection, _1,jet1ptcut, jet2ptcut, cutaboveorbelow) && !bind(PairDEtaLessThan, _1, detajjcut) && bind(PairAbsDPhiLessThan, _1, dphijjcut) && bind(PairMassInRange, _1,mjjcut,100000) );
   }
 
   if (doAllPairs) {
@@ -933,6 +939,7 @@ int main(int argc, char* argv[]){
   ModifyMet metNoElectrons = ModifyMet("metNoElectrons",mettype,"vetoElectrons",1,nLepToAdd);
   ModifyMet metNoENoMu     = ModifyMet("metNoENoMu","metNoMuons","vetoElectrons",1,nLepToAdd);
 
+  MetSelection minMetCut = MetSelection("minMetCut","metNoMuons",false,filtersVec,metcut);
 
   // ------------------------------------------------------------------------------------
   // Weight Modules
@@ -1189,6 +1196,8 @@ int main(int argc, char* argv[]){
   analysis.AddModule(&metNoMuons);
   analysis.AddModule(&metNoElectrons);
   analysis.AddModule(&metNoENoMu);
+
+  analysis.AddModule(&minMetCut);
 
   //filter taus
   analysis.AddModule(&vetoTauCopyCollection);
