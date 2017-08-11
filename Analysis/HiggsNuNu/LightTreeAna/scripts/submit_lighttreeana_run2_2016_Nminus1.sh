@@ -1,7 +1,7 @@
 #!/bin/sh
 DOSUBMIT=1
 
-DATE=170803_Nminus1
+DATE=170810_Nminus1
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -17,7 +17,11 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
-CONFIG=scripts/DefaultRun2Config_vetos_forN-1plots.cfg
+#CONFIG=scripts/DefaultRun2Config_Nminus1_met.cfg
+#CONFIG=scripts/DefaultRun2Config_Nminus1_dphi.cfg
+#CONFIG=scripts/DefaultRun2Config_Nminus1_deta.cfg
+#CONFIG=scripts/DefaultRun2Config_Nminus1_mindphi.cfg
+CONFIG=scripts/DefaultRun2Config_Nminus1_dijet.cfg
 
 QUEUEDIR=short #medium long
 # no_METno_cut no_dijet_dphi_cut no_dijet_deta_cut no_fourjetsmetnomu_mindphi_cut no_dijet_M_cut

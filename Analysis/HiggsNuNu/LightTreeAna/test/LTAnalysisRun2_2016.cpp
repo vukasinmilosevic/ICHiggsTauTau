@@ -524,13 +524,13 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-//   DataShape qqH110("qqH110");
-//   qqH110.set_dataset("VBFH110")
-//     .set_dirname("qqH110")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
+  DataShape qqH110("qqH110");
+  qqH110.set_dataset("VBFH110")
+    .set_dirname("qqH110")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
 
   DataShape qqH125("qqH125");
   qqH125.set_dataset("VBFH125")
@@ -540,77 +540,77 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-//   DataShape qqH150("qqH150");
-//   qqH150.set_dataset("VBFH150")
-//     .set_dirname("qqH150")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape qqH200("qqH200");
-//   qqH200.set_dataset("VBFH200")
-//     .set_dirname("qqH200")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape qqH300("qqH300");
-//   qqH300.set_dataset("VBFH300")
-//     .set_dirname("qqH300")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape qqH400("qqH400");
-//   qqH400.set_dataset("VBFH400")
-//     .set_dirname("qqH400")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape qqH500("qqH500");
-//   qqH500.set_dataset("VBFH500")
-//     .set_dirname("qqH500")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape qqH600("qqH600");
-//   qqH600.set_dataset("VBFH600")
-//     .set_dirname("qqH600")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape qqH800("qqH800");
-//   qqH800.set_dataset("VBFH800")
-//     .set_dirname("qqH800")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape qqH1000("qqH1000");
-//   qqH1000.set_dataset("VBFH1000")
-//     .set_dirname("qqH1000")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape ggH110("ggH110");
-//   ggH110.set_dataset("GluGluH110")
-//     .set_dirname("ggH110")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
+  DataShape qqH150("qqH150");
+  qqH150.set_dataset("VBFH150")
+    .set_dirname("qqH150")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape qqH200("qqH200");
+  qqH200.set_dataset("VBFH200")
+    .set_dirname("qqH200")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape qqH300("qqH300");
+  qqH300.set_dataset("VBFH300")
+    .set_dirname("qqH300")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape qqH400("qqH400");
+  qqH400.set_dataset("VBFH400")
+    .set_dirname("qqH400")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape qqH500("qqH500");
+  qqH500.set_dataset("VBFH500")
+    .set_dirname("qqH500")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape qqH600("qqH600");
+  qqH600.set_dataset("VBFH600")
+    .set_dirname("qqH600")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape qqH800("qqH800");
+  qqH800.set_dataset("VBFH800")
+    .set_dirname("qqH800")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape qqH1000("qqH1000");
+  qqH1000.set_dataset("VBFH1000")
+    .set_dirname("qqH1000")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape ggH110("ggH110");
+  ggH110.set_dataset("GluGluH110")
+    .set_dirname("ggH110")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
 
   DataShape ggH125("ggH125");
   ggH125.set_dataset("GluGluH125")
@@ -620,69 +620,69 @@ int main(int argc, char* argv[]){
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
 
-//   DataShape ggH150("ggH150");
-//   ggH150.set_dataset("GluGluH150")
-//     .set_dirname("ggH150")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape ggH200("ggH200");
-//   ggH200.set_dataset("GluGluH200")
-//     .set_dirname("ggH200")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape ggH300("ggH300");
-//   ggH300.set_dataset("GluGluH300")
-//     .set_dirname("ggH300")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape ggH400("ggH400");
-//   ggH400.set_dataset("GluGluH400")
-//     .set_dirname("ggH400")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape ggH500("ggH500");
-//   ggH500.set_dataset("GluGluH500")
-//     .set_dirname("ggH500")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape ggH600("ggH600");
-//   ggH600.set_dataset("GluGluH600")
-//     .set_dirname("ggH600")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape ggH800("ggH800");
-//   ggH800.set_dataset("GluGluH800")
-//     .set_dirname("ggH800")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
-// 
-//   DataShape ggH1000("ggH1000");
-//   ggH1000.set_dataset("GluGluH1000")
-//     .set_dirname("ggH1000")
-//     .set_shape(shape)
-//     .set_dataweight(sigmcweight)
-//     .set_basesel(analysis->baseselection())
-//     .set_cat(sigcat+mcextrasel);
+  DataShape ggH150("ggH150");
+  ggH150.set_dataset("GluGluH150")
+    .set_dirname("ggH150")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape ggH200("ggH200");
+  ggH200.set_dataset("GluGluH200")
+    .set_dirname("ggH200")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape ggH300("ggH300");
+  ggH300.set_dataset("GluGluH300")
+    .set_dirname("ggH300")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape ggH400("ggH400");
+  ggH400.set_dataset("GluGluH400")
+    .set_dirname("ggH400")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape ggH500("ggH500");
+  ggH500.set_dataset("GluGluH500")
+    .set_dirname("ggH500")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape ggH600("ggH600");
+  ggH600.set_dataset("GluGluH600")
+    .set_dirname("ggH600")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape ggH800("ggH800");
+  ggH800.set_dataset("GluGluH800")
+    .set_dirname("ggH800")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
+
+  DataShape ggH1000("ggH1000");
+  ggH1000.set_dataset("GluGluH1000")
+    .set_dirname("ggH1000")
+    .set_shape(shape)
+    .set_dataweight(sigmcweight)
+    .set_basesel(analysis->baseselection())
+    .set_cat(sigcat+mcextrasel);
 
   DataShape vv("vv");
   vv.set_dataset("VV")
@@ -1419,24 +1419,24 @@ int main(int argc, char* argv[]){
   if(!(channel=="nunu"&&runblind))analysis->AddModule(&data);
 
   if(!dataonly){
-//     analysis->AddModule(&ggH110);
-//     analysis->AddModule(&ggH150);
-//     analysis->AddModule(&ggH200);
-//     analysis->AddModule(&ggH300);
-//     analysis->AddModule(&ggH400);
-//     analysis->AddModule(&ggH500);
-//     analysis->AddModule(&ggH600);
-//     analysis->AddModule(&ggH800);
-//     analysis->AddModule(&ggH1000);
-//     analysis->AddModule(&qqH110);
-//     analysis->AddModule(&qqH150);
-//     analysis->AddModule(&qqH200);
-//     analysis->AddModule(&qqH300);
-//     analysis->AddModule(&qqH400);
-//     analysis->AddModule(&qqH500);
-//     analysis->AddModule(&qqH600);
-//     analysis->AddModule(&qqH800);
-//     analysis->AddModule(&qqH1000);
+    analysis->AddModule(&ggH110);
+    analysis->AddModule(&ggH150);
+    analysis->AddModule(&ggH200);
+    analysis->AddModule(&ggH300);
+    analysis->AddModule(&ggH400);
+    analysis->AddModule(&ggH500);
+    analysis->AddModule(&ggH600);
+    analysis->AddModule(&ggH800);
+    analysis->AddModule(&ggH1000);
+    analysis->AddModule(&qqH110);
+    analysis->AddModule(&qqH150);
+    analysis->AddModule(&qqH200);
+    analysis->AddModule(&qqH300);
+    analysis->AddModule(&qqH400);
+    analysis->AddModule(&qqH500);
+    analysis->AddModule(&qqH600);
+    analysis->AddModule(&qqH800);
+    analysis->AddModule(&qqH1000);
     analysis->AddModule(&qqH125);
     analysis->AddModule(&ggH125);
     analysis->AddModule(&totsignal125);
