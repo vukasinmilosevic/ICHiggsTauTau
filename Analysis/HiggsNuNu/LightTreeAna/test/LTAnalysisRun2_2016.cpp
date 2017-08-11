@@ -281,6 +281,10 @@ int main(int argc, char* argv[]){
   if (channel=="ee" || channel=="enu"){
     dataextrasel="&&(pass_singleEltrigger==1)";
   }
+  else if (channel=="qcdA" || channel=="qcdC"){
+    dataextrasel="&&(pass_alljethttrigger>=1)";
+    dataset="JetHT";
+  }
   else if (channel!="gamma"){
     //if(!do_mettrig) dataextrasel="&&(pass_sigtrigger==1)";
     //for metmht trigger
@@ -413,6 +417,7 @@ int main(int argc, char* argv[]){
   }
 
   std::string sigmcweight;
+  std::string dataweight = "";
 
   std::ostringstream mcweightsystfactor;
   mcweightsystfactor << "*" << lumiSF;
@@ -428,7 +433,7 @@ int main(int argc, char* argv[]){
   else if (syst=="TRIGDOWN" && (channel=="ee" || channel=="enu")) mcweightsystfactor<<"*weight_eletrigEff_down";
   else if (channel=="ee" || channel=="enu") mcweightsystfactor<<"*weight_eletrigEff";
 
-  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd"){
+  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel.find("qcd")!=channel.npos){
     if (syst=="LEPEFF_ELEUP") mcweightsystfactor<<"*weight_eleVeto_up/weight_eleVeto";
     if (syst=="LEPEFF_ELEDOWN") mcweightsystfactor<<"*weight_eleVeto_down/weight_eleVeto";
     if (syst=="LEPEFF_GSFUP") mcweightsystfactor<<"*weight_eleVeto_gsfup/weight_eleVeto";
@@ -475,12 +480,16 @@ int main(int argc, char* argv[]){
   //if (syst=="TRIG2UP") mcweightsystfactor<<"*weight_trig_5/weight_trig_0";
   //if (syst=="TRIG2DOWN") mcweightsystfactor<<"*weight_trig_6/weight_trig_0";
 
-  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcd") {
+  if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcdB") {
     //remove weight_lepveto, only mu part
     if (do_new_muVeto) sigmcweight="weight_nolepnotrig*weight_trig_0*weight_eleVeto"+mcweightsystfactor.str();//"total_weight_lepveto"+mcweightsystfactor.str();
     else               sigmcweight="total_weight_lepveto"+mcweightsystfactor.str();
   }
   //remove trigger weight for e channels which do not use signal trigger
+  else if (channel=="qcdA" || channel=="qcdC"){
+    dataweight="pass_alljethttrigger";
+    sigmcweight="weight_nolepnotrig"+mcweightsystfactor.str();
+  }
   else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig"+mcweightsystfactor.str();
   else sigmcweight="total_weight_leptight"+mcweightsystfactor.str();
 
@@ -498,6 +507,8 @@ int main(int argc, char* argv[]){
 
   if (channel=="ee" || channel == "enu") dataset="SingleElectron";
 
+
+
   std::string bothcentral="TMath::Abs(jet1_eta)<3&&TMath::Abs(jet2_eta)<3";
   std::string bothforward="TMath::Abs(jet1_eta)>=3&&TMath::Abs(jet2_eta)>=3";
   std::string j2forwardj1central="TMath::Abs(jet1_eta)<3&&TMath::Abs(jet2_eta)>=3";
@@ -513,6 +524,7 @@ int main(int argc, char* argv[]){
   data.set_dataset(dataset)
     .set_dirname("data_obs")
     .set_shape(shape)
+    .set_dataweight(dataweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+dataextrasel);
 
@@ -906,6 +918,9 @@ int main(int argc, char* argv[]){
     .set_dataweight(sigmcweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+mcextrasel);
+
+  //if (channel=="qcdA" || channel=="qcdC") qcdraw.set_cat(sigcat+mcextrasel+dataextrasel);
+
 
   DataShape gjetsraw("gjetsraw");
   gjetsraw.set_dataset("GJets")

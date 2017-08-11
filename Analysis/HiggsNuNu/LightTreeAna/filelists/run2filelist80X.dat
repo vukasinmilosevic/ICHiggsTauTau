@@ -1079,7 +1079,6 @@ ZJetsToNuNu-mg-ht600to800_split01 ZJets_nunu MC_ZJetsToNuNu-mg-ht600to800_split0
 ZJetsToNuNu-mg-ht800to1200 ZJets_nunu MC_ZJetsToNuNu-mg-ht800to1200.root
 ZJetsToNuNu-mg-ht1200to2500 ZJets_nunu MC_ZJetsToNuNu-mg-ht1200to2500.root
 ZJetsToNuNu-mg-ht2500toInf ZJets_nunu MC_ZJetsToNuNu-mg-ht2500toInf.root
- JetHT .root
 DATA_JetHT-2016B-ReMiniAOD_ver2-v2_split01 JetHT DATA_JetHT-2016B-ReMiniAOD_ver2-v2_split01.root
 DATA_JetHT-2016B-ReMiniAOD_ver2-v2_split02 JetHT DATA_JetHT-2016B-ReMiniAOD_ver2-v2_split02.root
 DATA_JetHT-2016B-ReMiniAOD_ver2-v2_split03 JetHT DATA_JetHT-2016B-ReMiniAOD_ver2-v2_split03.root
