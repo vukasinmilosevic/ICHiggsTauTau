@@ -914,7 +914,8 @@ int main(int argc, char* argv[]){
     .set_max(999);
 
   if(!donoskim && !doAllPairs){
-    jetPairFilter.set_predicate(bind(OrderedPairPtSelection, _1,jet1ptcut, jet2ptcut, cutaboveorbelow) && !bind(PairDEtaLessThan, _1, detajjcut) && bind(PairAbsDPhiLessThan, _1, dphijjcut) && bind(PairMassInRange, _1,mjjcut,100000) );
+    jetPairFilter.set_predicate(bind(OrderedPairPtSelection, _1,jet1ptcut, jet2ptcut, cutaboveorbelow) && !bind(PairDEtaLessThan, _1, detajjcut) && bind(PairMassInRange, _1,mjjcut,100000) );
+//     jetPairFilter.set_predicate(bind(OrderedPairPtSelection, _1,jet1ptcut, jet2ptcut, cutaboveorbelow) && !bind(PairDEtaLessThan, _1, detajjcut) && bind(PairAbsDPhiLessThan, _1, dphijjcut) && bind(PairMassInRange, _1,mjjcut,100000) );
   }
 
   if (doAllPairs) {
@@ -1197,7 +1198,7 @@ int main(int argc, char* argv[]){
   analysis.AddModule(&metNoElectrons);
   analysis.AddModule(&metNoENoMu);
 
-  analysis.AddModule(&minMetCut);
+//   analysis.AddModule(&minMetCut);
 
   //filter taus
   analysis.AddModule(&vetoTauCopyCollection);

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 PROD=170201
-JOBDIR=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170810/
+JOBDIR=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_170824/
 INJOBDIR=0
 
 while [ $# -gt 0 ] ; do

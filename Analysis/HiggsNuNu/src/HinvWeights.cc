@@ -204,19 +204,25 @@ namespace ic {//namespace
         std::cout << " -- Applying reweighting of W events to NLO from MIT (Raffaele)." << std::endl;
         hist_kfactors_N_W = (TH1F*)kfactor_VBF_wjets_v2_->Get("bosonPt_NLO_vbf");
         hist_kfactors_D_W = (TH1F*)kfactor_VBF_wjets_v2_->Get("bosonPt_LO_vbf");
+        hist_kfactors_N_W_monojet = (TH1F*)kfactor_VBF_wjets_v2_->Get("bosonPt_NLO_monojet");
+        hist_kfactors_D_W_monojet = (TH1F*)kfactor_VBF_wjets_v2_->Get("bosonPt_LO_monojet");
 //         hist_kfactors_N_W->Sumw2();
 //         hist_kfactors_N_W->Scale(1./hist_kfactors_N_W->Integral());
 //         hist_kfactors_D_W->Sumw2();
 //         hist_kfactors_D_W->Scale(1./hist_kfactors_D_W->Integral());
         hist_kfactors_EWKcorr_W      = (TH1F*)kfactors_->Get("EWKcorr/W");
         hist_kfactors_WJets_012j_NLO = (TH1F*)kfactors_->Get("WJets_012j_NLO/nominal");
+        hist_kfactors_WJets_LO = (TH1F*)kfactors_->Get("WJets_LO/inv_pt");
       }
       if (do_dy_reweighting_) {
         std::cout << " -- Applying reweighting of DY events to NLO from MIT (Raffaele)." << std::endl;
         hist_kfactors_N_Z = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_NLO_vbf");
         hist_kfactors_D_Z = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_LO_vbf");
+        hist_kfactors_N_Z_monojet = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_NLO_monojet");
+        hist_kfactors_D_Z_monojet = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_LO_monojet");
         hist_kfactors_EWKcorr_Z      = (TH1F*)kfactors_->Get("EWKcorr/Z");
         hist_kfactors_ZJets_012j_NLO = (TH1F*)kfactors_->Get("ZJets_012j_NLO/nominal");
+        hist_kfactors_ZJets_LO = (TH1F*)kfactors_->Get("ZJets_LO/inv_pt");
       }
     }
 
@@ -873,10 +879,20 @@ namespace ic {//namespace
         v_pt_oldBinning = 1249.0;
       }
 
+      bool do_ic_nlo_reweighting = false;
+
       if (do_w_reweighting_) {
-        v_nlo_Reweight = ( ( hist_kfactors_N_W->GetBinContent(hist_kfactors_N_W->FindBin(v_pt)) )/( hist_kfactors_D_W->GetBinContent(hist_kfactors_D_W->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_W->GetBinContent(hist_kfactors_EWKcorr_W->FindBin(v_pt_oldBinning)) )/( hist_kfactors_WJets_012j_NLO->GetBinContent(hist_kfactors_WJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
+        if (do_ic_nlo_reweighting) {
+          v_nlo_Reweight = ( ( hist_kfactors_N_W->GetBinContent(hist_kfactors_N_W->FindBin(v_pt)) )/( hist_kfactors_D_W->GetBinContent(hist_kfactors_D_W->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_W->GetBinContent(hist_kfactors_EWKcorr_W->FindBin(v_pt_oldBinning)) )/( hist_kfactors_WJets_012j_NLO->GetBinContent(hist_kfactors_WJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
+        } else {
+          v_nlo_Reweight = ( ( ( hist_kfactors_N_W->GetBinContent(hist_kfactors_N_W->FindBin(v_pt)) )/( hist_kfactors_D_W->GetBinContent(hist_kfactors_D_W->FindBin(v_pt)) ) )/( ( hist_kfactors_N_W_monojet->GetBinContent(hist_kfactors_N_W_monojet->FindBin(v_pt)) )/( hist_kfactors_D_W_monojet->GetBinContent(hist_kfactors_D_W_monojet->FindBin(v_pt)) ) ) )*( ( hist_kfactors_EWKcorr_W->GetBinContent(hist_kfactors_EWKcorr_W->FindBin(v_pt_oldBinning)) )/( hist_kfactors_WJets_LO->GetBinContent(hist_kfactors_WJets_LO->FindBin(v_pt_oldBinning)) ) );
+        }
       } else if (do_dy_reweighting_) {
-        v_nlo_Reweight = ( ( hist_kfactors_N_Z->GetBinContent(hist_kfactors_N_Z->FindBin(v_pt)) )/( hist_kfactors_D_Z->GetBinContent(hist_kfactors_D_Z->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_Z->GetBinContent(hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning)) )/( hist_kfactors_ZJets_012j_NLO->GetBinContent(hist_kfactors_ZJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
+        if (do_ic_nlo_reweighting) {
+          v_nlo_Reweight = ( ( hist_kfactors_N_Z->GetBinContent(hist_kfactors_N_Z->FindBin(v_pt)) )/( hist_kfactors_D_Z->GetBinContent(hist_kfactors_D_Z->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_Z->GetBinContent(hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning)) )/( hist_kfactors_ZJets_012j_NLO->GetBinContent(hist_kfactors_ZJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
+        } else {
+          v_nlo_Reweight = ( ( ( hist_kfactors_N_Z->GetBinContent(hist_kfactors_N_Z->FindBin(v_pt)) )/( hist_kfactors_D_Z->GetBinContent(hist_kfactors_D_Z->FindBin(v_pt)) ) )/( ( hist_kfactors_N_Z_monojet->GetBinContent(hist_kfactors_N_Z_monojet->FindBin(v_pt)) )/( hist_kfactors_D_Z_monojet->GetBinContent(hist_kfactors_D_Z_monojet->FindBin(v_pt)) ) ) )*( ( hist_kfactors_EWKcorr_Z->GetBinContent(hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning)) )/( hist_kfactors_ZJets_LO->GetBinContent(hist_kfactors_ZJets_LO->FindBin(v_pt_oldBinning)) ) );
+        }
       }
 
 

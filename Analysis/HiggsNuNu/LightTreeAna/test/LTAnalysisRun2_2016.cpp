@@ -417,7 +417,7 @@ int main(int argc, char* argv[]){
   }
 
   std::string sigmcweight;
-  std::string dataweight = "";
+  std::string dataweight;
 
   std::ostringstream mcweightsystfactor;
   mcweightsystfactor << "*" << lumiSF;
@@ -524,9 +524,11 @@ int main(int argc, char* argv[]){
   data.set_dataset(dataset)
     .set_dirname("data_obs")
     .set_shape(shape)
-    .set_dataweight(dataweight)
     .set_basesel(analysis->baseselection())
     .set_cat(sigcat+dataextrasel);
+  if (channel=="qcdA" || channel=="qcdC") {
+    data.set_dataweight(dataweight);
+  }
 
   DataShape totsignal125("totsignal125");
   totsignal125.set_dataset("H125")

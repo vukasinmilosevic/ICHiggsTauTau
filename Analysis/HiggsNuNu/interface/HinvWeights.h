@@ -52,8 +52,10 @@ class HinvWeights : public ModuleBase {
   TFile *kfactors_;
   TH1F *hist_kfactors_EWKcorr_W;
   TH1F *hist_kfactors_WJets_012j_NLO;
+  TH1F *hist_kfactors_WJets_LO;
   TH1F *hist_kfactors_EWKcorr_Z;
   TH1F *hist_kfactors_ZJets_012j_NLO;
+  TH1F *hist_kfactors_ZJets_LO;
 
   CLASS_MEMBER(HinvWeights, std::string, kfactor_VBF_zjets_v2_file)
   CLASS_MEMBER(HinvWeights, std::string, kfactor_VBF_wjets_v2_file)
@@ -61,8 +63,12 @@ class HinvWeights : public ModuleBase {
   TFile *kfactor_VBF_wjets_v2_;
   TH1F *hist_kfactors_N_W;
   TH1F *hist_kfactors_D_W;
+  TH1F *hist_kfactors_N_W_monojet;
+  TH1F *hist_kfactors_D_W_monojet;
   TH1F *hist_kfactors_N_Z;
   TH1F *hist_kfactors_D_Z;
+  TH1F *hist_kfactors_N_Z_monojet;
+  TH1F *hist_kfactors_D_Z_monojet;
 
   CLASS_MEMBER(HinvWeights, std::string, kFactor_ZToNuNu_pT_Mjj_file)
   CLASS_MEMBER(HinvWeights, std::string, kFactor_WToLNu_pT_Mjj_file)
