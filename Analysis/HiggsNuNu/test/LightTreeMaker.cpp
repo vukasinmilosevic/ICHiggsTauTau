@@ -30,7 +30,7 @@
 #include "UserCode/ICHiggsTauTau/Analysis/Modules/interface/LumiMask.h"
 
 #include "UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/interface/HinvDataTriggerFilter.h"
-#include "UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/interface/HinvWeights.h"
+#include "UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/interface/HinvWeightsOld.h"
 #include "UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/interface/HinvWDecay.h"
 #include "UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/interface/HinvZDecay.h"
 #include "UserCode/ICHiggsTauTau/Analysis/HiggsNuNu/interface/ModifyMet.h"
@@ -650,7 +650,7 @@ int main(int argc, char* argv[]){
   // Weight Modules
   // ------------------------------------------------------------------------------------  
   
-  HinvWeights hinvWeights = HinvWeights("HinvWeights")
+  HinvWeightsOld hinvWeights = HinvWeightsOld("HinvWeights")
     .set_era(era)
     .set_mc(mc)
     .set_save_weights(true)
@@ -673,7 +673,7 @@ int main(int argc, char* argv[]){
     hinvWeights.set_do_idiso_tight_weights(false);
   }
 
-  HinvWeights xsWeights = HinvWeights("XSWeights")
+  HinvWeightsOld xsWeights = HinvWeightsOld("XSWeights")
     .set_era(era)
     .set_mc(mc)
     .set_save_weights(false)

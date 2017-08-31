@@ -10,6 +10,10 @@
 #include "TLorentzVector.h"
 #include "TSystem.h"
 #include "TFile.h"
+#include "TROOT.h"
+#include "TKey.h"
+#include "TCollection.h"
+#include "TClass.h"
 #include "iostream"
 #include "fstream"
 #include "sstream"
@@ -22,28 +26,15 @@ namespace ic {//namespace
     save_weights_                     = true;
     do_top_reweighting_               = false;
     do_trg_weights_                   = false; //Store as part of total weight
-    do_binnedin2d1dfittedtrg_weights_ = false; //Bin in two of 3 variables and fit in the other
-    std::vector<std::string> thisvarorder;
-    thisvarorder.push_back("Jet");
-    thisvarorder.push_back("Mjj");
-    thisvarorder.push_back("MET");
-    binnedin2d1dfitweightvarorder_=thisvarorder;
-    std::vector<double> thisvar1binning;
-    thisvar1binning.push_back(30);
-    thisvar1binning.push_back(40);
-    thisvar1binning.push_back(50);
-    thisvar1binning.push_back(60);
-    thisvar1binning.push_back(1000);
-    binnedin2d1dfitweightvar1binning_=thisvar1binning;
-    std::vector<double> thisvar2binning;
-    thisvar2binning.push_back(0);
-    thisvar2binning.push_back(600);
-    thisvar2binning.push_back(800);
-    thisvar2binning.push_back(900);
-    thisvar2binning.push_back(1000);
-    thisvar2binning.push_back(5000);
-    binnedin2d1dfitweightvar2binning_ = thisvar2binning;
-    do_metmht_              = true;
+
+    //binning in Mjj
+    trigMjjBins_.push_back(0);
+    trigMjjBins_.push_back(800);
+    trigMjjBins_.push_back(1200);
+    trigMjjBins_.push_back(1700);
+    trigMjjBins_.push_back(3000);
+
+
     trg_applied_in_mc_      = false;
     do_idiso_tight_weights_ = false;
     do_idiso_veto_weights_  = false;
@@ -60,29 +51,15 @@ namespace ic {//namespace
     sample_name_= "test";
     input_met_ = "metNoMuons";
     input_jet_ = "pfJetsPFlow";
-    trg_weight_file_="";
+    mettrg_weight_file_="";
+    mettrg_zmm_weight_file_="";
 
-    errLabelSave.push_back("");
-    errLabelSave.push_back("_Up");
-    errLabelSave.push_back("_Down");
-    //errLabel.push_back("_v0Up");
-    //errLabel.push_back("_v0Down");
-    //errLabel.push_back("_v1Up");
-    //errLabel.push_back("_v1Down");
-    //errLabel.push_back("_v2Up");
-    //errLabel.push_back("_v2Down");
+    // For v_nlo_Reweighting (merged_kfactors_wjets.root and merged_kfactors_zjets.root files in input/nlo_factors from gitlab)
+    kfactors_zjets_file_="input/nlo_factors/merged_kfactors_zjets.root";
+    kfactors_wjets_file_="input/nlo_factors/merged_kfactors_wjets.root";
 
-    errLabel.push_back("f1_");
-    errLabel.push_back("f1Up_");
-    errLabel.push_back("f1DownV2_");
-
-    // For v_nlo_Reweighting (kfactor_VBF_zjets_v2.root and kfactor_VBF_wjets_v2.root files in input/scalefactors from MIT group)
-    kfactors_file_="input/scale_factors/kfactors.root";
-    kfactor_VBF_zjets_v2_file_="input/scale_factors/kfactor_VBF_zjets_v2.root";
-    kfactor_VBF_wjets_v2_file_="input/scale_factors/kfactor_VBF_wjets_v2.root";
-
-    kFactor_ZToNuNu_pT_Mjj_file_="input/scale_factors/kFactor_ZToNuNu_pT_Mjj.root";
-    kFactor_WToLNu_pT_Mjj_file_ ="input/scale_factors/kFactor_WToLNu_pT_Mjj.root";
+    kFactor_ZToNuNu_pT_Mjj_file_="input/nlo_factors/kFactor_ZToNuNu_pT_Mjj.root";
+    kFactor_WToLNu_pT_Mjj_file_ ="input/nlo_factors/kFactor_WToLNu_pT_Mjj.root";
   }
 
   HinvWeights::~HinvWeights() {
@@ -196,39 +173,27 @@ namespace ic {//namespace
     }
     if (do_w_reweighting_ || do_dy_reweighting_) { // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
 
-      kfactors_ = TFile::Open(kfactors_file_.c_str());
-      kfactor_VBF_zjets_v2_ = TFile::Open(kfactor_VBF_zjets_v2_file_.c_str());
-      kfactor_VBF_wjets_v2_ = TFile::Open(kfactor_VBF_wjets_v2_file_.c_str());
+      kfactors_wjets_ = TFile::Open(kfactors_wjets_file_.c_str());
+      kfactors_zjets_ = TFile::Open(kfactors_zjets_file_.c_str());
 
       if (do_w_reweighting_) {
         std::cout << " -- Applying reweighting of W events to NLO from MIT (Raffaele)." << std::endl;
-        hist_kfactors_N_W = (TH1F*)kfactor_VBF_wjets_v2_->Get("bosonPt_NLO_vbf");
-        hist_kfactors_D_W = (TH1F*)kfactor_VBF_wjets_v2_->Get("bosonPt_LO_vbf");
-        hist_kfactors_N_W_monojet = (TH1F*)kfactor_VBF_wjets_v2_->Get("bosonPt_NLO_monojet");
-        hist_kfactors_D_W_monojet = (TH1F*)kfactor_VBF_wjets_v2_->Get("bosonPt_LO_monojet");
-//         hist_kfactors_N_W->Sumw2();
-//         hist_kfactors_N_W->Scale(1./hist_kfactors_N_W->Integral());
-//         hist_kfactors_D_W->Sumw2();
-//         hist_kfactors_D_W->Scale(1./hist_kfactors_D_W->Integral());
-        hist_kfactors_EWKcorr_W      = (TH1F*)kfactors_->Get("EWKcorr/W");
-        hist_kfactors_WJets_012j_NLO = (TH1F*)kfactors_->Get("WJets_012j_NLO/nominal");
-        hist_kfactors_WJets_LO = (TH1F*)kfactors_->Get("WJets_LO/inv_pt");
+        hist_kfactors_qcdewk_W = (TH1F*)kfactors_wjets_->Get("kfactor_monojet_qcd_ewk");
+        hist_kfactors_vbf_cnc_W = (TH1F*)kfactors_wjets_->Get("kfactor_vbf_cnc_modifier");
       }
       if (do_dy_reweighting_) {
         std::cout << " -- Applying reweighting of DY events to NLO from MIT (Raffaele)." << std::endl;
-        hist_kfactors_N_Z = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_NLO_vbf");
-        hist_kfactors_D_Z = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_LO_vbf");
-        hist_kfactors_N_Z_monojet = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_NLO_monojet");
-        hist_kfactors_D_Z_monojet = (TH1F*)kfactor_VBF_zjets_v2_->Get("bosonPt_LO_monojet");
-        hist_kfactors_EWKcorr_Z      = (TH1F*)kfactors_->Get("EWKcorr/Z");
-        hist_kfactors_ZJets_012j_NLO = (TH1F*)kfactors_->Get("ZJets_012j_NLO/nominal");
-        hist_kfactors_ZJets_LO = (TH1F*)kfactors_->Get("ZJets_LO/inv_pt");
+        hist_kfactors_qcdewk_Z = (TH1F*)kfactors_zjets_->Get("kfactor_monojet_qcd_ewk");
+        hist_kfactors_vbf_cnc_Z = (TH1F*)kfactors_zjets_->Get("kfactor_vbf_cnc_modifier");
       }
     }
 
     if (do_ewk_w_reweighting_ || do_ewk_dy_reweighting_) {
       kFactor_ZToNuNu_pT_Mjj_ = TFile::Open(kFactor_ZToNuNu_pT_Mjj_file_.c_str());
       kFactor_WToLNu_pT_Mjj_ = TFile::Open(kFactor_WToLNu_pT_Mjj_file_.c_str());
+
+      if (!kFactor_ZToNuNu_pT_Mjj_) return 1;
+      if (!kFactor_WToLNu_pT_Mjj_) return 1;
 
       if (do_ewk_w_reweighting_) {
         std::cout << " -- Applying reweighting of W events to NLO from MIT (Raffaele)." << std::endl;
@@ -244,41 +209,51 @@ namespace ic {//namespace
       // do weights even if not applied, to fill histo with weight for comparison !
 
       //get trigger scale factor histograms from file
-      triggerSF_ = new TFile(trg_weight_file_.c_str());
-      if (!triggerSF_) return 1;
-      if(do_binnedin2d1dfittedtrg_weights_){
-        std::cout<<"Getting trigger efficiency functions"<<std::endl;
-        for(unsigned iVar1=0;iVar1<(binnedin2d1dfitweightvar1binning_.size()-1);iVar1++){
-          std::vector<std::vector<TF1*> > thisfuncvectorvector[errLabel.size()];
-          for(unsigned iVar2=0;iVar2<(binnedin2d1dfitweightvar2binning_.size()-1);iVar2++){
-            std::vector<TF1*> thisfuncvector[errLabel.size()];
-            //HF bins
-            for(unsigned iVar3=0;iVar3<2;iVar3++){
-              std::ostringstream convert;
-              if (!do_metmht_) convert<<iVar1+1<<iVar2+1;
-              //convert<<iVar3+1;
-              convert<<iVar2+1;
-              std::string histnumber=convert.str();
-	      for (unsigned iErr(0); iErr<errLabel.size();++iErr){
-		//std::string newhistnumber= histnumber;
-		//if (do_metmht_ && iErr>0) newhistnumber = "1;"+histnumber;
-		TF1 *tmp;
-		if (!do_metmht_) tmp = (TF1*)gDirectory->Get(("fdata_"+binnedin2d1dfitweightvarorder_[2]+"_1d_"+histnumber+"Deff"+errLabel[iErr]).c_str());
-		//else thisfuncvector[iErr].push_back((TF1*)gDirectory->Get(("METMHT_BIN"+histnumber+errLabel[iErr]).c_str()));
-		else tmp = (TF1*)gDirectory->Get((errLabel[iErr]+"METMHT120_MJJBIN"+histnumber).c_str());
-		
-		thisfuncvector[iErr].push_back(tmp);
-		//std::cout << " -- trigger Function " << errLabel[iErr]+"METMHT120_MJJBIN"+histnumber << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->GetName() << " " << tmp->GetName() << " check value Mjj=2000 " << tmp->Eval(2000.) << " " << thisfuncvector[iErr][thisfuncvector[iErr].size()-1]->Eval(2000.) << std::endl; 
-	      }
-            }
-            for (unsigned iErr(0); iErr<errLabel.size();++iErr){
-              thisfuncvectorvector[iErr].push_back(thisfuncvector[iErr]);
-            }
-          }
-          for (unsigned iErr(0); iErr<errLabel.size();++iErr){
-            func_trigSF_binnedin2d[iErr].push_back(thisfuncvectorvector[iErr]);
-          }
-        }
+      mettrigSF_ = new TFile(mettrg_weight_file_.c_str());
+      if (!mettrigSF_) return 1;
+      mettrigZmmSF_ = new TFile(mettrg_zmm_weight_file_.c_str());
+      if (!mettrigZmmSF_) return 1;
+      std::cout<<"Getting trigger efficiency functions"<<std::endl;
+      
+
+      for(unsigned iVar1=0;iVar1<(trigMjjBins_.size()-1);iVar1++){
+	std::ostringstream flabel;
+	flabel << "fitfunc_vbf_mjj_"
+	       << trigMjjBins_[iVar1]
+	       << ".000000_"
+	       << trigMjjBins_[iVar1+1]
+	       << ".000000";
+	std::cout << " -- trigger Function label " << flabel.str() << std::endl;
+	mettrigSF_->cd();
+	TIter next(mettrigSF_->GetListOfKeys());
+	TKey *key;
+	TF1 *tmp = 0;
+	while ((key = (TKey*)next())) {
+	  TClass *cl = gROOT->GetClass(key->GetClassName());
+	  if (!cl->InheritsFrom("TF1")) continue;
+	  tmp = (TF1*)key->ReadObj();
+	  //std::cout << h->GetName() << " " << h->GetExpFormula() << std::endl;
+	  if (tmp->GetName()==flabel.str().c_str()) break;
+	}
+
+	if (!tmp) return 1;
+	
+	func_mettrigSF_.push_back(tmp);
+
+	mettrigZmmSF_->cd();
+	TIter next2(mettrigZmmSF_->GetListOfKeys());
+	TF1 *tmp2 = 0;
+	while ((key = (TKey*)next2())) {
+	  TClass *cl = gROOT->GetClass(key->GetClassName());
+	  if (!cl->InheritsFrom("TF1")) continue;
+	  tmp2 = (TF1*)key->ReadObj();
+	  //std::cout << h->GetName() << " " << h->GetExpFormula() << std::endl;
+	  if (tmp2->GetName()==flabel.str().c_str()) break;
+	}
+	if (!tmp2) return 1;
+
+	func_mettrigZmmSF_.push_back(tmp2);
+
         std::cout<<"-- Done!"<<std::endl;
       }
     }
@@ -370,8 +345,8 @@ namespace ic {//namespace
     if (do_trg_weights_){//do_trg_weights_
       double mjj=0.;
       //double jet1pt=0.;
-      double jet2pt=0.;
-      bool hasJetsInHF = false;
+      //double jet2pt=0.;
+      //bool hasJetsInHF = false;
 
       //get 2 leading jets
       std::vector<CompositeCandidate *> const& dijet_vec = event->GetPtrVec<CompositeCandidate>("jjLeadingCandidates");
@@ -379,111 +354,56 @@ namespace ic {//namespace
 
         CompositeCandidate const* dijet = dijet_vec.at(0);
 
-        Candidate const* jet1 = dijet->GetCandidate("jet1");
-        Candidate const* jet2 = dijet->GetCandidate("jet2");
+        //Candidate const* jet1 = dijet->GetCandidate("jet1");
+        //Candidate const* jet2 = dijet->GetCandidate("jet2");
 
         mjj = dijet->M();
         //jet1pt = jet1->pt();
-        jet2pt = jet2->pt();
-        hasJetsInHF = fabs(jet1->eta())>=3 || fabs(jet2->eta())>=3 ;
+        //jet2pt = jet2->pt();
+        //hasJetsInHF = fabs(jet1->eta())>=3 || fabs(jet2->eta())>=3 ;
         //std::cout<<"mjj "<<mjj<<" j2pt "<<jet2pt<<" metl1 "<<l1met<<" hltmet "<<hltmet<<std::endl;
-        unsigned nruns = 2;
+	//if(l1met!=hltmet){
+	//std::cout<<"Error: you must use metnomuons for both l1met and hltmet"<<std::endl;
+	//return 1;
+	//}
 
-        if(do_binnedin2d1dfittedtrg_weights_){//2D-1D
-          //if(l1met!=hltmet){
-          //std::cout<<"Error: you must use metnomuons for both l1met and hltmet"<<std::endl;
-          //return 1;
-          //}
-          double vars[3];
-          bool found[3]={false,false,false};
-          //Get the 3 variables
-          for(unsigned iVar=0;iVar<binnedin2d1dfitweightvarorder_.size();iVar++){
-            if(binnedin2d1dfitweightvarorder_[iVar]=="MET"){
-              vars[iVar]=hltmet;
-              found[0]=true;
-            }
-            if(binnedin2d1dfitweightvarorder_[iVar]=="Mjj"){
-              vars[iVar]=mjj;
-              found[1]=true;
-            }
-            if(binnedin2d1dfitweightvarorder_[iVar]=="Jet"){
-              vars[iVar]=jet2pt;
-              found[2]=true;
-            }
-          }
-          if(!((found[0]==true)&&(found[1]==true)&&(found[2]==true))){
-            std::cout<<"You must specify MET,Mjj and Jet as the variables used for 2d binned 1d trigger weights"<<std::endl;
-            return 1;
-          }
-          //FIND WHICH BIN YOU'RE IN
-          int var1bin=-10;
-          int var2bin=-10;
-          if(vars[0]<binnedin2d1dfitweightvar1binning_[0])var1bin=-1;
-          else{
-            for(unsigned iBin=0;iBin<(binnedin2d1dfitweightvar1binning_.size()-1);iBin++){
-              if(vars[0]<binnedin2d1dfitweightvar1binning_[iBin+1]){
-                var1bin=iBin+1;
-                break;
-              }
-            }
-            if(var1bin==-10)var1bin=binnedin2d1dfitweightvar1binning_.size()-1;
-          }
-          if(vars[1]<binnedin2d1dfitweightvar2binning_[0])var2bin=-1;
-          else{
-            for(unsigned iBin=0;iBin<(binnedin2d1dfitweightvar2binning_.size()-1);iBin++){
-              if(vars[1]<binnedin2d1dfitweightvar2binning_[iBin+1]){
-                var2bin=iBin+1;
-                break;
-              }
-            }
-            if(var2bin==-10)var2bin=binnedin2d1dfitweightvar2binning_.size()-1;
-          }
+	//FIND WHICH BIN YOU'RE IN
+	int var1bin=-10;
+	if(mjj<trigMjjBins_[0])var1bin=-1;
+	else{
+	  for(unsigned iBin=0;iBin<(trigMjjBins_.size()-1);iBin++){
+	    if(mjj<trigMjjBins_[iBin+1]){
+	      var1bin=iBin;
+	      break;
+	    }
+	  }
+	  if(var1bin==-10)var1bin=trigMjjBins_.size()-2;
+	}
 
-          for (unsigned iErr(0); iErr<errLabel.size();++iErr){//Loop on errors
-            double trgweights[3]={0,0,0};
-            double xmin,xmax;
-            if((var1bin!=-1)&&(var2bin!=-1)){
-              //!!READ OUT WEIGHT FOR EACH RUN
-              TF1* funcs[3]={0,0,0};
-              for(unsigned iRun=0;iRun<nruns;iRun++){
-                funcs[iRun]=func_trigSF_binnedin2d[iErr][var1bin-1][var2bin-1][iRun];
-              }
+	//std::cout << " -- Mjj " << mjj << " bin " << var1bin << " " << trigMjjBins_[var1bin] << "-" << trigMjjBins_[var1bin+1] << std::endl;
+	
+	double trgweight = 0;
+	double trgweightzmm = 0;
+	double xmin,xmax;
+	if(var1bin!=-1){
 
-              if (!hasJetsInHF) funcs[0]->GetRange(xmin,xmax);
-              else funcs[1]->GetRange(xmin,xmax);
+	  func_mettrigSF_[var1bin]->GetRange(xmin,xmax);
+	  
+	  if(hltmet<=xmax){
+	    if(hltmet>=xmin){
+	      trgweight = func_mettrigSF_[var1bin]->Eval(hltmet);
+	      trgweightzmm = func_mettrigZmmSF_[var1bin]->Eval(hltmet);
+	    }
+	  }
+	  else {
+	    trgweight = func_mettrigSF_[var1bin]->Eval(xmax);
+	    trgweightzmm = func_mettrigZmmSF_[var1bin]->Eval(xmax);
+	  }
+	}
+	//SET TRIGGER WEIGHT
+	eventInfo->set_weight("!mettrigSF",trgweight);
+	eventInfo->set_weight("!mettrigZmmSF",trgweightzmm);
 
-              //Get weight
-              for(unsigned iRun=0;iRun<nruns;iRun++){
-
-                if(vars[2]<=xmax){
-                  if(vars[2]>=xmin){
-                    trgweights[iRun]=funcs[iRun]->Eval(vars[2]);
-                  }
-                  else trgweights[iRun]=0;
-                }
-                else trgweights[iRun]=funcs[iRun]->Eval(xmax);
-              }
-            }
-            else{
-              for(unsigned iRun=0;iRun<nruns;iRun++){
-                trgweights[iRun]=0;
-              }
-            }
-            double trgweight;
-	    if (!hasJetsInHF) trgweight=trgweights[0];
-	    else trgweight=trgweights[1];
-            /*if (var1bin>0&&var2bin>0) 
-              std::cout<<" Total Weight "<<trgweight
-              <<" vars[0]=" << vars[0] << "(" << var1bin << ")"
-              <<" vars[1]=" << vars[1] << "(" << var2bin << ")"
-              <<" vars[2]=" << vars[2] << "(" << xmin << "," << xmax << ")"
-              <<" hasJetsInHF=" << hasJetsInHF
-              <<std::endl;   */
-            //SET TRIGGER WEIGHT
-            eventInfo->set_weight(("!trig_2dbinned1d"+errLabelSave[iErr]).c_str(),trgweight);
-
-          }//endof Loop on errors
-        }//2D-1D
       }//endof if dijets //dijet pair
     }//do trig weights
     //else {
@@ -864,7 +784,7 @@ namespace ic {//namespace
         std::cout << v_pt_oldBinning << std::endl;
       }
 
-      if (v_pt<150) {
+      if (v_pt<=150) {
         //std::cout << " -- Underflow! v_pt = "<< v_pt << " has been re-set to v_pt = 151.0" << std::endl;
         v_pt = 151.0;
       }
@@ -872,29 +792,22 @@ namespace ic {//namespace
         //std::cout << " -- Overflow! v_pt = "<< v_pt << " has been re-set to v_pt = 1249.0" << std::endl;
         v_pt = 999.0;
       }
-      if (v_pt_oldBinning<150) {
+      if (v_pt_oldBinning<=150) {
         v_pt_oldBinning = 151.0;
       }
       if (v_pt_oldBinning>=1250) {
         v_pt_oldBinning = 1249.0;
       }
 
-      bool do_ic_nlo_reweighting = false;
-
       if (do_w_reweighting_) {
-        if (do_ic_nlo_reweighting) {
-          v_nlo_Reweight = ( ( hist_kfactors_N_W->GetBinContent(hist_kfactors_N_W->FindBin(v_pt)) )/( hist_kfactors_D_W->GetBinContent(hist_kfactors_D_W->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_W->GetBinContent(hist_kfactors_EWKcorr_W->FindBin(v_pt_oldBinning)) )/( hist_kfactors_WJets_012j_NLO->GetBinContent(hist_kfactors_WJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
-        } else {
-          v_nlo_Reweight = ( ( ( hist_kfactors_N_W->GetBinContent(hist_kfactors_N_W->FindBin(v_pt)) )/( hist_kfactors_D_W->GetBinContent(hist_kfactors_D_W->FindBin(v_pt)) ) )/( ( hist_kfactors_N_W_monojet->GetBinContent(hist_kfactors_N_W_monojet->FindBin(v_pt)) )/( hist_kfactors_D_W_monojet->GetBinContent(hist_kfactors_D_W_monojet->FindBin(v_pt)) ) ) )*( ( hist_kfactors_EWKcorr_W->GetBinContent(hist_kfactors_EWKcorr_W->FindBin(v_pt_oldBinning)) )/( hist_kfactors_WJets_LO->GetBinContent(hist_kfactors_WJets_LO->FindBin(v_pt_oldBinning)) ) );
-        }
+	int idx1 = hist_kfactors_qcdewk_W->FindBin(v_pt_oldBinning);
+	int idx2 = hist_kfactors_vbf_cnc_W->FindBin(v_pt);
+	v_nlo_Reweight = hist_kfactors_qcdewk_W->GetBinContent(idx1)*hist_kfactors_vbf_cnc_W->GetBinContent(idx2);
       } else if (do_dy_reweighting_) {
-        if (do_ic_nlo_reweighting) {
-          v_nlo_Reweight = ( ( hist_kfactors_N_Z->GetBinContent(hist_kfactors_N_Z->FindBin(v_pt)) )/( hist_kfactors_D_Z->GetBinContent(hist_kfactors_D_Z->FindBin(v_pt)) ) )*( ( hist_kfactors_EWKcorr_Z->GetBinContent(hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning)) )/( hist_kfactors_ZJets_012j_NLO->GetBinContent(hist_kfactors_ZJets_012j_NLO->FindBin(v_pt_oldBinning)) ) );
-        } else {
-          v_nlo_Reweight = ( ( ( hist_kfactors_N_Z->GetBinContent(hist_kfactors_N_Z->FindBin(v_pt)) )/( hist_kfactors_D_Z->GetBinContent(hist_kfactors_D_Z->FindBin(v_pt)) ) )/( ( hist_kfactors_N_Z_monojet->GetBinContent(hist_kfactors_N_Z_monojet->FindBin(v_pt)) )/( hist_kfactors_D_Z_monojet->GetBinContent(hist_kfactors_D_Z_monojet->FindBin(v_pt)) ) ) )*( ( hist_kfactors_EWKcorr_Z->GetBinContent(hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning)) )/( hist_kfactors_ZJets_LO->GetBinContent(hist_kfactors_ZJets_LO->FindBin(v_pt_oldBinning)) ) );
-        }
+	int idx1 = hist_kfactors_qcdewk_Z->FindBin(v_pt_oldBinning);
+	int idx2 = hist_kfactors_vbf_cnc_Z->FindBin(v_pt);
+	v_nlo_Reweight = hist_kfactors_qcdewk_Z->GetBinContent(idx1)*hist_kfactors_vbf_cnc_Z->GetBinContent(idx2);
       }
-
 
       eventInfo->set_weight("!v_nlo_Reweighting", v_nlo_Reweight);
 

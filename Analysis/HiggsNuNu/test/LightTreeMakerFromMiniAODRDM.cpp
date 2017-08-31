@@ -112,11 +112,11 @@ int main(int argc, char* argv[]){
   string filters;
   //unsigned signal_region;       // DeltaPhi cut > 2.7
   bool dotrgeff;                  // Do trigger efficiency corrections
-  bool dobinnedin2d1dtrgeff;      // Do 2d binned fitted 1d parked trigger efficiency corrections
   bool doidisoeff;                // Do lepton ID-iso efficiency corrections
   bool dolumixsweight;            // Do lumi*xs/evt weight online
   string inputparams;             // Params file to use for info on lumi xs and evt
-  string trg_weight_file;         // Trigger weights to use
+  string mettrg_weight_file;         // Trigger weights to use 
+  string mettrg_zmm_weight_file;         // Trigger weights to use for Zmm
   string trg_to_use;              // Which trigger to use for data
 
   //CUTS
@@ -186,7 +186,6 @@ int main(int argc, char* argv[]){
     ("taulepdiscrtight",      po::value<bool>(&taulepdiscrtight)->default_value(false))
     ("dojerdebug",            po::value<bool>(&dojerdebug)->default_value(false))
     ("dotrgeff",              po::value<bool>(&dotrgeff)->default_value(false))
-    ("dobinnedin2d1dtrgeff",  po::value<bool>(&dobinnedin2d1dtrgeff)->default_value(false))
     ("doidisoeff",            po::value<bool>(&doidisoeff)->default_value(false))
     ("dotopreweighting",      po::value<bool>(&dotopreweighting)->default_value(false))
     ("dopromptskim",          po::value<bool>(&dopromptskim)->default_value(false))
@@ -194,7 +193,8 @@ int main(int argc, char* argv[]){
     ("dolumixsweight",        po::value<bool>(&dolumixsweight)->default_value(false))
     ("inputparams",           po::value<string>(&inputparams)->default_value(""))
     ("jettype",               po::value<string>(&jettype)->default_value("pfJetsPFlow"))
-    ("trg_weight_file",       po::value<string>(&trg_weight_file)->default_value(""))
+    ("mettrg_weight_file",    po::value<string>(&mettrg_weight_file)->default_value(""))
+    ("mettrg_zmm_weight_file",po::value<string>(&mettrg_zmm_weight_file)->default_value(""))
     ("trg_to_use",            po::value<string>(&trg_to_use)->default_value(""))
     ("printEventList",        po::value<bool>(&printEventList)->default_value(false))
     ("printEventContent",     po::value<bool>(&printEventContent)->default_value(false))
@@ -914,8 +914,8 @@ int main(int argc, char* argv[]){
     .set_max(999);
 
   if(!donoskim && !doAllPairs){
-    jetPairFilter.set_predicate(bind(OrderedPairPtSelection, _1,jet1ptcut, jet2ptcut, cutaboveorbelow) && !bind(PairDEtaLessThan, _1, detajjcut) && bind(PairMassInRange, _1,mjjcut,100000) );
-//     jetPairFilter.set_predicate(bind(OrderedPairPtSelection, _1,jet1ptcut, jet2ptcut, cutaboveorbelow) && !bind(PairDEtaLessThan, _1, detajjcut) && bind(PairAbsDPhiLessThan, _1, dphijjcut) && bind(PairMassInRange, _1,mjjcut,100000) );
+    //jetPairFilter.set_predicate(bind(OrderedPairPtSelection, _1,jet1ptcut, jet2ptcut, cutaboveorbelow) && !bind(PairDEtaLessThan, _1, detajjcut) && bind(PairMassInRange, _1,mjjcut,100000) );
+    jetPairFilter.set_predicate(bind(OrderedPairPtSelection, _1,jet1ptcut, jet2ptcut, cutaboveorbelow) && !bind(PairDEtaLessThan, _1, detajjcut) && bind(PairAbsDPhiLessThan, _1, dphijjcut) && bind(PairMassInRange, _1,mjjcut,100000) );
   }
 
   if (doAllPairs) {
@@ -958,27 +958,9 @@ int main(int argc, char* argv[]){
     .set_fs(fs)
     .set_input_met("metNoMuons");
   if (!is_data) {
-    std::vector<double> jptbinning;
-    //jptbinning.push_back(70);
-    //jptbinning.push_back(80);
-    //jptbinning.push_back(1000);
-    //for metmht
-    jptbinning.push_back(0);
-    jptbinning.push_back(7000);
-    std::vector<double> mjjbinning;
-    mjjbinning.push_back(0);
-    mjjbinning.push_back(800);
-    mjjbinning.push_back(1200);
-    mjjbinning.push_back(1700);
-    mjjbinning.push_back(14000);
-    //mjjbinning.push_back(0);
-    //mjjbinning.push_back(14000);
     hinvWeights.set_do_trg_weights(dotrgeff)
-      .set_do_binnedin2d1dfittedtrg_weights(dobinnedin2d1dtrgeff)
-      .set_binnedin2d1dfitweightvar1binning(jptbinning)
-      .set_binnedin2d1dfitweightvar2binning(mjjbinning)
-      .set_do_metmht(true)
-      .set_trg_weight_file(trg_weight_file)
+      .set_mettrg_weight_file(mettrg_weight_file)
+      .set_mettrg_zmm_weight_file(mettrg_zmm_weight_file)
       .set_trg_applied_in_mc(false);
     hinvWeights.set_do_idiso_veto_weights(false);
     hinvWeights.set_do_idiso_tight_weights(false);

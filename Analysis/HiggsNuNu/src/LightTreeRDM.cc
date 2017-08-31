@@ -90,7 +90,7 @@ namespace ic {
     lumi_=0;
     event_=0;
     weight_nolepnotrig_=1;
-    for (unsigned iT(0); iT<7; ++iT){
+    for (unsigned iT(0); iT<2; ++iT){
       weight_trig_[iT]=1;
     }
     weight_lepveto_ = 1;
@@ -387,7 +387,7 @@ namespace ic {
     gamma1_genphi_=-5;
 
     n_vertices_=0;
-
+    n_true_int_ = -1;
 
     // lheParticles
     lheHT_=0;
@@ -426,11 +426,13 @@ namespace ic {
     outputTree_->Branch("lumi",&lumi_);
     outputTree_->Branch("event",&event_);
     outputTree_->Branch("weight_nolepnotrig",&weight_nolepnotrig_);
-    for (unsigned iT(0); iT<7; ++iT){
-      std::ostringstream label;
-      label << "weight_trig_" << iT;
-      outputTree_->Branch(label.str().c_str(),&weight_trig_[iT]);
-    }
+    outputTree_->Branch("weight_mettrig",&weight_trig_[0]);
+    outputTree_->Branch("weight_mettrig_zmm",&weight_trig_[1]);
+    //for (unsigned iT(0); iT<7; ++iT){
+    //std::ostringstream label;
+    //label << "weight_trig_" << iT;
+    //outputTree_->Branch(label.str().c_str(),&weight_trig_[iT]);
+    //}
     outputTree_->Branch("weight_lepveto",&weight_lepveto_);
     outputTree_->Branch("weight_leptight",&weight_leptight_);
     outputTree_->Branch("total_weight_lepveto",&total_weight_lepveto_);
@@ -716,6 +718,7 @@ namespace ic {
     outputTree_->Branch("gamma1_genphi",&gamma1_genphi_);
 
     outputTree_->Branch("n_vertices",&n_vertices_);
+    outputTree_->Branch("n_true_int",&n_true_int_);
 
 
 //Branches (new) for Photons Electrons and Muons
@@ -793,6 +796,13 @@ namespace ic {
     lumi_= eventInfo->lumi_block();
     event_= eventInfo->event();
     n_vertices_=eventInfo->good_vertices();
+    std::vector<PileupInfo *> const& puInfo = event->GetPtrVec<PileupInfo>("pileupInfo");
+    n_true_int_ = -1;
+    for (unsigned i = 0; i < puInfo.size(); ++i) {
+      if (puInfo[i]->bunch_crossing() == 0) {
+        n_true_int_ = puInfo[i]->true_num_interactions();
+      }
+    }
 
     if (debug_) {
       std::cout << " Run " << run_ << " event " << event_ << " n_vtx = " << n_vertices_ << std::endl;
@@ -957,11 +967,13 @@ namespace ic {
       pileupwtdown=eventInfo->weight("pileup_down");
 
       //std::string label[7] = {"","_v0Up","_v0Down","_v1Up","_v1Down","_v2Up","_v2Down"};
-      std::string label[7] = {"","_Up","_Down"};
-      for (unsigned iT(0); iT<3; ++iT){
-        std::string thislabel = "trig_2dbinned1d"+label[iT];
-        weight_trig_[iT]=eventInfo->weight_defined(thislabel.c_str())?eventInfo->weight(thislabel.c_str()):0;
-      }
+      //std::string label[7] = {"","_Up","_Down"};
+      //for (unsigned iT(0); iT<3; ++iT){
+      //std::string thislabel = "trig_2dbinned1d"+label[iT];
+      //weight_trig_[iT]=eventInfo->weight_defined(thislabel.c_str())?eventInfo->weight(thislabel.c_str()):0;
+      //}
+      weight_trig_[0]=eventInfo->weight_defined("mettrigSF")?eventInfo->weight("mettrigSF"):0;
+      weight_trig_[1]=eventInfo->weight_defined("mettrigZmmSF")?eventInfo->weight("mettrigZmmSF"):0;
 
 
     }//for MC

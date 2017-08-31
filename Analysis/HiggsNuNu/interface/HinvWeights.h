@@ -23,12 +23,6 @@ class HinvWeights : public ModuleBase {
   CLASS_MEMBER(HinvWeights, bool, save_lumixs_weights)  
   CLASS_MEMBER(HinvWeights, bool, do_top_reweighting)
   CLASS_MEMBER(HinvWeights, bool, do_trg_weights)
-  CLASS_MEMBER(HinvWeights, bool, do_binnedin2d1dfittedtrg_weights)
-  CLASS_MEMBER(HinvWeights, std::vector<std::string>, binnedin2d1dfitweightvarorder)//bin in first two fit in 3rd
-  CLASS_MEMBER(HinvWeights, std::vector<double>, binnedin2d1dfitweightvar1binning)//binning of first var
-  CLASS_MEMBER(HinvWeights, std::vector<double>, binnedin2d1dfitweightvar2binning)//binning of second var
-  CLASS_MEMBER(HinvWeights, bool, do_metmht)
-
 
   CLASS_MEMBER(HinvWeights, bool, trg_applied_in_mc)
   CLASS_MEMBER(HinvWeights, bool, do_idiso_tight_weights)
@@ -45,30 +39,18 @@ class HinvWeights : public ModuleBase {
   CLASS_MEMBER(HinvWeights, bool, do_lumixs_weights)
   CLASS_MEMBER(HinvWeights, std::string, input_params)
   CLASS_MEMBER(HinvWeights, std::string, sample_name)
-  CLASS_MEMBER(HinvWeights, std::string, trg_weight_file)
+  CLASS_MEMBER(HinvWeights, std::string, mettrg_weight_file)
+  CLASS_MEMBER(HinvWeights, std::string, mettrg_zmm_weight_file)
 
   // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
-  CLASS_MEMBER(HinvWeights, std::string, kfactors_file)
-  TFile *kfactors_;
-  TH1F *hist_kfactors_EWKcorr_W;
-  TH1F *hist_kfactors_WJets_012j_NLO;
-  TH1F *hist_kfactors_WJets_LO;
-  TH1F *hist_kfactors_EWKcorr_Z;
-  TH1F *hist_kfactors_ZJets_012j_NLO;
-  TH1F *hist_kfactors_ZJets_LO;
-
-  CLASS_MEMBER(HinvWeights, std::string, kfactor_VBF_zjets_v2_file)
-  CLASS_MEMBER(HinvWeights, std::string, kfactor_VBF_wjets_v2_file)
-  TFile *kfactor_VBF_zjets_v2_;
-  TFile *kfactor_VBF_wjets_v2_;
-  TH1F *hist_kfactors_N_W;
-  TH1F *hist_kfactors_D_W;
-  TH1F *hist_kfactors_N_W_monojet;
-  TH1F *hist_kfactors_D_W_monojet;
-  TH1F *hist_kfactors_N_Z;
-  TH1F *hist_kfactors_D_Z;
-  TH1F *hist_kfactors_N_Z_monojet;
-  TH1F *hist_kfactors_D_Z_monojet;
+  CLASS_MEMBER(HinvWeights, std::string, kfactors_wjets_file)
+  CLASS_MEMBER(HinvWeights, std::string, kfactors_zjets_file)
+  TFile *kfactors_wjets_;
+  TH1F *hist_kfactors_qcdewk_W;
+  TH1F *hist_kfactors_vbf_cnc_W;
+  TFile *kfactors_zjets_;
+  TH1F *hist_kfactors_qcdewk_Z;
+  TH1F *hist_kfactors_vbf_cnc_Z;
 
   CLASS_MEMBER(HinvWeights, std::string, kFactor_ZToNuNu_pT_Mjj_file)
   CLASS_MEMBER(HinvWeights, std::string, kFactor_WToLNu_pT_Mjj_file)
@@ -77,10 +59,11 @@ class HinvWeights : public ModuleBase {
   TH2F *hist_kFactors_ewk_Z;
   TH2F *hist_kFactors_ewk_W;
 
-  TFile *triggerSF_;
-  std::vector<std::vector<std::vector<TF1*> > > func_trigSF_binnedin2d[7];
-  std::vector<std::string> errLabel;
-  std::vector<std::string> errLabelSave;
+  TFile *mettrigSF_;
+  TFile *mettrigZmmSF_;
+  std::vector<TF1*> func_mettrigSF_;
+  std::vector<TF1*> func_mettrigZmmSF_;
+  std::vector<unsigned> trigMjjBins_;
 
   TH1F *tighteleweight;
   TH1F *tightmuweight;

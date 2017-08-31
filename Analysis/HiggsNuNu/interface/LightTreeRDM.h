@@ -55,7 +55,7 @@ namespace ic {
     unsigned lumi_;
     unsigned event_;
     double weight_nolepnotrig_;
-    double weight_trig_[7];
+    double weight_trig_[2];
     double weight_lepveto_;
     double weight_leptight_;
     double total_weight_lepveto_;
@@ -366,6 +366,7 @@ namespace ic {
     double gamma1_genphi_;
 
     unsigned n_vertices_;
+    float n_true_int_;
 
     // lheParticles
     double lheHT_;
