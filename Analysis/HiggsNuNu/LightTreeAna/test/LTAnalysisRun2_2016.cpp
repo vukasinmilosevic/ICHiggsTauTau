@@ -426,8 +426,8 @@ int main(int argc, char* argv[]){
   if(syst=="PUUP") mcweightsystfactor << "*puweight_up_scale";
   if(syst=="PUDOWN") mcweightsystfactor << "*puweight_down_scale";
 
-  if (syst=="TRIGUP" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_1/weight_trig_0";
-  if (syst=="TRIGDOWN" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_2/weight_trig_0";
+  //if (syst=="TRIGUP" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_1/weight_trig_0";
+  //if (syst=="TRIGDOWN" && channel!="ee" && channel!="enu") mcweightsystfactor<<"*weight_trig_2/weight_trig_0";
 
   if (syst=="TRIGUP" && (channel=="ee" || channel=="enu")) mcweightsystfactor<<"*weight_eletrigEff_up";
   else if (syst=="TRIGDOWN" && (channel=="ee" || channel=="enu")) mcweightsystfactor<<"*weight_eletrigEff_down";
@@ -482,7 +482,7 @@ int main(int argc, char* argv[]){
 
   if(channel=="taunu"||channel=="gamma"||channel=="nunu"||channel=="qcdB") {
     //remove weight_lepveto, only mu part
-    if (do_new_muVeto) sigmcweight="weight_nolepnotrig*weight_trig_0*weight_eleVeto"+mcweightsystfactor.str();//"total_weight_lepveto"+mcweightsystfactor.str();
+    if (do_new_muVeto) sigmcweight="weight_nolepnotrig*weight_mettrig*weight_eleVeto"+mcweightsystfactor.str();//"total_weight_lepveto"+mcweightsystfactor.str();
     else               sigmcweight="total_weight_lepveto"+mcweightsystfactor.str();
   }
   //remove trigger weight for e channels which do not use signal trigger
@@ -491,6 +491,7 @@ int main(int argc, char* argv[]){
     sigmcweight="weight_nolepnotrig"+mcweightsystfactor.str();
   }
   else if (channel=="ee" || channel=="enu") sigmcweight="weight_leptight*weight_nolepnotrig"+mcweightsystfactor.str();
+  else if (channel=="mumu") sigmcweight="weight_leptight*weight_nolepnotrig*weight_mettrig_zmm"+mcweightsystfactor.str();
   else sigmcweight="total_weight_leptight"+mcweightsystfactor.str();
 
   //lepton veto weight
@@ -515,7 +516,10 @@ int main(int argc, char* argv[]){
   std::string j1forwardj2central="TMath::Abs(jet1_eta)>=3&&TMath::Abs(jet2_eta)<3";
 
   std::string additionalcut=(syst=="PUUP")?("&&abs(puweight_up_scale)<200"): (syst=="PUDOWN")?("&&abs(puweight_down_scale)<10") : ("");
-  if (syst.find("TRIG")!=syst.npos && channel!= "ee" && channel != "enu") additionalcut="&&weight_trig_0>0";
+  if (syst.find("TRIG")!=syst.npos && channel!= "ee" && channel != "enu"){
+    if (channel=="mumu") additionalcut="&&weight_mettrig_zmm>0";
+    else additionalcut="&&weight_mettrig>0";
+  }
 //   if (syst.find("LEPEFF_MUIDUP")!=syst.npos && channel== "nunu") additionalcut="&&weight_muVeto_idup>0";
   analysis->set_baseselection(basesel+additionalcut);
 

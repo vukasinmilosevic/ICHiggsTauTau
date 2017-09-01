@@ -34,7 +34,6 @@ namespace ic {//namespace
     trigMjjBins_.push_back(1700);
     trigMjjBins_.push_back(3000);
 
-
     trg_applied_in_mc_      = false;
     do_idiso_tight_weights_ = false;
     do_idiso_veto_weights_  = false;
@@ -215,47 +214,64 @@ namespace ic {//namespace
       if (!mettrigZmmSF_) return 1;
       std::cout<<"Getting trigger efficiency functions"<<std::endl;
       
+      mettrigSF_->cd();
+      TIter next(mettrigSF_->GetListOfKeys());
+      TKey *key;
+      TF1 *ftmp[10];
+      while ((key = (TKey*)next())) {
+	TClass *cl = gROOT->GetClass(key->GetClassName());
+	if (!cl->InheritsFrom("TF1")) continue;
+	TF1 *tmp = (TF1*)key->ReadObj();
 
-      for(unsigned iVar1=0;iVar1<(trigMjjBins_.size()-1);iVar1++){
-	std::ostringstream flabel;
-	flabel << "fitfunc_vbf_mjj_"
-	       << trigMjjBins_[iVar1]
-	       << ".000000_"
-	       << trigMjjBins_[iVar1+1]
-	       << ".000000";
-	std::cout << " -- trigger Function label " << flabel.str() << std::endl;
-	mettrigSF_->cd();
-	TIter next(mettrigSF_->GetListOfKeys());
-	TKey *key;
-	TF1 *tmp = 0;
-	while ((key = (TKey*)next())) {
-	  TClass *cl = gROOT->GetClass(key->GetClassName());
-	  if (!cl->InheritsFrom("TF1")) continue;
-	  tmp = (TF1*)key->ReadObj();
-	  //std::cout << h->GetName() << " " << h->GetExpFormula() << std::endl;
-	  if (tmp->GetName()==flabel.str().c_str()) break;
+	for(unsigned iVar1=0;iVar1<(trigMjjBins_.size()-1);iVar1++){
+	  std::ostringstream flabel;
+	  flabel << "fitfunc_vbf_mjj_"
+		 << trigMjjBins_[iVar1]
+		 << ".000000_"
+		 << trigMjjBins_[iVar1+1]
+		 << ".000000";
+	  
+	  std::string str1 = flabel.str();
+	  std::string str2 = tmp->GetName();
+	  if (str1==str2){
+	    ftmp[iVar1] = tmp;
+	    std::cout << " -- trigger Function label " << flabel.str() << " bin " << iVar1 << std::endl;
+	    break;
+	  }
 	}
-
-	if (!tmp) return 1;
-	
-	func_mettrigSF_.push_back(tmp);
-
-	mettrigZmmSF_->cd();
-	TIter next2(mettrigZmmSF_->GetListOfKeys());
-	TF1 *tmp2 = 0;
-	while ((key = (TKey*)next2())) {
-	  TClass *cl = gROOT->GetClass(key->GetClassName());
-	  if (!cl->InheritsFrom("TF1")) continue;
-	  tmp2 = (TF1*)key->ReadObj();
-	  //std::cout << h->GetName() << " " << h->GetExpFormula() << std::endl;
-	  if (tmp2->GetName()==flabel.str().c_str()) break;
-	}
-	if (!tmp2) return 1;
-
-	func_mettrigZmmSF_.push_back(tmp2);
-
-        std::cout<<"-- Done!"<<std::endl;
       }
+
+      mettrigZmmSF_->cd();
+      TIter nextZmm(mettrigZmmSF_->GetListOfKeys());
+      TF1 *ftmp2[10];
+      
+      while ((key = (TKey*)nextZmm())) {
+	TClass *cl = gROOT->GetClass(key->GetClassName());
+	if (!cl->InheritsFrom("TF1")) continue;
+	TF1 *tmp = (TF1*)key->ReadObj();
+
+	for(unsigned iVar1=0;iVar1<(trigMjjBins_.size()-1);iVar1++){
+	  std::ostringstream flabel;
+	  flabel << "fitfunc_vbf_mjj_"
+		 << trigMjjBins_[iVar1]
+		 << ".000000_"
+		 << trigMjjBins_[iVar1+1]
+		 << ".000000";
+	  
+	  std::string str1 = flabel.str();
+	  std::string str2 = tmp->GetName();
+	  if (str1==str2){
+	    ftmp2[iVar1] = tmp;
+	    std::cout << " -- Zmm trigger Function label " << flabel.str()  << " bin " << iVar1 << std::endl;
+	    break;
+	  }
+	}
+      }
+      for(unsigned iVar1=0;iVar1<(trigMjjBins_.size()-1);iVar1++){
+	func_mettrigSF_.push_back(ftmp[iVar1]);
+	func_mettrigZmmSF_.push_back(ftmp2[iVar1]);
+      }
+      std::cout<<"-- Done!"<<std::endl;
     }
     if (save_weights_){
       std::vector<double> dummypt;
@@ -380,7 +396,6 @@ namespace ic {//namespace
 	  if(var1bin==-10)var1bin=trigMjjBins_.size()-2;
 	}
 
-	//std::cout << " -- Mjj " << mjj << " bin " << var1bin << " " << trigMjjBins_[var1bin] << "-" << trigMjjBins_[var1bin+1] << std::endl;
 	
 	double trgweight = 0;
 	double trgweightzmm = 0;
@@ -400,6 +415,9 @@ namespace ic {//namespace
 	    trgweightzmm = func_mettrigZmmSF_[var1bin]->Eval(xmax);
 	  }
 	}
+	//std::cout << " -- Mjj " << mjj << " bin " << var1bin << " " << trigMjjBins_[var1bin] << "-" << trigMjjBins_[var1bin+1]
+	//	  << " weights " << func_mettrigSF_[var1bin]->Eval(260.) << " " << func_mettrigZmmSF_[var1bin]->Eval(260.)
+	//	  << std::endl;
 	//SET TRIGGER WEIGHT
 	eventInfo->set_weight("!mettrigSF",trgweight);
 	eventInfo->set_weight("!mettrigZmmSF",trgweightzmm);
