@@ -796,11 +796,13 @@ namespace ic {
     lumi_= eventInfo->lumi_block();
     event_= eventInfo->event();
     n_vertices_=eventInfo->good_vertices();
-    std::vector<PileupInfo *> const& puInfo = event->GetPtrVec<PileupInfo>("pileupInfo");
     n_true_int_ = -1;
-    for (unsigned i = 0; i < puInfo.size(); ++i) {
-      if (puInfo[i]->bunch_crossing() == 0) {
-        n_true_int_ = puInfo[i]->true_num_interactions();
+    if (!is_data_) {
+      std::vector<PileupInfo *> const& puInfo = event->GetPtrVec<PileupInfo>("pileupInfo");
+      for (unsigned i = 0; i < puInfo.size(); ++i) {
+        if (puInfo[i]->bunch_crossing() == 0) {
+          n_true_int_ = puInfo[i]->true_num_interactions();
+        }
       }
     }
 
