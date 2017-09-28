@@ -45,7 +45,7 @@ for SYST in central #JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE 
   SYSTOPTIONS="--dojessyst=false --dojersyst=false"
 
   JOBDIRPREFIX=/vols/cms/rd1715/HiggsToInv/jobs_lighttree_${DATE}
-  #OBDIRPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/jobs_lighttree_${DATE}
+  #JOBDIRPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/jobs_lighttree_${DATE}
   JOBDIR=$JOBDIRPREFIX/
   OUTPUTPREFIX=/vols/cms/rd1715/HiggsToInv/output_lighttree_${DATE}
   #OUTPUTPREFIX=/vols/cms/magnan/Hinvisible/RunIILT/output_lighttree_${DATE}
@@ -191,11 +191,11 @@ for SYST in central #JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE 
     #PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}_MC
     PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/${PRODUSER}/${PRODUCTION}_MC
 
-    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
+    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
     ## For quick tests
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*EWKW*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
-    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJetsToLNu*`
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJetsToLNu*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*ToNuNu*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*JetsTo*`
       do
