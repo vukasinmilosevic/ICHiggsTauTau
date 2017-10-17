@@ -214,6 +214,13 @@ namespace ic {
     mht_ = 0;
     sqrt_ht_ = 0;
 
+    ht_eta3d0_   = 0;
+    ht30_eta3d0_ = 0;
+    mht30_eta3d0_  = 0;
+    ht_eta2d4_   = 0;
+    ht30_eta2d4_ = 0;
+    mht30_eta2d4_  = 0;
+
     unclustered_et_ = 0;
     jetunclet_mindphi_ = 0;
     metnomuunclet_dphi_ = 0;
@@ -566,6 +573,13 @@ namespace ic {
     outputTree_->Branch("ht30",&ht30_);
     outputTree_->Branch("mht",&mht_);
     outputTree_->Branch("sqrt_ht",&sqrt_ht_);
+
+    outputTree_->Branch("ht_eta3d0",&ht_eta3d0_);
+    outputTree_->Branch("ht30_eta3d0",&ht30_eta3d0_);
+    outputTree_->Branch("mht30_eta3d0",&mht30_eta3d0_);
+    outputTree_->Branch("ht_eta2d4",&ht_eta2d4_);
+    outputTree_->Branch("ht30_eta2d4",&ht30_eta2d4_);
+    outputTree_->Branch("mht30_eta2d4",&mht30_eta2d4_);
 
     outputTree_->Branch("unclustered_et",&unclustered_et_);
     outputTree_->Branch("jetunclet_mindphi",&jetunclet_mindphi_);
@@ -1253,9 +1267,9 @@ namespace ic {
           vbf_digenjet_m_ = (genvec[genjet1]->vector()+genvec[genjet2]->vector()).M();
           countGenjets_++;
         } else {
-          std::cout << " Warning, event " << event_ << " genjet pair for VBF jets not found! Taking leading pair." << std::endl;
+//           std::cout << " Warning, event " << event_ << " genjet pair for VBF jets not found! Taking leading pair." << std::endl;
           if (genvec.size()>1) vbf_digenjet_m_ = (genvec[0]->vector()+genvec[1]->vector()).M();
-          std::cout << " Check mass: " << vbf_diquark_m_ << " " << vbf_digenjet_m_ << std::endl;
+//           std::cout << " Check mass: " << vbf_diquark_m_ << " " << vbf_digenjet_m_ << std::endl;
         }
       } else {
         if (debug_) std::cout << " Problem event " << event_ << " found " << Quarks.size() << " quarks" << std::endl;
@@ -1388,6 +1402,8 @@ namespace ic {
     if (!is_data_) getGenRecoMatches<PFJet,GenJet>(jets,genvec,recotogenmatch);
 
     ROOT::Math::PtEtaPhiEVector mhtVec(0,0,0,0);
+    ROOT::Math::PtEtaPhiEVector mhtVec30_eta3d0(0,0,0,0);
+    ROOT::Math::PtEtaPhiEVector mhtVec30_eta2d4(0,0,0,0);
     threejetsmetnomu_mindphi_=jetmetnomu_mindphi_;
     threejetsnotaumetnomu_mindphi_=1000;
     threejetsmetnoel_mindphi_=jetmetnoel_mindphi_;
@@ -1469,6 +1485,13 @@ namespace ic {
       ht_+=jetvec.Et();
       if(jets[i]->pt()>30)	ht30_+=jetvec.Et();
       mhtVec += jetvec;
+
+      if(fabs(jets[i]->eta())<3.0)	ht_eta3d0_+=jetvec.Et();
+      if(jets[i]->pt()>30 && fabs(jets[i]->eta())<3.0)	ht30_eta3d0_+=jetvec.Et();
+      if(jets[i]->pt()>30 && fabs(jets[i]->eta())<3.0)	mhtVec30_eta3d0 += jetvec;
+      if(fabs(jets[i]->eta())<2.4)	ht_eta2d4_+=jetvec.Et();
+      if(jets[i]->pt()>30 && fabs(jets[i]->eta())<2.4)	ht30_eta2d4_+=jetvec.Et();
+      if(jets[i]->pt()>30 && fabs(jets[i]->eta())<2.4)	mhtVec30_eta2d4 += jetvec;
 
       if(jets[i]->pt()>15) n_jets_15_++;
       if(jets[i]->pt()>30) n_jets_30_++;
@@ -1609,6 +1632,9 @@ namespace ic {
 
     mht_ = mhtVec.Et();
     sqrt_ht_ = sqrt(ht_);
+
+    mht30_eta3d0_ = mhtVec30_eta3d0.Et();
+    mht30_eta2d4_ = mhtVec30_eta2d4.Et();
 
     unclustered_et_ = unclVec.Et();
     metnomuunclet_dphi_ = fabs(ROOT::Math::VectorUtil::DeltaPhi(unclVec,metnomuvec));

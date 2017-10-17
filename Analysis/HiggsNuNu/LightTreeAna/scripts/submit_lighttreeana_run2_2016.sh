@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=170920_cleaningHF
+DATE=171011_FC
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -23,7 +23,11 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
-CONFIG=scripts/DefaultRun2Config.cfg
+#CONFIG=scripts/DefaultRun2Config.cfg
+#CONFIG=scripts/DefaultRun2Config_CC.cfg
+#CONFIG=scripts/DefaultRun2Config_CF.cfg
+CONFIG=scripts/DefaultRun2Config_FC.cfg
+#CONFIG=scripts/DefaultRun2ConfigQCDBD.cfg
 
 QUEUEDIR=short #medium long
 
@@ -64,7 +68,7 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-submission: " $JOBSUBMIT
 
 echo "JOB name = $JOB"
-for syst in "" JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUIDUP LEPEFF_MUIDDOWN LEPEFF_MUISOUP LEPEFF_MUISODOWN LEPEFF_MUTKUP LEPEFF_MUTKDOWN PUUP PUDOWN TRIGUP TRIGDOWN
+for syst in "" #JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUIDUP LEPEFF_MUIDDOWN LEPEFF_MUISOUP LEPEFF_MUISODOWN LEPEFF_MUTKUP LEPEFF_MUTKDOWN PUUP PUDOWN TRIGUP TRIGDOWN
 #for syst in JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_ELEDOWN LEPEFF_GSFUP LEPEFF_GSFDOWN LEPEFF_MUIDUP LEPEFF_MUIDDOWN LEPEFF_MUISOUP LEPEFF_MUISODOWN LEPEFF_MUTKUP LEPEFF_MUTKDOWN PUUP PUDOWN TRIGUP TRIGDOWN
 ## Do not use till new JEC #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 #for syst in JERBETTER JERWORSE
@@ -83,8 +87,8 @@ do
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}.hists`
     ## To produce all of the hist for datacard
-    HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
-    SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
+    #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_datacard.hists`
+    #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_datacard.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_sig.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_sig.hists`
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_approval.hists`
@@ -92,18 +96,12 @@ do
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
     ## To test for one hist
+    HISTSTRING=";M_{jj} [GeV];Events"
+    SHAPESTRING="dijet_M(40,1300.,5300.)"
     #HISTSTRING=";|calo-pf|/recoil;Events"
     #SHAPESTRING="(TMath::Abs(calomet-met)/metnomuons)(50,0.,1.)"
-    #HISTSTRING=";p_{T}^{j2} (GeV);Events"
-    #SHAPESTRING="jet2_pt(12,40.,250.)"
-    #HISTSTRING=";#Delta#phi_{jj};Events"
-    #SHAPESTRING="dijet_dphi(50,0.,3.1416)"
-    #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events"
-    #SHAPESTRING="metnomuons(25,200.,600.)"
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events!;Forward tag jet #eta;Events"
     #SHAPESTRING="metnomuons(25,200.,600.)!forward_tag_eta(25,-5.,5.)"
-    #HISTSTRING=";#Delta#phi(E_{T,no-#mu}^{miss},j);Events"
-    #SHAPESTRING="fourjetsmetnomu_mindphi(14,2.3,3.1416)"
     echo "Making histograms: " $SHAPESTRING
     OUTPUTNAME="$channels.root"
     MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"

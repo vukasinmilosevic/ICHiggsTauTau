@@ -4,10 +4,10 @@ DOSUBMIT=1
 MYEXEC=LightTreeMakerFromMiniAODRDM
 PRODUCTION=170201
 PRODUSER=rdimaria
-J1PTCUTVAL=80
+J1PTCUTVAL=40
 J2PTCUTVAL=40
 
-DATE=170913
+DATE=171006_DetajjTrig_loosen
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults

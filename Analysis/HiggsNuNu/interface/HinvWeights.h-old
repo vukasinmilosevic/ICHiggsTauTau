@@ -20,7 +20,7 @@ class HinvWeights : public ModuleBase {
   CLASS_MEMBER(HinvWeights, ic::mc, mc)
   CLASS_MEMBER(HinvWeights, ic::era, era)
   CLASS_MEMBER(HinvWeights, bool, save_weights)
-  CLASS_MEMBER(HinvWeights, bool, save_lumixs_weights)
+  CLASS_MEMBER(HinvWeights, bool, save_lumixs_weights)  
   CLASS_MEMBER(HinvWeights, bool, do_top_reweighting)
   CLASS_MEMBER(HinvWeights, bool, do_trg_weights)
 
@@ -63,13 +63,7 @@ class HinvWeights : public ModuleBase {
   TFile *mettrigZmmSF_;
   std::vector<TF1*> func_mettrigSF_;
   std::vector<TF1*> func_mettrigZmmSF_;
-//   std::vector<TF1*> func_mettrigSF_[2];
-//   std::vector<TF1*> func_mettrigZmmSF_[2];
-//   std::vector<unsigned> trigMjjBins_;
-//   std::vector<double> trigDetajjBins_cc_;
-//   std::vector<double> trigDetajjBins_cf_;
-//   std::vector<double> trigDetajjBins_Zmm_cc_;
-//   std::vector<double> trigDetajjBins_Zmm_cf_;
+  std::vector<unsigned> trigMjjBins_;
 
   TH1F *tighteleweight;
   TH1F *tightmuweight;

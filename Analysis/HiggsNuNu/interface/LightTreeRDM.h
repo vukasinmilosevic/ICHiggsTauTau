@@ -185,11 +185,18 @@ namespace ic {
     double met_significance_;
     double metnomu_significance_;
     double metnoel_significance_;
- 
+
     double ht_;
     double ht30_;
     double mht_;
     double sqrt_ht_;
+
+    double ht_eta3d0_;
+    double ht30_eta3d0_;
+    double mht30_eta3d0_;
+    double ht_eta2d4_;
+    double ht30_eta2d4_;
+    double mht30_eta2d4_;
 
     double unclustered_et_;
     double jetunclet_mindphi_;
