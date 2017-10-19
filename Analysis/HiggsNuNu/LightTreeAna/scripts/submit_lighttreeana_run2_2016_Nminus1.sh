@@ -1,7 +1,7 @@
 #!/bin/sh
 DOSUBMIT=1
 
-DATE=170913_Nminus1_plots
+DATE=171017_Nminus1_plots
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -17,17 +17,17 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
-# CONFIG=scripts/DefaultRun2Config_Nminus1_met.cfg
-# CONFIG=scripts/DefaultRun2Config_Nminus1_dphi.cfg
-# CONFIG=scripts/DefaultRun2Config_Nminus1_deta.cfg
-# CONFIG=scripts/DefaultRun2Config_Nminus1_mindphi.cfg
-CONFIG=scripts/DefaultRun2Config_Nminus1_dijet.cfg
+CONFIG=scripts/DefaultRun2Config_Nminus1_met.cfg
+#CONFIG=scripts/DefaultRun2Config_Nminus1_dphi.cfg
+#CONFIG=scripts/DefaultRun2Config_Nminus1_deta.cfg
+#CONFIG=scripts/DefaultRun2Config_Nminus1_mindphi.cfg
+#CONFIG=scripts/DefaultRun2Config_Nminus1_dijet.cfg
 
 QUEUEDIR=short #medium long
 # no_METno_cut no_dijet_dphi_cut no_dijet_deta_cut no_fourjetsmetnomu_mindphi_cut no_dijet_M_cut
-JOBDIRPREFIX=jobs_run2ana_${DATE}/no_dijet_M_cut
+JOBDIRPREFIX=jobs_run2ana_${DATE}/no_METno_cut
 JOBDIR=$JOBDIRPREFIX/
-OUTPUTPREFIX=output_run2ana_${DATE}/no_dijet_M_cut
+OUTPUTPREFIX=output_run2ana_${DATE}/no_METno_cut
 OUTPUTDIR=$OUTPUTPREFIX/
 
 OUTPUTNAME="output.root"
@@ -60,14 +60,14 @@ do
     #executable expect strings separated by "!"
 
     ## no_METno_cut
-#     HISTSTRING=";E_{T,no-#mu}^{miss} [GeV];Events"
-#     SHAPESTRING="metnomuons(50,0.,1000.)"
+    HISTSTRING=";E_{T,no-#mu}^{miss} [GeV];Events"
+    SHAPESTRING="metnomuons(50,0.,1000.)"
 
     ## no_dijet_dphi_cut
 #     HISTSTRING=";#Delta#phi_{jj};Events"
 #     SHAPESTRING="dijet_dphi(60,0.,3.1416)"
 
-#     ## no_dijet_deta_cut
+    ## no_dijet_deta_cut
 #     HISTSTRING=";#Delta#eta_{jj};Events"
 #     SHAPESTRING="dijet_deta(35,1.,8.)"
 
@@ -76,8 +76,8 @@ do
 #     SHAPESTRING="fourjetsmetnomu_mindphi(24,0.,3.1416)"
 
     ## no_dijet_M_cut
-    HISTSTRING=";M_{jj} [GeV];Events"
-    SHAPESTRING="dijet_M(50,300.,5300.)"
+#     HISTSTRING=";M_{jj} [GeV];Events"
+#     SHAPESTRING="dijet_M(50,300.,5300.)"
 
     echo "Making histograms: " $SHAPESTRING
     OUTPUTNAME="$channels.root"

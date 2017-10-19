@@ -2,7 +2,7 @@
 DOCERN=0
 DOSUBMIT=1
 
-DATE=171011_FC
+DATE=171017_random
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -23,10 +23,10 @@ export JOBSUBMIT=$JOBSCRIPT" "$JOBQUEUE
 echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
-#CONFIG=scripts/DefaultRun2Config.cfg
+CONFIG=scripts/DefaultRun2Config.cfg
 #CONFIG=scripts/DefaultRun2Config_CC.cfg
 #CONFIG=scripts/DefaultRun2Config_CF.cfg
-CONFIG=scripts/DefaultRun2Config_FC.cfg
+#CONFIG=scripts/DefaultRun2Config_FC.cfg
 #CONFIG=scripts/DefaultRun2ConfigQCDBD.cfg
 
 QUEUEDIR=short #medium long
@@ -77,7 +77,7 @@ for syst in "" #JESUP JESDOWN TAUUP TAUDOWN BTAGUP BTAGDOWN LEPEFF_ELEUP LEPEFF_
 do
   mkdir -p $JOBDIR$syst
   mkdir -p $OUTPUTDIR$syst
-  for channels in enu munu ee mumu nunu #taunu qcd
+  for channels in munu #enu munu ee mumu nunu #taunu qcd
     do
     JOB=$channels
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/weights.hists`
@@ -96,10 +96,10 @@ do
     #HISTSTRING=`awk '{FS="\t"}{ORS="!"}{print $2}' scripts/${channels}_debug.hists`
     #SHAPESTRING=`awk '{ORS="!"}{print $1}' scripts/${channels}_debug.hists`
     ## To test for one hist
-    HISTSTRING=";M_{jj} [GeV];Events"
-    SHAPESTRING="dijet_M(40,1300.,5300.)"
-    #HISTSTRING=";|calo-pf|/recoil;Events"
-    #SHAPESTRING="(TMath::Abs(calomet-met)/metnomuons)(50,0.,1.)"
+    #HISTSTRING=";M_{jj} [GeV];Events"
+    #SHAPESTRING="dijet_M(40,1300.,5300.)"
+    HISTSTRING=";|calo-pf|/recoil;Events"
+    SHAPESTRING="(TMath::Abs(calomet-met)/metnomuons)(50,0.,1.)"
     #HISTSTRING=";E_{T,no-#mu}^{miss} (GeV);Events!;Forward tag jet #eta;Events"
     #SHAPESTRING="metnomuons(25,200.,600.)!forward_tag_eta(25,-5.,5.)"
     echo "Making histograms: " $SHAPESTRING

@@ -33,6 +33,7 @@ class HinvWeights : public ModuleBase {
   CLASS_MEMBER(HinvWeights, bool, do_dy_soup)
   CLASS_MEMBER(HinvWeights, bool, do_dy_soup_htbinned)
   CLASS_MEMBER(HinvWeights, bool, do_dy_reweighting)
+  CLASS_MEMBER(HinvWeights, bool, do_z_reweighting)
   CLASS_MEMBER(HinvWeights, bool, do_ewk_dy_reweighting)
   CLASS_MEMBER(HinvWeights, std::string, input_met)
   CLASS_MEMBER(HinvWeights, std::string, input_jet)
@@ -45,11 +46,18 @@ class HinvWeights : public ModuleBase {
   // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
   CLASS_MEMBER(HinvWeights, std::string, kfactors_wjets_file)
   CLASS_MEMBER(HinvWeights, std::string, kfactors_zjets_file)
+  CLASS_MEMBER(HinvWeights, std::string, kfactors_dyjets_file)
+  CLASS_MEMBER(HinvWeights, std::string, kfactors_file)
   TFile *kfactors_wjets_;
-  TH1F *hist_kfactors_qcdewk_W;
-  TH1F *hist_kfactors_vbf_cnc_W;
   TFile *kfactors_zjets_;
-  TH1F *hist_kfactors_qcdewk_Z;
+  TFile *kfactors_dyjets_;
+  TFile *kfactors_;
+  TH1F *hist_kfactors_EWKcorr_W;
+  TH1F *hist_kfactors_WJets_012j_NLO;
+  TH1F *hist_kfactors_EWKcorr_Z;
+  TH1F *hist_kfactors_ZJets_012j_NLO;
+  TH1F *hist_kfactors_vbf_cnc_W;
+  TH1F *hist_kfactors_vbf_cnc_DY;
   TH1F *hist_kfactors_vbf_cnc_Z;
 
   CLASS_MEMBER(HinvWeights, std::string, kFactor_ZToNuNu_pT_Mjj_file)

@@ -1,13 +1,13 @@
 #!/bin/sh
 DOCERN=0
-DOSUBMIT=0
+DOSUBMIT=1
 JETTYPE="pfJetsPFlow"
 MYEXEC=LightTreeMakerFromMiniAODRDM
 PRODUCTION=170201
 PRODUSER=rdimaria
 JPTCUTVAL=40
 
-DATE=171017_DEBUG
+DATE=171017
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -34,7 +34,7 @@ CONFIG=scripts/DefaultLightTreeConfig_mc.cfg
 
 
 
-for SYST in central #JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
+for SYST in central JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 ## Do not use till new JEC #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE IN THE CONFIG
 #for SYST in JERBETTER JERWORSE
 ## For CMS_scale_met uncertainty
@@ -191,10 +191,10 @@ for SYST in central #JESUP JESDOWN #NOTE TO RUN JER DOSMEAR MUST BE SET TO TRUE 
     #PREFIX=root://xrootd.grid.hep.ph.ic.ac.uk//store/user/${PRODUSER}/${PRODUCTION}_MC
     PREFIX=root://gfe02.grid.hep.ph.ic.ac.uk:1097//store/user/${PRODUSER}/${PRODUCTION}_MC
 
-    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
+    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*`
     ## For quick tests
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*EWKW*`
-    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_Powheg-VBF*125.dat`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_WJetsToLNu*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*ToNuNu*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/*_MC_*JetsTo*`

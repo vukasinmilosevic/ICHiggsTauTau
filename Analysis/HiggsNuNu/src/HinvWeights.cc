@@ -72,6 +72,7 @@ namespace ic {//namespace
     do_dy_soup_             = false;
     do_dy_soup_htbinned_    = false;
     do_dy_reweighting_      = false;
+    do_z_reweighting_       = false;
     do_ewk_dy_reweighting_  = false;
     do_lumixs_weights_      = false;
     save_lumixs_weights_    = true;
@@ -82,9 +83,11 @@ namespace ic {//namespace
     mettrg_weight_file_="";
     mettrg_zmm_weight_file_="";
 
-    // For v_nlo_Reweighting (merged_kfactors_wjets.root and merged_kfactors_zjets.root files in input/nlo_factors from gitlab)
-    kfactors_zjets_file_="input/nlo_factors/merged_kfactors_zjets.root";
-    kfactors_wjets_file_="input/nlo_factors/merged_kfactors_wjets.root";
+    // For v_nlo_Reweighting (in input/nlo_factors from gitlab)
+    kfactors_file_        = "input/nlo_factors/kfactor_24bins.root";
+    kfactors_dyjets_file_ = "input/nlo_factors/kfactor_VBF_zll.root";
+    kfactors_zjets_file_  = "input/nlo_factors/kfactor_VBF_znn.root";
+    kfactors_wjets_file_  = "input/nlo_factors/kfactor_VBF_wjet.root";
 
     kFactor_ZToNuNu_pT_Mjj_file_="input/nlo_factors/kFactor_ZToNuNu_pT_Mjj.root";
     kFactor_WToLNu_pT_Mjj_file_ ="input/nlo_factors/kFactor_WToLNu_pT_Mjj.root";
@@ -199,20 +202,31 @@ namespace ic {//namespace
       std::cout << "f3 = " << zf3_ << "\t" << "n3 = " << zn3_ << "\t" << "w3 = " << zw3_ << std::endl;
       std::cout << "f4 = " << zf4_ << "\t" << "n4 = " << zn4_ << "\t" << "w4 = " << zw4_ << std::endl;
     }
-    if (do_w_reweighting_ || do_dy_reweighting_) { // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
+    if (do_w_reweighting_ || do_dy_reweighting_ || do_z_reweighting_) { // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
 
-      kfactors_wjets_ = TFile::Open(kfactors_wjets_file_.c_str());
-      kfactors_zjets_ = TFile::Open(kfactors_zjets_file_.c_str());
+      kfactors_wjets_  = TFile::Open(kfactors_wjets_file_.c_str());
+      kfactors_zjets_  = TFile::Open(kfactors_zjets_file_.c_str());
+      kfactors_dyjets_ = TFile::Open(kfactors_dyjets_file_.c_str());
+      kfactors_        = TFile::Open(kfactors_file_.c_str());
+
 
       if (do_w_reweighting_) {
         std::cout << " -- Applying reweighting of W events to NLO from MIT (Raffaele)." << std::endl;
-        hist_kfactors_qcdewk_W = (TH1F*)kfactors_wjets_->Get("kfactor_monojet_qcd_ewk");
-        hist_kfactors_vbf_cnc_W = (TH1F*)kfactors_wjets_->Get("kfactor_vbf_cnc_modifier");
+        hist_kfactors_EWKcorr_W      = (TH1F*)kfactors_->Get("EWKcorr/W");
+        hist_kfactors_WJets_012j_NLO = (TH1F*)kfactors_->Get("WJets_012j_NLO/nominal");
+        hist_kfactors_vbf_cnc_W      = (TH1F*)kfactors_wjets_->Get("kfactors_cc/kfactor_vbf");
       }
       if (do_dy_reweighting_) {
         std::cout << " -- Applying reweighting of DY events to NLO from MIT (Raffaele)." << std::endl;
-        hist_kfactors_qcdewk_Z = (TH1F*)kfactors_zjets_->Get("kfactor_monojet_qcd_ewk");
-        hist_kfactors_vbf_cnc_Z = (TH1F*)kfactors_zjets_->Get("kfactor_vbf_cnc_modifier");
+        hist_kfactors_EWKcorr_Z      = (TH1F*)kfactors_->Get("EWKcorr/Z");
+        hist_kfactors_ZJets_012j_NLO = (TH1F*)kfactors_->Get("ZJets_012j_NLO/nominal");
+        hist_kfactors_vbf_cnc_DY     = (TH1F*)kfactors_dyjets_->Get("kfactors_cc/kfactor_vbf");
+      }
+      if (do_z_reweighting_) {
+        std::cout << " -- Applying reweighting of Zvv events to NLO from MIT (Raffaele)." << std::endl;
+        hist_kfactors_EWKcorr_Z      = (TH1F*)kfactors_->Get("EWKcorr/Z");
+        hist_kfactors_ZJets_012j_NLO = (TH1F*)kfactors_->Get("ZJets_012j_NLO/nominal");
+        hist_kfactors_vbf_cnc_Z      = (TH1F*)kfactors_zjets_->Get("kfactors_cc/kfactor_vbf");
       }
     }
 
@@ -999,9 +1013,8 @@ namespace ic {//namespace
 
     //std::cout << " IDISO veto done." << std::endl;
 
-    
     }//endof Save weights
-    
+
 
     bool zeroParton = false;
 
@@ -1044,7 +1057,7 @@ namespace ic {//namespace
       }
     }
 
-    if (do_w_reweighting_ || do_dy_reweighting_) { // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
+    if (do_w_reweighting_ || do_dy_reweighting_ || do_z_reweighting_) { // For v_nlo_Reweighting (kfactors.root file in input/scalefactors from MIT group)
       double v_nlo_Reweight = 1.0;
       double v_pt = -50.0;
       double v_pt_oldBinning = -50.0;
@@ -1116,13 +1129,20 @@ namespace ic {//namespace
       }
 
       if (do_w_reweighting_) {
-	int idx1 = hist_kfactors_qcdewk_W->FindBin(v_pt_oldBinning);
-	int idx2 = hist_kfactors_vbf_cnc_W->FindBin(v_pt);
-	v_nlo_Reweight = hist_kfactors_qcdewk_W->GetBinContent(idx1)*hist_kfactors_vbf_cnc_W->GetBinContent(idx2);
+        int idx0 = hist_kfactors_EWKcorr_W->FindBin(v_pt_oldBinning);
+        int idx1 = hist_kfactors_WJets_012j_NLO->FindBin(v_pt_oldBinning);
+        int idx2 = hist_kfactors_vbf_cnc_W->FindBin(v_pt);
+        v_nlo_Reweight = (hist_kfactors_EWKcorr_W->GetBinContent(idx0)/hist_kfactors_WJets_012j_NLO->GetBinContent(idx1))*hist_kfactors_vbf_cnc_W->GetBinContent(idx2);
       } else if (do_dy_reweighting_) {
-	int idx1 = hist_kfactors_qcdewk_Z->FindBin(v_pt_oldBinning);
-	int idx2 = hist_kfactors_vbf_cnc_Z->FindBin(v_pt);
-	v_nlo_Reweight = hist_kfactors_qcdewk_Z->GetBinContent(idx1)*hist_kfactors_vbf_cnc_Z->GetBinContent(idx2);
+        int idx0 = hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning);
+        int idx1 = hist_kfactors_ZJets_012j_NLO->FindBin(v_pt_oldBinning);
+        int idx2 = hist_kfactors_vbf_cnc_DY->FindBin(v_pt);
+        v_nlo_Reweight = (hist_kfactors_EWKcorr_Z->GetBinContent(idx0)/hist_kfactors_ZJets_012j_NLO->GetBinContent(idx1))*hist_kfactors_vbf_cnc_DY->GetBinContent(idx2);
+      } else if (do_z_reweighting_) {
+        int idx0 = hist_kfactors_EWKcorr_Z->FindBin(v_pt_oldBinning);
+        int idx1 = hist_kfactors_ZJets_012j_NLO->FindBin(v_pt_oldBinning);
+        int idx2 = hist_kfactors_vbf_cnc_Z->FindBin(v_pt);
+        v_nlo_Reweight = (hist_kfactors_EWKcorr_Z->GetBinContent(idx0)/hist_kfactors_ZJets_012j_NLO->GetBinContent(idx1))*hist_kfactors_vbf_cnc_Z->GetBinContent(idx2);
       }
 
       eventInfo->set_weight("!v_nlo_Reweighting", v_nlo_Reweight);
