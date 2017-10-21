@@ -1,7 +1,7 @@
 #!/bin/sh
 DOSUBMIT=1
 
-DATE=171017_Nminus1_plots
+DATE=171020_Nminus1_plots
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -81,7 +81,7 @@ do
 
     echo "Making histograms: " $SHAPESTRING
     OUTPUTNAME="$channels.root"
-    MINDPHICUT="fourjetsmetnomu_mindphi\>=0.5"
+    MINDPHICUT="fourjetsmetnomu_mindphi\>=0."
 
     if [ "$syst" = "" ]
       then

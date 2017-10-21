@@ -5,7 +5,7 @@ if [ "$#" -ne "2" ]; then
   exit 0
 fi
 
-DATE=171017_datacards
+DATE=171020_datacards
 
 DOSUBMIT=$1
 DO4PARAMS=$2
