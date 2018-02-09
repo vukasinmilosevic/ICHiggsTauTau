@@ -7,7 +7,9 @@ PRODUSER=rdimaria
 J1PTCUTVAL=40
 J2PTCUTVAL=40
 
-DATE=171017_trigger
+DATE=180209_PUid
+#HACK
+#turnoffpuid=false
 
 ## Try and take the JOBWRAPPER and JOBSUBMIT commands
 ## from the environment if set, otherwise use these defaults
@@ -30,8 +32,8 @@ echo "Using job-wrapper: " $JOBWRAPPER
 echo "Using job-submission: " $JOBSUBMIT
 
 INPUTPARAMS="filelists/$PRODUCTION/Params${PRODUCTION}.dat"
-# CONFIG=scripts/DefaultLightTreeConfig_data.cfg
-CONFIG=scripts/DefaultLightTreeConfig_data_forMaria.cfg
+CONFIG=scripts/DefaultLightTreeConfig_data.cfg
+#CONFIG=scripts/DefaultLightTreeConfig_data_forMaria.cfg
 
 
 for SYST in central
@@ -90,8 +92,8 @@ for SYST in central
 
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_SingleMuon*`
 
-    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_SingleElectron*`
-    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_MET*`
+    #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_SingleElectron*`
+    for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_MET*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_JetHT*`
     #for FILELIST in `ls filelists/$PRODUCTION/$QUEUEDIR/${PRODUCTION}_DATA_*`
       do
