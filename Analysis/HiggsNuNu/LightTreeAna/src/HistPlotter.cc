@@ -158,6 +158,7 @@ namespace ic{
     do_ratio_fitline_=false;
     add_underflows_=false;
     add_overflows_=false;
+    add_preliminary_=true;
     outsuffix_="";
     toterror_ = 0;
   };
@@ -581,8 +582,12 @@ namespace ic{
       leg->Draw("SAME");
 
 
-      if(do_debug_)std::cout<<"  Drawing CMS Logo"<<std::endl;      
-      DrawCMSLogoTest(upper,"CMS","Preliminary",10);
+      if(do_debug_)std::cout<<"  Drawing CMS Logo"<<std::endl;
+      if(add_preliminary_){
+        DrawCMSLogoTest(upper,"CMS","Preliminary",10);
+      } else{
+        DrawCMSLogoTest(upper,"CMS","",10);
+      }
       upper->cd();
 
       //DRAW RATIO PLOT
