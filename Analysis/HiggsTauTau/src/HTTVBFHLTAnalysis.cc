@@ -165,12 +165,11 @@ namespace ic {
         
         IsoMuPassed_ = (IsoMuobjscount>0);
         
-        
-        
+ 
         //Adding offline met
         std::vector<Met *> pfMet_vec = event->GetPtrVec<Met>("pfMetFromSlimmed");
         offline_met_ = pfMet_vec.at(0)->vector().Pt();
-        
+   //     std::cout<<"Met value:= "<<offline_met_<<std::endl; 
         // Add offline jet variables
         std::vector<PFJet *> const& jet_objs = event->GetPtrVec<PFJet>("ak4PFJetsCHS");
         std::vector<PFJet *>  Offline_jet_objs;
@@ -188,8 +187,9 @@ namespace ic {
          }
         
         OneTightMuon_ = (OneTightMuon<=1);
-        offline_met_ = TMath::Sqrt(offline_met_x*offline_met_x+offline_met_y*offline_met_y);
-         
+//        offline_met_ = TMath::Sqrt(offline_met_x*offline_met_x+offline_met_y*offline_met_y);
+
+ //       std::cout<<"Met value (noMU):= "<<offline_met_<<std::endl;   
         
         for (unsigned i = 0; i < jet_objs.size(); ++i)
         {
